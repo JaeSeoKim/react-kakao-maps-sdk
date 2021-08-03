@@ -1,7 +1,7 @@
 ---
 title: "index"
 sidebar_position: 0
-slub: ./
+slug: /sample/
 ---
 
 # react-kakao-maps의 샘플 예시 입니다.
