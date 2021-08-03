@@ -1,6 +1,6 @@
 {
   "name": "react-kakao-maps-sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": {
     "name": "JaeSeoKim",
     "email": "devjaeseo@gmail.com",
@@ -22,8 +22,8 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "prepublish": "npm run build && cp package.json ./dist && cp README.md ./dist && cp LICENSE ./dist",
-    "publish": "cd ./dist && npm publish",
+    "prepublish:npm": "npm run build && cp package.json ./dist && cp README.md ./dist && cp LICENSE ./dist",
+    "publish:npm": "cd ./dist && npm publish",
     "docusaurus": "docusaurus",
     "docusaurus:start": "docusaurus start",
     "docusaurus:build": "docusaurus build",

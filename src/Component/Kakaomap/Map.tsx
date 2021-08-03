@@ -107,7 +107,7 @@ const Map: React.FC<MapProps> = ({
    * container.current가 null를 가지고 있는 경우를 방지 할 수 있다.
    */
   useLayoutEffect(() => {
-    if (loading) return;
+    if (loading || map !== undefined) return;
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
