@@ -1,4 +1,4 @@
-# react-kakao-maps
+# react-kakao-maps-sdk
 
 Controlled React Component for Kakao Maps to center, custom layout etc.
 
