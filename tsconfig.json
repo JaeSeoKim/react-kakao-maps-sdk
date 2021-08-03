@@ -1,21 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "target": "esnext",
     "module": "esnext",
+    "jsx": "react",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "types": ["kakao.maps.d.ts"]
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["kakao.maps.d.ts"]
   },
-  "include": ["src", "docs/sample/SampleCreateMap.tsx"]
+  "include": [
+    "src/Component/Kakaomap/**/*.tsx",
+    "src/Component/Kakaomap/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }
