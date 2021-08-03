@@ -1,6 +1,7 @@
 ---
 title: "index"
 sidebar_position: 0
+slub: ./
 ---
 
 # react-kakao-maps의 샘플 예시 입니다.

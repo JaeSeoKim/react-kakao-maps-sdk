@@ -3,18 +3,18 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "react-kakao-maps docs",
-  url: "https://react-kakao-maps.jaeseokim.dev",
+  title: "react-kakao-maps-sdk docs",
+  url: "https://react-kakao-maps-sdk.jaeseokim.dev",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "JaeSeoKim",
-  projectName: "react-kakao-maps",
+  projectName: "react-kakao-maps-sdk",
   themeConfig: {
     disableLandingPage: true,
     navbar: {
-      title: "react-kakao-maps docs",
+      title: "react-kakao-maps-sdk docs",
       items: [
         {
           type: "doc",
@@ -23,7 +23,7 @@ module.exports = {
           label: "Docs",
         },
         {
-          href: "https://github.com/JaeSeoKim/react-kakao-maps",
+          href: "https://github.com/JaeSeoKim/react-kakao-maps-sdk",
           label: "GitHub",
           position: "right",
         },
@@ -46,7 +46,7 @@ module.exports = {
           items: [
             {
               label: "GitHub",
-              href: "https://github.com/JaeSeoKim/react-kakao-maps",
+              href: "https://github.com/JaeSeoKim/react-kakao-maps-sdk",
             },
           ],
         },
@@ -64,7 +64,8 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/JaeSeoKim/react-kakao-maps/edit/main/",
+          editUrl:
+            "https://github.com/JaeSeoKim/react-kakao-maps-sdk/edit/main/",
         },
         theme: {},
       },

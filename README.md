@@ -9,14 +9,13 @@ Controlled React Component for Kakao Maps to center, custom layout etc.
 ## Install
 
 ```bash
-npm install <package-name>
+npm install react-kakao-maps-sdk
 # or
-yarn add <package-name>
+yarn add react-kakao-maps-sdk
 ```
 
 ## Documentation
 
-- [Introduction]()
-- [API Docs]()
+- [API Docs](https://react-kakao-maps.jaeseokim.dev/docs/)
 
 ## Contribute

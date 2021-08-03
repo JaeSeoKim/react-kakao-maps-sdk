@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 interface useKakaoMapsSDKProps {
   /**
@@ -13,10 +13,11 @@ interface useKakaoMapsSDKProps {
 }
 
 const useKakaoMapsSDK = ({ apiKey, endpoint }: useKakaoMapsSDKProps) => {
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const script = document.createElement("script");
 
+    script.id = "kakao-maps-sdk";
     script.src =
       (endpoint ?? "//dapi.kakao.com/v2/maps/sdk.js") +
       "?autoload=false&appkey=" +
