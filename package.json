@@ -23,7 +23,7 @@
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "prepublish": "npm run build && cp package.json ./dist && cp README.md ./dist && cp LICENSE ./dist",
-    "publish": "cd ./dist && npm pack",
+    "publish": "cd ./dist && npm publish",
     "docusaurus": "docusaurus",
     "docusaurus:start": "docusaurus start",
     "docusaurus:build": "docusaurus build",
