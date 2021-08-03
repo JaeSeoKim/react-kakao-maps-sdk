@@ -4,7 +4,7 @@ import {
   useMapSetCenter,
   useMapPanTo,
 } from "../../src/Component/Kakaomap/hooks";
-import Map from "../../src/Component/Kakaomap/Map";
+import { Map } from "../../src/Component/Kakaomap";
 
 const MoveMapPosition = () => {
   const setCenter = useMapSetCenter();
@@ -15,6 +15,7 @@ const MoveMapPosition = () => {
       <button onClick={() => setCenter({ lat: 33.452613, lng: 126.570888 })}>
         지도 중심좌표 이동시키기
       </button>
+      <span />
       <button onClick={() => panTo({ lat: 33.45058, lng: 126.574942 })}>
         지도 중심좌표 부드럽게 이동시키기
       </button>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useKakaoMapsSDK } from "../../src/Component/Kakaomap/hooks";
-import Map from "../../src/Component/Kakaomap/Map";
+import { Map } from "../../src/Component/Kakaomap/";
 
 const SampleCreateMap = () => {
   const loading = useKakaoMapsSDK({
