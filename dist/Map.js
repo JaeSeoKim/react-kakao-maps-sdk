@@ -21,11 +21,12 @@ const Map = ({ children, center, className, size, loading = false, option, }) =>
     }, [loading, center, option, container]);
     useEffect(() => {
         // size
-        if (map === null || size === undefined)
+        if (map === undefined || size === undefined)
             return;
         const { width, height } = size;
         container.current.style.width = width;
         container.current.style.height = height;
+        map.relayout();
     }, [map, size]);
     return (React.createElement(React.Fragment, null,
         React.createElement("div", { id: "kakao-map-container", className: className, ref: container }),

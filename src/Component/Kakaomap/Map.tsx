@@ -126,12 +126,14 @@ const Map: React.FC<MapProps> = ({
 
   useEffect(() => {
     // size
-    if (map === null || size === undefined) return;
+    if (map === undefined || size === undefined) return;
 
     const { width, height } = size;
 
     container.current!.style.width = width;
     container.current!.style.height = height;
+
+    map.relayout();
   }, [map, size]);
 
   return (

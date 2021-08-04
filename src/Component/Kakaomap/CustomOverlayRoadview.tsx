@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
-import { KakaoMapContext } from "./Map";
+import { KakaoRoadviewContext } from "./Roadview";
 
-interface CustomOverlayMapProps {
+interface CustomOverlayRoadviewProps {
   /**
    * 커스텀 오버레이의 좌표
    */
@@ -42,17 +42,17 @@ interface CustomOverlayMapProps {
   };
 }
 
-const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
+const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
   position,
   children,
   option,
 }) => {
-  const map = useContext(KakaoMapContext);
+  const roadview = useContext(KakaoRoadviewContext);
 
   return (
     <CustomOverlay
       {...option}
-      map={map}
+      map={roadview}
       position={new kakao.maps.LatLng(position.lat, position.lng)}
     >
       {children}
@@ -60,10 +60,10 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   );
 };
 
-export default CustomOverlayMap;
+export default CustomOverlayRoadview;
 
 interface CustomOverlayProps extends kakao.maps.CustomOverlayOptions {
-  map: kakao.maps.Map;
+  map: kakao.maps.Roadview;
 }
 
 class CustomOverlay extends React.Component<CustomOverlayProps> {
@@ -79,8 +79,15 @@ class CustomOverlay extends React.Component<CustomOverlayProps> {
   };
 
   componentDidMount() {
-    const { map, position, xAnchor, yAnchor, zIndex, clickable, content } =
-      this.props;
+    const {
+      map: rv,
+      position,
+      xAnchor,
+      yAnchor,
+      zIndex,
+      clickable,
+      content,
+    } = this.props;
     const { el } = this;
 
     const overlay = new kakao.maps.CustomOverlay({
@@ -92,7 +99,20 @@ class CustomOverlay extends React.Component<CustomOverlayProps> {
       clickable: clickable,
     });
 
-    overlay.setMap(map);
+    kakao.maps.event.addListener(rv, "init", function () {
+      //rvCustomOverlay.setAltitude(2); //커스텀 오버레이의 고도값을 설정합니다.(로드뷰 화면 중앙이 0입니다)
+      overlay.setMap(rv);
+
+      var projection = rv.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
+
+      // 커스텀오버레이의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
+      var viewpoint = projection.viewpointFromCoords(
+        overlay.getPosition(),
+        overlay.getAltitude()
+      );
+
+      rv.setViewpoint(viewpoint); //커스텀 오버레이를 로드뷰의 가운데에 오도록 로드뷰의 시점을 변화 시킵니다.
+    });
 
     this.setState(() => ({ overlay }));
   }

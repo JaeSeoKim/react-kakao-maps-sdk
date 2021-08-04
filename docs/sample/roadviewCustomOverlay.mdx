@@ -1,0 +1,20 @@
+---
+title: "로드뷰에 커스텀오버레이 올리기"
+sidebar_position: 6
+---
+
+지도와 로드뷰에 커스텀 오버레이를 올립니다. 로드뷰는 커스텀 오버레이가 중앙에 오도록 viewpoint값을 변경시킵니다.
+
+import CodeBlock from "@theme/CodeBlock";
+import SampleCreateMap from "./roadviewCustomOverlay.tsx";
+import SampleCreateMapSource from "!!raw-loader!./roadviewCustomOverlay.tsx";
+
+<SampleCreateMap />
+
+### Source Code
+
+> original docs : https://apis.map.kakao.com/web/sample/roadviewCustomOverlay/
+
+> 아래의 `from` 의 `../../src/Component/Kakaomap/` 는 npm package(`react-kakao-maps-sdk`)으로 맞춰서 사용해주세요.
+
+<CodeBlock className="language-jsx">{SampleCreateMapSource}</CodeBlock>
