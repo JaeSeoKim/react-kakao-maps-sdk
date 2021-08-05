@@ -36,7 +36,7 @@ export interface MapProps {
   /**
    * 중심으로 설정할 위치 입니다.
    */
-  position: {
+  center: {
     lat: number;
     lng: number;
   };
@@ -110,7 +110,7 @@ const Map: React.FC<MapProps> = ({
   style,
   containerElem,
   children,
-  position,
+  center,
   className,
   loading = false,
   options,
@@ -124,7 +124,7 @@ const Map: React.FC<MapProps> = ({
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
-      const initalMapCenter = new kakao.maps.LatLng(position.lat, position.lng);
+      const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng);
 
       // kakaoMap 객체 생성
       const kakaoMap = new kakao.maps.Map(containerElem, {
@@ -161,7 +161,7 @@ const Map: React.FC<MapProps> = ({
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
-      const initalMapCenter = new kakao.maps.LatLng(position.lat, position.lng);
+      const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng);
 
       // kakaoMap 객체 생성
       const kakaoMap = new kakao.maps.Map(container.current as HTMLDivElement, {
@@ -178,8 +178,8 @@ const Map: React.FC<MapProps> = ({
   useEffect(() => {
     if (!map) return;
 
-    map.setCenter(new kakao.maps.LatLng(position.lat, position.lng));
-  }, [map, position]);
+    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
+  }, [map, center]);
 
   useEffect(() => {
     if (!map || containerElem) return;

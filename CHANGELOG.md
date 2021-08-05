@@ -1,3 +1,6 @@
+### 0.0.8
+- Map position prop 이름 center 로 롤백
+
 ### 0.0.7
 - useRelayout 추가
 - MapInfoWindow 추가
