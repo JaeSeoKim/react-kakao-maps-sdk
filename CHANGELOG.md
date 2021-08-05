@@ -1,4 +1,6 @@
 ### 0.0.7
+- useRelayout 추가
+- MapInfoWindow 추가
 - MapMarker 추가
   - 이벤트, InfoWindow 등 구현
 - CustomOverlayMap, CustomOverlayRoadview Code refactoring
