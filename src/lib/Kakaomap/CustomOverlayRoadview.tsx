@@ -21,11 +21,6 @@ interface CustomOverlayRoadviewProps {
     clickable?: boolean;
 
     /**
-     * 엘리먼트 또는 HTML 문자열 형태의 내용
-     */
-    content?: HTMLElement | string;
-
-    /**
      * 컨텐츠의 x축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
      */
     xAnchor?: number;
@@ -55,8 +50,7 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
 
     const overlay = new kakao.maps.CustomOverlay({
       ...options,
-      map: roadview,
-      content: options?.content || container.current,
+      content: container.current,
       position: new kakao.maps.LatLng(position.lat, position.lng),
     });
 

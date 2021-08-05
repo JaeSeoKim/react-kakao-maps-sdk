@@ -1,3 +1,5 @@
+### 0.0.9
+- CustomOverlayRoadview 오류 수정
 ### 0.0.8
 - Map position prop 이름 center 로 롤백
 
