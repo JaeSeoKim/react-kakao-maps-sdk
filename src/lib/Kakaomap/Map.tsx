@@ -1,29 +1,44 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
-  {} as kakao.maps.Map
+  undefined as unknown as kakao.maps.Map
 );
 
 export interface MapProps {
   /**
+   * MapContinaer의 id에 대해서 지정합니다.
+   *
+   * containerElem가 들어온다면 무시 됩니다.
+   *
+   * @default  "kakao-map-container"
+   */
+  id?: string;
+
+  /**
    * MapContainer의 className에 대해서 지정합니다.
+   *
+   * containerElem가 들어온다면 무시 됩니다.
    */
   className?: string;
 
   /**
-   * 중심으로 설정할 위치 입니다.
+   * MapContainer의 style에 대해서 지정합니다.
+   *
+   * containerElem가 들어온다면 무시 됩니다.
    */
-  center: {
-    lat: number;
-    lng: number;
-  };
+  style?: React.CSSProperties;
 
   /**
-   * Map Continaer Size를 지정합니다.
+   * MapContainer Elem를 사용자 정의 합니다.
    */
-  size?: {
-    width: string;
-    height: string;
+  containerElem?: HTMLElement | null;
+
+  /**
+   * 중심으로 설정할 위치 입니다.
+   */
+  position: {
+    lat: number;
+    lng: number;
   };
 
   /**
@@ -35,7 +50,7 @@ export interface MapProps {
   /**
    * kakao.maps.Map의 속성을 지정합니다.
    */
-  option?: {
+  options?: {
     /**
      * 확대 수준 (기본값: 3)
      */
@@ -91,59 +106,92 @@ export interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({
+  id = "kakao-map-container",
+  style,
+  containerElem,
   children,
-  center,
+  position,
   className,
-  size,
   loading = false,
-  option,
+  options,
 }) => {
   const [map, setMap] = useState<kakao.maps.Map>();
 
   const container = useRef<HTMLDivElement>(null);
 
-  /**
-   * useRef와 함께 사용하는 경우에는 useLayoutEffect를 사용하여
-   * container.current가 null를 가지고 있는 경우를 방지 할 수 있다.
-   */
-  useLayoutEffect(() => {
-    if (loading || map !== undefined) return;
+  useEffect(() => {
+    if (loading || !containerElem || map !== undefined) return;
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
-      const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng);
+      const initalMapCenter = new kakao.maps.LatLng(position.lat, position.lng);
+
+      // kakaoMap 객체 생성
+      const kakaoMap = new kakao.maps.Map(containerElem, {
+        center: initalMapCenter,
+        ...options,
+      });
+
+      // kakaoMap 객체 저장
+      setMap(kakaoMap);
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading, options, containerElem, map]);
+
+  useEffect(() => {
+    if (!map || !containerElem) return;
+
+    const observer = new MutationObserver(() => {
+      map.relayout();
+    });
+
+    observer.observe(containerElem, {
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [map, containerElem]);
+
+  useLayoutEffect(() => {
+    if (loading || containerElem || map !== undefined) return;
+
+    kakao.maps.load(() => {
+      // 초기 위치 객체 생성
+      const initalMapCenter = new kakao.maps.LatLng(position.lat, position.lng);
 
       // kakaoMap 객체 생성
       const kakaoMap = new kakao.maps.Map(container.current as HTMLDivElement, {
         center: initalMapCenter,
-        ...option,
+        ...options,
       });
 
       // kakaoMap 객체 저장
       setMap(kakaoMap);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, center, option, container]);
+  }, [loading, options, container]);
 
   useEffect(() => {
-    // size
-    if (map === undefined || size === undefined) return;
+    if (!map) return;
 
-    const { width, height } = size;
+    map.setCenter(new kakao.maps.LatLng(position.lat, position.lng));
+  }, [map, position]);
 
-    container.current!.style.width = width;
-    container.current!.style.height = height;
+  useEffect(() => {
+    if (!map || containerElem) return;
 
     map.relayout();
-  }, [map, size]);
+  }, [map, style, className, id, containerElem]);
 
   return (
     <>
-      <div
-        id={"kakao-map-container"}
-        className={className}
-        ref={container}
-      ></div>
+      {!containerElem && (
+        <div id={id} style={style} className={className} ref={container}></div>
+      )}
       {map && (
         <KakaoMapContext.Provider value={map}>
           {children}
