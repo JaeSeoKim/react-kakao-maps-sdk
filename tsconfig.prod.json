@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "removeComments": true,
+    "removeComments": false,
     "types": ["kakao.maps.d.ts"]
   },
   "include": ["src/lib/Kakaomap/**/*.ts", "src/lib/Kakaomap/**/*.tsx"],

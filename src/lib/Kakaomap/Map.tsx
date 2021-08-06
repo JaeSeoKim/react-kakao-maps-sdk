@@ -42,6 +42,12 @@ export interface MapProps {
   };
 
   /**
+   * 중심을 이동시킬때 Panto를 사용할지 정합니다.
+   * @default false
+   */
+  isPanto?: boolean;
+
+  /**
    * 스크립트를 동적으로 로드확인을 위해 사용한다.
    * @default false
    */
@@ -111,6 +117,7 @@ const Map: React.FC<MapProps> = ({
   containerElem,
   children,
   center,
+  isPanto = false,
   className,
   loading = false,
   options,
@@ -120,7 +127,7 @@ const Map: React.FC<MapProps> = ({
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (loading || !containerElem || map !== undefined) return;
+    if (loading || !containerElem) return;
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
@@ -137,7 +144,7 @@ const Map: React.FC<MapProps> = ({
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, options, containerElem, map]);
+  }, [loading, containerElem]);
 
   useEffect(() => {
     if (!map || !containerElem) return;
@@ -157,7 +164,7 @@ const Map: React.FC<MapProps> = ({
   }, [map, containerElem]);
 
   useLayoutEffect(() => {
-    if (loading || containerElem || map !== undefined) return;
+    if (loading || containerElem) return;
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
@@ -173,13 +180,20 @@ const Map: React.FC<MapProps> = ({
       setMap(kakaoMap);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, options, container]);
+  }, [loading]);
 
   useEffect(() => {
     if (!map) return;
 
-    map.setCenter(new kakao.maps.LatLng(center.lat, center.lng));
-  }, [map, center]);
+    const centerPosition = new kakao.maps.LatLng(center.lat, center.lng);
+
+    if (isPanto) {
+      map.panTo(centerPosition);
+    } else {
+      map.setCenter(centerPosition);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, center.lat, center.lng]);
 
   useEffect(() => {
     if (!map || containerElem) return;

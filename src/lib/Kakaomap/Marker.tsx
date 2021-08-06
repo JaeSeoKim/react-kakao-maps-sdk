@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import ReactDOM from "react-dom";
 
 interface MarkerProps {
@@ -108,25 +108,25 @@ const Marker: React.FC<MarkerProps> = ({
   children,
   options,
 }) => {
-  const [marker, setMarker] = useState<kakao.maps.Marker>();
-
   const infoContainer = useRef(document.createElement("div"));
 
-  useEffect(() => {
-    if (!map) return;
-
+  const marker = useMemo(() => {
     const kakaoMarker = new kakao.maps.Marker({
       ...options,
-      map: map,
       position: position,
     });
 
-    setMarker(kakaoMarker);
+    return kakaoMarker;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    marker.setMap(map);
 
     return () => {
-      kakaoMarker.setMap(null);
+      marker.setMap(null);
     };
-  }, [map, position, options]);
+  }, [map, marker]);
 
   useEffect(() => {
     if (!map || !marker) return;

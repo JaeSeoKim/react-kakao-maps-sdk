@@ -1,5 +1,10 @@
 ### 0.0.9
+- Map center useEffect deps 오류 수정
+- Marker 객체 관리 방식 useMemo로 변경
+
+### 0.0.9
 - CustomOverlayRoadview 오류 수정
+
 ### 0.0.8
 - Map position prop 이름 center 로 롤백
 
@@ -20,10 +25,8 @@
 - develop - 개발 전용 브랜치
 - docs - 개발 API 문서
 
-
 ### 0.0.5
 - Roadview, CustomOverlayRoadview 컴포넌트 추가
-
 
 ### 0.0.1 ~ 0.0.4
 - 초기 프로젝트 설정
