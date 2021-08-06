@@ -1,6 +1,10 @@
+### 0.0.10
+- Marker option update 가능 하도록 수정
+
 ### 0.0.9
 - Map center useEffect deps 오류 수정
 - Marker 객체 관리 방식 useMemo로 변경
+- build 된 파일 comment 포함 하도록 수정
 
 ### 0.0.9
 - CustomOverlayRoadview 오류 수정

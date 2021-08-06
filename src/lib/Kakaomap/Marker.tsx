@@ -187,6 +187,30 @@ const Marker: React.FC<MarkerProps> = ({
   ]);
 
   useEffect(() => {
+    if (!map || !marker) return;
+
+    if (options?.image) marker.setImage(options?.image);
+    if (options?.altitude) marker.setAltitude(options.altitude);
+    if (options?.clickable) marker.setClickable(options.clickable);
+    if (options?.draggable) marker.setDraggable(options.draggable);
+    if (options?.opacity) marker.setOpacity(options.opacity);
+    if (options?.range) marker.setRange(options.range);
+    if (options?.title) marker.setTitle(options.title);
+    if (options?.zIndex) marker.setZIndex(options.zIndex);
+  }, [
+    map,
+    marker,
+    options?.image,
+    options?.altitude,
+    options?.clickable,
+    options?.draggable,
+    options?.opacity,
+    options?.range,
+    options?.title,
+    options?.zIndex,
+  ]);
+
+  useEffect(() => {
     if (!marker || !map || !children) return;
 
     const kakaoInfoWindow = new kakao.maps.InfoWindow({
