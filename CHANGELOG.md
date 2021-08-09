@@ -1,3 +1,9 @@
+### 0.0.12
+- Map envent 추가
+- Marker Props 수정
+- 대부분의 component useEffect 관심사 분리
+- useSetCenter, usePanto 삭제
+
 ### 0.0.11
 - Marker option update 가능 하도록 수정
 

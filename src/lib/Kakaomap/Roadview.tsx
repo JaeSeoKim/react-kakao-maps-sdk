@@ -6,7 +6,7 @@ export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
 
 export interface RoadviewProps {
   /**
-   * MapContinaer의 id에 대해서 지정합니다.
+   * roadviewContinaer의 id에 대해서 지정합니다.
    *
    * containerElem가 들어온다면 무시 됩니다.
    *
@@ -15,21 +15,21 @@ export interface RoadviewProps {
   id?: string;
 
   /**
-   * MapContainer의 className에 대해서 지정합니다.
+   * roadviewContainer의 className에 대해서 지정합니다.
    *
    * containerElem가 들어온다면 무시 됩니다.
    */
   className?: string;
 
   /**
-   * MapContainer의 style에 대해서 지정합니다.
+   * roadviewContainer의 style에 대해서 지정합니다.
    *
    * containerElem가 들어온다면 무시 됩니다.
    */
   style?: React.CSSProperties;
 
   /**
-   * MapContainer Elem를 사용자 정의 합니다.
+   * roadviewContainer Elem를 사용자 정의 합니다.
    */
   containerElem?: HTMLElement | null;
 
@@ -100,8 +100,9 @@ const Roadview: React.FC<RoadviewProps> = ({
 
   const container = useRef<HTMLDivElement>(null);
 
+  // containerElem 존재할 때 roadview 생성 로직
   useEffect(() => {
-    if (loading || !containerElem || roadview !== undefined) return;
+    if (loading || !containerElem) return;
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
@@ -125,31 +126,11 @@ const Roadview: React.FC<RoadviewProps> = ({
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, options, containerElem, roadview]);
+  }, [loading, containerElem]);
 
-  useEffect(() => {
-    if (!roadview || !containerElem) return;
-
-    const observer = new MutationObserver(() => {
-      roadview.relayout();
-    });
-
-    observer.observe(containerElem, {
-      attributes: true,
-      attributeFilter: ["style", "class"],
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [roadview, containerElem]);
-
-  /**
-   * useRef와 함께 사용하는 경우에는 useLayoutEffect를 사용하여
-   * container.current가 null를 가지고 있는 경우를 방지 할 수 있다.
-   */
+  // containerElem 존재 하지 않을 때 roadview 객체 생성 로직
   useLayoutEffect(() => {
-    if (loading || containerElem || roadview !== undefined) return;
+    if (loading || containerElem) return;
 
     kakao.maps.load(() => {
       // 초기 위치 객체 생성
@@ -175,14 +156,34 @@ const Roadview: React.FC<RoadviewProps> = ({
       setRoadview(kakaoRoadview);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, options, container]);
+  }, [loading, containerElem]);
 
+  // containerElem size 갱신시 roadview relayout 이벤트 처리
+  useEffect(() => {
+    if (!roadview || !containerElem) return;
+
+    const observer = new MutationObserver(() => {
+      roadview.relayout();
+    });
+
+    observer.observe(containerElem, {
+      attributes: true,
+      attributeFilter: ["style", "class"],
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [roadview, containerElem]);
+
+  // Container style, className, id 등 디자인 요소가 변경될 요지가 변경시 relayout
   useEffect(() => {
     if (!roadview || containerElem) return;
 
     roadview.relayout();
   }, [roadview, style, className, id, containerElem]);
 
+  // center position 변경시 roadview center 변경
   useEffect(() => {
     if (!roadview) return;
 
@@ -197,7 +198,7 @@ const Roadview: React.FC<RoadviewProps> = ({
         roadview.setPanoId(panoId, initalPosition);
       }
     );
-  }, [roadview, position]);
+  }, [roadview, position.lat, position.lng, position.radius]);
 
   return (
     <>

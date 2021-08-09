@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDom from "react-dom";
 
 interface InfoWindowProps {
@@ -39,6 +39,7 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
   options,
 }) => {
   const container = useRef(document.createElement("div"));
+  const [infoWindow, setInfoWindow] = useState<kakao.maps.InfoWindow>();
 
   useEffect(() => {
     const kakaoInfoWindow = new kakao.maps.InfoWindow({
@@ -47,11 +48,34 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
       position: position,
       map: map,
     });
+    setInfoWindow(kakaoInfoWindow);
 
     return () => {
       kakaoInfoWindow.close();
     };
-  }, [map, position, options, container]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, container]);
+
+  // 현재 위치에 표시되는 인포윈도우를 생성한다
+  useEffect(() => {
+    if (!infoWindow) return;
+    infoWindow.setPosition(position);
+  }, [infoWindow, position]);
+
+  useEffect(() => {
+    if (!infoWindow || !options?.altitude) return;
+    infoWindow.setAltitude(options.altitude);
+  }, [infoWindow, options?.altitude]);
+
+  useEffect(() => {
+    if (!infoWindow || !options?.range) return;
+    infoWindow.setRange(options.range);
+  }, [infoWindow, options?.range]);
+
+  useEffect(() => {
+    if (!infoWindow || !options?.zIndex) return;
+    infoWindow.setZIndex(options.zIndex);
+  }, [infoWindow, options?.zIndex]);
 
   return ReactDom.createPortal(children, container.current);
 };

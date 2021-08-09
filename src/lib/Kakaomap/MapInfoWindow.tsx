@@ -1,8 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import { KakaoMapContext } from "./Map";
 import InfoWindow from "./InfoWindow";
 
 interface MapInfoWindowProps {
+  /**
+   * 인포윈도가 표시될 위치
+   */
   position: {
     lat: number;
     lng: number;
@@ -42,12 +45,12 @@ const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
 }) => {
   const map = useContext(KakaoMapContext);
 
+  const infoPosition = useMemo(() => {
+    return new kakao.maps.LatLng(position.lat, position.lng);
+  }, [position.lat, position.lng]);
+
   return (
-    <InfoWindow
-      map={map}
-      position={new kakao.maps.LatLng(position.lat, position.lng)}
-      options={options}
-    >
+    <InfoWindow map={map} position={infoPosition} options={options}>
       {children}
     </InfoWindow>
   );
