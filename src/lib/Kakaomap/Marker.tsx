@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useMemo } from "react";
+import InfoWindow from "./InfoWindow";
 
 interface MarkerProps {
   map: kakao.maps.Map | kakao.maps.Roadview;
@@ -120,8 +120,6 @@ const Marker: React.FC<MarkerProps> = ({
   title,
   zIndex,
 }) => {
-  const infoContainer = useRef(document.createElement("div"));
-
   // Marker 객체는 단 한번만 생성 되도록 함
   const marker = useMemo(() => {
     const kakaoMarker = new kakao.maps.Marker({
@@ -226,77 +224,77 @@ const Marker: React.FC<MarkerProps> = ({
 
   // image 객체가 존재하면 이미지를 로드한다
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !image) return;
 
-    if (image) marker.setImage(image);
+    marker.setImage(image);
   }, [map, marker, image]);
 
   // altitude 값이 있으면 높이를 조정한다
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !altitude) return;
 
-    if (altitude) marker.setAltitude(altitude);
+    marker.setAltitude(altitude);
   }, [map, marker, altitude]);
 
   // clickable 값이 있으면 클릭이 가능하도록 한다.
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !clickable) return;
 
-    if (clickable) marker.setClickable(clickable);
+    marker.setClickable(clickable);
   }, [map, marker, clickable]);
 
   // draggable 값이 있으면 드래그가 가능하도록 한다.
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !draggable) return;
 
-    if (draggable) marker.setDraggable(draggable);
+    marker.setDraggable(draggable);
   }, [map, marker, draggable]);
 
   // opacity 값이 있으면 투명도를 조절한다.
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !opacity) return;
 
-    if (opacity) marker.setOpacity(opacity);
+    marker.setOpacity(opacity);
   }, [map, marker, opacity]);
 
   // range 값이 있으면 마커의 가시반경을 조절한다.
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !range) return;
 
-    if (range) marker.setRange(range);
+    marker.setRange(range);
   }, [map, marker, range]);
 
   // title 값이 있으면 마커의 제목을 조절한다.
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !title) return;
 
-    if (title) marker.setTitle(title);
+    marker.setTitle(title);
   }, [map, marker, title]);
 
   // zIndex 값이 있으면 마커의 zindex를 조절한다.
   useEffect(() => {
-    if (!map || !marker) return;
+    if (!map || !marker || !zIndex) return;
 
-    if (zIndex) marker.setZIndex(zIndex);
+    marker.setZIndex(zIndex);
   }, [map, marker, zIndex]);
 
-  useEffect(() => {
-    if (!marker || !map || !children) return;
+  if (children)
+    return (
+      <InfoWindow
+        position={position}
+        map={map}
+        marker={marker}
+        altitude={infoWindowOptions?.altitude}
+        disableAutoPan={infoWindowOptions?.disableAutoPan}
+        range={infoWindowOptions?.range}
+        removable={infoWindowOptions?.removable}
+        zIndex={infoWindowOptions?.zIndex}
+      >
+        {children}
+      </InfoWindow>
+    );
 
-    const kakaoInfoWindow = new kakao.maps.InfoWindow({
-      ...infoWindowOptions,
-      content: infoContainer.current,
-      position: position,
-    });
-
-    kakaoInfoWindow.open(map, marker);
-
-    return () => {
-      kakaoInfoWindow.close();
-    };
-  }, [marker, map, position, children, infoWindowOptions]);
-
-  return ReactDOM.createPortal(children, infoContainer.current);
+  return <React.Fragment />;
 };
 
 export default Marker;

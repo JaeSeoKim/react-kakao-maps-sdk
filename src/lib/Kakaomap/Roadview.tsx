@@ -51,39 +51,54 @@ export interface RoadviewProps {
   loading?: boolean;
 
   /**
-   * kakao.maps.Roadview 속성을 지정합니다.
+   * 로드뷰 시작 지역의 고유 아이디 값.
    */
-  options?: {
-    /**
-     * 로드뷰 시작 지역의 고유 아이디 값.
-     */
-    panoId?: number;
+  panoId?: number;
 
-    /**
-     * panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수평 좌표값.
-     */
-    panoX?: number;
+  /**
+   * panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수평 좌표값.
+   */
+  panoX?: number;
 
-    /**
-     * panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수직 좌표값.
-     */
-    panoY?: number;
+  /**
+   * panoId가 유효하지 않을 경우 지도좌표를 기반으로 데이터를 요청할 수직 좌표값.
+   */
+  panoY?: number;
 
-    /**
-     * 로드뷰 처음 실행시에 바라봐야 할 수평 각. 0이 정북방향. (0_360)
-     */
-    pan?: number;
+  /**
+   * 로드뷰 처음 실행시에 바라봐야 할 수평 각. 0이 정북방향. (0_360)
+   */
+  pan?: number;
 
-    /**
-     * 로드뷰 처음 실행시에 바라봐야 할 수직 각.(-90_90)
-     */
-    tilt?: number;
+  /**
+   * 로드뷰 처음 실행시에 바라봐야 할 수직 각.(-90_90)
+   */
+  tilt?: number;
 
-    /**
-     * 로드뷰 줌 초기값.(-3_3)
-     */
-    zoom?: number;
-  };
+  /**
+   * 로드뷰 줌 초기값.(-3_3)
+   */
+  zoom?: number;
+
+  /**
+   * 로드뷰가 초기화를 끝내면 발생한다.
+   */
+  onInit?: () => void;
+
+  /**
+   * 파노라마 ID가 바뀌면 발생한다.
+   */
+  onPanoidChange?: () => void;
+
+  /**
+   * 시점이 바뀌면 발생한다.
+   */
+  onViewpointChange?: () => void;
+
+  /**
+   * 지도 좌표가 바뀌면 발생한다.
+   */
+  onPositionChanged?: () => void;
 }
 
 const Roadview: React.FC<RoadviewProps> = ({
@@ -94,7 +109,16 @@ const Roadview: React.FC<RoadviewProps> = ({
   position,
   className,
   loading = false,
-  options,
+  pan,
+  panoId,
+  panoX,
+  panoY,
+  tilt,
+  zoom,
+  onInit,
+  onPanoidChange,
+  onPositionChanged,
+  onViewpointChange,
 }) => {
   const [roadview, setRoadview] = useState<kakao.maps.Roadview>();
 
@@ -109,7 +133,14 @@ const Roadview: React.FC<RoadviewProps> = ({
       const initalPosition = new kakao.maps.LatLng(position.lat, position.lng);
 
       // kakaoRoadview 객체 생성
-      const kakaoRoadview = new kakao.maps.Roadview(containerElem, options);
+      const kakaoRoadview = new kakao.maps.Roadview(containerElem, {
+        pan: pan,
+        panoId: panoId,
+        panoX: panoX,
+        panoY: panoY,
+        tilt: tilt,
+        zoom: zoom,
+      });
 
       const kakaoRoadviewClient = new kakao.maps.RoadviewClient();
 
@@ -126,7 +157,7 @@ const Roadview: React.FC<RoadviewProps> = ({
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, containerElem]);
+  }, [loading, containerElem, pan, panoId, panoX, panoY, tilt, zoom]);
 
   // containerElem 존재 하지 않을 때 roadview 객체 생성 로직
   useLayoutEffect(() => {
@@ -139,7 +170,14 @@ const Roadview: React.FC<RoadviewProps> = ({
       // kakaoRoadview 객체 생성
       const kakaoRoadview = new kakao.maps.Roadview(
         container.current as HTMLDivElement,
-        options
+        {
+          pan: pan,
+          panoId: panoId,
+          panoX: panoX,
+          panoY: panoY,
+          tilt: tilt,
+          zoom: zoom,
+        }
       );
 
       const kakaoRoadviewClient = new kakao.maps.RoadviewClient();
@@ -156,7 +194,7 @@ const Roadview: React.FC<RoadviewProps> = ({
       setRoadview(kakaoRoadview);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading, containerElem]);
+  }, [loading, containerElem, pan, panoId, panoX, panoY, tilt, zoom]);
 
   // containerElem size 갱신시 roadview relayout 이벤트 처리
   useEffect(() => {
@@ -199,6 +237,58 @@ const Roadview: React.FC<RoadviewProps> = ({
       }
     );
   }, [roadview, position.lat, position.lng, position.radius]);
+
+  useEffect(() => {
+    if (!roadview || !onInit) return;
+    kakao.maps.event.addListener(roadview, "init", onInit);
+    return () => {
+      kakao.maps.event.removeListener(roadview, "init", onInit);
+    };
+  }, [roadview, onInit]);
+
+  useEffect(() => {
+    if (!roadview || !onPanoidChange) return;
+    kakao.maps.event.addListener(roadview, "panoid_changed", onPanoidChange);
+    return () => {
+      kakao.maps.event.removeListener(
+        roadview,
+        "panoid_changed",
+        onPanoidChange
+      );
+    };
+  }, [roadview, onPanoidChange]);
+
+  useEffect(() => {
+    if (!roadview || !onViewpointChange) return;
+    kakao.maps.event.addListener(
+      roadview,
+      "viewpoint_changed",
+      onViewpointChange
+    );
+    return () => {
+      kakao.maps.event.removeListener(
+        roadview,
+        "viewpoint_changed",
+        onViewpointChange
+      );
+    };
+  }, [roadview, onViewpointChange]);
+
+  useEffect(() => {
+    if (!roadview || !onPositionChanged) return;
+    kakao.maps.event.addListener(
+      roadview,
+      "position_changed",
+      onPositionChanged
+    );
+    return () => {
+      kakao.maps.event.removeListener(
+        roadview,
+        "position_changed",
+        onPositionChanged
+      );
+    };
+  }, [roadview, onPositionChanged]);
 
   return (
     <>
