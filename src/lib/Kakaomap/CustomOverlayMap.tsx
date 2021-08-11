@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import ReactDOM from "react-dom";
 import { KakaoMapContext } from "./Map";
 
@@ -10,60 +10,72 @@ interface CustomOverlayMapProps {
     lat: number;
     lng: number;
   };
+  /**
+   * true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트를 막아준다.
+   */
+  clickable?: boolean;
 
   /**
-   * 커스텀 오버레이 옵션
+   * 컨텐츠의 x축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
    */
-  options?: {
-    /**
-     * true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트를 막아준다.
-     */
-    clickable?: boolean;
+  xAnchor?: number;
 
-    /**
-     * 엘리먼트 또는 HTML 문자열 형태의 내용
-     */
-    content?: HTMLElement | string;
+  /**
+   * 컨텐츠의 y축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
+   */
+  yAnchor?: number;
 
-    /**
-     * 컨텐츠의 x축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
-     */
-    xAnchor?: number;
-
-    /**
-     * 컨텐츠의 y축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
-     */
-    yAnchor?: number;
-
-    /**
-     * 커스텀 오버레이의 z-index
-     */
-    zIndex?: number;
-  };
+  /**
+   * 커스텀 오버레이의 z-index
+   */
+  zIndex?: number;
 }
 
 const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   position,
   children,
-  options,
+  clickable,
+  xAnchor,
+  yAnchor,
+  zIndex,
 }) => {
   const map = useContext(KakaoMapContext);
   const container = useRef(document.createElement("div"));
 
+  const overlayPosition = useMemo(() => {
+    return new kakao.maps.LatLng(position.lat, position.lng);
+  }, [position.lat, position.lng]);
+
+  const overlay = useMemo(() => {
+    return new kakao.maps.CustomOverlay({
+      clickable: clickable,
+      xAnchor: xAnchor,
+      yAnchor: yAnchor,
+      zIndex: zIndex,
+      position: overlayPosition,
+      content: container.current,
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clickable, xAnchor, yAnchor]);
+
   useEffect(() => {
     if (!map) return;
 
-    const kakaoOverlay = new kakao.maps.CustomOverlay({
-      ...options,
-      map: map,
-      content: options?.content || container.current,
-      position: new kakao.maps.LatLng(position.lat, position.lng),
-    });
-
+    overlay.setMap(map);
     return () => {
-      kakaoOverlay.setMap(null);
+      overlay.setMap(null);
     };
-  }, [container, map, position, options]);
+  }, [map, overlay]);
+
+  useEffect(() => {
+    overlay.setPosition(overlayPosition);
+  }, [overlay, overlayPosition]);
+
+  useEffect(() => {
+    if (!zIndex) return;
+    overlay.setZIndex(zIndex);
+  }, [overlay, zIndex]);
 
   return ReactDOM.createPortal(children, container.current);
 };

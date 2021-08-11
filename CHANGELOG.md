@@ -1,3 +1,9 @@
+### 0.0.13
+- Roadview resize시 customoverlay 사라지는 오류 수정
+- Map event handler 오류 수정
+- CustomOverlayMap, CustomOverlayRoadview 리팩토링
+- EventHandler 관련 코드 hook으로 재작성
+
 ### 0.0.12
 - Map event handler 추가
 - Roadview event handler 추가

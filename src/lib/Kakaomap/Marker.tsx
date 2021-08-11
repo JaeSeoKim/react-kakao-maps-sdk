@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from "react";
+import useKakaoEvent from "./hooks/useKakaoEvent";
 import InfoWindow from "./InfoWindow";
 
 interface MarkerProps {
@@ -147,80 +148,11 @@ const Marker: React.FC<MarkerProps> = ({
     };
   }, [map, marker]);
 
-  // dragstart 이벤트 핸들러
-  useEffect(() => {
-    if (!map || !marker) return;
-
-    if (onDragStart)
-      kakao.maps.event.addListener(marker, "dragstart", onDragStart);
-
-    return () => {
-      if (onDragStart)
-        kakao.maps.event.removeListener(marker, "dragstart", onDragStart);
-    };
-  }, [map, marker, onDragStart]);
-
-  // dragend 이벤트 핸들러
-  useEffect(() => {
-    if (!map || !marker) return;
-
-    if (onDragEnd) kakao.maps.event.addListener(marker, "dragend", onDragEnd);
-
-    return () => {
-      if (onDragEnd)
-        kakao.maps.event.removeListener(marker, "dragend", onDragEnd);
-    };
-  }, [map, marker, onDragEnd]);
-
-  // click 이벤트 핸들러
-  useEffect(() => {
-    if (!map || !marker) return;
-
-    if (onClick) kakao.maps.event.addListener(marker, "click", onClick);
-
-    return () => {
-      if (onClick) kakao.maps.event.removeListener(marker, "click", onClick);
-    };
-  }, [map, marker, onClick]);
-
-  // mouseover 이벤트 핸들러
-  useEffect(() => {
-    if (!map || !marker) return;
-
-    if (onMouseOver)
-      kakao.maps.event.addListener(marker, "mouseover", onMouseOver);
-
-    return () => {
-      if (onMouseOver)
-        kakao.maps.event.removeListener(marker, "mouseover", onMouseOver);
-    };
-  }, [map, marker, onMouseOver]);
-
-  // mouseout 이벤트 핸들러
-  useEffect(() => {
-    if (!map || !marker) return;
-
-    if (onMouseOut)
-      kakao.maps.event.addListener(marker, "mouseout", onMouseOut);
-
-    return () => {
-      if (onMouseOut)
-        kakao.maps.event.removeListener(marker, "mouseout", onMouseOut);
-    };
-  }, [map, marker, onMouseOut]);
-
-  // mouseout 이벤트 핸들러
-  useEffect(() => {
-    if (!map || !marker) return;
-
-    if (onMouseOut)
-      kakao.maps.event.addListener(marker, "mouseout", onMouseOut);
-
-    return () => {
-      if (onMouseOut)
-        kakao.maps.event.removeListener(marker, "mouseout", onMouseOut);
-    };
-  }, [map, marker, onMouseOut]);
+  useKakaoEvent(marker, "click", onClick);
+  useKakaoEvent(marker, "dragstart", onDragStart);
+  useKakaoEvent(marker, "dragend", onDragEnd);
+  useKakaoEvent(marker, "mouseout", onMouseOut);
+  useKakaoEvent(marker, "mouseover", onMouseOver);
 
   // image 객체가 존재하면 이미지를 로드한다
   useEffect(() => {

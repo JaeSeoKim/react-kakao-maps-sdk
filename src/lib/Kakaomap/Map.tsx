@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import useKakaoEvent from "./hooks/useKakaoEvent";
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map
@@ -373,75 +374,20 @@ const Map: React.FC<MapProps> = ({
     map.setMinLevel(minLevel);
   }, [map, minLevel]);
 
-  useEffect(() => {
-    if (!map || !onBoundsChanged) return;
-    kakao.maps.event.addListener(map, "bounds_changed", onBoundsChanged);
-  }, [map, onBoundsChanged]);
-
-  useEffect(() => {
-    if (!map || !onCenterChanged) return;
-    kakao.maps.event.addListener(map, "center_changed", onCenterChanged);
-  }, [map, onCenterChanged]);
-
-  useEffect(() => {
-    if (!map || !onClick) return;
-    kakao.maps.event.addListener(map, "click", onClick);
-  }, [map, onClick]);
-
-  useEffect(() => {
-    if (!map || !onDoubleClick) return;
-    kakao.maps.event.addListener(map, "dblclick", onDoubleClick);
-  }, [map, onDoubleClick]);
-
-  useEffect(() => {
-    if (!map || !onDrag) return;
-    kakao.maps.event.addListener(map, "drag", onDrag);
-  }, [map, onDrag]);
-
-  useEffect(() => {
-    if (!map || !onDragStart) return;
-    kakao.maps.event.addListener(map, "dragstart", onDragStart);
-  }, [map, onDragStart]);
-
-  useEffect(() => {
-    if (!map || !onDragEnd) return;
-    kakao.maps.event.addListener(map, "dragend", onDragEnd);
-  }, [map, onDragEnd]);
-
-  useEffect(() => {
-    if (!map || !onIdle) return;
-    kakao.maps.event.addListener(map, "idle", onIdle);
-  }, [map, onIdle]);
-
-  useEffect(() => {
-    if (!map || !onMaptypeidChanged) return;
-    kakao.maps.event.addListener(map, "maptypeid_changed", onMaptypeidChanged);
-  }, [map, onMaptypeidChanged]);
-
-  useEffect(() => {
-    if (!map || !onMouseMove) return;
-    kakao.maps.event.addListener(map, "mousemove", onMouseMove);
-  }, [map, onMouseMove]);
-
-  useEffect(() => {
-    if (!map || !onRightClick) return;
-    kakao.maps.event.addListener(map, "rightclick", onRightClick);
-  }, [map, onRightClick]);
-
-  useEffect(() => {
-    if (!map || !onTileLoaded) return;
-    kakao.maps.event.addListener(map, "tileloaded", onTileLoaded);
-  }, [map, onTileLoaded]);
-
-  useEffect(() => {
-    if (!map || !onZoomChanged) return;
-    kakao.maps.event.addListener(map, "zoom_changed", onZoomChanged);
-  }, [map, onZoomChanged]);
-
-  useEffect(() => {
-    if (!map || !onZoomStart) return;
-    kakao.maps.event.addListener(map, "zoom_start", onZoomStart);
-  }, [map, onZoomStart]);
+  useKakaoEvent(map, "bounds_changed", onBoundsChanged);
+  useKakaoEvent(map, "center_changed", onCenterChanged);
+  useKakaoEvent(map, "click", onClick);
+  useKakaoEvent(map, "dblclick", onDoubleClick);
+  useKakaoEvent(map, "drag", onDrag);
+  useKakaoEvent(map, "dragstart", onDragEnd);
+  useKakaoEvent(map, "dragend", onDragStart);
+  useKakaoEvent(map, "idle", onIdle);
+  useKakaoEvent(map, "maptypeid_changed", onMaptypeidChanged);
+  useKakaoEvent(map, "mousemove", onMouseMove);
+  useKakaoEvent(map, "rightclick", onRightClick);
+  useKakaoEvent(map, "tileloaded", onTileLoaded);
+  useKakaoEvent(map, "zoom_changed", onZoomChanged);
+  useKakaoEvent(map, "zoom_start", onZoomStart);
 
   return (
     <>
