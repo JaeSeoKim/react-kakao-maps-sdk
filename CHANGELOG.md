@@ -1,3 +1,6 @@
+### 0.0.14
+- Roadview SSR시 kakao 관련 객체 에러 수정
+
 ### 0.0.13
 - Roadview resize시 customoverlay 사라지는 오류 수정
 - Map event handler 오류 수정

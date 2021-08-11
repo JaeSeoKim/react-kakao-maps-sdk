@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useKakaoEvent from "./hooks/useKakaoEvent";
 
 export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
@@ -117,13 +117,6 @@ const Roadview: React.FC<RoadviewProps> = ({
   const [roadview, setRoadview] = useState<kakao.maps.Roadview>();
   const container = useRef<HTMLDivElement>(null);
 
-  const initalPosition = useMemo(
-    () => new kakao.maps.LatLng(position.lat, position.lng),
-    [position.lat, position.lng]
-  );
-
-  const roadviewClient = useMemo(() => new kakao.maps.RoadviewClient(), []);
-
   useEffect(() => {
     const target = containerElem ? containerElem : container.current;
 
@@ -143,14 +136,17 @@ const Roadview: React.FC<RoadviewProps> = ({
 
   useEffect(() => {
     if (!roadview) return;
-    roadviewClient.getNearestPanoId(
-      initalPosition,
+
+    const newPostion = new kakao.maps.LatLng(position.lat, position.lng);
+
+    new kakao.maps.RoadviewClient().getNearestPanoId(
+      newPostion,
       position.radius,
       (panoId) => {
-        roadview.setPanoId(panoId, initalPosition);
+        roadview.setPanoId(panoId, newPostion);
       }
     );
-  }, [initalPosition, roadviewClient, roadview, position.radius]);
+  }, [roadview, position.lat, position.lng, position.radius]);
 
   // containerElem size 갱신시 roadview relayout 이벤트 처리
   useEffect(() => {
