@@ -58,27 +58,27 @@ interface MapMarkerProps {
   /**
    * click 이벤트 핸들러
    */
-  onClick?: () => void;
+  onClick?: (marker: kakao.maps.Marker) => void;
 
   /**
    * mouseover 이벤트 핸들러
    */
-  onMouseOver?: () => void;
+  onMouseOver?: (marker: kakao.maps.Marker) => void;
 
   /**
    * mouseout 이벤트 핸들러
    */
-  onMouseOut?: () => void;
+  onMouseOut?: (marker: kakao.maps.Marker) => void;
 
   /**
    * dragstart 이벤트 핸들러
    */
-  onDragStart?: () => void;
+  onDragStart?: (marker: kakao.maps.Marker) => void;
 
   /**
    * dragend 이벤트 핸들러
    */
-  onDragEnd?: () => void;
+  onDragEnd?: (marker: kakao.maps.Marker) => void;
 
   /**
    * 마커 엘리먼트의 타이틀 속성 값 (툴팁)

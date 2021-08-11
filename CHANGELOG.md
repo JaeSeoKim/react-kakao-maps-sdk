@@ -1,3 +1,7 @@
+### 0.0.15
+- kakao.maps.event.TARGET 으로 될 수 있는 항목들에 대해서 `on~Created` 추가
+- 모든 event handler에 대해 전달되는 인자 `target` 추가
+
 ### 0.0.14
 - Roadview SSR시 kakao 관련 객체 에러 수정
 

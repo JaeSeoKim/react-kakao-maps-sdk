@@ -29,6 +29,11 @@ interface InfoWindowProps {
    * 로드뷰 상에서 인포윈도우의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 인포윈도우는 보이지 않게 된다
    */
   range?: number;
+
+  /**
+   * 인포윈도우 객체 생성후 해당 객체를 반환하는 함수
+   */
+  onInfoWindowCreated?: (infoWindow: kakao.maps.InfoWindow) => void;
 }
 
 const InfoWindow: React.FC<InfoWindowProps> = ({
@@ -41,11 +46,12 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
   range,
   removable,
   zIndex,
+  onInfoWindowCreated,
 }) => {
   const container = useRef(document.createElement("div"));
 
   const infoWindow = useMemo(() => {
-    return new kakao.maps.InfoWindow({
+    const kakaoInfoWindow = new kakao.maps.InfoWindow({
       altitude: altitude,
       disableAutoPan: disableAutoPan,
       range: range,
@@ -54,6 +60,8 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
       content: container.current,
       position: position,
     });
+    if (onInfoWindowCreated) onInfoWindowCreated(infoWindow);
+    return kakaoInfoWindow;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

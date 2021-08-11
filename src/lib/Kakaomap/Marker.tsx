@@ -7,29 +7,34 @@ interface MarkerProps {
   position: kakao.maps.LatLng | kakao.maps.Viewpoint;
 
   /**
+   * marker 생성 후 marker 객체를 전달하는 callback
+   */
+  onMarkerCreated?: (marker: kakao.maps.Marker) => void;
+
+  /**
    * click 이벤트 핸들러
    */
-  onClick?: () => void;
+  onClick?: (marker: kakao.maps.Marker) => void;
 
   /**
    * mouseover 이벤트 핸들러
    */
-  onMouseOver?: () => void;
+  onMouseOver?: (marker: kakao.maps.Marker) => void;
 
   /**
    * mouseout 이벤트 핸들러
    */
-  onMouseOut?: () => void;
+  onMouseOut?: (marker: kakao.maps.Marker) => void;
 
   /**
    * dragstart 이벤트 핸들러
    */
-  onDragStart?: () => void;
+  onDragStart?: (marker: kakao.maps.Marker) => void;
 
   /**
    * dragend 이벤트 핸들러
    */
-  onDragEnd?: () => void;
+  onDragEnd?: (marker: kakao.maps.Marker) => void;
 
   /**
    * 마커의 이미지
@@ -105,6 +110,7 @@ interface MarkerProps {
 const Marker: React.FC<MarkerProps> = ({
   map,
   position,
+  onMarkerCreated,
   children,
   altitude,
   clickable,
@@ -134,6 +140,7 @@ const Marker: React.FC<MarkerProps> = ({
       zIndex,
       position,
     });
+    if (onMarkerCreated) onMarkerCreated(marker);
 
     return kakaoMarker;
     // eslint-disable-next-line react-hooks/exhaustive-deps

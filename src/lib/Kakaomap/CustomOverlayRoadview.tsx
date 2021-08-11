@@ -43,6 +43,11 @@ interface CustomOverlayRoadviewProps {
    * 단위는 m(미터)이며 기본값은 500m이다.
    */
   range?: number;
+
+  /**
+   * 커스텀 오버레이를 생성 후 해당 객체를 가지고 callback 함수를 실행 시켜줌
+   */
+  onCustomOverlayCreated?: (customOverlay: kakao.maps.CustomOverlay) => void;
 }
 
 const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
@@ -54,6 +59,7 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
   zIndex,
   altitude,
   range,
+  onCustomOverlayCreated,
 }) => {
   const roadview = useContext(KakaoRoadviewContext);
   const container = useRef(document.createElement("div"));
@@ -63,7 +69,7 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
   }, [position.lat, position.lng]);
 
   const overlay = useMemo(() => {
-    return new kakao.maps.CustomOverlay({
+    const KakaoCustomOverlay = new kakao.maps.CustomOverlay({
       clickable: clickable,
       xAnchor: xAnchor,
       yAnchor: yAnchor,
@@ -71,6 +77,9 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
       position: overlayPosition,
       content: container.current,
     });
+
+    if (onCustomOverlayCreated) onCustomOverlayCreated(KakaoCustomOverlay);
+    return KakaoCustomOverlay;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickable, xAnchor, yAnchor]);
@@ -80,17 +89,6 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
 
     kakao.maps.event.addListener(roadview, "init", () => {
       overlay.setMap(roadview);
-      // overlay.setAltitude(2); //커스텀 오버레이의 고도값을 설정합니다.(로드뷰 화면 중앙이 0입니다)
-
-      // var projection = roadview.getProjection(); // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
-
-      // // 커스텀오버레이의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
-      // var viewpoint = projection.viewpointFromCoords(
-      //   overlay.getPosition(),
-      //   overlay.getAltitude()
-      // );
-
-      // roadview.setViewpoint(viewpoint); //커스텀 오버레이를 로드뷰의 가운데에 오도록 로드뷰의 시점을 변화 시킵니다.
     });
 
     return () => {

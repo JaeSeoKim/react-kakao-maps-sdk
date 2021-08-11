@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-const useKakaoEvent = (
+const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
   /**
    * 이벤트 타겟
    */
-  target: kakao.maps.event.EventTarget | undefined,
+  target: T | undefined,
   /**
    * event 타입
    */
@@ -12,14 +12,22 @@ const useKakaoEvent = (
   /**
    * 호출될 callback
    */
-  callback: Function | undefined
+  callback:
+    | ((target: T, ...args: kakao.maps.event.MouseEvent[]) => void)
+    | undefined
 ) => {
   useEffect(() => {
     if (!target || !callback) return;
-    kakao.maps.event.addListener(target, type, callback);
+
+    const wrapCallback = (mouseEvent?: kakao.maps.event.MouseEvent) => {
+      if (mouseEvent === undefined) return callback(target);
+      else return callback(target, mouseEvent);
+    };
+
+    kakao.maps.event.addListener(target, type, wrapCallback);
 
     return () => {
-      kakao.maps.event.removeListener(target, type, callback);
+      kakao.maps.event.removeListener(target, type, wrapCallback);
     };
   }, [target, type, callback]);
 };

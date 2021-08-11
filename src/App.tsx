@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CustomOverlayMap,
   CustomOverlayRoadview,
@@ -26,22 +26,27 @@ const Content = () => (
 );
 
 const SampleCreateMap = () => {
+  const [position, setPosition] = useState({
+    lat: 33.5563,
+    lng: 126.79581,
+  });
   return (
     <>
       <Map // 로드뷰를 표시할 Container
-        center={{
-          // 지도의 중심좌표
-          lat: 33.5563,
-          lng: 126.79581,
-        }}
+        center={position}
         style={{
           // 지도의 크기
           width: "100%",
           height: "300px",
         }}
         level={3}
-        onCenterChanged={() => {
-          console.log("onCenterChanged");
+        isPanto={true}
+        onDragEnd={(target) => {
+          console.log(target.getCenter());
+          setPosition({
+            lat: target.getCenter().getLat(),
+            lng: target.getCenter().getLng(),
+          });
         }}
       >
         <CustomOverlayMap

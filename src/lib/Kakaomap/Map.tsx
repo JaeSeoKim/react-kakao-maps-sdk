@@ -49,6 +49,13 @@ export interface MapProps {
   isPanto?: boolean;
 
   /**
+   * 중심 좌표를 지정한 좌표 또는 영역으로 부드럽게 이동한다. 필요하면 확대 또는 축소도 수행한다.
+   * 만약 이동할 거리가 지도 화면의 크기보다 클 경우 애니메이션 없이 이동한다.
+   * padding 만큼 제외하고 영역을 계산하며, padding 을 지정하지 않으면 기본값으로 32가 사용된다.
+   */
+  padding?: number;
+
+  /**
    * 스크립트를 동적으로 로드확인을 위해 사용한다.
    * @default false
    */
@@ -117,76 +124,102 @@ export interface MapProps {
       };
 
   /**
+   * map 생성 후 해당 객체를 전달하는 함수
+   */
+  onMapCreated?: (map: kakao.maps.Map) => void;
+
+  /**
    * 중심 좌표가 변경되면 발생한다.
    */
-  onCenterChanged?: Function;
+  onCenterChanged?: (target: kakao.maps.Map) => void;
 
   /**
    * 확대 수준이 변경되기 직전 발생한다.
    */
-  onZoomStart?: Function;
+  onZoomStart?: (target: kakao.maps.Map) => void;
 
   /**
    * 확대 수준이 변경되면 발생한다.
    */
-  onZoomChanged?: Function;
+  onZoomChanged?: (target: kakao.maps.Map) => void;
 
   /**
    * 지도 영역이 변경되면 발생한다.
    */
-  onBoundsChanged?: Function;
+  onBoundsChanged?: (target: kakao.maps.Map) => void;
 
   /**
    * 지도를 클릭하면 발생한다.
    */
-  onClick?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onClick?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 지도를 더블클릭하면 발생한다.
    */
-  onDoubleClick?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onDoubleClick?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 지도를 마우스 오른쪽 버튼으로 클릭하면 발생한다.
    */
-  onRightClick?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onRightClick?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 지도에서 마우스 커서를 이동하면 발생한다.
    */
-  onMouseMove?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onMouseMove?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 드래그를 시작할 때 발생한다.
    */
-  onDragStart?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onDragStart?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 드래그를 하는 동안 발생한다.
    */
-  onDrag?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onDrag?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 드래그가 끝날 때 발생한다.
    */
-  onDragEnd?: (mouseEvent: kakao.maps.event.MouseEvent) => void;
+  onDragEnd?: (
+    target: kakao.maps.Map,
+    mouseEvent: kakao.maps.event.MouseEvent
+  ) => void;
 
   /**
    * 중심 좌표나 확대 수준이 변경되면 발생한다.
    * 단, 애니메이션 도중에는 발생하지 않는다.
    */
-  onIdle?: Function;
+  onIdle?: (target: kakao.maps.Map) => void;
 
   /**
    * 확대수준이 변경되거나 지도가 이동했을때 타일 이미지 로드가 모두 완료되면 발생한다.
    * 지도이동이 미세하기 일어나 타일 이미지 로드가 일어나지 않은경우 발생하지 않는다.
    */
-  onTileLoaded?: Function;
+  onTileLoaded?: (target: kakao.maps.Map) => void;
 
   /**
    * 지도 기본 타일(일반지도, 스카이뷰, 하이브리드)이 변경되면 발생한다.
    */
-  onMaptypeidChanged?: Function;
+  onMaptypeidChanged?: (target: kakao.maps.Map) => void;
 }
 
 const Map: React.FC<MapProps> = ({
@@ -196,6 +229,7 @@ const Map: React.FC<MapProps> = ({
   children,
   center,
   isPanto = false,
+  padding = 32,
   className,
   loading = false,
   disableDoubleClick,
@@ -209,6 +243,7 @@ const Map: React.FC<MapProps> = ({
   projectionId,
   scrollwheel,
   tileAnimation,
+  onMapCreated,
   onBoundsChanged,
   onCenterChanged,
   onClick,
@@ -288,6 +323,7 @@ const Map: React.FC<MapProps> = ({
 
       // kakaoMap 객체 저장
       setMap(kakaoMap);
+      if (onMapCreated) onMapCreated(kakaoMap);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -301,12 +337,17 @@ const Map: React.FC<MapProps> = ({
 
   // center position 변경시 map center 변경
   useEffect(() => {
-    if (!map) return;
+    if (
+      !map ||
+      (map.getCenter().getLat() === center.lat &&
+        map.getCenter().getLng() === center.lng)
+    )
+      return;
 
     const centerPosition = new kakao.maps.LatLng(center.lat, center.lng);
 
     if (isPanto) {
-      map.panTo(centerPosition);
+      map.panTo(centerPosition, padding);
     } else {
       map.setCenter(centerPosition);
     }
@@ -379,8 +420,8 @@ const Map: React.FC<MapProps> = ({
   useKakaoEvent(map, "click", onClick);
   useKakaoEvent(map, "dblclick", onDoubleClick);
   useKakaoEvent(map, "drag", onDrag);
-  useKakaoEvent(map, "dragstart", onDragEnd);
-  useKakaoEvent(map, "dragend", onDragStart);
+  useKakaoEvent(map, "dragstart", onDragStart);
+  useKakaoEvent(map, "dragend", onDragEnd);
   useKakaoEvent(map, "idle", onIdle);
   useKakaoEvent(map, "maptypeid_changed", onMaptypeidChanged);
   useKakaoEvent(map, "mousemove", onMouseMove);

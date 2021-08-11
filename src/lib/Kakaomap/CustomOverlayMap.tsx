@@ -29,6 +29,11 @@ interface CustomOverlayMapProps {
    * 커스텀 오버레이의 z-index
    */
   zIndex?: number;
+
+  /**
+   * 커스텀 오버레이를 생성 후 해당 객체를 가지고 callback 함수를 실행 시켜줌
+   */
+  onCustomOverlayCreated?: (customOverlay: kakao.maps.CustomOverlay) => void;
 }
 
 const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
@@ -38,6 +43,7 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   xAnchor,
   yAnchor,
   zIndex,
+  onCustomOverlayCreated,
 }) => {
   const map = useContext(KakaoMapContext);
   const container = useRef(document.createElement("div"));
@@ -47,7 +53,7 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   }, [position.lat, position.lng]);
 
   const overlay = useMemo(() => {
-    return new kakao.maps.CustomOverlay({
+    const KakaoCustomOverlay = new kakao.maps.CustomOverlay({
       clickable: clickable,
       xAnchor: xAnchor,
       yAnchor: yAnchor,
@@ -55,6 +61,9 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
       position: overlayPosition,
       content: container.current,
     });
+
+    if (onCustomOverlayCreated) onCustomOverlayCreated(KakaoCustomOverlay);
+    return KakaoCustomOverlay;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickable, xAnchor, yAnchor]);
