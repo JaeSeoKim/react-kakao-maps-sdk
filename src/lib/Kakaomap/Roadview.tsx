@@ -62,16 +62,22 @@ export interface RoadviewProps {
 
   /**
    * 로드뷰 처음 실행시에 바라봐야 할 수평 각. 0이 정북방향. (0_360)
+   *
+   * @default 0
    */
   pan?: number;
 
   /**
    * 로드뷰 처음 실행시에 바라봐야 할 수직 각.(-90_90)
+   *
+   * @default 0
    */
   tilt?: number;
 
   /**
    * 로드뷰 줌 초기값.(-3_3)
+   *
+   * @default 0
    */
   zoom?: number;
 
@@ -108,12 +114,12 @@ const Roadview: React.FC<RoadviewProps> = ({
   children,
   position,
   className,
-  pan,
+  pan = 0,
   panoId,
   panoX,
   panoY,
-  tilt,
-  zoom,
+  tilt = 0,
+  zoom = 0,
   onRoadviewCreated,
   onInit,
   onPanoidChange,
@@ -139,7 +145,8 @@ const Roadview: React.FC<RoadviewProps> = ({
 
     setRoadview(kakaoRoadview);
     if (onRoadviewCreated) onRoadviewCreated(kakaoRoadview);
-  }, [containerElem, onRoadviewCreated, pan, panoId, panoX, panoY, tilt, zoom]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [containerElem]);
 
   useEffect(() => {
     if (
@@ -199,6 +206,21 @@ const Roadview: React.FC<RoadviewProps> = ({
 
     roadview.relayout();
   }, [roadview, style, className, id, containerElem]);
+
+  useEffect(() => {
+    if (!roadview) return;
+
+    const prevViewpoint = roadview.getViewpoint();
+
+    if (
+      prevViewpoint.pan === pan &&
+      prevViewpoint.tilt === tilt &&
+      prevViewpoint.zoom === zoom
+    )
+      return;
+
+    roadview.setViewpoint(new kakao.maps.Viewpoint(pan, tilt, zoom));
+  }, [roadview, pan, tilt, zoom]);
 
   useKakaoEvent(roadview, "init", onInit);
   useKakaoEvent(roadview, "panoid_changed", onPanoidChange);
