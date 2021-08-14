@@ -161,6 +161,13 @@ const Marker: React.FC<MarkerProps> = ({
   useKakaoEvent(marker, "mouseout", onMouseOut);
   useKakaoEvent(marker, "mouseover", onMouseOver);
 
+  // position이 변경되면 객체를 갱신한다.
+  useEffect(() => {
+    if (!map || !marker || !position) return;
+
+    marker.setPosition(position);
+  }, [map, marker, position]);
+
   // image 객체가 존재하면 이미지를 로드한다
   useEffect(() => {
     if (!map || !marker || !image) return;
