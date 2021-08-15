@@ -1,3 +1,9 @@
+### 0.0.19
+- Roadview viewpoint zoom이 재 설정 되지 않도록 수정
+
+### 0.0.18
+- Roadview viewpoint 초기화 이슈 수정
+
 ### 0.0.17
 - Roadview viewpoint 상태 관리 수정
 

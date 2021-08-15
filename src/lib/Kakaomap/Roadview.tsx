@@ -206,21 +206,12 @@ const Roadview: React.FC<RoadviewProps> = ({
 
     const prevViewpoint = roadview.getViewpoint();
 
-    if (
-      prevViewpoint.pan === pan &&
-      prevViewpoint.tilt === tilt &&
-      prevViewpoint.zoom === zoom
-    )
-      return;
+    if (prevViewpoint.pan === pan && prevViewpoint.tilt === tilt) return;
 
-    roadview.setViewpoint(
-      new kakao.maps.Viewpoint(
-        pan || prevViewpoint.pan,
-        tilt || prevViewpoint.tilt,
-        zoom || prevViewpoint.zoom
-      )
-    );
-  }, [roadview, pan, tilt, zoom]);
+    if (pan) prevViewpoint.pan = pan;
+    if (tilt) prevViewpoint.tilt = tilt;
+    roadview.setViewpoint(prevViewpoint);
+  }, [roadview, pan, tilt]);
 
   useKakaoEvent(roadview, "init", onInit);
   useKakaoEvent(roadview, "panoid_changed", onPanoidChange);
