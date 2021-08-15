@@ -62,22 +62,16 @@ export interface RoadviewProps {
 
   /**
    * 로드뷰 처음 실행시에 바라봐야 할 수평 각. 0이 정북방향. (0_360)
-   *
-   * @default 0
    */
   pan?: number;
 
   /**
    * 로드뷰 처음 실행시에 바라봐야 할 수직 각.(-90_90)
-   *
-   * @default 0
    */
   tilt?: number;
 
   /**
    * 로드뷰 줌 초기값.(-3_3)
-   *
-   * @default 0
    */
   zoom?: number;
 
@@ -114,12 +108,12 @@ const Roadview: React.FC<RoadviewProps> = ({
   children,
   position,
   className,
-  pan = 0,
+  pan,
   panoId,
   panoX,
   panoY,
-  tilt = 0,
-  zoom = 0,
+  tilt,
+  zoom,
   onRoadviewCreated,
   onInit,
   onPanoidChange,
@@ -219,7 +213,13 @@ const Roadview: React.FC<RoadviewProps> = ({
     )
       return;
 
-    roadview.setViewpoint(new kakao.maps.Viewpoint(pan, tilt, zoom));
+    roadview.setViewpoint(
+      new kakao.maps.Viewpoint(
+        pan || prevViewpoint.pan,
+        tilt || prevViewpoint.tilt,
+        zoom || prevViewpoint.zoom
+      )
+    );
   }, [roadview, pan, tilt, zoom]);
 
   useKakaoEvent(roadview, "init", onInit);

@@ -1,4 +1,11 @@
+### 0.0.17
+- Roadview viewpoint 상태 관리 수정
+
+### 0.0.16
+- Marker Position 문제 해결
+
 ### 0.0.15
+- Map center change 로직 수정
 - kakao.maps.event.TARGET 으로 될 수 있는 항목들에 대해서 `on~Created` 추가
 - 모든 event handler에 대해 전달되는 인자 `target` 추가
 
