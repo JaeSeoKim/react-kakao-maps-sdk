@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from "react"
 
 const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
   /**
@@ -17,19 +17,19 @@ const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
     | undefined
 ) => {
   useEffect(() => {
-    if (!target || !callback) return;
+    if (!target || !callback) return
 
     const wrapCallback = (mouseEvent?: kakao.maps.event.MouseEvent) => {
-      if (mouseEvent === undefined) return callback(target);
-      else return callback(target, mouseEvent);
-    };
+      if (mouseEvent === undefined) return callback(target)
+      else return callback(target, mouseEvent)
+    }
 
-    kakao.maps.event.addListener(target, type, wrapCallback);
+    kakao.maps.event.addListener(target, type, wrapCallback)
 
     return () => {
-      kakao.maps.event.removeListener(target, type, wrapCallback);
-    };
-  }, [target, type, callback]);
-};
+      kakao.maps.event.removeListener(target, type, wrapCallback)
+    }
+  }, [target, type, callback])
+}
 
-export default useKakaoEvent;
+export default useKakaoEvent

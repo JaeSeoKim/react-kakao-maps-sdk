@@ -1,80 +1,80 @@
-import React, { useEffect, useMemo } from "react";
-import useKakaoEvent from "./hooks/useKakaoEvent";
-import InfoWindow from "./InfoWindow";
+import React, { useEffect, useMemo } from "react"
+import useKakaoEvent from "../hooks/useKakaoEvent"
+import InfoWindow from "./InfoWindow"
 
 interface MarkerProps {
-  map: kakao.maps.Map | kakao.maps.Roadview;
-  position: kakao.maps.LatLng | kakao.maps.Viewpoint;
+  map: kakao.maps.Map | kakao.maps.Roadview
+  position: kakao.maps.LatLng | kakao.maps.Viewpoint
 
   /**
    * marker 생성 후 marker 객체를 전달하는 callback
    */
-  onMarkerCreated?: (marker: kakao.maps.Marker) => void;
+  onMarkerCreated?: (marker: kakao.maps.Marker) => void
 
   /**
    * click 이벤트 핸들러
    */
-  onClick?: (marker: kakao.maps.Marker) => void;
+  onClick?: (marker: kakao.maps.Marker) => void
 
   /**
    * mouseover 이벤트 핸들러
    */
-  onMouseOver?: (marker: kakao.maps.Marker) => void;
+  onMouseOver?: (marker: kakao.maps.Marker) => void
 
   /**
    * mouseout 이벤트 핸들러
    */
-  onMouseOut?: (marker: kakao.maps.Marker) => void;
+  onMouseOut?: (marker: kakao.maps.Marker) => void
 
   /**
    * dragstart 이벤트 핸들러
    */
-  onDragStart?: (marker: kakao.maps.Marker) => void;
+  onDragStart?: (marker: kakao.maps.Marker) => void
 
   /**
    * dragend 이벤트 핸들러
    */
-  onDragEnd?: (marker: kakao.maps.Marker) => void;
+  onDragEnd?: (marker: kakao.maps.Marker) => void
 
   /**
    * 마커의 이미지
    */
-  image?: kakao.maps.MarkerImage;
+  image?: kakao.maps.MarkerImage
 
   /**
    * 마커 엘리먼트의 타이틀 속성 값 (툴팁)
    */
-  title?: string;
+  title?: string
 
   /**
    * 드래그 가능한 마커, 로드뷰에 올릴 경우에는 유효하지 않다.
    */
-  draggable?: boolean;
+  draggable?: boolean
 
   /**
    * 클릭 가능한 마커
    */
-  clickable?: boolean;
+  clickable?: boolean
 
   /**
    * 마커 엘리먼트의 z-index 속성 값
    */
-  zIndex?: number;
+  zIndex?: number
 
   /**
    * 마커 투명도 (0-1)
    */
-  opacity?: number;
+  opacity?: number
 
   /**
    * 로드뷰에 올라있는 마커의 높이 값(m 단위)
    */
-  altitude?: number;
+  altitude?: number
 
   /**
    * 로드뷰 상에서 마커의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 마커는 로드뷰에서 보이지 않게 된다.
    */
-  range?: number;
+  range?: number
 
   /**
    * InfoWindow 옵션
@@ -83,28 +83,28 @@ interface MarkerProps {
     /**
      * 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false)
      */
-    disableAutoPan?: boolean;
+    disableAutoPan?: boolean
 
     /**
      * 삭제 가능한 인포윈도우
      */
-    removable?: boolean;
+    removable?: boolean
 
     /**
      * 인포윈도우 엘리먼트의 z-index 속성 값
      */
-    zIndex?: number;
+    zIndex?: number
 
     /**
      * 로드뷰에 올라있는 인포윈도우의 높이 값(m 단위)
      */
-    altitude?: number;
+    altitude?: number
 
     /**
      * 로드뷰 상에서 인포윈도우의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 인포윈도우는 보이지 않게 된다
      */
-    range?: number;
-  };
+    range?: number
+  }
 }
 
 const Marker: React.FC<MarkerProps> = ({
@@ -139,90 +139,90 @@ const Marker: React.FC<MarkerProps> = ({
       title,
       zIndex,
       position,
-    });
-    if (onMarkerCreated) onMarkerCreated(marker);
+    })
+    if (onMarkerCreated) onMarkerCreated(marker)
 
-    return kakaoMarker;
+    return kakaoMarker
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   // map 객체 변화에 따른 객체 생성 및 삭제
   useEffect(() => {
-    marker.setMap(map);
+    marker.setMap(map)
 
     return () => {
-      marker.setMap(null);
-    };
-  }, [map, marker]);
+      marker.setMap(null)
+    }
+  }, [map, marker])
 
-  useKakaoEvent(marker, "click", onClick);
-  useKakaoEvent(marker, "dragstart", onDragStart);
-  useKakaoEvent(marker, "dragend", onDragEnd);
-  useKakaoEvent(marker, "mouseout", onMouseOut);
-  useKakaoEvent(marker, "mouseover", onMouseOver);
+  useKakaoEvent(marker, "click", onClick)
+  useKakaoEvent(marker, "dragstart", onDragStart)
+  useKakaoEvent(marker, "dragend", onDragEnd)
+  useKakaoEvent(marker, "mouseout", onMouseOut)
+  useKakaoEvent(marker, "mouseover", onMouseOver)
 
   // position이 변경되면 객체를 갱신한다.
   useEffect(() => {
-    if (!map || !marker || !position) return;
+    if (!map || !marker || !position) return
 
-    marker.setPosition(position);
-  }, [map, marker, position]);
+    marker.setPosition(position)
+  }, [map, marker, position])
 
   // image 객체가 존재하면 이미지를 로드한다
   useEffect(() => {
-    if (!map || !marker || !image) return;
+    if (!map || !marker || !image) return
 
-    marker.setImage(image);
-  }, [map, marker, image]);
+    marker.setImage(image)
+  }, [map, marker, image])
 
   // altitude 값이 있으면 높이를 조정한다
   useEffect(() => {
-    if (!map || !marker || !altitude) return;
+    if (!map || !marker || !altitude) return
 
-    marker.setAltitude(altitude);
-  }, [map, marker, altitude]);
+    marker.setAltitude(altitude)
+  }, [map, marker, altitude])
 
   // clickable 값이 있으면 클릭이 가능하도록 한다.
   useEffect(() => {
-    if (!map || !marker || !clickable) return;
+    if (!map || !marker || !clickable) return
 
-    marker.setClickable(clickable);
-  }, [map, marker, clickable]);
+    marker.setClickable(clickable)
+  }, [map, marker, clickable])
 
   // draggable 값이 있으면 드래그가 가능하도록 한다.
   useEffect(() => {
-    if (!map || !marker || !draggable) return;
+    if (!map || !marker || !draggable) return
 
-    marker.setDraggable(draggable);
-  }, [map, marker, draggable]);
+    marker.setDraggable(draggable)
+  }, [map, marker, draggable])
 
   // opacity 값이 있으면 투명도를 조절한다.
   useEffect(() => {
-    if (!map || !marker || !opacity) return;
+    if (!map || !marker || !opacity) return
 
-    marker.setOpacity(opacity);
-  }, [map, marker, opacity]);
+    marker.setOpacity(opacity)
+  }, [map, marker, opacity])
 
   // range 값이 있으면 마커의 가시반경을 조절한다.
   useEffect(() => {
-    if (!map || !marker || !range) return;
+    if (!map || !marker || !range) return
 
-    marker.setRange(range);
-  }, [map, marker, range]);
+    marker.setRange(range)
+  }, [map, marker, range])
 
   // title 값이 있으면 마커의 제목을 조절한다.
   useEffect(() => {
-    if (!map || !marker || !title) return;
+    if (!map || !marker || !title) return
 
-    marker.setTitle(title);
-  }, [map, marker, title]);
+    marker.setTitle(title)
+  }, [map, marker, title])
 
   // zIndex 값이 있으면 마커의 zindex를 조절한다.
   useEffect(() => {
-    if (!map || !marker || !zIndex) return;
+    if (!map || !marker || !zIndex) return
 
-    marker.setZIndex(zIndex);
-  }, [map, marker, zIndex]);
+    marker.setZIndex(zIndex)
+  }, [map, marker, zIndex])
 
   if (children)
     return (
@@ -238,9 +238,9 @@ const Marker: React.FC<MarkerProps> = ({
       >
         {children}
       </InfoWindow>
-    );
+    )
 
-  return <React.Fragment />;
-};
+  return <React.Fragment />
+}
 
-export default Marker;
+export default Marker

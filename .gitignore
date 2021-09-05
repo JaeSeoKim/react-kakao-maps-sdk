@@ -11,6 +11,7 @@
 # production
 /build
 /dist
+react-kakao-maps-sdk-*.tgz
 
 # misc
 .DS_Store

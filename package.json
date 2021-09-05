@@ -4,9 +4,8 @@
   "author": {
     "name": "JaeSeoKim",
     "email": "devjaeseo@gmail.com",
-    "url": "https://jaeseokim.dev/"
+    "url": "https://about.jaeseokim.dev/"
   },
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk.git"
@@ -20,29 +19,62 @@
     "daum-maps",
     "kakao-maps-sdk"
   ],
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": "./dist/index.modern.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "scripts": {
+    "build": "microbundle --jsx=React.createElement",
+    "dev": "microbundle --jsx=React.createElement watch",
+    "style": "run-s style:*",
+    "style:lint": "eslint .",
+    "style:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
+    "prepare": "husky install && gitmoji --init"
+  },
   "dependencies": {
-    "kakao.maps.d.ts": "^0.1.9",
+    "kakao.maps.d.ts": "^0.1.9"
+  },
+  "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
-  "scripts": {
-    "build": "rm -rf ./dist && tsc --project tsconfig.prod.json",
-    "task": "npm run build && cp package.json README.md ./dist",
-    "prepack:npm": "npm run task",
-    "pack:npm": "cd ./dist && npm pack",
-    "prepublish:npm": "npm run task",
-    "publish:npm": "cd ./dist && npm publish",
-    "dev": "react-scripts start",
-    "react-scripts:build": "react-scripts build",
-    "react-scripts:test": "react-scripts test",
-    "react-scripts:eject": "react-scripts eject"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^5.9.2",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^3.10.2",
+    "gitmoji-cli": "^4.6.1",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "microbundle": "^0.13.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "2.3.2",
+    "typescript": "^4.1.2"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
+  "files": [
+    "/lib"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -54,17 +86,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.19",
-    "@types/react": "^17.0.15",
-    "@types/react-dom": "^17.0.9",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.3.5",
-    "web-vitals": "^1.1.2"
   }
 }
