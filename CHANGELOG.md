@@ -1,7 +1,10 @@
-### 0.0.21
+### 0.1.0
 
-- EsModule support
-- 개발 구조 변경
+- using micorbundle
+- remove react-script
+- change directory sturctor
+- add husky, gitmoji, prettier
+- add github action CI
 
 ### 0.0.20
 
