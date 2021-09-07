@@ -4,7 +4,7 @@
 
 > 현재 개발 진행중 이며 제공하는 기능이 완벽하지 않을 수 있습니다. ISSUE와 PR 부탁드립니다.
 >
-> 사용 가능한 기능은 [API Docs](https://react-kakao-maps-sdk.jaeseokim.dev/docs/) 를 확인 해주세요. (0.1.0 버전 릴리즈 이전까지 Props, 사용방법 등 이 계속 변경 됩니다. )
+> 사용 가능한 기능은 [API Docs](https://react-kakao-maps-sdk.jaeseokim.dev/docs/) 를 확인 해주세요. (1.0.0 버전 릴리즈 이전까지 Props, 사용방법 등 이 계속 변경 됩니다. )
 
 ## Usage
 

@@ -299,7 +299,7 @@ const Map: React.FC<MapProps> = ({
     tileAnimation,
   ])
 
-  // containerElem 존재 하지 않을 때 kakaomap 객체 생성 로직f
+  // containerElem 존재 하지 않을 때 kakaomap 객체 생성 로직
   useLayoutEffect(() => {
     if (loading || containerElem) return
 
@@ -432,9 +432,7 @@ const Map: React.FC<MapProps> = ({
 
   return (
     <>
-      {!containerElem && (
-        <div id={id} style={style} className={className} ref={container}></div>
-      )}
+      <div id={id} style={style} className={className} ref={container}></div>
       {map && (
         <KakaoMapContext.Provider value={map}>
           {children}

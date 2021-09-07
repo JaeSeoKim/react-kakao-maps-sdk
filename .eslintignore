@@ -3,4 +3,5 @@ node_modules
 package.json
 package-lock.json
 public
-dist
+lib
+docs

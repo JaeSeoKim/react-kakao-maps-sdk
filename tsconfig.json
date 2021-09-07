@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "lib/esm",
     "target": "esnext",
     "module": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react",
     "strict": true,
     "declaration": true,
+    "declarationDir": "./lib/@types",
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,

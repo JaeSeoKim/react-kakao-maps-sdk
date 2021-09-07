@@ -1,0 +1,11 @@
+{
+  // This file is not used in compilation. It is here just for a nice editor experience.
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "react-kakao-maps-sdk": ["../src/index.ts"]
+    },
+    "types": ["kakao.maps.d.ts"]
+  }
+}

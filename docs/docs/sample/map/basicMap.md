@@ -1,0 +1,30 @@
+---
+title: "지도 생성하기"
+sidebar_position: 1
+---
+
+지도를 생성하는 가장 기본적인 예제입니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/basicMap/
+
+```tsx live
+function(){
+  return (
+    <Map // 지도를 표시할 Container
+      center={{
+        // 지도의 중심좌표
+        lat: 33.450701,
+        lng: 126.570667,
+      }}
+      style={{
+        // 지도의 크기
+        width: "100%",
+        height: "450px",
+      }}
+      level={3} // 지도의 확대 레벨
+    />
+  );
+}
+```
+
+<!-- <CodeBlock className="language-jsx">{SampleCreateMapSource}</CodeBlock> -->

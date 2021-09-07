@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export { default as Map } from "./components/Map"
 export type { MapProps } from "./components/Map"
 
