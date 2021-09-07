@@ -17,11 +17,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "14.x"
-      - name: docusaurus-build
+      - name: install core dependency
         run: |
           npm install
-          npm run build
-          cd docs
+      - name: build docusaurus
+        working-directory: docs
+        run: |
           npm install
           npm run build
         env:
