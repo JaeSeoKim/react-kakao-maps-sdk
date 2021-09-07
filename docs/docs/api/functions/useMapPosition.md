@@ -30,4 +30,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[hooks/useMapPosition.tsx:4](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/hooks/useMapPosition.tsx#L4)
+[hooks/useMapPosition.tsx:4](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/hooks/useMapPosition.tsx#L4)

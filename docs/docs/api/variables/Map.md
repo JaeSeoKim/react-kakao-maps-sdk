@@ -10,4 +10,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Map.tsx:225](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/components/Map.tsx#L225)
+[components/Map.tsx:225](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L225)

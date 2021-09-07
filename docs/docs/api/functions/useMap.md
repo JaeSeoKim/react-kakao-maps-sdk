@@ -16,4 +16,4 @@ kakao map 객체를 가져오는 hook 입니다.
 
 #### Defined in
 
-[hooks/useMap.tsx:7](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/hooks/useMap.tsx#L7)
+[hooks/useMap.tsx:7](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/hooks/useMap.tsx#L7)

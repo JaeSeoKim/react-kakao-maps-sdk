@@ -21,8 +21,8 @@ jobs:
         run: |
           npm install
       - name: build docusaurus
-        working-directory: docs
         run: |
+          cd docs
           npm install
           npm run build
         env:

@@ -10,4 +10,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:44](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/components/MapInfoWindow.tsx#L44)
+[components/MapInfoWindow.tsx:44](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/MapInfoWindow.tsx#L44)
