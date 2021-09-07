@@ -13,21 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
-          registry-url: "https://registry.npmjs.org"
-      - run: npm install
-      - run: npm build
-      - run: |
+          node-version: "14.x"
+      - name: docusaurus-build
+        run: |
           npm install
           npm run build
-      - env:
+          cd docs
+          npm install
+          npm run build
+        env:
           KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
           NODE_ENV: development
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./build
+          publish_dir: ./docs/build
           cname: react-kakao-maps-sdk.jaeseokim.dev
