@@ -1,9 +1,11 @@
 name: Delete Environment (default settings)
 
 on:
-  delete:
-    branches-ignore:
-      - main
+  workflow_dispatch:
+    inputs:
+      work:
+        description: 작업 트리거
+        required: false
 
 jobs:
   delete:
@@ -11,6 +13,5 @@ jobs:
     steps:
       - uses: strumwolf/delete-deployment-environment@v2
         with:
-          # ⚠️ The provided token needs permission for admin write:org
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
           environment: Production
