@@ -10,4 +10,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:39](https://github.com/JaeSeoKim/react-kakao-maps/blob/025a39b/src/components/CustomOverlayMap.tsx#L39)
+[components/CustomOverlayMap.tsx:39](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/components/CustomOverlayMap.tsx#L39)

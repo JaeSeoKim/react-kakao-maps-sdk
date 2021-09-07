@@ -10,8 +10,8 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name                | Type                   |
-| :------------------ | :--------------------- |
+| Name | Type |
+| :------ | :------ |
 | `__namedParameters` | `useKakaoMapsSDKProps` |
 
 #### Returns
@@ -20,4 +20,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[hooks/useKakaoMapsSDK.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/025a39b/src/hooks/useKakaoMapsSDK.tsx#L15)
+[hooks/useKakaoMapsSDK.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/hooks/useKakaoMapsSDK.tsx#L15)

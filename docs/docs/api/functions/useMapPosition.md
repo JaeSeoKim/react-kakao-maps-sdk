@@ -6,7 +6,7 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-▸ `Const` **useMapPosition**(): (`position`: { `lat`: `number` ; `lng`: `number` }, `isPanto`: `boolean`, `padding?`: `number`) => `void`
+▸ `Const` **useMapPosition**(): (`position`: { `lat`: `number` ; `lng`: `number`  }, `isPanto`: `boolean`, `padding?`: `number`) => `void`
 
 #### Returns
 
@@ -16,13 +16,13 @@ custom_edit_url: null
 
 ##### Parameters
 
-| Name           | Type      | Default value |
-| :------------- | :-------- | :------------ |
-| `position`     | `Object`  | `undefined`   |
-| `position.lat` | `number`  | `undefined`   |
-| `position.lng` | `number`  | `undefined`   |
-| `isPanto`      | `boolean` | `false`       |
-| `padding?`     | `number`  | `undefined`   |
+| Name | Type | Default value |
+| :------ | :------ | :------ |
+| `position` | `Object` | `undefined` |
+| `position.lat` | `number` | `undefined` |
+| `position.lng` | `number` | `undefined` |
+| `isPanto` | `boolean` | `false` |
+| `padding?` | `number` | `undefined` |
 
 ##### Returns
 
@@ -30,4 +30,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[hooks/useMapPosition.tsx:4](https://github.com/JaeSeoKim/react-kakao-maps/blob/025a39b/src/hooks/useMapPosition.tsx#L4)
+[hooks/useMapPosition.tsx:4](https://github.com/JaeSeoKim/react-kakao-maps/blob/2388133/src/hooks/useMapPosition.tsx#L4)

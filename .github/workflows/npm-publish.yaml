@@ -17,17 +17,3 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: docusaurus-build
-        working-directory: docs
-        run: |
-          npm install
-          npm run build
-        env:
-          KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
-          NODE_ENV: development
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./build
-          cname: react-kakao-maps-sdk.jaeseokim.dev
