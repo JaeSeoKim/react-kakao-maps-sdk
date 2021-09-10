@@ -1,6 +1,16 @@
-<h1 align="center">react-kakao-maps-sdk</h1>
-
-<p align="center"><a href="https://apis.map.kakao.com/" alt="kakao api">Kakao Maps API</a>를 react에 맞게 포팅한 라이브러리 입니다.</p>
+<div align="center">
+  <img src="./docs/static/img/logo.png" width="128px"/>
+  <h1>react-kakao-maps-sdk</h1>
+  <p><a href="https://apis.map.kakao.com/" alt="kakao api">Kakao Maps API</a>를 react에 맞게 포팅한 라이브러리 입니다.</p>
+  <p>
+    <img alt="version" src="https://img.shields.io/npm/v/react-kakao-maps-sdk" />
+    <img alt="license" src="https://img.shields.io/npm/l/react-kakao-maps-sdk" />
+    <img alt="npm publish build status" src="https://github.com/JaeSeoKim/react-kakao-maps-sdk/actions/workflows/npm-publish.yaml/badge.svg" />
+    <img alt="docs build status" src="https://github.com/JaeSeoKim/react-kakao-maps-sdk/actions/workflows/docs.yaml/badge.svg" />
+    <img alt="npm dm" src="https://img.shields.io/npm/dm/react-kakao-maps-sdk" />
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/JaeSeoKim/react-kakao-maps-sdk">
+  </p>
+</div>
 
 > 현재 개발 진행중 이며 제공하는 기능이 완벽하지 않을 수 있습니다. ISSUE와 PR 부탁드립니다.
 >
@@ -15,25 +25,26 @@
 ```html
 <script
   type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."
+  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다.&libraries=services,clusterer,drawing"
 ></script>
 ```
 
-또는 라이브러리 내부에서 hook으로 제공하는 `useKakaoMapsSDK` 를 이용하여 동적로드도 가능합니다.
+## TypeScript
 
-```jsx
-const Test = () => {
-  const isLoading = useKakaoMapsSDK({ apiKey: KAKAO_MAP_API_KEY })
+타입스크립트 사용자를 위해 [kakao.maps.d.ts](https://github.com/JaeSeoKim/kakao.maps.d.ts) 패키지를 제공합니다.
 
-  if (isLoadgin) {
-    return <>로딩...</>
+`tsconfig.json`의 `compilerOptions.types` 속성에 `kakao.maps.d.ts` 패키지를 추가하시면 됩니다.
+
+```js
+{
+  ...,
+  "compilerOptions": {
+    ...,
+    "types": [
+      ...,
+      "daum.maps.d.ts"
+    ]
   }
-  return (
-    <Map
-      center={{ lat: 33.5563, lng: 126.79581 }}
-      style={{ width: "480px", height: "360px" }}
-    />
-  )
 }
 ```
 
@@ -79,19 +90,13 @@ const MarkerWithInfoWindow = () => (
 
 ## Documentation
 
-- [Sample Docs](https://react-kakao-maps-sdk.jaeseokim.dev/docs/)
+- [Tutorial](https://react-kakao-maps-sdk.jaeseokim.dev/docs/intro)
+- [Sample](https://react-kakao-maps-sdk.jaeseokim.dev/docs/sample)
+- [API](https://react-kakao-maps-sdk.jaeseokim.dev/docs/api)
 
-## Working List
+## Package
 
-### Map
-
-- Marker
-- InfoWindow
-- CustomOverlay
-
-### Roadview
-
-- CustomOverlay
+- [kakao.maps.d.ts](https://github.com/JaeSeoKim/kakao.maps.d.ts)
 
 ## Contribute
 

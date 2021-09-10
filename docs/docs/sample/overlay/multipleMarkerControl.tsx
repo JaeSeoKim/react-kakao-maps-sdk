@@ -3,7 +3,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk"
 import { useState } from "react"
 
 const SampleCreateMap = () => {
-  const [markers, setMarkers] = useState([
+  const [markers] = useState([
     {
       position: {
         lat: 33.450701,

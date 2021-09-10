@@ -9,30 +9,19 @@ export interface MapProps {
   /**
    * MapContinaer의 id에 대해서 지정합니다.
    *
-   * containerElem가 들어온다면 무시 됩니다.
-   *
    * @default  "kakao-map-container"
    */
   id?: string
 
   /**
    * MapContainer의 className에 대해서 지정합니다.
-   *
-   * containerElem가 들어온다면 무시 됩니다.
    */
   className?: string
 
   /**
    * MapContainer의 style에 대해서 지정합니다.
-   *
-   * containerElem가 들어온다면 무시 됩니다.
    */
   style?: React.CSSProperties
-
-  /**
-   * MapContainer Elem를 사용자 정의 합니다.
-   */
-  containerElem?: HTMLElement | null
 
   /**
    * 중심으로 설정할 위치 입니다.
@@ -54,12 +43,6 @@ export interface MapProps {
    * padding 만큼 제외하고 영역을 계산하며, padding 을 지정하지 않으면 기본값으로 32가 사용된다.
    */
   padding?: number
-
-  /**
-   * 스크립트를 동적으로 로드확인을 위해 사용한다.
-   * @default false
-   */
-  loading?: boolean
 
   /**
    * 확대 수준 (기본값: 3)
@@ -85,6 +68,11 @@ export interface MapProps {
    * 마우스 드래그, 휠, 모바일 터치를 이용한 시점 변경(이동, 확대, 축소) 가능 여부
    */
   draggable?: boolean
+
+  /**
+   * 마우스 휠이나 멀티터치로 지도 확대, 축소 기능을 막습니다. 상황에 따라 지도 확대, 축소 기능을 제어할 수 있습니다.
+   */
+  zoomable?: boolean
 
   /**
    * 마우스 휠, 모바일 터치를 이용한 확대 및 축소 가능 여부
@@ -126,7 +114,7 @@ export interface MapProps {
   /**
    * map 생성 후 해당 객체를 전달하는 함수
    */
-  onMapCreated?: (map: kakao.maps.Map) => void
+  onCreate?: (map: kakao.maps.Map) => void
 
   /**
    * 중심 좌표가 변경되면 발생한다.
@@ -222,19 +210,23 @@ export interface MapProps {
   onMaptypeidChanged?: (target: kakao.maps.Map) => void
 }
 
+/**
+ * 기본적인 Map 객체를 생성하는 Comeponent 입니다.
+ * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
+ * `onCreate` 이벤트를 통해 생성 후 `map` 객체에 직접 접근하여 초기 설정이 가능합니다.
+ */
 const Map: React.FC<MapProps> = ({
   id = "kakao-map-container",
   style,
-  containerElem,
   children,
   center,
   isPanto = false,
   padding = 32,
   className,
-  loading = false,
   disableDoubleClick,
   disableDoubleClickZoom,
   draggable,
+  zoomable,
   keyboardShortcuts,
   level,
   maxLevel,
@@ -243,7 +235,7 @@ const Map: React.FC<MapProps> = ({
   projectionId,
   scrollwheel,
   tileAnimation,
-  onMapCreated,
+  onCreate,
   onBoundsChanged,
   onCenterChanged,
   onClick,
@@ -263,51 +255,17 @@ const Map: React.FC<MapProps> = ({
 
   const container = useRef<HTMLDivElement>(null)
 
-  // containerElem 존재할 때 Kakaomap 생성 로직
-  useEffect(() => {
-    if (loading || !containerElem) return
-
-    kakao.maps.load(() => {
-      // 초기 위치 객체 생성
-      const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng)
-
-      // kakaoMap 객체 생성
-      const kakaoMap = new kakao.maps.Map(containerElem, {
-        center: initalMapCenter,
-        disableDoubleClick: disableDoubleClick,
-        disableDoubleClickZoom: disableDoubleClickZoom,
-        draggable: draggable,
-        keyboardShortcuts: keyboardShortcuts,
-        level: level,
-        mapTypeId: mapTypeId,
-        projectionId: projectionId,
-        scrollwheel: scrollwheel,
-        tileAnimation: tileAnimation,
-      })
-
-      // kakaoMap 객체 저장
-      setMap(kakaoMap)
-    })
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    loading,
-    containerElem,
-    disableDoubleClick,
-    disableDoubleClickZoom,
-    mapTypeId,
-    tileAnimation,
-  ])
-
-  // containerElem 존재 하지 않을 때 kakaomap 객체 생성 로직
   useLayoutEffect(() => {
-    if (loading || containerElem) return
+    if (!window.kakao) {
+      console.warn(
+        "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
+      )
+      return
+    }
 
     kakao.maps.load(() => {
-      // 초기 위치 객체 생성
       const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng)
 
-      // kakaoMap 객체 생성
       const kakaoMap = new kakao.maps.Map(container.current as HTMLDivElement, {
         center: initalMapCenter,
         disableDoubleClick: disableDoubleClick,
@@ -321,19 +279,15 @@ const Map: React.FC<MapProps> = ({
         tileAnimation: tileAnimation,
       })
 
-      // kakaoMap 객체 저장
       setMap(kakaoMap)
-      if (onMapCreated) onMapCreated(kakaoMap)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    loading,
-    containerElem,
-    disableDoubleClick,
-    disableDoubleClickZoom,
-    mapTypeId,
-    tileAnimation,
-  ])
+  }, [disableDoubleClick, disableDoubleClickZoom, mapTypeId, tileAnimation])
+
+  useEffect(() => {
+    if (!map || !onCreate) return
+    onCreate(map)
+  }, [map, onCreate])
 
   // center position 변경시 map center 변경
   useEffect(() => {
@@ -354,35 +308,22 @@ const Map: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, center.lat, center.lng])
 
-  // containerElem size 갱신시 map relayout 이벤트 처리
-  useEffect(() => {
-    if (!map || !containerElem) return
-
-    const observer = new MutationObserver(() => {
-      map.relayout()
-    })
-
-    observer.observe(containerElem, {
-      attributes: true,
-      attributeFilter: ["style", "class"],
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [map, containerElem])
-
   // Container style, className, id 등 디자인 요소가 변경될 요지가 변경시 relayout
   useEffect(() => {
-    if (!map || containerElem) return
+    if (!map) return
 
     map.relayout()
-  }, [map, style, className, id, containerElem])
+  }, [map, style, className, id])
 
   useEffect(() => {
     if (!map || !draggable) return
     map.setDraggable(draggable)
   }, [map, draggable])
+
+  useEffect(() => {
+    if (!map || !zoomable) return
+    map.setZoomable(zoomable)
+  }, [map, zoomable])
 
   useEffect(() => {
     if (!map || !keyboardShortcuts || typeof keyboardShortcuts !== "boolean")

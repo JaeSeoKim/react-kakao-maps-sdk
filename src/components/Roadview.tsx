@@ -9,30 +9,19 @@ export interface RoadviewProps {
   /**
    * roadviewContinaer의 id에 대해서 지정합니다.
    *
-   * containerElem가 들어온다면 무시 됩니다.
-   *
    * @default  "kakao-roadview-container"
    */
   id?: string
 
   /**
    * roadviewContainer의 className에 대해서 지정합니다.
-   *
-   * containerElem가 들어온다면 무시 됩니다.
    */
   className?: string
 
   /**
    * roadviewContainer의 style에 대해서 지정합니다.
-   *
-   * containerElem가 들어온다면 무시 됩니다.
    */
   style?: React.CSSProperties
-
-  /**
-   * roadviewContainer Elem를 사용자 정의 합니다.
-   */
-  containerElem?: HTMLElement | null
 
   /**
    * 중심으로 설정할 위치 입니다.
@@ -78,7 +67,7 @@ export interface RoadviewProps {
   /**
    * 로드뷰 생성후 해당 객체를 전달하는 callback.
    */
-  onRoadviewCreated?: (roadview: kakao.maps.Roadview) => void
+  onCreate?: (roadview: kakao.maps.Roadview) => void
 
   /**
    * 로드뷰가 초기화를 끝내면 발생한다.
@@ -101,9 +90,13 @@ export interface RoadviewProps {
   onPositionChanged?: (target: kakao.maps.Roadview) => void
 }
 
+/**
+ * Roadview를 Roadview를 생성하는 컴포넌트 입니다.
+ * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
+ * `onCreate` 이벤트를 통해 생성 후 `Roadview` 객체에 직접 접근하여 초기 설정이 가능합니다.
+ */
 const Roadview: React.FC<RoadviewProps> = ({
   id = "kakao-roadview-container",
-  containerElem,
   style,
   children,
   position,
@@ -114,7 +107,7 @@ const Roadview: React.FC<RoadviewProps> = ({
   panoY,
   tilt,
   zoom,
-  onRoadviewCreated,
+  onCreate,
   onInit,
   onPanoidChange,
   onPositionChanged,
@@ -124,11 +117,15 @@ const Roadview: React.FC<RoadviewProps> = ({
   const container = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const target = containerElem ? containerElem : container.current
+    if (!window.kakao) {
+      console.warn(
+        "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
+      )
+      return
+    }
+    if (!container.current) return
 
-    if (!target) return
-
-    const kakaoRoadview = new kakao.maps.Roadview(target, {
+    const kakaoRoadview = new kakao.maps.Roadview(container.current, {
       pan: pan,
       panoId: panoId,
       panoX: panoX,
@@ -138,9 +135,13 @@ const Roadview: React.FC<RoadviewProps> = ({
     })
 
     setRoadview(kakaoRoadview)
-    if (onRoadviewCreated) onRoadviewCreated(kakaoRoadview)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerElem])
+  }, [panoX, panoY, zoom])
+
+  useEffect(() => {
+    if (!roadview || !onCreate) return
+    onCreate(roadview)
+  }, [roadview, onCreate])
 
   useEffect(() => {
     if (
@@ -176,30 +177,12 @@ const Roadview: React.FC<RoadviewProps> = ({
     roadview.setPanoId(panoId, newPostion)
   }, [roadview, panoId, position.lat, position.lng])
 
-  // containerElem size 갱신시 roadview relayout 이벤트 처리
-  useEffect(() => {
-    if (!roadview || !containerElem) return
-
-    const observer = new MutationObserver(() => {
-      roadview.relayout()
-    })
-
-    observer.observe(containerElem, {
-      attributes: true,
-      attributeFilter: ["style", "class"],
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [roadview, containerElem])
-
   // Container style, className, id 등 디자인 요소가 변경될 요지가 변경시 relayout
   useEffect(() => {
-    if (!roadview || containerElem) return
+    if (!roadview) return
 
     roadview.relayout()
-  }, [roadview, style, className, id, containerElem])
+  }, [roadview, style, className, id])
 
   useEffect(() => {
     if (!roadview) return
@@ -220,9 +203,7 @@ const Roadview: React.FC<RoadviewProps> = ({
 
   return (
     <>
-      {!containerElem && (
-        <div id={id} className={className} style={style} ref={container}></div>
-      )}
+      <div id={id} className={className} style={style} ref={container}></div>
       {roadview && (
         <KakaoRoadviewContext.Provider value={roadview}>
           {children}

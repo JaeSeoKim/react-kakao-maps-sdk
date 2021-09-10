@@ -7,12 +7,14 @@
 
 import React from "react"
 import * as ReactKakaoMapsSdk from "react-kakao-maps-sdk"
+import clusterPositionsData from "./clusterPositions.json"
 
 // Add react-live imports you need here
 const ReactLiveScope = {
   React,
   ...React,
   ...ReactKakaoMapsSdk,
+  clusterPositionsData,
 }
 
 export default ReactLiveScope

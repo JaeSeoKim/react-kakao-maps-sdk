@@ -4,17 +4,21 @@ import { KakaoMapContext } from "../components/Map"
 const useMapPosition = () => {
   const map = useContext(KakaoMapContext)
 
-  return (
+  return ({
+    position,
+    isPanto = false,
+    padding = 32,
+  }: {
     position: {
       lat: number
       lng: number
-    },
+    }
     /**
      * 중심 좌표를 지정한 좌표 또는 영역으로 부드럽게 이동한다
      *
      * @default false
      */
-    isPanto: boolean = false,
+    isPanto?: boolean
     /**
      * 중심 좌표를 지정한 좌표 또는 영역으로 부드럽게 이동한다. 필요하면 확대 또는 축소도 수행한다.
      * 만약 이동할 거리가 지도 화면의 크기보다 클 경우 애니메이션 없이 이동한다.
@@ -23,7 +27,7 @@ const useMapPosition = () => {
      * @default 32
      */
     padding?: number
-  ) => {
+  }) => {
     if (isPanto) {
       return map.panTo(
         new kakao.maps.LatLng(position.lat, position.lng),

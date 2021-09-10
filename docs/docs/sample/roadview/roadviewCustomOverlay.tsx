@@ -9,7 +9,11 @@ import "./roadviewCustomOverlay.css"
 
 const Content = () => (
   <div className="overlay_info">
-    <a href="https://place.map.kakao.com/17600274" target="_blank">
+    <a
+      href="https://place.map.kakao.com/17600274"
+      target="_blank"
+      rel="noreferrer"
+    >
       <strong>월정리 해수욕장</strong>
     </a>
     <div className="desc">

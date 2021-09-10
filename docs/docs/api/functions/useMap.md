@@ -6,9 +6,16 @@ sidebar_position: 0
 custom_edit_url: null
 ---
 
-▸ `Const` **useMap**(): `Map`
+▸ `Const` **useMap**(`componentName?`): `Map`
 
 kakao map 객체를 가져오는 hook 입니다.
+Map 객체 내부가 아니라면 Error를 발생 시킵니다.
+
+#### Parameters
+
+| Name             | Type     |
+| :--------------- | :------- |
+| `componentName?` | `string` |
 
 #### Returns
 
@@ -16,4 +23,4 @@ kakao map 객체를 가져오는 hook 입니다.
 
 #### Defined in
 
-[hooks/useMap.tsx:7](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/hooks/useMap.tsx#L7)
+[hooks/useMap.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/hooks/useMap.tsx#L8)

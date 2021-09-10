@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useMemo, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import ReactDOM from "react-dom"
-import { KakaoMapContext } from "./Map"
+import useMap from "../hooks/useMap"
 
 export interface CustomOverlayMapProps {
   /**
@@ -33,9 +33,13 @@ export interface CustomOverlayMapProps {
   /**
    * 커스텀 오버레이를 생성 후 해당 객체를 가지고 callback 함수를 실행 시켜줌
    */
-  onCustomOverlayCreated?: (customOverlay: kakao.maps.CustomOverlay) => void
+  onCreate?: (customOverlay: kakao.maps.CustomOverlay) => void
 }
 
+/**
+ * Map에 CustomOverlay를 올릴 때 사용하는 컴포넌트 입니다.
+ * `onCreate` 함수를 통해서 `CustomOverlay` 객체에 직접 접근 및 초기 설정 작업을 지정할 수 있습니다.
+ */
 const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   position,
   children,
@@ -43,9 +47,9 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   xAnchor,
   yAnchor,
   zIndex,
-  onCustomOverlayCreated,
+  onCreate,
 }) => {
-  const map = useContext(KakaoMapContext)
+  const map = useMap(`CustomOverlayMap`)
   const container = useRef(document.createElement("div"))
 
   const overlayPosition = useMemo(() => {
@@ -62,11 +66,14 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
       content: container.current,
     })
 
-    if (onCustomOverlayCreated) onCustomOverlayCreated(KakaoCustomOverlay)
     return KakaoCustomOverlay
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickable, xAnchor, yAnchor])
+
+  useEffect(() => {
+    if (onCreate) onCreate(overlay)
+  }, [overlay, onCreate])
 
   useEffect(() => {
     if (!map) return

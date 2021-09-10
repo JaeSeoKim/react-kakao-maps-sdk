@@ -4,4 +4,11 @@ package.json
 package-lock.json
 public
 lib
-docs
+
+docs/.cache
+docs/.docusaurus
+docs/build
+docs/node_modules
+docs/package.json
+docs/package-lock.json
+docs/public

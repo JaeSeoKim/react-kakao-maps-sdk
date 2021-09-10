@@ -1,0 +1,73 @@
+---
+title: "마커 클러스터러에 클릭이벤트 추가하기"
+---
+
+마커 클러스터러에 클릭 이벤트를 등록합니다. 클러스터 마커를 클릭했을 때 해당 클러스터러 마커의 위치를 중심으로 지도를 1레벨씩 확대하는 예제입니다.
+
+사용한 데이터를 보시려면 [여기를 클릭하세요!](https://apis.map.kakao.com/download/web/data/chicken.json)
+
+> original docs : https://apis.map.kakao.com/web/sample/addClustererClickEvent/
+
+```tsx live
+function(){
+  const [positions, setPositions] = useState([]);
+
+  useEffect(() => {
+    setPositions(clusterPositionsData.positions);
+  },[])
+
+  const ClusterContainer = ({positions}) => {
+    // hook를 이용하여 map 객체 참조 합니다.
+    const map = useMap()
+
+    const onClusterclick = (_target, cluster) => {
+        console.log("hello");
+        // 현재 지도 레벨에서 1레벨 확대한 레벨
+        const level = map.getLevel()-1;
+
+        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+        map.setLevel(level, {anchor: cluster.getCenter()});
+    };
+
+    return (
+      <MarkerClusterer
+        averageCenter={true} // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel={10} // 클러스터 할 최소 지도 레벨
+        disableClickZoom={true} // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+        // 마커 클러스터러에 클릭이벤트를 등록합니다
+        // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
+        // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
+        onClusterclick={onClusterclick}
+      >
+        {positions.map((pos) => (
+          <MapMarker
+            key={`${pos.lat}-${pos.lng}`}
+            position={{
+              lat: pos.lat,
+              lng: pos.lng,
+            }}
+          />
+        ))}
+      </MarkerClusterer>
+    )
+  }
+
+  return (
+    <Map // 지도를 표시할 Container
+        center={{
+          // 지도의 중심좌표
+          lat: 36.2683,
+          lng: 127.6358,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "450px",
+        }}
+        level={14} // 지도의 확대 레벨
+      >
+        <ClusterContainer positions={positions} />
+      </Map>
+  );
+}
+```

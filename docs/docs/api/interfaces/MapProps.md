@@ -16,16 +16,16 @@ custom_edit_url: null
 
 #### Type declaration
 
-| Name | Type |
-| :------ | :------ |
+| Name  | Type     |
+| :---- | :------- |
 | `lat` | `number` |
 | `lng` | `number` |
 
 #### Defined in
 
-[components/Map.tsx:40](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L40)
+[components/Map.tsx:29](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L29)
 
-___
+---
 
 ### className
 
@@ -33,25 +33,11 @@ ___
 
 MapContainer의 className에 대해서 지정합니다.
 
-containerElem가 들어온다면 무시 됩니다.
-
 #### Defined in
 
-[components/Map.tsx:23](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L23)
+[components/Map.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L19)
 
-___
-
-### containerElem
-
-• `Optional` **containerElem**: ``null`` \| `HTMLElement`
-
-MapContainer Elem를 사용자 정의 합니다.
-
-#### Defined in
-
-[components/Map.tsx:35](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L35)
-
-___
+---
 
 ### disableDoubleClick
 
@@ -61,9 +47,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:97](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L97)
+[components/Map.tsx:85](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L85)
 
-___
+---
 
 ### disableDoubleClickZoom
 
@@ -73,9 +59,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:102](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L102)
+[components/Map.tsx:90](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L90)
 
-___
+---
 
 ### draggable
 
@@ -85,9 +71,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:87](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L87)
+[components/Map.tsx:70](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L70)
 
-___
+---
 
 ### id
 
@@ -95,15 +81,13 @@ ___
 
 MapContinaer의 id에 대해서 지정합니다.
 
-containerElem가 들어온다면 무시 됩니다.
-
 **`default`** "kakao-map-container"
 
 #### Defined in
 
-[components/Map.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L16)
+[components/Map.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L14)
 
-___
+---
 
 ### isPanto
 
@@ -115,21 +99,21 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L49)
+[components/Map.tsx:38](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L38)
 
-___
+---
 
 ### keyboardShortcuts
 
-• `Optional` **keyboardShortcuts**: `boolean` \| { `speed`: `number`  }
+• `Optional` **keyboardShortcuts**: `boolean` \| { `speed`: `number` }
 
 키보드의 방향키와 +, – 키로 지도 이동,확대,축소 가능 여부 (기본값: false)
 
 #### Defined in
 
-[components/Map.tsx:117](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L117)
+[components/Map.tsx:105](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L105)
 
-___
+---
 
 ### level
 
@@ -139,23 +123,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:67](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L67)
+[components/Map.tsx:50](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L50)
 
-___
-
-### loading
-
-• `Optional` **loading**: `boolean`
-
-스크립트를 동적으로 로드확인을 위해 사용한다.
-
-**`default`** false
-
-#### Defined in
-
-[components/Map.tsx:62](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L62)
-
-___
+---
 
 ### mapTypeId
 
@@ -165,9 +135,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:82](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L82)
+[components/Map.tsx:65](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L65)
 
-___
+---
 
 ### maxLevel
 
@@ -177,9 +147,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:72](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L72)
+[components/Map.tsx:55](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L55)
 
-___
+---
 
 ### minLevel
 
@@ -189,9 +159,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:77](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L77)
+[components/Map.tsx:60](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L60)
 
-___
+---
 
 ### padding
 
@@ -203,9 +173,9 @@ padding 만큼 제외하고 영역을 계산하며, padding 을 지정하지 않
 
 #### Defined in
 
-[components/Map.tsx:56](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L56)
+[components/Map.tsx:45](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L45)
 
-___
+---
 
 ### projectionId
 
@@ -215,9 +185,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:107](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L107)
+[components/Map.tsx:95](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L95)
 
-___
+---
 
 ### scrollwheel
 
@@ -227,9 +197,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:92](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L92)
+[components/Map.tsx:80](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L80)
 
-___
+---
 
 ### style
 
@@ -237,13 +207,11 @@ ___
 
 MapContainer의 style에 대해서 지정합니다.
 
-containerElem가 들어온다면 무시 됩니다.
-
 #### Defined in
 
-[components/Map.tsx:30](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L30)
+[components/Map.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L24)
 
-___
+---
 
 ### tileAnimation
 
@@ -253,7 +221,19 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:112](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L112)
+[components/Map.tsx:100](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L100)
+
+---
+
+### zoomable
+
+• `Optional` **zoomable**: `boolean`
+
+마우스 휠이나 멀티터치로 지도 확대, 축소 기능을 막습니다. 상황에 따라 지도 확대, 축소 기능을 제어할 수 있습니다.
+
+#### Defined in
+
+[components/Map.tsx:75](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L75)
 
 ## Methods
 
@@ -265,8 +245,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -275,9 +255,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:149](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L149)
+[components/Map.tsx:137](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L137)
 
-___
+---
 
 ### onCenterChanged
 
@@ -287,8 +267,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -297,9 +277,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:134](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L134)
+[components/Map.tsx:122](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L122)
 
-___
+---
 
 ### onClick
 
@@ -309,9 +289,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -320,9 +300,31 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:154](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L154)
+[components/Map.tsx:142](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L142)
 
-___
+---
+
+### onCreate
+
+▸ `Optional` **onCreate**(`map`): `void`
+
+map 생성 후 해당 객체를 전달하는 함수
+
+#### Parameters
+
+| Name  | Type  |
+| :---- | :---- |
+| `map` | `Map` |
+
+#### Returns
+
+`void`
+
+#### Defined in
+
+[components/Map.tsx:117](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L117)
+
+---
 
 ### onDoubleClick
 
@@ -332,9 +334,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -343,9 +345,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:162](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L162)
+[components/Map.tsx:150](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L150)
 
-___
+---
 
 ### onDrag
 
@@ -355,9 +357,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -366,9 +368,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:194](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L194)
+[components/Map.tsx:182](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L182)
 
-___
+---
 
 ### onDragEnd
 
@@ -378,9 +380,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -389,9 +391,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:202](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L202)
+[components/Map.tsx:190](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L190)
 
-___
+---
 
 ### onDragStart
 
@@ -401,9 +403,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -412,9 +414,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:186](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L186)
+[components/Map.tsx:174](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L174)
 
-___
+---
 
 ### onIdle
 
@@ -425,8 +427,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -435,31 +437,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:211](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L211)
+[components/Map.tsx:199](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L199)
 
-___
-
-### onMapCreated
-
-▸ `Optional` **onMapCreated**(`map`): `void`
-
-map 생성 후 해당 객체를 전달하는 함수
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `map` | `Map` |
-
-#### Returns
-
-`void`
-
-#### Defined in
-
-[components/Map.tsx:129](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L129)
-
-___
+---
 
 ### onMaptypeidChanged
 
@@ -469,8 +449,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -479,9 +459,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:222](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L222)
+[components/Map.tsx:210](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L210)
 
-___
+---
 
 ### onMouseMove
 
@@ -491,9 +471,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -502,9 +482,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:178](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L178)
+[components/Map.tsx:166](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L166)
 
-___
+---
 
 ### onRightClick
 
@@ -514,9 +494,9 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `target` | `Map` |
+| Name         | Type         |
+| :----------- | :----------- |
+| `target`     | `Map`        |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -525,9 +505,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:170](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L170)
+[components/Map.tsx:158](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L158)
 
-___
+---
 
 ### onTileLoaded
 
@@ -538,8 +518,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -548,9 +528,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:217](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L217)
+[components/Map.tsx:205](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L205)
 
-___
+---
 
 ### onZoomChanged
 
@@ -560,8 +540,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -570,9 +550,9 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:144](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L144)
+[components/Map.tsx:132](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L132)
 
-___
+---
 
 ### onZoomStart
 
@@ -582,8 +562,8 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
+| Name     | Type  |
+| :------- | :---- |
 | `target` | `Map` |
 
 #### Returns
@@ -592,4 +572,4 @@ ___
 
 #### Defined in
 
-[components/Map.tsx:139](https://github.com/JaeSeoKim/react-kakao-maps/blob/2648067/src/components/Map.tsx#L139)
+[components/Map.tsx:127](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L127)

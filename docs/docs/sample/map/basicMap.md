@@ -26,5 +26,3 @@ function(){
   );
 }
 ```
-
-<!-- <CodeBlock className="language-jsx">{SampleCreateMapSource}</CodeBlock> -->

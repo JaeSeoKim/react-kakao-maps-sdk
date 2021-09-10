@@ -31,6 +31,7 @@ const SampleCreateMap = () => {
             href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667"
             style={{ color: "blue" }}
             target="_blank"
+            rel="noreferrer"
           >
             큰지도보기
           </a>{" "}
@@ -38,6 +39,7 @@ const SampleCreateMap = () => {
             href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667"
             style={{ color: "blue" }}
             target="_blank"
+            rel="noreferrer"
           >
             길찾기
           </a>

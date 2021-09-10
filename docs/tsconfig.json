@@ -6,6 +6,7 @@
     "paths": {
       "react-kakao-maps-sdk": ["../src/index.ts"]
     },
+    "resolveJsonModule": true,
     "types": ["kakao.maps.d.ts"]
   }
 }

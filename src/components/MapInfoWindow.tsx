@@ -1,6 +1,6 @@
-import React, { useContext, useMemo } from "react"
-import { KakaoMapContext } from "./Map"
+import React, { useMemo } from "react"
 import InfoWindow from "./InfoWindow"
+import useMap from "../hooks/useMap"
 
 export interface MapInfoWindowProps {
   /**
@@ -38,9 +38,13 @@ export interface MapInfoWindowProps {
   /**
    * 인포윈도우 객체 생성후 해당 객체를 반환하는 함수
    */
-  onInfoWindowCreated?: (infoWindow: kakao.maps.InfoWindow) => void
+  onCreate?: (infoWindow: kakao.maps.InfoWindow) => void
 }
 
+/**
+ * Map 컴포넌트에서 InfoWindow를 그릴 때 사용됩니다.
+ * `onCreate` 이벤트를 통해 생성 후 `infoWindow` 객체에 직접 접근하여 초기 설정이 가능합니다.
+ */
 const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
   position,
   children,
@@ -49,10 +53,9 @@ const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
   range,
   removable,
   zIndex,
-  onInfoWindowCreated,
+  onCreate,
 }) => {
-  const map = useContext(KakaoMapContext)
-
+  const map = useMap(`MapInfoWindow`)
   const infoPosition = useMemo(() => {
     return new kakao.maps.LatLng(position.lat, position.lng)
   }, [position.lat, position.lng])
@@ -66,7 +69,7 @@ const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
       zIndex={zIndex}
       map={map}
       position={infoPosition}
-      onInfoWindowCreated={onInfoWindowCreated}
+      onCreate={onCreate}
     >
       {children}
     </InfoWindow>

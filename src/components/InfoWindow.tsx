@@ -34,7 +34,7 @@ interface InfoWindowProps {
   /**
    * 인포윈도우 객체 생성후 해당 객체를 반환하는 함수
    */
-  onInfoWindowCreated?: (infoWindow: kakao.maps.InfoWindow) => void
+  onCreate?: (infoWindow: kakao.maps.InfoWindow) => void
 }
 
 const InfoWindow: React.FC<InfoWindowProps> = ({
@@ -47,7 +47,7 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
   range,
   removable,
   zIndex,
-  onInfoWindowCreated,
+  onCreate,
 }) => {
   const container = useRef(document.createElement("div"))
 
@@ -61,10 +61,13 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
       content: container.current,
       position: position,
     })
-    if (onInfoWindowCreated) onInfoWindowCreated(kakaoInfoWindow)
     return kakaoInfoWindow
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (onCreate) onCreate(infoWindow)
+  }, [infoWindow, onCreate])
 
   useEffect(() => {
     infoWindow.open(map, marker)

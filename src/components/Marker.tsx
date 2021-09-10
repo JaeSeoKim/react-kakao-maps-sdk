@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useContext, useEffect, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import InfoWindow from "./InfoWindow"
+import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
 
 interface MarkerProps {
   map: kakao.maps.Map | kakao.maps.Roadview
@@ -9,7 +10,7 @@ interface MarkerProps {
   /**
    * marker 생성 후 marker 객체를 전달하는 callback
    */
-  onMarkerCreated?: (marker: kakao.maps.Marker) => void
+  onCreate?: (marker: kakao.maps.Marker) => void
 
   /**
    * click 이벤트 핸들러
@@ -110,13 +111,13 @@ interface MarkerProps {
 const Marker: React.FC<MarkerProps> = ({
   map,
   position,
-  onMarkerCreated,
   children,
   altitude,
   clickable,
   draggable,
   image,
   infoWindowOptions,
+  onCreate,
   onClick,
   onDragEnd,
   onDragStart,
@@ -127,6 +128,8 @@ const Marker: React.FC<MarkerProps> = ({
   title,
   zIndex,
 }) => {
+  const markerCluster = useContext(KakaoMapMarkerClustererContext)
+
   // Marker 객체는 단 한번만 생성 되도록 함
   const marker = useMemo(() => {
     const kakaoMarker = new kakao.maps.Marker({
@@ -140,20 +143,30 @@ const Marker: React.FC<MarkerProps> = ({
       zIndex,
       position,
     })
-    if (onMarkerCreated) onMarkerCreated(marker)
 
     return kakaoMarker
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // map 객체 변화에 따른 객체 생성 및 삭제
   useEffect(() => {
-    marker.setMap(map)
+    if (onCreate) onCreate(marker)
+  }, [marker, onCreate])
+
+  useEffect(() => {
+    if (markerCluster) {
+      markerCluster.addMarker(marker)
+    } else {
+      marker.setMap(map)
+    }
 
     return () => {
-      marker.setMap(null)
+      if (markerCluster) {
+        markerCluster.removeMarker(marker)
+      } else {
+        marker.setMap(null)
+      }
     }
-  }, [map, marker])
+  }, [map, markerCluster, marker])
 
   useKakaoEvent(marker, "click", onClick)
   useKakaoEvent(marker, "dragstart", onDragStart)
@@ -240,7 +253,7 @@ const Marker: React.FC<MarkerProps> = ({
       </InfoWindow>
     )
 
-  return <React.Fragment />
+  return null
 }
 
 export default Marker

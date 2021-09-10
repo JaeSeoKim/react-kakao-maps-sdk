@@ -1,5 +1,5 @@
-import React, { useContext, useMemo } from "react"
-import { KakaoMapContext } from "./Map"
+import React, { useMemo } from "react"
+import useMap from "../hooks/useMap"
 import Marker from "./Marker"
 
 export interface MapMarkerProps {
@@ -20,7 +20,10 @@ export interface MapMarkerProps {
     /**
      * 표시 이미지 크기
      */
-    size: [width: number, height: number]
+    size: {
+      width: number
+      height: number
+    }
 
     options?: {
       /**
@@ -36,7 +39,7 @@ export interface MapMarkerProps {
       /**
        * 마커의 좌표에 일치시킬 이미지 안의 좌표 (기본값: 이미지의 가운데 아래)
        */
-      offset?: [x: number, y: number]
+      offset?: { x: number; y: number }
 
       /**
        * 마커의 클릭 또는 마우스오버 가능한 영역의 모양
@@ -46,12 +49,12 @@ export interface MapMarkerProps {
       /**
        * 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
        */
-      spriteOrigin?: [x: number, y: number]
+      spriteOrigin?: { x: number; y: number }
 
       /**
        * 스프라이트 이미지의 전체 크기
        */
-      spriteSize?: [width: number, height: number]
+      spriteSize?: { width: number; height: number }
     }
   }
 
@@ -79,6 +82,11 @@ export interface MapMarkerProps {
    * dragend 이벤트 핸들러
    */
   onDragEnd?: (marker: kakao.maps.Marker) => void
+
+  /**
+   * Maker 생성 이벤트 핸들러
+   */
+  onCreate?: (maker: kakao.maps.Marker) => void
 
   /**
    * 마커 엘리먼트의 타이틀 속성 값 (툴팁)
@@ -146,6 +154,10 @@ export interface MapMarkerProps {
   }
 }
 
+/**
+ * Map에서 Marker를 생성할 때 사용 합니다.
+ * `onCreate` 이벤트를 통해 생성 후 `maker` 객체에 직접 접근하여 초기 설정이 가능합니다.
+ */
 const MapMarker: React.FC<MapMarkerProps> = ({
   image,
   position,
@@ -159,12 +171,13 @@ const MapMarker: React.FC<MapMarkerProps> = ({
   onDragStart,
   onMouseOut,
   onMouseOver,
+  onCreate,
   opacity,
   range,
   title,
   zIndex,
 }) => {
-  const map = useContext(KakaoMapContext)
+  const map = useMap(`MapMarker`)
 
   const markerImage = useMemo(() => {
     return (
@@ -217,6 +230,7 @@ const MapMarker: React.FC<MapMarkerProps> = ({
       onDragStart={onDragStart}
       onMouseOut={onMouseOut}
       onMouseOver={onMouseOver}
+      onCreate={onCreate}
       opacity={opacity}
       range={range}
       title={title}

@@ -13,6 +13,7 @@ module.exports = {
   tagline: "React components for using kakao map api 🚀",
   url: "https://react-kakao-maps-sdk.jaeseokim.dev",
   baseUrl: "/",
+  favicon: "/favicon.ico",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   organizationName: "JaeSeoKim",
@@ -44,6 +45,10 @@ module.exports = {
       },
       navbar: {
         title: "ReactKakaoMapSDK",
+        logo: {
+          src: "/img/logo.png",
+          alt: "logo",
+        },
         items: [
           {
             type: "doc",
@@ -81,7 +86,7 @@ module.exports = {
               },
               {
                 label: "Sample",
-                to: "/docs/intro",
+                to: "/docs/sample",
               },
               {
                 label: "API",
@@ -112,14 +117,14 @@ module.exports = {
     }),
   plugins: [
     [
-      'docusaurus-plugin-module-alias',
+      "docusaurus-plugin-module-alias",
       {
-          alias: {
-            react: path.resolve(__dirname, "../node_modules/react"),
-            "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
-            "kakao.maps.d.ts": path.resolve("../node_modules/kakao.maps.d.ts"),
-            "react-kakao-maps-sdk": path.resolve(__dirname, "../src"),
-          },
+        alias: {
+          react: path.resolve(__dirname, "../node_modules/react"),
+          "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
+          "kakao.maps.d.ts": path.resolve("../node_modules/kakao.maps.d.ts"),
+          "react-kakao-maps-sdk": path.resolve(__dirname, "../src"),
+        },
       },
     ],
     [
@@ -136,6 +141,6 @@ module.exports = {
     ],
   ],
   scripts: [
-    `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}`,
+    `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services,clusterer,drawing`,
   ],
 }

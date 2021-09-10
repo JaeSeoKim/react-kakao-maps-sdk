@@ -1,3 +1,15 @@
+### 0.1.2
+
+- MarkerClusterer 추가
+- MapTypeControl, MapTypeId, ZoomControl 추가
+- Circle, Ellipse, Polygon, Polyline, Rectangle 추가
+- 컴포넌트, hook 일부 리팩토링
+- 일부 함수 사용법 수정
+
+### 0.1.1
+
+- publish 오류 수정
+
 ### 0.1.0
 
 - using micorbundle

@@ -54,6 +54,11 @@ slug: /sample/
 - ### [draggable 마커 이벤트 적용하기](/docs/sample/overlay/addDraggableMarkerDragEvent)
 
   - 드래그가 가능한 마커에 dragstart, dragend 이벤트를 등록합니다. 이 예제에서는 마커의 드래그가 시작될 때 즉, dragstart 이벤트가 발생할 때 마커의 이미지를 다른이미지로 변경하며, 마커의 드래그가 끝날 때 즉, dragend 이벤트가 발생할 때 마커의 이미지를 처음 이미지로 재변경하고 있습니다.
+  -
+
+- ### [원, 선, 사각형, 다각형 표시하기](/docs/sample/overlay/drawShape)
+
+  - 지도 위에 원, 선, 사각형, 다각형을 표시합니다.
 
 - ### [커스텀 오버레이 생성하기1](/docs/sample/overlay/customOverlay1)
 

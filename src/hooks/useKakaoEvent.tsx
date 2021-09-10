@@ -12,16 +12,14 @@ const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
   /**
    * 호출될 callback
    */
-  callback:
-    | ((target: T, ...args: kakao.maps.event.MouseEvent[]) => void)
-    | undefined
+  callback: ((target: T, ...args: any[]) => void) | undefined
 ) => {
   useEffect(() => {
     if (!target || !callback) return
 
-    const wrapCallback = (mouseEvent?: kakao.maps.event.MouseEvent) => {
-      if (mouseEvent === undefined) return callback(target)
-      else return callback(target, mouseEvent)
+    const wrapCallback = (...arg: any[]) => {
+      if (arg === undefined) return callback(target)
+      else return callback(target, ...arg)
     }
 
     kakao.maps.event.addListener(target, type, wrapCallback)
