@@ -10,6 +10,10 @@ export interface CustomOverlayRoadviewProps {
     lat: number
     lng: number
   }
+  /**
+   * 해당 객체 생성 후 Roadview의 시점을 전환하여 Focus 할 지에 대해서 정의 합니다.
+   */
+  isFocus?: boolean
 
   /**
    * true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트를 막아준다.
@@ -63,6 +67,7 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
   zIndex,
   altitude,
   range,
+  isFocus,
   onCreate,
 }) => {
   const roadview = useRoadview(`CustomOverlayRoadview`)
@@ -81,12 +86,14 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
       position: overlayPosition,
       content: container.current,
     })
+
     return KakaoCustomOverlay
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickable, xAnchor, yAnchor])
 
   useEffect(() => {
     if (onCreate) onCreate(overlay)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [overlay, onCreate])
 
   useEffect(() => {
@@ -94,11 +101,23 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
 
     kakao.maps.event.addListener(roadview, "init", () => {
       overlay.setMap(roadview)
+
+      if (isFocus) {
+        const projection = roadview.getProjection() // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
+
+        // 커스텀오버레이의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
+        const viewpoint = projection.viewpointFromCoords(
+          overlay.getPosition(),
+          overlay.getAltitude()
+        )
+        roadview.setViewpoint(viewpoint) //커스텀 오버레이를 로드뷰의 가운데에 오도록 로드뷰의 시점을 변화 시킵니다.
+      }
     })
 
     return () => {
       overlay.setMap(null)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [overlay, roadview])
 
   useEffect(() => {

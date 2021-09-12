@@ -1,0 +1,54 @@
+---
+title: "지도 레벨 바꾸기"
+sidebar_position: 3
+---
+
+지도 레벨을 지도 객체 메소드를 호출해서 변경합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/changeLevel/
+
+```jsx live
+function(){
+  const Main = () => {
+    const [level, setLevel] = useState(3);
+
+    return (
+      <>
+        <Map // 지도를 표시할 Container
+          center={{
+            lat:33.450701,
+            lng:126.570667,
+          }}
+          style={{
+            // 지도의 크기
+            width: "100%",
+            height: "450px",
+          }}
+          level={level} // 지도의 확대 레벨
+        >
+          <div
+            style={{ display: "flex", gap: "10px" }}
+          >
+            <button
+              onClick={() =>
+                setLevel(level - 1)
+              }
+            >
+              지도 레벨 - 1
+            </button>
+            <button
+              onClick={() =>
+                setLevel(level + 1)
+              }
+            >
+              지도 레벨 + 1
+            </button>
+            <p>현재 지도 레벨은 {level} 레벨 입니다.</p>
+          </div>
+        </Map>
+      </>
+    )
+  }
+  return (<Main />)
+}
+```

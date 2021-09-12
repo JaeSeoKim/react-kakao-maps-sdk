@@ -1,0 +1,37 @@
+---
+title: "지도 확대 축소 막기"
+sidebar_position: 7
+---
+
+마우스 휠이나 멀티터치로 지도 확대, 축소 기능을 막습니다. 상황에 따라 지도 확대, 축소 기능을 제어할 수 있습니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/enableDisableZoomInOut/
+
+```jsx live
+function(){
+  const Main = () => {
+    const [zoomable, setZoomable] = useState(true)
+
+    return (
+      <>
+        <Map // 지도를 표시할 Container
+          center={{
+            // 지도의 중심좌표
+            lat: 37.566826,
+            lng: 126.9786567,
+          }}
+          style={{
+            width: "100%",
+            height: "450px",
+          }}
+          level={3} // 지도의 확대 레벨
+          zoomable={zoomable}
+        />
+        <button onClick={() => setZoomable(false)}>지도 확대/축소 끄기</button>
+        <button onClick={() => setZoomable(true)}>지도 확대/축소 켜기</button>
+      </>
+    )
+  }
+  return (<Main/>)
+}
+```

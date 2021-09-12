@@ -16,7 +16,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapMarker.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L119)
+[components/MapMarker.tsx:124](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L124)
 
 ---
 
@@ -28,7 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapMarker.tsx:104](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L104)
+[components/MapMarker.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L109)
 
 ---
 
@@ -40,7 +40,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapMarker.tsx:99](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L99)
+[components/MapMarker.tsx:104](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L104)
 
 ---
 
@@ -72,7 +72,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapMarker.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L14)
+[components/MapMarker.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L19)
 
 ---
 
@@ -94,7 +94,7 @@ InfoWindow 옵션
 
 #### Defined in
 
-[components/MapMarker.tsx:129](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L129)
+[components/MapMarker.tsx:134](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L134)
 
 ---
 
@@ -106,26 +106,19 @@ InfoWindow 옵션
 
 #### Defined in
 
-[components/MapMarker.tsx:114](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L114)
+[components/MapMarker.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L119)
 
 ---
 
 ### position
 
-• **position**: `Object`
+• **position**: { `lat`: `number` ; `lng`: `number` } \| { `x`: `number` ; `y`: `number` }
 
 표시 위치
 
-#### Type declaration
-
-| Name  | Type     |
-| :---- | :------- |
-| `lat` | `number` |
-| `lng` | `number` |
-
 #### Defined in
 
-[components/MapMarker.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L9)
+[components/MapMarker.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L9)
 
 ---
 
@@ -137,7 +130,7 @@ InfoWindow 옵션
 
 #### Defined in
 
-[components/MapMarker.tsx:124](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L124)
+[components/MapMarker.tsx:129](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L129)
 
 ---
 
@@ -149,7 +142,7 @@ InfoWindow 옵션
 
 #### Defined in
 
-[components/MapMarker.tsx:94](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L94)
+[components/MapMarker.tsx:99](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L99)
 
 ---
 
@@ -161,7 +154,7 @@ InfoWindow 옵션
 
 #### Defined in
 
-[components/MapMarker.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L109)
+[components/MapMarker.tsx:114](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L114)
 
 ## Methods
 
@@ -183,7 +176,7 @@ click 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:64](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L64)
+[components/MapMarker.tsx:69](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L69)
 
 ---
 
@@ -205,7 +198,7 @@ Maker 생성 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L89)
+[components/MapMarker.tsx:94](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L94)
 
 ---
 
@@ -227,7 +220,7 @@ dragend 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L84)
+[components/MapMarker.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L89)
 
 ---
 
@@ -249,7 +242,7 @@ dragstart 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:79](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L79)
+[components/MapMarker.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L84)
 
 ---
 
@@ -271,7 +264,7 @@ mouseout 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:74](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L74)
+[components/MapMarker.tsx:79](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L79)
 
 ---
 
@@ -293,4 +286,4 @@ mouseover 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:69](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/MapMarker.tsx#L69)
+[components/MapMarker.tsx:74](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapMarker.tsx#L74)

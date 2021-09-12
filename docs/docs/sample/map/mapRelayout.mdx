@@ -1,0 +1,50 @@
+---
+title: "지도 영역 크기 동적 변경하기"
+sidebar_position: 14
+---
+
+지도 객체는 생성될 때 지도 div 크기에 따라 픽셀과 좌표정보를 설정하여 가지고 있습니다.
+이 정보로 지도 객체는 지도표시, 마커 표시, 확대, 축소, 이동 등의 좌표 계산 등 지도 표시에 필요한 여러가지 연산을 수행하는데
+이때 지도 div의 크기가 변경이 되면 지도객체가 가지고 있는 픽셀과 좌표정보가 div를 표시하는 크기와 달라지기 때문에 지도가 정상적으로 표출되지 않을 수도 있습니다.
+그래서 크기를 변경한 이후에는 반드시 relayout 함수를 호출하여 픽셀과 좌표정보를 새로 설정해주어야합니다.
+window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다.
+
+---
+
+`react-kakao-maps-sdk` 에서는 기본적으로 `style`, `className`, `id`을 `Props`로 받고 있고 해당 객체는 `useEffect` 를 통해 dependency에 추가 되어 변화가 발생시 자동으로 `map.relayout` 함수를 호출 하고 있습니다.
+
+만약 상위 단계에서의 style 변화 등 호출 해야 하는 경우에만 `onCreate`, `useMap` 등 을 통해 `map.relayout` 를 직접 호출 하여서 사용하면 됩니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/mapRelayout/
+
+```jsx live
+function(){
+  const Main = () => {
+    const [style, setStyle] = useState({
+      width: "100%",
+      height: "450px",
+    })
+
+    return (
+      <>
+        <Map // 지도를 표시할 Container
+          center={{
+            // 지도의 중심좌표
+            lat: 33.450701,
+            lng: 126.570667,
+          }}
+          style={style}
+          level={3} // 지도의 확대 레벨
+        >
+        </Map>
+        <button
+          onClick={() => setStyle({ width: "650px", height: "650px"})}
+        >
+          지도 크기 바꾸기
+        </button>
+      </>
+    )
+  }
+  return (<Main/>)
+}
+```

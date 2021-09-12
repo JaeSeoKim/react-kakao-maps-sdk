@@ -17,7 +17,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:38](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L38)
+[components/CustomOverlayRoadview.tsx:42](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L42)
 
 ---
 
@@ -29,7 +29,19 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:17](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L17)
+[components/CustomOverlayRoadview.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L21)
+
+---
+
+### isFocus
+
+• `Optional` **isFocus**: `boolean`
+
+해당 객체 생성 후 Roadview의 시점을 전환하여 Focus 할 지에 대해서 정의 합니다.
+
+#### Defined in
+
+[components/CustomOverlayRoadview.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L16)
 
 ---
 
@@ -48,7 +60,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L9)
+[components/CustomOverlayRoadview.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L9)
 
 ---
 
@@ -62,7 +74,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:45](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L45)
+[components/CustomOverlayRoadview.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L49)
 
 ---
 
@@ -74,7 +86,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:22](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L22)
+[components/CustomOverlayRoadview.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L26)
 
 ---
 
@@ -86,7 +98,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:27](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L27)
+[components/CustomOverlayRoadview.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L31)
 
 ---
 
@@ -98,7 +110,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:32](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L32)
+[components/CustomOverlayRoadview.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L36)
 
 ## Methods
 
@@ -120,4 +132,4 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:50](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/CustomOverlayRoadview.tsx#L50)
+[components/CustomOverlayRoadview.tsx:54](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayRoadview.tsx#L54)

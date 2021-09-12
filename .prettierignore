@@ -12,3 +12,4 @@ docs/node_modules
 docs/package.json
 docs/package-lock.json
 docs/public
+docs/typedoc-sidebar.js

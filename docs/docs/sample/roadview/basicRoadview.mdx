@@ -1,18 +1,30 @@
 ---
 title: "로드뷰 생성하기"
-sidebar_position: 5
+sidebar_position: 1
 ---
 
-로드뷰를 생성하는 기본 예제입니다. 로드뷰는 모든 좌표에 존재하는 것이 아니므로, 특정 위치의 좌표에서 가장 가까운 곳에 존재하는 사진을 가져와야 합니다. 아래 예제는 이러한 방식으로 (파노라마) 사진 ID값을 얻은 후에, 이를 로드뷰에 표시하고 있습니다.
-
-import CodeBlock from "@theme/CodeBlock"
-import SampleCreateMap from "./basicRoadview.tsx"
-import SampleCreateMapSource from "!!raw-loader!./basicRoadview.tsx"
-
-<SampleCreateMap />
-
-### Source Code
+로드뷰를 생성하는 기본 예제입니다.
+로드뷰는 모든 좌표에 존재하는 것이 아니므로, 특정 위치의 좌표에서 가장 가까운 곳에 존재하는 사진을 가져와야 합니다.
+아래 예제는 이러한 방식으로 (파노라마) 사진 ID값을 얻은 후에, 이를 로드뷰에 표시하고 있습니다. (해당 작업은 `Roadview` Component가 처리 합니다.)
 
 > original docs : https://apis.map.kakao.com/web/sample/basicRoadview/
 
-<CodeBlock className="language-jsx">{SampleCreateMapSource}</CodeBlock>
+```jsx live
+function(){
+  return (
+    <Roadview // 로드뷰를 표시할 Container
+      position={{
+        // 지도의 중심좌표
+        lat: 33.450701,
+        lng: 126.570667,
+        radius: 50,
+      }}
+      style={{
+        // 지도의 크기
+        width: "100%",
+        height: "450px",
+      }}
+    />
+  )
+}
+```

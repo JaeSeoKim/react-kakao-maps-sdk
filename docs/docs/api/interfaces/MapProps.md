@@ -10,20 +10,13 @@ custom_edit_url: null
 
 ### center
 
-• **center**: `Object`
+• **center**: { `lat`: `number` ; `lng`: `number` } \| { `x`: `number` ; `y`: `number` }
 
 중심으로 설정할 위치 입니다.
 
-#### Type declaration
-
-| Name  | Type     |
-| :---- | :------- |
-| `lat` | `number` |
-| `lng` | `number` |
-
 #### Defined in
 
-[components/Map.tsx:29](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L29)
+[components/Map.tsx:28](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L28)
 
 ---
 
@@ -35,7 +28,7 @@ MapContainer의 className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L19)
+[components/Map.tsx:18](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L18)
 
 ---
 
@@ -47,7 +40,7 @@ MapContainer의 className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:85](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L85)
+[components/Map.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L89)
 
 ---
 
@@ -59,7 +52,7 @@ MapContainer의 className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:90](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L90)
+[components/Map.tsx:94](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L94)
 
 ---
 
@@ -71,7 +64,7 @@ MapContainer의 className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:70](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L70)
+[components/Map.tsx:74](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L74)
 
 ---
 
@@ -85,7 +78,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L14)
+[components/Map.tsx:13](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L13)
 
 ---
 
@@ -99,7 +92,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:38](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L38)
+[components/Map.tsx:42](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L42)
 
 ---
 
@@ -111,7 +104,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:105](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L105)
+[components/Map.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L109)
 
 ---
 
@@ -123,7 +116,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:50](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L50)
+[components/Map.tsx:54](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L54)
 
 ---
 
@@ -135,7 +128,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:65](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L65)
+[components/Map.tsx:69](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L69)
 
 ---
 
@@ -147,7 +140,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:55](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L55)
+[components/Map.tsx:59](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L59)
 
 ---
 
@@ -159,7 +152,7 @@ MapContinaer의 id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:60](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L60)
+[components/Map.tsx:64](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L64)
 
 ---
 
@@ -173,7 +166,7 @@ padding 만큼 제외하고 영역을 계산하며, padding 을 지정하지 않
 
 #### Defined in
 
-[components/Map.tsx:45](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L45)
+[components/Map.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L49)
 
 ---
 
@@ -185,7 +178,7 @@ padding 만큼 제외하고 영역을 계산하며, padding 을 지정하지 않
 
 #### Defined in
 
-[components/Map.tsx:95](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L95)
+[components/Map.tsx:99](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L99)
 
 ---
 
@@ -197,7 +190,7 @@ padding 만큼 제외하고 영역을 계산하며, padding 을 지정하지 않
 
 #### Defined in
 
-[components/Map.tsx:80](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L80)
+[components/Map.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L84)
 
 ---
 
@@ -209,7 +202,7 @@ MapContainer의 style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L24)
+[components/Map.tsx:23](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L23)
 
 ---
 
@@ -221,7 +214,7 @@ MapContainer의 style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:100](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L100)
+[components/Map.tsx:104](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L104)
 
 ---
 
@@ -233,7 +226,7 @@ MapContainer의 style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:75](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L75)
+[components/Map.tsx:79](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L79)
 
 ## Methods
 
@@ -255,7 +248,7 @@ MapContainer의 style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:137](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L137)
+[components/Map.tsx:141](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L141)
 
 ---
 
@@ -277,7 +270,7 @@ MapContainer의 style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:122](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L122)
+[components/Map.tsx:126](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L126)
 
 ---
 
@@ -300,7 +293,7 @@ MapContainer의 style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/Map.tsx:142](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L142)
+[components/Map.tsx:146](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L146)
 
 ---
 
@@ -322,7 +315,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:117](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L117)
+[components/Map.tsx:121](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L121)
 
 ---
 
@@ -345,7 +338,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:150](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L150)
+[components/Map.tsx:154](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L154)
 
 ---
 
@@ -368,7 +361,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:182](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L182)
+[components/Map.tsx:186](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L186)
 
 ---
 
@@ -391,7 +384,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:190](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L190)
+[components/Map.tsx:194](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L194)
 
 ---
 
@@ -414,7 +407,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:174](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L174)
+[components/Map.tsx:178](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L178)
 
 ---
 
@@ -437,7 +430,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:199](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L199)
+[components/Map.tsx:203](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L203)
 
 ---
 
@@ -459,7 +452,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:210](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L210)
+[components/Map.tsx:214](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L214)
 
 ---
 
@@ -482,7 +475,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:166](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L166)
+[components/Map.tsx:170](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L170)
 
 ---
 
@@ -505,7 +498,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:158](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L158)
+[components/Map.tsx:162](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L162)
 
 ---
 
@@ -528,7 +521,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:205](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L205)
+[components/Map.tsx:209](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L209)
 
 ---
 
@@ -550,7 +543,7 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:132](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L132)
+[components/Map.tsx:136](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L136)
 
 ---
 
@@ -572,4 +565,4 @@ map 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/Map.tsx:127](https://github.com/JaeSeoKim/react-kakao-maps/blob/3623c5a/src/components/Map.tsx#L127)
+[components/Map.tsx:131](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Map.tsx#L131)

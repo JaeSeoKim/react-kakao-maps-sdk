@@ -1,6 +1,7 @@
 {
   "name": "react-kakao-maps-sdk",
   "version": "0.1.1",
+  "description": "React components for using kakao map api",
   "license": "MIT",
   "author": {
     "name": "JaeSeoKim",
@@ -36,11 +37,11 @@
     "prepare": "husky install && gitmoji --init"
   },
   "dependencies": {
-    "kakao.maps.d.ts": "^0.1.15"
+    "kakao.maps.d.ts": "^0.1.17"
   },
   "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": ">=17.0.2 || >=16.9.0",
+    "react-dom": ">=17.0.2 || >=16.9.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -70,9 +71,6 @@
     "npm-run-all": "^4.1.5",
     "prettier": "2.3.2",
     "typescript": "^4.4.2"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
   },
   "files": [
     "/src",

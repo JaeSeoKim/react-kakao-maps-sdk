@@ -1,0 +1,73 @@
+---
+title: "다각형에 이벤트 등록하기1"
+sidebar_position: 18
+---
+
+다각형에 마우스아웃, 마우스오버, 마우스다운 이벤트를 등록합니다. 다각형에 마우스다운 이벤트가 발생하면 지도 아래 div에 마우스다운 이벤트 발생을 표시합니다. 다각형에 마우스오버 이벤트가 발생하면 다각형의 채우기 색을 변경하고 마우스아웃 이벤트가 발생하면 다각형의 채우기 색을 처음 색으로 변경합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/addPolygonMouseEvent1/
+
+```jsx live
+function(){
+  const polygonPath = [
+    { lat: 33.450965145649576, lng: 126.57020280169624 },
+    { lat: 33.450958085478554, lng: 126.57011679275952 },
+    { lat: 33.45098043867851, lng: 126.57006290510864 },
+    { lat: 33.45097328515681, lng: 126.56995000794919 },
+    { lat: 33.450990859851004, lng: 126.56981816664641 },
+    { lat: 33.45101296099739, lng: 126.5696916806749 },
+    { lat: 33.45098334215462, lng: 126.56960040542974 },
+    { lat: 33.450985176064975, lng: 126.56947939729541 },
+    { lat: 33.450917277011726, lng: 126.56939906680272 },
+    { lat: 33.45086322853736, lng: 126.56941277823229 },
+    { lat: 33.45081577388131, lng: 126.56937805752437 },
+    { lat: 33.450779813154405, lng: 126.56940781273165 },
+    { lat: 33.45081633405741, lng: 126.56953938654304 },
+    { lat: 33.45080569884398, lng: 126.56972228175628 },
+    { lat: 33.450752219367345, lng: 126.56990001069012 },
+    { lat: 33.45065801908533, lng: 126.57003491859678 },
+    { lat: 33.45063139100987, lng: 126.57015604858434 },
+    { lat: 33.45064506393239, lng: 126.5701990028593 },
+  ]
+  const [isMouseOver, setIsMouseOver] = useState(false)
+  const [downCount, setDownCount] = useState(0)
+
+  return (
+    <>
+      <Map // 지도를 표시할 Container
+        id={`map`}
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "100vh",
+        }}
+        level={2} // 지도의 확대 레벨
+      >
+        <Polygon
+          path={polygonPath}
+          strokeWeight={3} // 선의 두께입니다
+          strokeColor={"#39DE2A"} // 선의 색깔입니다
+          strokeOpacity={0.8} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+          strokeStyle={"solid"} // 선의 스타일입니다
+          fillColor={isMouseOver ? "#EFFFED" : "#A2FF99"} // 채우기 색깔입니다
+          fillOpacity={isMouseOver ? 0.8 : 0.7} // 채우기 불투명도입니다
+          onMouseover={() => setIsMouseOver(true)}
+          onMouseout={() => setIsMouseOver(false)}
+          onMousedown={(_polygon, mouseEvent) => {
+            console.log(mouseEvent)
+            setDownCount(downCount + 1)
+          }}
+        />
+      </Map>
+      {downCount > 0 && (
+        <h3>다각형에 mousedown 이벤트가 발생했습니다! {downCount}</h3>
+      )}
+    </>
+  )
+}
+```

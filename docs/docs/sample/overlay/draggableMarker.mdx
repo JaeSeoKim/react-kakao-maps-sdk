@@ -5,14 +5,33 @@ sidebar_position: 2
 
 마우스로 드래그가 가능한 마커를 생성합니다.
 
-import CodeBlock from "@theme/CodeBlock"
-import SampleCreateMap from "./draggableMarker.tsx"
-import SampleCreateMapSource from "!!raw-loader!./draggableMarker.tsx"
-
-<SampleCreateMap />
-
-### Source Code
-
 > original docs : https://apis.map.kakao.com/web/sample/draggableMarker/
 
-<CodeBlock className="language-jsx">{SampleCreateMapSource}</CodeBlock>
+```jsx live
+function(){
+  return (
+    <Map // 지도를 표시할 Container
+      center={{
+        // 지도의 중심좌표
+        lat: 33.450701,
+        lng: 126.570667,
+      }}
+      style={{
+        // 지도의 크기
+        width: "100%",
+        height: "450px",
+      }}
+      level={3} // 지도의 확대 레벨
+    >
+      <MapMarker // 마커를 생성합니다
+        position={{
+          // 마커가 표시될 위치입니다
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        draggable={true} // 마커가 드래그 가능하도록 설정합니다
+      />
+    </Map>
+  )
+}
+```

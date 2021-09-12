@@ -12,4 +12,4 @@ Map 상에 타원을 그립니다.
 
 #### Defined in
 
-components/Ellipse.tsx:103
+[components/Ellipse.tsx:103](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L103)

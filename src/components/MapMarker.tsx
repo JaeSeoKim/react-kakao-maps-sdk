@@ -6,10 +6,15 @@ export interface MapMarkerProps {
   /**
    * 표시 위치
    */
-  position: {
-    lat: number
-    lng: number
-  }
+  position:
+    | {
+        lat: number
+        lng: number
+      }
+    | {
+        x: number
+        y: number
+      }
 
   image?: {
     /**
@@ -184,28 +189,28 @@ const MapMarker: React.FC<MapMarkerProps> = ({
       image &&
       new kakao.maps.MarkerImage(
         image.src,
-        new kakao.maps.Size(image.size[0], image.size[1]),
+        new kakao.maps.Size(image.size.width, image.size.height),
         {
           alt: image.options?.alt,
           coords: image.options?.coords,
           offset:
             image.options?.offset &&
             new kakao.maps.Point(
-              image.options?.offset[0],
-              image.options?.offset[1]
+              image.options?.offset.x,
+              image.options?.offset.y
             ),
           shape: image.options?.shape,
           spriteOrigin:
             image.options?.spriteOrigin &&
             new kakao.maps.Point(
-              image.options?.spriteOrigin[0],
-              image.options?.spriteOrigin[1]
+              image.options?.spriteOrigin.x,
+              image.options?.spriteOrigin.y
             ),
           spriteSize:
             image.options?.spriteSize &&
             new kakao.maps.Size(
-              image.options?.spriteSize[0],
-              image.options?.spriteSize[1]
+              image.options?.spriteSize.width,
+              image.options?.spriteSize.height
             ),
         }
       )
@@ -213,8 +218,14 @@ const MapMarker: React.FC<MapMarkerProps> = ({
   }, [image])
 
   const markerPosition = useMemo(() => {
-    return new kakao.maps.LatLng(position.lat, position.lng)
-  }, [position.lat, position.lng])
+    if ("lat" in position) {
+      return new kakao.maps.LatLng(position.lat, position.lng)
+    }
+    return new kakao.maps.Coords(position.x, position.y).toLatLng()
+
+    // @ts-ignore
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [position.lat, position.lng, position.x, position.y])
 
   return (
     <Marker

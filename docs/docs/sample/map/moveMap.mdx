@@ -7,7 +7,7 @@ sidebar_position: 2
 
 > original docs : https://apis.map.kakao.com/web/sample/moveMap/
 
-```tsx live
+```jsx live
 function(){
   const MoveMapPosition = () => {
     // map 객체의 중심을 설정하는 함수를 가져오는 hook
@@ -22,10 +22,10 @@ function(){
             gap: "10px",
           }}
         >
-          <button onClick={() => setMapPosition({ lat: 33.452613, lng: 126.570888 })}>
+          <button onClick={() => setMapPosition({position : { lat: 33.452613, lng: 126.570888} })}>
             지도 중심좌표 이동시키기
           </button>
-          <button onClick={() => setMapPosition({ lat: 33.45058, lng: 126.574942 }, true)}>
+          <button onClick={() => setMapPosition({position :{ lat: 33.45058, lng: 126.574942 }, isPanto: true})}>
             지도 중심좌표 부드럽게 이동시키기
           </button>
         </div>
@@ -50,11 +50,11 @@ function(){
             // 지도의 크기
             width: "100%",
             height: "450px",
-            marginBottom: "10px",
           }}
-          level={2} // 지도의 확대 레벨
+          level={3} // 지도의 확대 레벨
         >
           <MoveMapPosition />
+          <hr />
           <h5>State변경으로 이동시키기</h5>
           <div
             style={{

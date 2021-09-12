@@ -197,14 +197,14 @@ const Marker: React.FC<MarkerProps> = ({
 
   // clickable 값이 있으면 클릭이 가능하도록 한다.
   useEffect(() => {
-    if (!map || !marker || !clickable) return
+    if (!map || !marker || typeof clickable === "undefined") return
 
     marker.setClickable(clickable)
   }, [map, marker, clickable])
 
   // draggable 값이 있으면 드래그가 가능하도록 한다.
   useEffect(() => {
-    if (!map || !marker || !draggable) return
+    if (!map || !marker || typeof draggable === "undefined") return
 
     marker.setDraggable(draggable)
   }, [map, marker, draggable])

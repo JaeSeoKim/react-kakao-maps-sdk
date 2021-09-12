@@ -1,0 +1,86 @@
+---
+title: "닫기가 가능한 커스텀 오버레이"
+sidebar_position: 23
+---
+
+HTML과 CSS를 이용해 지도 위에 자유롭게 컨텐츠를 표시합니다. 이 샘플에서는 커스텀 오버레이를 마커 위에 표시하고 X버튼을 클릭했을 때 커스텀 오버레이를 지도에서 제거합니다. 마커를 클릭하면 다시 커스텀 오버레이가 표시됩니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/removableCustomOverlay/
+
+```jsx live
+function(){
+  const [isOpen, setIsOpen] = useState(false)
+
+  const markerPosition = {
+    lat: 33.450701,
+    lng: 126.570667,
+  }
+
+  return (
+    <>
+      <RemovableCustomOverlayStyle />
+      <Map // 지도를 표시할 Container
+        id={`map`}
+        center={{
+          // 지도의 중심좌표
+          lat: 33.451475,
+          lng: 126.570528,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+      >
+        <MapMarker position={markerPosition} onClick={() => setIsOpen(true)} />
+        {isOpen && (
+          <CustomOverlayMap position={markerPosition}>
+            <div className="wrap">
+              <div className="info">
+                <div className="title">
+                  카카오 스페이스닷원
+                  <div
+                    className="close"
+                    onClick={() => setIsOpen(false)}
+                    title="닫기"
+                  ></div>
+                </div>
+                <div className="body">
+                  <div className="img">
+                    <img
+                      src="//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005"
+                      width="73"
+                      height="70"
+                      alt="카카오 스페이스닷원"
+                    />
+                  </div>
+                  <div className="desc">
+                    <div className="ellipsis">
+                      제주특별자치도 제주시 첨단로 242
+                    </div>
+                    <div className="jibun ellipsis">
+                      (우) 63309 (지번) 영평동 2181
+                    </div>
+                    <div>
+                      <a
+                        href="https://www.kakaocorp.com/main"
+                        target="_blank"
+                        className="link"
+                        rel="noreferrer"
+                      >
+                        홈페이지
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            ;
+          </CustomOverlayMap>
+        )}
+      </Map>
+    </>
+  )
+}
+```

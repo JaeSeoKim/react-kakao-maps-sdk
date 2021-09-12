@@ -1,0 +1,39 @@
+---
+title: "클릭 이벤트 등록하기"
+sidebar_position: 15
+---
+
+지도를 마우스로 클릭했을때 click 이벤트가 발생합니다. 이 예제에서는 지도를 클릭했을 때 지도 아래쪽에 해당 위치의 좌표를 뿌려주고 있습니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/addMapClickEvent/
+
+```jsx live
+function(){
+  const Main = () => {
+    const [position, setPosition] = useState()
+    return (
+      <>
+        <Map // 지도를 표시할 Container
+          center={{
+            // 지도의 중심좌표
+            lat: 33.450701,
+            lng: 126.570667,
+          }}
+          style={{
+            width: "100%",
+            height: "450px",
+          }}
+          level={3} // 지도의 확대 레벨
+          onClick={(_t, mouseEvent) => setPosition({
+            lat: mouseEvent.latLng.getLat(),
+            lng: mouseEvent.latLng.getLng(),
+          })}
+        >
+        </Map>
+        {position && <p>{'클릭한 위치의 위도는 ' + position.lat + ' 이고, 경도는 ' + position.lng + ' 입니다'}</p>}
+      </>
+    )
+  }
+  return (<Main/>)
+}
+```

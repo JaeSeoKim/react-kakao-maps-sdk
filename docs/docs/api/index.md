@@ -45,8 +45,6 @@ custom_edit_url: null
 
 ## Functions
 
-- [useKakaoMapsSDK](functions/useKakaoMapsSDK.md)
 - [useMap](functions/useMap.md)
 - [useMapPosition](functions/useMapPosition.md)
-- [useRelayout](functions/useRelayout.md)
 - [useRoadview](functions/useRoadview.md)

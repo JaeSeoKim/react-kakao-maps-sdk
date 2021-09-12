@@ -4,7 +4,6 @@ import useKakaoEvent from "../hooks/useKakaoEvent"
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map
 )
-
 export interface MapProps {
   /**
    * MapContinaer의 id에 대해서 지정합니다.
@@ -26,10 +25,15 @@ export interface MapProps {
   /**
    * 중심으로 설정할 위치 입니다.
    */
-  center: {
-    lat: number
-    lng: number
-  }
+  center:
+    | {
+        lat: number
+        lng: number
+      }
+    | {
+        x: number
+        y: number
+      }
 
   /**
    * 중심을 이동시킬때 Panto를 사용할지 정합니다.
@@ -264,8 +268,10 @@ const Map: React.FC<MapProps> = ({
     }
 
     kakao.maps.load(() => {
-      const initalMapCenter = new kakao.maps.LatLng(center.lat, center.lng)
-
+      const initalMapCenter =
+        "lat" in center
+          ? new kakao.maps.LatLng(center.lat, center.lng)
+          : new kakao.maps.Coords(center.x, center.y)
       const kakaoMap = new kakao.maps.Map(container.current as HTMLDivElement, {
         center: initalMapCenter,
         disableDoubleClick: disableDoubleClick,
@@ -291,22 +297,35 @@ const Map: React.FC<MapProps> = ({
 
   // center position 변경시 map center 변경
   useEffect(() => {
-    if (
-      !map ||
-      (map.getCenter().getLat() === center.lat &&
-        map.getCenter().getLng() === center.lng)
-    )
-      return
+    if (!map) return
 
-    const centerPosition = new kakao.maps.LatLng(center.lat, center.lng)
+    let prevCenter = map.getCenter()
+    if (prevCenter instanceof kakao.maps.Coords) {
+      prevCenter = prevCenter.toLatLng()
+    }
+
+    const centerPosition =
+      "lat" in center
+        ? new kakao.maps.LatLng(center.lat, center.lng)
+        : new kakao.maps.Coords(center.x, center.y)
+
+    if (
+      (centerPosition instanceof kakao.maps.LatLng &&
+        centerPosition.equals(prevCenter)) ||
+      (centerPosition instanceof kakao.maps.Coords &&
+        centerPosition.toLatLng().equals(prevCenter))
+    ) {
+      return
+    }
 
     if (isPanto) {
       map.panTo(centerPosition, padding)
     } else {
       map.setCenter(centerPosition)
     }
+    // @ts-ignore
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, center.lat, center.lng])
+  }, [map, center.lat, center.lng, center.x, center.y])
 
   // Container style, className, id 등 디자인 요소가 변경될 요지가 변경시 relayout
   useEffect(() => {
@@ -316,12 +335,12 @@ const Map: React.FC<MapProps> = ({
   }, [map, style, className, id])
 
   useEffect(() => {
-    if (!map || !draggable) return
+    if (!map || typeof draggable === "undefined") return
     map.setDraggable(draggable)
   }, [map, draggable])
 
   useEffect(() => {
-    if (!map || !zoomable) return
+    if (!map || typeof zoomable === "undefined") return
     map.setZoomable(zoomable)
   }, [map, zoomable])
 
@@ -367,7 +386,7 @@ const Map: React.FC<MapProps> = ({
   useKakaoEvent(map, "maptypeid_changed", onMaptypeidChanged)
   useKakaoEvent(map, "mousemove", onMouseMove)
   useKakaoEvent(map, "rightclick", onRightClick)
-  useKakaoEvent(map, "tileloaded", onTileLoaded)
+  useKakaoEvent(map, "tilesloaded", onTileLoaded)
   useKakaoEvent(map, "zoom_changed", onZoomChanged)
   useKakaoEvent(map, "zoom_start", onZoomStart)
 

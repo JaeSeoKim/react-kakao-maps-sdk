@@ -1,0 +1,40 @@
+---
+title: "타일로드 이벤트 등록하기"
+sidebar_position: 21
+---
+
+지도를 확대, 축소하거나 지도를 움직인 이후에 타일 이미지가 모두 완료되면 tilesloaded 이벤트가 발생합니다.
+이 예제에서는 타일 이미지가 모두 로드 된 이후에 tilesloaded 이벤트가 발생하면 마커의 위치를 지도중심으로 설정합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/addTilesloadedEvent/
+
+```jsx live
+function(){
+  const Main = () => {
+    const [position, setPosition] = useState()
+    return (
+      <>
+        <Map // 지도를 표시할 Container
+          center={{
+            // 지도의 중심좌표
+            lat: 33.450701,
+            lng: 126.570667,
+          }}
+          style={{
+            width: "100%",
+            height: "450px",
+          }}
+          level={3} // 지도의 확대 레벨
+          onTileLoaded={(map) => setPosition({
+            lat: map.getCenter().getLat(),
+            lng: map.getCenter().getLng(),
+          })}
+        >
+          {!!position && <MapMarker position={position} />}
+        </Map>
+      </>
+    )
+  }
+  return (<Main/>)
+}
+```

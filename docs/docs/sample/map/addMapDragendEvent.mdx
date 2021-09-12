@@ -1,0 +1,39 @@
+---
+title: "이동 이벤트 등록하기"
+sidebar_position: 17
+---
+
+지도를 마우스로 이동시킬 경우에 dragend 이벤트가 발생합니다. 아래 예제는 마우스로 지도 이동이 완료된 시점의 중심 좌표를 표시하는 예제입니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/addMapDragendEvent/
+
+```jsx live
+function(){
+  const Main = () => {
+    const [position, setPosition] = useState()
+    return (
+      <>
+        <Map // 지도를 표시할 Container
+          center={{
+            // 지도의 중심좌표
+            lat: 33.450701,
+            lng: 126.570667,
+          }}
+          style={{
+            width: "100%",
+            height: "450px",
+          }}
+          level={3} // 지도의 확대 레벨
+          onDragEnd={(map) => setPosition({
+            lat: map.getCenter().getLat(),
+            lng: map.getCenter().getLng(),
+          })}
+        >
+        </Map>
+        {position && <p>{'변경된 지도 중심좌표는 ' + position.lat + ' 이고, 경도는 ' + position.lng + ' 입니다'}</p>}
+      </>
+    )
+  }
+  return (<Main/>)
+}
+```

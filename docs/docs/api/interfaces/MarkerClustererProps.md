@@ -18,7 +18,7 @@ custom_edit_url: null
 
 #### Defined in
 
-components/MarkerClusterer.tsx:20
+[components/MarkerClusterer.tsx:20](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L20)
 
 ---
 
@@ -32,7 +32,7 @@ components/MarkerClusterer.tsx:20
 
 #### Defined in
 
-components/MarkerClusterer.tsx:44
+[components/MarkerClusterer.tsx:44](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L44)
 
 ---
 
@@ -46,7 +46,7 @@ components/MarkerClusterer.tsx:44
 
 #### Defined in
 
-components/MarkerClusterer.tsx:54
+[components/MarkerClusterer.tsx:54](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L54)
 
 ---
 
@@ -60,7 +60,7 @@ components/MarkerClusterer.tsx:54
 
 #### Defined in
 
-components/MarkerClusterer.tsx:49
+[components/MarkerClusterer.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L49)
 
 ---
 
@@ -74,7 +74,7 @@ components/MarkerClusterer.tsx:49
 
 #### Defined in
 
-components/MarkerClusterer.tsx:15
+[components/MarkerClusterer.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L15)
 
 ---
 
@@ -88,7 +88,7 @@ components/MarkerClusterer.tsx:15
 
 #### Defined in
 
-components/MarkerClusterer.tsx:59
+[components/MarkerClusterer.tsx:59](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L59)
 
 ---
 
@@ -102,7 +102,7 @@ components/MarkerClusterer.tsx:59
 
 #### Defined in
 
-components/MarkerClusterer.tsx:30
+[components/MarkerClusterer.tsx:30](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L30)
 
 ---
 
@@ -116,19 +116,19 @@ components/MarkerClusterer.tsx:30
 
 #### Defined in
 
-components/MarkerClusterer.tsx:25
+[components/MarkerClusterer.tsx:25](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L25)
 
 ---
 
 ### styles
 
-• `Optional` **styles**: `CSSProperties`[] \| `object`[]
+• `Optional` **styles**: `CSSStyleDeclaration`[] \| `object`[]
 
 클러스터의 스타일. 여러개를 선언하면 calculator 로 구분된 사이즈 구간마다 서로 다른 스타일을 적용시킬 수 있다
 
 #### Defined in
 
-components/MarkerClusterer.tsx:34
+[components/MarkerClusterer.tsx:34](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L34)
 
 ---
 
@@ -142,7 +142,7 @@ components/MarkerClusterer.tsx:34
 
 #### Defined in
 
-components/MarkerClusterer.tsx:39
+[components/MarkerClusterer.tsx:39](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L39)
 
 ## Methods
 
@@ -169,7 +169,7 @@ components/MarkerClusterer.tsx:39
 
 #### Defined in
 
-components/MarkerClusterer.tsx:68
+[components/MarkerClusterer.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L68)
 
 ---
 
@@ -194,7 +194,7 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Defined in
 
-components/MarkerClusterer.tsx:93
+[components/MarkerClusterer.tsx:93](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L93)
 
 ---
 
@@ -218,7 +218,7 @@ components/MarkerClusterer.tsx:93
 
 #### Defined in
 
-components/MarkerClusterer.tsx:109
+[components/MarkerClusterer.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L109)
 
 ---
 
@@ -242,7 +242,7 @@ components/MarkerClusterer.tsx:109
 
 #### Defined in
 
-components/MarkerClusterer.tsx:84
+[components/MarkerClusterer.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L84)
 
 ---
 
@@ -266,7 +266,7 @@ components/MarkerClusterer.tsx:84
 
 #### Defined in
 
-components/MarkerClusterer.tsx:76
+[components/MarkerClusterer.tsx:76](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L76)
 
 ---
 
@@ -290,7 +290,7 @@ components/MarkerClusterer.tsx:76
 
 #### Defined in
 
-components/MarkerClusterer.tsx:101
+[components/MarkerClusterer.tsx:101](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L101)
 
 ---
 
@@ -312,4 +312,4 @@ MarkerClusterer 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-components/MarkerClusterer.tsx:116
+[components/MarkerClusterer.tsx:116](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L116)

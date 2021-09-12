@@ -4,6 +4,7 @@
 - MapTypeControl, MapTypeId, ZoomControl 추가
 - Circle, Ellipse, Polygon, Polyline, Rectangle 추가
 - 컴포넌트, hook 일부 리팩토링
+- markerImage Type 오류 수정
 - 일부 함수 사용법 수정
 
 ### 0.1.1

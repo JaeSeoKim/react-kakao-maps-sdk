@@ -61,9 +61,10 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
       content: container.current,
       position: position,
     })
+    container.current.style.whiteSpace = "nowrap"
     return kakaoInfoWindow
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [disableAutoPan, removable])
 
   useEffect(() => {
     if (onCreate) onCreate(infoWindow)

@@ -1,0 +1,104 @@
+---
+title: "여러개 마커에 이벤트 등록하기2"
+sidebar_position: 13
+---
+
+이 샘플에서는 여러개의 마커에 마우스 이벤트를 등록하고 이벤트가 발생할 때 마다 마커에 다른이미지가 표시되도록 합니다. 마우스 오버시 조금 큰 마커 이미지로 변경되고 마우스 아웃시 처음 이미지로 변경합니다. 마우스 클릭시에는 다른 색깔의 마커 이미지로 변경하고 마우스 오버, 아웃 이벤트가 발생해도 이미지가 바뀌지 않습니다. 다른 마커를 클릭하면 클릭됐었던 마커는 다시 기본 마커로 이미지를 변경합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/multipleMarkerEvent2/
+
+```jsx live
+function(){
+  const MARKER_WIDTH = 33 // 기본, 클릭 마커의 너비
+  const MARKER_HEIGHT = 36 // 기본, 클릭 마커의 높이
+  const OFFSET_X = 12 // 기본, 클릭 마커의 기준 X좌표
+  const OFFSET_Y = MARKER_HEIGHT // 기본, 클릭 마커의 기준 Y좌표
+  const OVER_MARKER_WIDTH = 40 // 오버 마커의 너비
+  const OVER_MARKER_HEIGHT = 42 // 오버 마커의 높이
+  const OVER_OFFSET_X = 13 // 오버 마커의 기준 X좌표
+  const OVER_OFFSET_Y = OVER_MARKER_HEIGHT // 오버 마커의 기준 Y좌표
+  const SPRITE_MARKER_URL =
+    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png" // 스프라이트 마커 이미지 URL
+  const SPRITE_WIDTH = 126 // 스프라이트 이미지 너비
+  const SPRITE_HEIGHT = 146 // 스프라이트 이미지 높이
+  const SPRITE_GAP = 10 // 스프라이트 이미지에서 마커간 간격
+
+  const positions = [
+    { lat: 33.44975, lng: 126.56967 },
+    { lat: 33.450579, lng: 126.56956 },
+    { lat: 33.4506468, lng: 126.5707 },
+  ]
+
+  const EventMarkerContainer = ({ position, index, onClick, isClicked }) => {
+    const map = useMap()
+    const [isOver, setIsOver] = useState(false)
+    const gapX = MARKER_WIDTH + SPRITE_GAP // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+    const originY = (MARKER_HEIGHT + SPRITE_GAP) * index // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+    const overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * index // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+    const normalOrigin = { x: 0, y: originY } // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+    const clickOrigin = { x: gapX, y: originY } // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+    const overOrigin = { x: gapX * 2, y: overOriginY } // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
+
+    let spriteOrigin = isOver ? overOrigin : normalOrigin
+
+    if (isClicked) {
+      spriteOrigin = clickOrigin
+    }
+
+    return (
+      <MapMarker
+        position={position} // 마커를 표시할 위치
+        onClick={onClick}
+        onMouseOver={() => setIsOver(true)}
+        onMouseOut={() => setIsOver(false)}
+        image={{
+          src: SPRITE_MARKER_URL,
+          size: {
+            width: MARKER_WIDTH,
+            height: MARKER_HEIGHT,
+          },
+          options: {
+            offset: {
+              x: OFFSET_X,
+              y: OFFSET_Y,
+            },
+            spriteSize: {
+              width: SPRITE_WIDTH,
+              height: SPRITE_HEIGHT,
+            },
+            spriteOrigin: spriteOrigin,
+          },
+        }}
+      ></MapMarker>
+    )
+  }
+
+  const [selectedMarker, setSeleteMarker] = useState()
+
+  return (
+    <Map // 지도를 표시할 Container
+      center={{
+        // 지도의 중심좌표
+        lat: 33.450701,
+        lng: 126.570667,
+      }}
+      style={{
+        // 지도의 크기
+        width: "100%",
+        height: "450px",
+      }}
+      level={3} // 지도의 확대 레벨
+    >
+      {positions.map((position, index) => (
+        <EventMarkerContainer
+          index={index}
+          key={`EventMarkerContainer-${position.lat}-${position.lng}`}
+          position={position}
+          onClick={() => setSeleteMarker(index)}
+          isClicked={selectedMarker === index}
+        />
+      ))}
+    </Map>
+  )
+}
+```

@@ -1,0 +1,182 @@
+---
+title: "원의 반경 계산하기"
+sidebar_position: 20
+---
+
+지도를 클릭하면 원 그리기가 시작되고 오른쪽 마우스를 클릭하면 원 그리기가 중단되고 원의 실제 반경(단위 : m)을 표시합니다.
+
+_지도를 마우스로 클릭하면 원 그리기가 시작되고_
+_오른쪽 마우스를 클릭하면 원 그리기가 종료됩니다_
+
+> original docs : https://apis.map.kakao.com/web/sample/calculateCircleRadius/
+
+```jsx live
+function(){
+  const [isDrawing, setIsDrawing] = useState(false)
+  const [drawingCircleData, setDrawingCircleData] = useState()
+  const [drawingLine, setDrawingLine] = useState()
+  const [circles, setCircles] = useState([])
+  const [mousePosition, setMousePosition] = useState({
+    lat: 0,
+    lng: 0,
+  })
+
+  const handleClick = (_map, mouseEvent) => {
+    if (!isDrawing) {
+      setDrawingCircleData({
+        center: {
+          lat: mouseEvent.latLng.getLat(),
+          lng: mouseEvent.latLng.getLng(),
+        },
+        radius: 0,
+      })
+      setIsDrawing(true)
+    }
+  }
+
+  const handleMouseMove = (_map, mouseEvent) => {
+    setMousePosition({
+      lat: mouseEvent.latLng.getLat(),
+      lng: mouseEvent.latLng.getLng(),
+    })
+    if (isDrawing) {
+      setDrawingCircleData((prev) => ({
+        ...prev,
+        radius: drawingLine.getLength(),
+      }))
+    }
+  }
+
+  const handleRightClick = (_map, _mouseEvent) => {
+    if (isDrawing) {
+      setIsDrawing(false)
+      setCircles((prev) => [...prev, { ...drawingCircleData, mousePosition }])
+    }
+  }
+
+  const DistanceInfo = ({ distance }) => {
+    const walkkTime = (distance / 67) | 0
+    const bycicleTime = (distance / 227) | 0
+
+    return (
+      <ul className="info">
+        <li>
+          <span className="label">총거리</span>{" "}
+          <span className="number">{distance}</span>m
+        </li>
+        <li>
+          <span className="label">도보</span>{" "}
+          {walkkTime > 60 && (
+            <>
+              <span className="number">{Math.floor(walkkTime / 60)}</span> 시간{" "}
+            </>
+          )}
+          <span className="number">{walkkTime % 60}</span> 분
+        </li>
+        <li>
+          <span className="label">자전거</span>{" "}
+          {bycicleTime > 60 && (
+            <>
+              <span className="number">{Math.floor(bycicleTime / 60)}</span>{" "}
+              시간{" "}
+            </>
+          )}
+          <span className="number">{bycicleTime % 60}</span> 분
+        </li>
+      </ul>
+    )
+  }
+
+  return (
+    <>
+      <CalculateCircleRadiusStyle />
+      <Map // 지도를 표시할 Container
+        id={`map`}
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+        onClick={handleClick}
+        onRightClick={handleRightClick}
+        onMouseMove={handleMouseMove}
+      >
+        {isDrawing && (
+          <>
+            <Circle
+              center={drawingCircleData.center}
+              radius={drawingCircleData.radius}
+              strokeWeight={1} // 선의 두께입니다
+              strokeColor={"#00a0e9"} // 선의 색깔입니다
+              strokeOpacity={0.1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+              strokeStyle={"solid"} // 선의 스타일입니다
+              fillColor={"#00a0e9"} // 채우기 색깔입니다
+              fillOpacity={0.2} // 채우기 불투명도입니다
+            />
+            <Polyline
+              path={[drawingCircleData.center, mousePosition]}
+              onCreate={setDrawingLine}
+              strokeWeight={3} // 선의 두께 입니다
+              strokeColor={"#00a0e9"} // 선의 색깔입니다
+              strokeOpacity={1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+              strokeStyle={"solid"} // 선의 스타일입니다
+            />
+            <CustomOverlayMap
+              position={mousePosition}
+              xAnchor={0}
+              yAnchor={0}
+              zIndex={1}
+            >
+              <div className="info">
+                반경{" "}
+                <span className="number">
+                  {Math.floor(drawingCircleData.radius)}
+                </span>
+                m
+              </div>
+            </CustomOverlayMap>
+          </>
+        )}
+        {circles.map((circle) => (
+          <React.Fragment
+            key={`circles-${circle.center.lat},${circle.center.lng}`}
+          >
+            <Circle
+              center={circle.center}
+              radius={circle.radius}
+              strokeWeight={1} // 선의 두께입니다
+              strokeColor={"#00a0e9"} // 선의 색깔입니다
+              strokeOpacity={0.1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+              strokeStyle={"solid"} // 선의 스타일입니다
+              fillColor={"#00a0e9"} // 채우기 색깔입니다
+              fillOpacity={0.2} // 채우기 불투명도입니다
+            />
+            <Polyline
+              path={[circle.center, circle.mousePosition]}
+              strokeWeight={3} // 선의 두께 입니다
+              strokeColor={"#00a0e9"} // 선의 색깔입니다
+              strokeOpacity={1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+              strokeStyle={"solid"} // 선의 스타일입니다
+            />
+            <CustomOverlayMap
+              position={circle.mousePosition}
+              xAnchor={0}
+              yAnchor={0}
+              zIndex={1}
+            >
+              <DistanceInfo distance={Math.floor(circle.radius)} />
+            </CustomOverlayMap>
+          </React.Fragment>
+        ))}
+      </Map>
+      <button onClick={() => setCircles([])}>모두 지우기!</button>
+    </>
+  )
+}
+```
