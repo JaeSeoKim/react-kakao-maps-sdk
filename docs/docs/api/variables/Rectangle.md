@@ -12,4 +12,4 @@ Map 상에 사각형을 그립니다.
 
 #### Defined in
 
-[components/Rectangle.tsx:88](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Rectangle.tsx#L88)
+[components/Rectangle.tsx:88](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/Rectangle.tsx#L88)

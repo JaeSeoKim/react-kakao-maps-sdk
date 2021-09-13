@@ -1,4 +1,4 @@
-### 1.0.0
+### 0.2.0
 
 - AbstractOverlay 추가
 - MarkerClusterer 추가

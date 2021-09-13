@@ -12,4 +12,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/ZoomControl.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/ZoomControl.tsx#L14)
+[components/ZoomControl.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/ZoomControl.tsx#L14)
