@@ -6,6 +6,7 @@
  */
 
 import React from "react"
+import ReactDOM from "react-dom"
 import Head from "@docusaurus/Head"
 import * as ReactKakaoMapsSdk from "react-kakao-maps-sdk"
 import clusterPositionsData from "./clusterPositions.json"
@@ -365,10 +366,88 @@ const MarkerWithCustomOverlayStyle = () => (
   </Head>
 )
 
+const DragCustomOverlayStyle = () => (
+  <Head>
+    <style>{`
+    .overlay {
+      color:#000;
+      position:absolute;
+      left: -50px;
+      top:0;
+      width:100px;
+      height: 100px;
+      background: #fff;
+      border:1px solid #ccc;
+      border-radius: 5px;
+      padding:5px;
+      font-size:12px;
+      text-align: center;
+      white-space: pre;
+      word-wrap: break-word;
+      `}</style>
+  </Head>
+)
+
+const MarkerTrackerStyle = () => (
+  <Head>
+    <style>{`
+    .node {
+      position: absolute;
+      background-image: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/sign-info-64.png);
+      cursor: pointer;
+      width: 64px;
+      height: 64px;
+    }
+
+    .tooltip {
+      color:#000;
+      background-color: #fff;
+      position: absolute;
+      border: 2px solid #333;
+      font-size: 25px;
+      font-weight: bold;
+      padding: 3px 5px 0;
+      left: 65px;
+      top: 14px;
+      border-radius: 5px;
+      white-space: nowrap;
+    }
+
+    .tracker {
+      position: absolute;
+      margin: -35px 0 0 -30px;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .icon {
+      position: absolute;
+      left: 6px;
+      top: 9px;
+      width: 48px;
+      height: 48px;
+      background-image: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/sign-info-48.png);
+    }
+
+    .balloon {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-image: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/balloon.png);
+      -ms-transform-origin: 50% 34px;
+      -webkit-transform-origin: 50% 34px;
+      transform-origin: 50% 34px;
+    }
+      `}</style>
+  </Head>
+)
+
 // Add react-live imports you need here
 const ReactLiveScope = {
   React,
   ...React,
+  ReactDOM,
+  ...ReactDOM,
   ...ReactKakaoMapsSdk,
   clusterPositionsData,
   Head,
@@ -383,6 +462,8 @@ const ReactLiveScope = {
   CalculateCircleRadiusStyle,
   RemovableCustomOverlayStyle,
   MarkerWithCustomOverlayStyle,
+  DragCustomOverlayStyle,
+  MarkerTrackerStyle,
 }
 
 export default ReactLiveScope

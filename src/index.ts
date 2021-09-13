@@ -44,6 +44,9 @@ export type { EllipseProps } from "./components/Ellipse"
 export { default as MarkerClusterer } from "./components/MarkerClusterer"
 export type { MarkerClustererProps } from "./components/MarkerClusterer"
 
+export { default as AbstractOverlay } from "./components/AbstractOverlay"
+export type { AbstractOverlayProps } from "./components/AbstractOverlay"
+
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"
 export { default as useMapPosition } from "./hooks/useMapPosition"

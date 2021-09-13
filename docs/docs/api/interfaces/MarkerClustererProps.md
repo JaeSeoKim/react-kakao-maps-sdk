@@ -18,9 +18,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:20](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L20)
+[components/MarkerClusterer.tsx:20](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L20)
 
----
+___
 
 ### calculator
 
@@ -32,9 +32,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:44](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L44)
+[components/MarkerClusterer.tsx:44](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L44)
 
----
+___
 
 ### clickable
 
@@ -46,9 +46,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:54](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L54)
+[components/MarkerClusterer.tsx:54](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L54)
 
----
+___
 
 ### disableClickZoom
 
@@ -60,9 +60,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L49)
+[components/MarkerClusterer.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L49)
 
----
+___
 
 ### gridSize
 
@@ -74,9 +74,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L15)
+[components/MarkerClusterer.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L15)
 
----
+___
 
 ### hoverable
 
@@ -88,9 +88,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:59](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L59)
+[components/MarkerClusterer.tsx:59](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L59)
 
----
+___
 
 ### minClusterSize
 
@@ -102,9 +102,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:30](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L30)
+[components/MarkerClusterer.tsx:30](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L30)
 
----
+___
 
 ### minLevel
 
@@ -116,9 +116,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:25](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L25)
+[components/MarkerClusterer.tsx:25](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L25)
 
----
+___
 
 ### styles
 
@@ -128,9 +128,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:34](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L34)
+[components/MarkerClusterer.tsx:34](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L34)
 
----
+___
 
 ### texts
 
@@ -142,7 +142,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:39](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L39)
+[components/MarkerClusterer.tsx:39](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L39)
 
 ## Methods
 
@@ -158,10 +158,10 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name      | Type              |
-| :-------- | :---------------- |
-| `target`  | `MarkerClusterer` |
-| `cluster` | `Cluster`         |
+| Name | Type |
+| :------ | :------ |
+| `target` | `MarkerClusterer` |
+| `cluster` | `Cluster` |
 
 #### Returns
 
@@ -169,9 +169,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L68)
+[components/MarkerClusterer.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L68)
 
----
+___
 
 ### onClusterdblclick
 
@@ -183,10 +183,10 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Parameters
 
-| Name      | Type              |
-| :-------- | :---------------- |
-| `target`  | `MarkerClusterer` |
-| `cluster` | `Cluster`         |
+| Name | Type |
+| :------ | :------ |
+| `target` | `MarkerClusterer` |
+| `cluster` | `Cluster` |
 
 #### Returns
 
@@ -194,9 +194,9 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:93](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L93)
+[components/MarkerClusterer.tsx:93](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L93)
 
----
+___
 
 ### onClustered
 
@@ -207,10 +207,10 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Parameters
 
-| Name       | Type              |
-| :--------- | :---------------- |
-| `target`   | `MarkerClusterer` |
-| `clusters` | `Cluster`[]       |
+| Name | Type |
+| :------ | :------ |
+| `target` | `MarkerClusterer` |
+| `clusters` | `Cluster`[] |
 
 #### Returns
 
@@ -218,9 +218,9 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L109)
+[components/MarkerClusterer.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L109)
 
----
+___
 
 ### onClusterout
 
@@ -231,10 +231,10 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Parameters
 
-| Name      | Type              |
-| :-------- | :---------------- |
-| `target`  | `MarkerClusterer` |
-| `cluster` | `Cluster`         |
+| Name | Type |
+| :------ | :------ |
+| `target` | `MarkerClusterer` |
+| `cluster` | `Cluster` |
 
 #### Returns
 
@@ -242,9 +242,9 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L84)
+[components/MarkerClusterer.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L84)
 
----
+___
 
 ### onClusterover
 
@@ -255,10 +255,10 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Parameters
 
-| Name      | Type              |
-| :-------- | :---------------- |
-| `target`  | `MarkerClusterer` |
-| `cluster` | `Cluster`         |
+| Name | Type |
+| :------ | :------ |
+| `target` | `MarkerClusterer` |
+| `cluster` | `Cluster` |
 
 #### Returns
 
@@ -266,9 +266,9 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:76](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L76)
+[components/MarkerClusterer.tsx:76](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L76)
 
----
+___
 
 ### onClusterrightclick
 
@@ -279,10 +279,10 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Parameters
 
-| Name      | Type              |
-| :-------- | :---------------- |
-| `target`  | `MarkerClusterer` |
-| `cluster` | `Cluster`         |
+| Name | Type |
+| :------ | :------ |
+| `target` | `MarkerClusterer` |
+| `cluster` | `Cluster` |
 
 #### Returns
 
@@ -290,9 +290,9 @@ MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해�
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:101](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L101)
+[components/MarkerClusterer.tsx:101](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L101)
 
----
+___
 
 ### onCreate
 
@@ -302,8 +302,8 @@ MarkerClusterer 생성 후 해당 객체를 전달하는 함수
 
 #### Parameters
 
-| Name     | Type              |
-| :------- | :---------------- |
+| Name | Type |
+| :------ | :------ |
 | `target` | `MarkerClusterer` |
 
 #### Returns
@@ -312,4 +312,4 @@ MarkerClusterer 생성 후 해당 객체를 전달하는 함수
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:116](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L116)
+[components/MarkerClusterer.tsx:116](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L116)

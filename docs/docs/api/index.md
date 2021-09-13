@@ -9,6 +9,7 @@ custom_edit_url: null
 
 ## Interfaces
 
+- [AbstractOverlayProps](interfaces/AbstractOverlayProps.md)
 - [CircleProps](interfaces/CircleProps.md)
 - [CustomOverlayMapProps](interfaces/CustomOverlayMapProps.md)
 - [CustomOverlayRoadviewProps](interfaces/CustomOverlayRoadviewProps.md)
@@ -27,6 +28,7 @@ custom_edit_url: null
 
 ## Variables
 
+- [AbstractOverlay](variables/AbstractOverlay.md)
 - [Circle](variables/Circle.md)
 - [CustomOverlayMap](variables/CustomOverlayMap.md)
 - [CustomOverlayRoadview](variables/CustomOverlayRoadview.md)

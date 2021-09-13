@@ -16,9 +16,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L31)
+[components/MapInfoWindow.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L31)
 
----
+___
 
 ### disableAutoPan
 
@@ -28,9 +28,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L16)
+[components/MapInfoWindow.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L16)
 
----
+___
 
 ### position
 
@@ -40,16 +40,16 @@ custom_edit_url: null
 
 #### Type declaration
 
-| Name  | Type     |
-| :---- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `lat` | `number` |
 | `lng` | `number` |
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L9)
+[components/MapInfoWindow.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L9)
 
----
+___
 
 ### range
 
@@ -59,9 +59,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L36)
+[components/MapInfoWindow.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L36)
 
----
+___
 
 ### removable
 
@@ -71,9 +71,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L21)
+[components/MapInfoWindow.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L21)
 
----
+___
 
 ### zIndex
 
@@ -83,7 +83,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L26)
+[components/MapInfoWindow.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L26)
 
 ## Methods
 
@@ -95,8 +95,8 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name         | Type         |
-| :----------- | :----------- |
+| Name | Type |
+| :------ | :------ |
 | `infoWindow` | `InfoWindow` |
 
 #### Returns
@@ -105,4 +105,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapInfoWindow.tsx#L41)
+[components/MapInfoWindow.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapInfoWindow.tsx#L41)

@@ -16,16 +16,16 @@ custom_edit_url: null
 
 #### Type declaration
 
-| Name  | Type     |
-| :---- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `lat` | `number` |
 | `lng` | `number` |
 
 #### Defined in
 
-[components/Ellipse.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L9)
+[components/Ellipse.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L9)
 
----
+___
 
 ### fillColor
 
@@ -35,9 +35,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L26)
+[components/Ellipse.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L26)
 
----
+___
 
 ### fillOpacity
 
@@ -47,9 +47,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L31)
+[components/Ellipse.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L31)
 
----
+___
 
 ### rx
 
@@ -59,9 +59,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L16)
+[components/Ellipse.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L16)
 
----
+___
 
 ### ry
 
@@ -71,9 +71,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L21)
+[components/Ellipse.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L21)
 
----
+___
 
 ### strokeColor
 
@@ -83,9 +83,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L41)
+[components/Ellipse.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L41)
 
----
+___
 
 ### strokeOpacity
 
@@ -95,9 +95,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L46)
+[components/Ellipse.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L46)
 
----
+___
 
 ### strokeStyle
 
@@ -107,9 +107,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:51](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L51)
+[components/Ellipse.tsx:51](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L51)
 
----
+___
 
 ### strokeWeight
 
@@ -119,9 +119,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L36)
+[components/Ellipse.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L36)
 
----
+___
 
 ### zIndex
 
@@ -131,7 +131,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:56](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L56)
+[components/Ellipse.tsx:56](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L56)
 
 ## Methods
 
@@ -143,9 +143,9 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name         | Type         |
-| :----------- | :----------- |
-| `target`     | `Ellipse`    |
+| Name | Type |
+| :------ | :------ |
+| `target` | `Ellipse` |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -154,9 +154,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L89)
+[components/Ellipse.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L89)
 
----
+___
 
 ### onCreate
 
@@ -166,8 +166,8 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name     | Type      |
-| :------- | :-------- |
+| Name | Type |
+| :------ | :------ |
 | `target` | `Ellipse` |
 
 #### Returns
@@ -176,9 +176,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:97](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L97)
+[components/Ellipse.tsx:97](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L97)
 
----
+___
 
 ### onMousedown
 
@@ -188,9 +188,9 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name         | Type         |
-| :----------- | :----------- |
-| `target`     | `Ellipse`    |
+| Name | Type |
+| :------ | :------ |
+| `target` | `Ellipse` |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -199,9 +199,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:82](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L82)
+[components/Ellipse.tsx:82](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L82)
 
----
+___
 
 ### onMousemove
 
@@ -211,9 +211,9 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name         | Type         |
-| :----------- | :----------- |
-| `target`     | `Ellipse`    |
+| Name | Type |
+| :------ | :------ |
+| `target` | `Ellipse` |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -222,9 +222,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:75](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L75)
+[components/Ellipse.tsx:75](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L75)
 
----
+___
 
 ### onMouseout
 
@@ -234,9 +234,9 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name         | Type         |
-| :----------- | :----------- |
-| `target`     | `Ellipse`    |
+| Name | Type |
+| :------ | :------ |
+| `target` | `Ellipse` |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -245,9 +245,9 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L68)
+[components/Ellipse.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L68)
 
----
+___
 
 ### onMouseover
 
@@ -257,9 +257,9 @@ custom_edit_url: null
 
 #### Parameters
 
-| Name         | Type         |
-| :----------- | :----------- |
-| `target`     | `Ellipse`    |
+| Name | Type |
+| :------ | :------ |
+| `target` | `Ellipse` |
 | `mouseEvent` | `MouseEvent` |
 
 #### Returns
@@ -268,4 +268,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:61](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/Ellipse.tsx#L61)
+[components/Ellipse.tsx:61](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/Ellipse.tsx#L61)

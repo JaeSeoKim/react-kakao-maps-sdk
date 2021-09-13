@@ -1,5 +1,6 @@
-### 0.1.2
+### 1.0.0
 
+- AbstractOverlay 추가
 - MarkerClusterer 추가
 - MapTypeControl, MapTypeId, ZoomControl 추가
 - Circle, Ellipse, Polygon, Polyline, Rectangle 추가

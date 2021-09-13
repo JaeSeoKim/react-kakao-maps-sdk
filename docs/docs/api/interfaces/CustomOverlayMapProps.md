@@ -16,9 +16,9 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayMap.tsx#L16)
+[components/CustomOverlayMap.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/CustomOverlayMap.tsx#L16)
 
----
+___
 
 ### position
 
@@ -28,16 +28,16 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Type declaration
 
-| Name  | Type     |
-| :---- | :------- |
+| Name | Type |
+| :------ | :------ |
 | `lat` | `number` |
 | `lng` | `number` |
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayMap.tsx#L9)
+[components/CustomOverlayMap.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/CustomOverlayMap.tsx#L9)
 
----
+___
 
 ### xAnchor
 
@@ -47,9 +47,9 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayMap.tsx#L21)
+[components/CustomOverlayMap.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/CustomOverlayMap.tsx#L21)
 
----
+___
 
 ### yAnchor
 
@@ -59,9 +59,9 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayMap.tsx#L26)
+[components/CustomOverlayMap.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/CustomOverlayMap.tsx#L26)
 
----
+___
 
 ### zIndex
 
@@ -71,7 +71,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayMap.tsx#L31)
+[components/CustomOverlayMap.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/CustomOverlayMap.tsx#L31)
 
 ## Methods
 
@@ -83,8 +83,8 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Parameters
 
-| Name            | Type            |
-| :-------------- | :-------------- |
+| Name | Type |
+| :------ | :------ |
 | `customOverlay` | `CustomOverlay` |
 
 #### Returns
@@ -93,4 +93,4 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/CustomOverlayMap.tsx#L36)
+[components/CustomOverlayMap.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/CustomOverlayMap.tsx#L36)

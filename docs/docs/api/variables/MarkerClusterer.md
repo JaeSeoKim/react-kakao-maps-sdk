@@ -10,4 +10,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MarkerClusterer.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MarkerClusterer.tsx#L119)
+[components/MarkerClusterer.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MarkerClusterer.tsx#L119)

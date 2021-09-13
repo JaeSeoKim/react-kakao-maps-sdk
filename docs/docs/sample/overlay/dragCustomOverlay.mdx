@@ -1,0 +1,107 @@
+---
+title: "커스텀오버레이를 드래그 하기"
+sidebar_position: 25
+---
+
+지도 컨테이너 내 좌표와 화면 좌표 픽셀 변환을 이용해 커스텀 오버레이를 드래그 기능을 구현합니다. 커스텀 오버레이를 mousedown 한 후 mousemove 이벤트를 등록해 마우스가 얼마나 이동했는지 계산하고 커스텀 오버레이 위치에 반영합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/dragCustomOverlay/
+
+```jsx live
+function(){
+  // 커스텀 오버레이를 드래그 하기 위해 필요한
+  // 드래그 시작좌표, 커스텀 오버레이의 위치좌표를 넣을 변수를 선업합니다
+  const startPoint = useRef({ x: 0, y: 0 })
+  const overlayPoint = useRef()
+  const [map, setMap] = useState()
+  const [position, setPosition] = useState({
+    lat: 37.54699,
+    lng: 127.09598,
+  })
+
+  const onMouseMove = useCallback(
+    (e) => {
+      // 이벤트 버블링 현상이 발생하지 않도록 방지 합니다.
+      e.preventDefault()
+
+      const proj = map.getProjection() // 지도 객체로 부터 화면픽셀좌표, 지도좌표간 변환을 위한 MapProjection 객체를 얻어옵니다
+      const deltaX = startPoint.current.x - e.clientX // mousedown한 픽셀좌표에서 mousemove한 좌표를 빼서 실제로 마우스가 이동된 픽셀좌표를 구합니다
+      const deltaY = startPoint.current.y - e.clientY
+      // mousedown됐을 때의 커스텀 오버레이의 좌표에 실제로 마우스가 이동된 픽셀좌표를 반영합니다
+      const newPoint = new kakao.maps.Point(
+        overlayPoint.current.x - deltaX,
+        overlayPoint.current.y - deltaY
+      )
+      // 계산된 픽셀 좌표를 지도 컨테이너에 해당하는 지도 좌표로 변경합니다
+      const newPos = proj.coordsFromContainerPoint(newPoint)
+
+      // 커스텀 오버레이의 좌표를 설정합니다
+      setPosition({
+        lat: newPos.getLat(),
+        lng: newPos.getLng(),
+      })
+    },
+    [map]
+  )
+
+  const onMouseUp = useCallback(() => {
+    // MouseUp 이벤트 발생시 기존 mousemove 이벤트를 제거 합니다.
+    document.removeEventListener("mousemove", onMouseMove)
+  }, [onMouseMove])
+
+  const onMouseDown = useCallback(
+    (e) => {
+      // 이벤트 버블링 현상이 발생하지 않도록 방지 합니다.
+      e.preventDefault()
+
+      const proj = map.getProjection()
+
+      kakao.maps.event.preventMap()
+
+      startPoint.current.x = e.clientX
+      startPoint.current.y = e.clientY
+
+      overlayPoint.current = proj.containerPointFromCoords(
+        new kakao.maps.LatLng(position.lat, position.lng)
+      )
+
+      document.addEventListener("mousemove", onMouseMove)
+    },
+    [onMouseMove, map, position.lat, position.lng]
+  )
+
+  useEffect(() => {
+    document.addEventListener("mouseup", onMouseUp)
+
+    return () => {
+      document.removeEventListener("mouseup", onMouseUp)
+    }
+  }, [onMouseUp, onMouseDown])
+
+  return (
+    <>
+      <DragCustomOverlayStyle />
+      <Map // 지도를 표시할 Container
+        center={{
+          // 지도의 중심좌표
+          lat: 37.54699,
+          lng: 127.09598,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+        onCreate={setMap}
+      >
+        <CustomOverlayMap position={position}>
+          <div onMouseDown={onMouseDown} className="overlay">
+            드래그 해주세요 :D
+          </div>
+        </CustomOverlayMap>
+      </Map>
+    </>
+  )
+}
+```

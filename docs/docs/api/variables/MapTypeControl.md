@@ -13,4 +13,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapTypeControl.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/c2e6108/src/components/MapTypeControl.tsx#L15)
+[components/MapTypeControl.tsx:15](https://github.com/JaeSeoKim/react-kakao-maps/blob/66f59fe/src/components/MapTypeControl.tsx#L15)

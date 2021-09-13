@@ -137,6 +137,7 @@ module.exports = {
         sidebar: {
           categoryLabel: "API",
         },
+        watch: process.env.TYPEDOC_WATCH,
       },
     ],
   ],
