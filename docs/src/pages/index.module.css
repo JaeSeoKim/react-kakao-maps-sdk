@@ -4,6 +4,7 @@
  */
 
 .heroBanner {
+  display: flex;
   padding: 4rem 0;
   text-align: center;
   position: relative;
@@ -20,4 +21,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.container {
+  position: relative;
+}
+
+.map {
+  width: 256px;
+  height: 256px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
 }

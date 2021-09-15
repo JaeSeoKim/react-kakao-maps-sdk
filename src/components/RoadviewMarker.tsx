@@ -158,7 +158,7 @@ export interface RoadviewMarkerProps {
     /**
      * Contianer style에 대해서 지정합니다.
      */
-    style?: CSSStyleDeclaration
+    style?: React.CSSProperties
 
     /**
      * 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false)

@@ -13,4 +13,4 @@ Map에 CustomOverlay를 올릴 때 사용하는 컴포넌트 입니다.
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:58](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayMap.tsx#L58)
+[components/CustomOverlayMap.tsx:58](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L58)

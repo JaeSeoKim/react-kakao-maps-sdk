@@ -16,7 +16,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapMarker.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L109)
+[components/MapMarker.tsx:124](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L124)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:104](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L104)
+[components/MapMarker.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L119)
 
 ___
 
@@ -42,7 +42,9 @@ ___
 | :------ | :------ | :------ |
 | `options?` | `Object` | - |
 | `options.alt?` | `string` | 마커 이미지의 alt 속성값을 정의한다. |
+| `options.className?` | `string` | Contianer className에 대해서 지정합니다. |
 | `options.coords?` | `string` | 마커의 클릭 또는 마우스오버 가능한 영역을 표현하는 좌표값 |
+| `options.id?` | `string` | Contianer id에 대해서 지정합니다. |
 | `options.offset?` | `Object` | 마커의 좌표에 일치시킬 이미지 안의 좌표 (기본값: 이미지의 가운데 아래) |
 | `options.offset.x` | `number` | - |
 | `options.offset.y` | `number` | - |
@@ -53,6 +55,7 @@ ___
 | `options.spriteSize?` | `Object` | 스프라이트 이미지의 전체 크기 |
 | `options.spriteSize.height` | `number` | - |
 | `options.spriteSize.width` | `number` | - |
+| `options.style?` | `CSSProperties` | Contianer style에 대해서 지정합니다. |
 | `size` | `Object` | 표시 이미지 크기 |
 | `size.height` | `number` | - |
 | `size.width` | `number` | - |
@@ -60,7 +63,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L19)
+[components/MapMarker.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L19)
 
 ___
 
@@ -78,12 +81,12 @@ InfoWindow 옵션
 | `disableAutoPan?` | `boolean` | 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false) |
 | `id?` | `string` | Contianer id에 대해서 지정합니다. |
 | `removable?` | `boolean` | 삭제 가능한 인포윈도우 |
-| `style?` | `CSSStyleDeclaration` | Contianer style에 대해서 지정합니다. |
+| `style?` | `CSSProperties` | Contianer style에 대해서 지정합니다. |
 | `zIndex?` | `number` | 인포윈도우 엘리먼트의 z-index 속성 값 |
 
 #### Defined in
 
-[components/MapMarker.tsx:124](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L124)
+[components/MapMarker.tsx:139](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L139)
 
 ___
 
@@ -95,7 +98,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L119)
+[components/MapMarker.tsx:134](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L134)
 
 ___
 
@@ -107,7 +110,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L9)
+[components/MapMarker.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L9)
 
 ___
 
@@ -119,7 +122,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:99](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L99)
+[components/MapMarker.tsx:114](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L114)
 
 ___
 
@@ -131,7 +134,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:114](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L114)
+[components/MapMarker.tsx:129](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L129)
 
 ## Methods
 
@@ -153,7 +156,7 @@ click 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:69](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L69)
+[components/MapMarker.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L84)
 
 ___
 
@@ -175,7 +178,7 @@ Maker 생성 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:94](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L94)
+[components/MapMarker.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L109)
 
 ___
 
@@ -197,7 +200,7 @@ dragend 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L89)
+[components/MapMarker.tsx:104](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L104)
 
 ___
 
@@ -219,7 +222,7 @@ dragstart 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L84)
+[components/MapMarker.tsx:99](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L99)
 
 ___
 
@@ -241,7 +244,7 @@ mouseout 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:79](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L79)
+[components/MapMarker.tsx:94](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L94)
 
 ___
 
@@ -263,4 +266,4 @@ mouseover 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:74](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L74)
+[components/MapMarker.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapMarker.tsx#L89)

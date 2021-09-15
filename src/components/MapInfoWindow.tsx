@@ -16,7 +16,7 @@ export interface MapInfoWindowProps {
   /**
    * Contianer style에 대해서 지정합니다.
    */
-  style?: CSSStyleDeclaration
+  style?: React.CSSProperties
 
   /**
    * 인포윈도가 표시될 위치

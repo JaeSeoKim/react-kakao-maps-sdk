@@ -52,5 +52,4 @@ custom_edit_url: null
 ## Functions
 
 - [useMap](functions/useMap.md)
-- [useMapPosition](functions/useMapPosition.md)
 - [useRoadview](functions/useRoadview.md)

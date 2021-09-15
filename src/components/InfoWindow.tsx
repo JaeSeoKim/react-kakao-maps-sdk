@@ -15,7 +15,7 @@ interface InfoWindowProps {
   /**
    * Contianer style에 대해서 지정합니다.
    */
-  style?: CSSStyleDeclaration
+  style?: React.CSSProperties
 
   map: kakao.maps.Map | kakao.maps.Roadview
   position: kakao.maps.LatLng | kakao.maps.Viewpoint

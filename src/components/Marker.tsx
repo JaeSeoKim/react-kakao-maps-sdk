@@ -82,6 +82,21 @@ interface MarkerProps {
    */
   infoWindowOptions?: {
     /**
+     * Contianer id에 대해서 지정합니다.
+     */
+    id?: string
+
+    /**
+     * Contianer className에 대해서 지정합니다.
+     */
+    className?: string
+
+    /**
+     * Contianer style에 대해서 지정합니다.
+     */
+    style?: React.CSSProperties
+
+    /**
      * 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false)
      */
     disableAutoPan?: boolean
@@ -243,6 +258,9 @@ const Marker: React.FC<MarkerProps> = ({
         position={position}
         map={map}
         marker={marker}
+        id={infoWindowOptions?.id}
+        className={infoWindowOptions?.className}
+        style={infoWindowOptions?.style}
         altitude={infoWindowOptions?.altitude}
         disableAutoPan={infoWindowOptions?.disableAutoPan}
         range={infoWindowOptions?.range}

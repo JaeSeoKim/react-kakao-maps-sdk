@@ -23,7 +23,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/Ellipse.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L9)
+[components/Ellipse.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L9)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L26)
+[components/Ellipse.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L26)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L31)
+[components/Ellipse.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L31)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L16)
+[components/Ellipse.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L16)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L21)
+[components/Ellipse.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L21)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L41)
+[components/Ellipse.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L41)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L46)
+[components/Ellipse.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L46)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:51](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L51)
+[components/Ellipse.tsx:51](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L51)
 
 ___
 
@@ -119,7 +119,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L36)
+[components/Ellipse.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L36)
 
 ___
 
@@ -131,7 +131,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:56](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L56)
+[components/Ellipse.tsx:56](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L56)
 
 ## Methods
 
@@ -154,7 +154,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L89)
+[components/Ellipse.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L89)
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:97](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L97)
+[components/Ellipse.tsx:97](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L97)
 
 ___
 
@@ -199,7 +199,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:82](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L82)
+[components/Ellipse.tsx:82](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L82)
 
 ___
 
@@ -222,7 +222,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:75](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L75)
+[components/Ellipse.tsx:75](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L75)
 
 ___
 
@@ -245,7 +245,7 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L68)
+[components/Ellipse.tsx:68](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L68)
 
 ___
 
@@ -268,4 +268,4 @@ ___
 
 #### Defined in
 
-[components/Ellipse.tsx:61](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/Ellipse.tsx#L61)
+[components/Ellipse.tsx:61](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Ellipse.tsx#L61)

@@ -1,6 +1,6 @@
 {
   "name": "react-kakao-maps-sdk",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "React components for using kakao map api",
   "license": "MIT",
   "author": {
@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk.git"
   },
+  "homepage": "https://react-kakao-maps-sdk.jaeseokim.dev/",
   "bugs": {
     "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues"
   },

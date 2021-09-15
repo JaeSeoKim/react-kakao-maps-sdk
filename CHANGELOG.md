@@ -1,3 +1,26 @@
+### 1.0.0
+
+#### Feature 🚀
+
+- Map
+  - Marker
+  - InfoWindow
+  - CustomOverlay
+  - MarkerClusterer
+  - AbstractOverlay
+  - Shape
+    - Circle, Polyline, Polygon, Rectangle, Ellipse
+- Roadview
+  - Marker
+  - InfoWindow
+  - CustomOverlay
+
+#### Fixed 🐞
+
+- useMapPosition 제거
+- docs Tutorial 문서 작성 완료
+- 일부 타입 수정 오류 수정.
+
 ### 0.2.1
 
 - RoadviewInfoWindow, RoadviewMarker 추가

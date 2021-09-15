@@ -16,7 +16,7 @@ export interface CustomOverlayMapProps {
   /**
    * CustomOverlay의 Contianer style에 대해서 지정합니다.
    */
-  style?: CSSStyleDeclaration
+  style?: React.CSSProperties
 
   /**
    * 커스텀 오버레이의 좌표

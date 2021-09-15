@@ -32,6 +32,21 @@ export interface MapMarkerProps {
 
     options?: {
       /**
+       * Contianer id에 대해서 지정합니다.
+       */
+      id?: string
+
+      /**
+       * Contianer className에 대해서 지정합니다.
+       */
+      className?: string
+
+      /**
+       * Contianer style에 대해서 지정합니다.
+       */
+      style?: React.CSSProperties
+
+      /**
        * 마커 이미지의 alt 속성값을 정의한다.
        */
       alt?: string
@@ -135,7 +150,7 @@ export interface MapMarkerProps {
     /**
      * Contianer style에 대해서 지정합니다.
      */
-    style?: CSSStyleDeclaration
+    style?: React.CSSProperties
 
     /**
      * 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false)

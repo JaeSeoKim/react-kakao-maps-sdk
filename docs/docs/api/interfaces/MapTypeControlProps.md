@@ -16,4 +16,4 @@ MapTypeControl의 Position를 정의 한다.
 
 #### Defined in
 
-[components/MapTypeControl.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapTypeControl.tsx#L8)
+[components/MapTypeControl.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapTypeControl.tsx#L8)

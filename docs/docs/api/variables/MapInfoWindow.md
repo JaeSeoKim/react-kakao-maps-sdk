@@ -13,4 +13,4 @@ Map 컴포넌트에서 InfoWindow를 그릴 때 사용됩니다.
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:53](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L53)
+[components/MapInfoWindow.tsx:53](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L53)

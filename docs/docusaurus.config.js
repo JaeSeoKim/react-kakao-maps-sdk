@@ -98,12 +98,16 @@ module.exports = {
             title: "More",
             items: [
               {
-                label: "About Developer!",
-                href: "https://about.jaeseokim.dev/",
-              },
-              {
                 label: "GitHub",
                 href: "https://github.com/JaeSeoKim/react-kakao-maps-sdk",
+              },
+              {
+                label: "Npm",
+                href: "https://www.npmjs.com/package/react-kakao-maps-sdk",
+              },
+              {
+                label: "About Developer!",
+                href: "https://about.jaeseokim.dev/",
               },
             ],
           },

@@ -16,4 +16,4 @@ MapTypeId를 정의 한다.
 
 #### Defined in
 
-[components/MapTypeId.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapTypeId.tsx#L8)
+[components/MapTypeId.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapTypeId.tsx#L8)

@@ -31,7 +31,7 @@ export interface MarkerClustererProps {
   /**
    * 클러스터의 스타일. 여러개를 선언하면 calculator 로 구분된 사이즈 구간마다 서로 다른 스타일을 적용시킬 수 있다
    */
-  styles?: CSSStyleDeclaration[] | object[]
+  styles?: React.CSSProperties[] | object[]
   /**
    * 클러스터에 표시할 문자열 또는 문자열 생성 함수.
    * @default "클러스터에 포함된 숫자"

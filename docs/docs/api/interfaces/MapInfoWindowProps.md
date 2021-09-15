@@ -16,7 +16,7 @@ Contianer className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L14)
+[components/MapInfoWindow.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L14)
 
 ___
 
@@ -28,7 +28,7 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L31)
+[components/MapInfoWindow.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L31)
 
 ___
 
@@ -40,7 +40,7 @@ Contianer id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L9)
+[components/MapInfoWindow.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L9)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L24)
+[components/MapInfoWindow.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L24)
 
 ___
 
@@ -71,19 +71,19 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L36)
+[components/MapInfoWindow.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L36)
 
 ___
 
 ### style
 
-• `Optional` **style**: `CSSStyleDeclaration`
+• `Optional` **style**: `CSSProperties`
 
 Contianer style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L19)
+[components/MapInfoWindow.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L19)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L41)
+[components/MapInfoWindow.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L41)
 
 ## Methods
 
@@ -117,4 +117,4 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L46)
+[components/MapInfoWindow.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapInfoWindow.tsx#L46)

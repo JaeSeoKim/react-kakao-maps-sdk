@@ -18,20 +18,15 @@ const FeatureList: FeatureItem[] = [
   {
     title: "Easy to Use",
     image: "/img/undraw_Map_dark_re_36sy.svg",
-    description: (
-      <>
-        간단하게 Map 컴포넌트 하위에 필요한 컴포넌트를 집어 넣는 것만으로 쉽게
-        구현이 가능합니다!
-      </>
-    ),
+    description: <>컴포넌트를 이용하여 간단하게 구현이 가능합니다!</>,
   },
   {
     title: "Focus on What Matters",
     image: "/img/undraw_Location_tracking_re_n3ok.svg",
     description: (
       <>
-        실 기능 구현을 집중 할 수 있도록 React와 Kakao Map API는 저희가 대신
-        구현 해드립니다!
+        기능 구현에 집중 할 수 있도록 KakaoMap과 React Life Cycle을 연결하여
+        제공 합니다!
       </>
     ),
   },
@@ -39,10 +34,7 @@ const FeatureList: FeatureItem[] = [
     title: "Powered by React, TypeScript",
     image: "/img/undraw_My_current_location_re_whmt.svg",
     description: (
-      <>
-        TypeScript와 React를 통한 빠른 개발과 함께 React Component로 관리가
-        가능합니다!
-      </>
+      <>TypeScript의 타입 추론과 함께 React로 쉽게 개발이 가능합니다!!</>
     ),
   },
 ]

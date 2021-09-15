@@ -5,23 +5,41 @@ import Link from "@docusaurus/Link"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import styles from "./index.module.css"
 import HomepageFeatures from "../components/HomepageFeatures"
+import { CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk"
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
   return (
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
-      <div className="container">
+      <div className={clsx("container", styles.container)}>
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro"
+        <Map
+          className={styles.map}
+          center={{ lat: 33.450701, lng: 126.570667 }}
+        >
+          <MapMarker position={{ lat: 33.450701, lng: 126.570667 }}>
+            <div
+              style={{
+                margin: "5px",
+              }}
+            >
+              React 💙 Kakao Map!
+            </div>
+          </MapMarker>
+          <CustomOverlayMap
+            position={{ lat: 33.4498466026352, lng: 126.57066214371602 }}
           >
-            Tutorial - 5min ⏱️
-            {/* TODO: Tutorial 샘플 작성 후 시간 수정 필요 */}
-          </Link>
-        </div>
+            <div className={styles.buttons}>
+              <Link
+                className="button button--secondary button--lg"
+                to="/docs/intro"
+              >
+                Tutorial - 5min ⏱️
+              </Link>
+            </div>
+          </CustomOverlayMap>
+        </Map>
       </div>
     </header>
   )

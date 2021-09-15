@@ -55,4 +55,3 @@ export type { RoadviewInfoWindowProps } from "./components/RoadviewInfoWindow"
 
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"
-export { default as useMapPosition } from "./hooks/useMapPosition"
