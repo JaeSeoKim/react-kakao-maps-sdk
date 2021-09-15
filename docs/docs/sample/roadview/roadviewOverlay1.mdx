@@ -1,0 +1,125 @@
+---
+title: "로드뷰에 마커와 인포윈도우 올리기"
+sidebar_position: 4
+---
+
+지도와 로드뷰에 각각 마커와 인포윈도우를 올리고, Kakao 지도와 로드뷰로 이동, 로드뷰를 리셋할 수 있는 버튼을 생성합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/roadviewOverlay1/
+
+```jsx live
+function(){
+  const [map, setMap] = useState()
+  const [roadview, setRoadview] = useState()
+  const [resetRoadview, setResetRoadview] = useState()
+  const position = {
+    lat: 33.450701,
+    lng: 126.570667,
+  }
+
+  return (
+    <div className={"wrap_content"}>
+      <RoadviewOverlay1Style />
+      <div className={"wrap_map"}>
+        <Map // 로드뷰를 표시할 Container
+          id={"map"}
+          center={position}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          level={3}
+          onCreate={(map) => {
+            setMap(map)
+            map.relayout()
+          }}
+        >
+          <MapMarker position={position}>
+            <div style={{ color: "#000" }}>스페이스 닷원</div>
+          </MapMarker>
+        </Map>
+        <div className="wrap_button">
+          <button
+            className="btn_comm btn_linkMap"
+            onClick={() => {
+              const pos = map.getCenter()
+              window.open(
+                `https://map.kakao.com/link/map/${encodeURIComponent(
+                  "스페이스 닷원"
+                )},${pos.getLat()},${pos.getLng()}`,
+                "__blank"
+              )
+            }}
+          >
+            <span className="screen_out">지도 크게보기</span>
+          </button>
+          <button
+            className="btn_comm btn_resetMap"
+            onClick={() => {
+              map.setCenter(new kakao.maps.LatLng(position.lat, position.lng))
+            }}
+          >
+            <span className="screen_out">지도 초기화</span>
+          </button>
+        </div>
+      </div>
+      <div className={"wrap_roadview"}>
+        <Roadview // 로드뷰를 표시할 Container
+          id={"roadview"}
+          position={{ ...position, radius: 50 }}
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          onCreate={setRoadview}
+          onInit={(roadview) => {
+            const viewpoint = roadview
+              .getProjection()
+              .viewpointFromCoords(
+                new kakao.maps.LatLng(position.lat, position.lng),
+                0
+              )
+            roadview.setViewpoint(viewpoint)
+            setResetRoadview({
+              viewpoint: viewpoint,
+              panoid: roadview.getPanoId(),
+            })
+          }}
+        >
+          <RoadviewMarker position={position}>
+            <div style={{ color: "#000" }}>스페이스 닷원</div>
+          </RoadviewMarker>
+        </Roadview>
+        <div className="wrap_button">
+          <button
+            className="btn_comm btn_linkMap"
+            onClick={() => {
+              const vp = roadview.getViewpoint()
+              window.open(
+                `https://map.kakao.com/?panoid=${roadview.getPanoId()}&pan=${
+                  vp.pan
+                }&tilt=${vp.tilt}&zoom=${vp.zoom}`,
+                "__blank"
+              )
+            }}
+          >
+            <span className="screen_out">지도 크게보기</span>
+          </button>
+          <button
+            className="btn_comm btn_resetMap"
+            onClick={() => {
+              roadview.setViewpoint(resetRoadview.viewpoint)
+              roadview.setPanoId(
+                resetRoadview.panoid,
+                new kakao.maps.LatLng(position.lat, position.lng)
+              )
+            }}
+          >
+            <span className="screen_out">지도 초기화</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+```

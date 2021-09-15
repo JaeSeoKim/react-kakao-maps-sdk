@@ -4,6 +4,21 @@ import useMap from "../hooks/useMap"
 
 export interface CustomOverlayMapProps {
   /**
+   * CustomOverlay의 Contianer id에 대해서 지정합니다.
+   */
+  id?: string
+
+  /**
+   * CustomOverlay의 Contianer className에 대해서 지정합니다.
+   */
+  className?: string
+
+  /**
+   * CustomOverlay의 Contianer style에 대해서 지정합니다.
+   */
+  style?: CSSStyleDeclaration
+
+  /**
    * 커스텀 오버레이의 좌표
    */
   position: {
@@ -41,6 +56,9 @@ export interface CustomOverlayMapProps {
  * `onCreate` 함수를 통해서 `CustomOverlay` 객체에 직접 접근 및 초기 설정 작업을 지정할 수 있습니다.
  */
 const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
+  id,
+  className,
+  style,
   position,
   children,
   clickable,
@@ -72,10 +90,6 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   }, [clickable, xAnchor, yAnchor])
 
   useEffect(() => {
-    if (onCreate) onCreate(overlay)
-  }, [overlay, onCreate])
-
-  useEffect(() => {
     if (!map) return
 
     overlay.setMap(map)
@@ -85,6 +99,10 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   }, [map, overlay])
 
   useEffect(() => {
+    if (onCreate) onCreate(overlay)
+  }, [overlay, onCreate])
+
+  useEffect(() => {
     overlay.setPosition(overlayPosition)
   }, [overlay, overlayPosition])
 
@@ -92,6 +110,22 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
     if (!zIndex) return
     overlay.setZIndex(zIndex)
   }, [overlay, zIndex])
+
+  useEffect(() => {
+    if (id) container.current.id = id
+  }, [id])
+
+  useEffect(() => {
+    if (className) container.current.className = className
+  }, [className])
+
+  useEffect(() => {
+    if (style) {
+      for (const [key, value] of Object.entries(style)) {
+        container.current.style[key] = value
+      }
+    }
+  }, [style])
 
   return ReactDOM.createPortal(children, container.current)
 }

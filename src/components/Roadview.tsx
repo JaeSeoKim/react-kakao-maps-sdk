@@ -88,6 +88,11 @@ export interface RoadviewProps {
    * 지도 좌표가 바뀌면 발생한다.
    */
   onPositionChanged?: (target: kakao.maps.Roadview) => void
+
+  /**
+   * getNearestPanoId 동작 실패시 호출 합니다.
+   */
+  onErrorGetNearestPanoId?: (target: kakao.maps.Roadview) => void
 }
 
 /**
@@ -112,7 +117,9 @@ const Roadview: React.FC<RoadviewProps> = ({
   onPanoidChange,
   onPositionChanged,
   onViewpointChange,
+  onErrorGetNearestPanoId,
 }) => {
+  const [isLoading, setIsLoading] = useState(true)
   const [roadview, setRoadview] = useState<kakao.maps.Roadview>()
   const container = useRef<HTMLDivElement>(null)
 
@@ -158,10 +165,21 @@ const Roadview: React.FC<RoadviewProps> = ({
       newPostion,
       position.radius,
       (panoId) => {
-        roadview.setPanoId(panoId, newPostion)
+        if (panoId === null && onErrorGetNearestPanoId) {
+          onErrorGetNearestPanoId(roadview)
+        } else {
+          roadview.setPanoId(panoId, newPostion)
+        }
       }
     )
-  }, [roadview, panoId, position.lat, position.lng, position.radius])
+  }, [
+    roadview,
+    panoId,
+    position.lat,
+    position.lng,
+    position.radius,
+    onErrorGetNearestPanoId,
+  ])
 
   useEffect(() => {
     if (
@@ -177,13 +195,6 @@ const Roadview: React.FC<RoadviewProps> = ({
     roadview.setPanoId(panoId, newPostion)
   }, [roadview, panoId, position.lat, position.lng])
 
-  // Container style, className, id 등 디자인 요소가 변경될 요지가 변경시 relayout
-  useEffect(() => {
-    if (!roadview) return
-
-    roadview.relayout()
-  }, [roadview, style, className, id])
-
   useEffect(() => {
     if (!roadview) return
 
@@ -196,7 +207,10 @@ const Roadview: React.FC<RoadviewProps> = ({
     roadview.setViewpoint(prevViewpoint)
   }, [roadview, pan, tilt])
 
-  useKakaoEvent(roadview, "init", onInit)
+  useKakaoEvent(roadview, "init", (target) => {
+    setIsLoading(false)
+    if (onInit) onInit(target)
+  })
   useKakaoEvent(roadview, "panoid_changed", onPanoidChange)
   useKakaoEvent(roadview, "viewpoint_changed", onViewpointChange)
   useKakaoEvent(roadview, "position_changed", onPositionChanged)
@@ -204,7 +218,7 @@ const Roadview: React.FC<RoadviewProps> = ({
   return (
     <>
       <div id={id} className={className} style={style} ref={container}></div>
-      {roadview && (
+      {roadview && !isLoading && (
         <KakaoRoadviewContext.Provider value={roadview}>
           {children}
         </KakaoRoadviewContext.Provider>

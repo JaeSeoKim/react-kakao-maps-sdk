@@ -141,16 +141,16 @@ const Ellipse: React.FC<EllipseProps> = ({
   }, [])
 
   useEffect(() => {
-    if (onCreate) onCreate(ellipse)
-  }, [ellipse, onCreate])
-
-  useEffect(() => {
     ellipse.setMap(map)
 
     return () => {
       ellipse.setMap(null)
     }
   }, [map, ellipse])
+
+  useEffect(() => {
+    if (onCreate) onCreate(ellipse)
+  }, [ellipse, onCreate])
 
   useEffect(() => {
     ellipse.setRadius(rx, ry)

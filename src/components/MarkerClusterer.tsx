@@ -165,12 +165,12 @@ const MarkerClusterer: React.FC<MarkerClustererProps> = ({
   }, [])
 
   useEffect(() => {
-    if (markerCluster && onCreate) onCreate(markerCluster)
-  }, [markerCluster, onCreate])
-
-  useEffect(() => {
     markerCluster?.setMap(map)
   }, [map, markerCluster])
+
+  useEffect(() => {
+    if (markerCluster && onCreate) onCreate(markerCluster)
+  }, [markerCluster, onCreate])
 
   useEffect(() => {
     if (markerCluster && gridSize) {

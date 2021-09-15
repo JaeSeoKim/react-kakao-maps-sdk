@@ -327,13 +327,6 @@ const Map: React.FC<MapProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, center.lat, center.lng, center.x, center.y])
 
-  // Container style, className, id 등 디자인 요소가 변경될 요지가 변경시 relayout
-  useEffect(() => {
-    if (!map) return
-
-    map.relayout()
-  }, [map, style, className, id])
-
   useEffect(() => {
     if (!map || typeof draggable === "undefined") return
     map.setDraggable(draggable)

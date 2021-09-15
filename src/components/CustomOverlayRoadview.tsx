@@ -4,12 +4,46 @@ import useRoadview from "../hooks/useRoadview"
 
 export interface CustomOverlayRoadviewProps {
   /**
+   * CustomOverlay의 Contianer id에 대해서 지정합니다.
+   */
+  id?: string
+
+  /**
+   * CustomOverlay의 Contianer className에 대해서 지정합니다.
+   */
+  className?: string
+
+  /**
+   * CustomOverlay의 Contianer style에 대해서 지정합니다.
+   */
+  style?: CSSStyleDeclaration
+
+  /**
    * 커스텀 오버레이의 좌표
    */
-  position: {
-    lat: number
-    lng: number
-  }
+  position:
+    | {
+        lat: number
+        lng: number
+      }
+    | {
+        /**
+         * 가로 각도, 0부터 360 사이의 값으로 북쪽부터 시계방향으로 대응한다.
+         */
+        pan: number
+        /**
+         * 세로 각도, -90부터 90 사이의 값으로 위쪽부터 아래쪽으로 대응한다.
+         */
+        tilt: number
+        /**
+         * 확대 수준, -3부터 3 사이의 정수이다.
+         */
+        zoom?: number
+        /**
+         * 특정 위치의 로드뷰 고유의 아이디 값
+         */
+        panoId?: number
+      }
   /**
    * 해당 객체 생성 후 Roadview의 시점을 전환하여 Focus 할 지에 대해서 정의 합니다.
    */
@@ -59,6 +93,9 @@ export interface CustomOverlayRoadviewProps {
  * `onCreate` 함수를 통해서 `CustomOverlay` 객체에 직접 접근 및 초기 설정 작업을 지정할 수 있습니다.
  */
 const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
+  id,
+  className,
+  style,
   position,
   children,
   clickable,
@@ -74,8 +111,31 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
   const container = useRef(document.createElement("div"))
 
   const overlayPosition = useMemo(() => {
-    return new kakao.maps.LatLng(position.lat, position.lng)
-  }, [position.lat, position.lng])
+    if ("lat" in position) {
+      return new kakao.maps.LatLng(position.lat, position.lng)
+    }
+    return new kakao.maps.Viewpoint(
+      position.pan,
+      position.tilt,
+      position.zoom,
+      position.panoId
+    )
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }, [
+    // @ts-ignore
+    position.lat,
+    // @ts-ignore
+    position.lng,
+    // @ts-ignore
+    position.pan,
+    // @ts-ignore
+    position.tilt,
+    // @ts-ignore
+    position.zoom,
+    // @ts-ignore
+    position.panoId,
+  ])
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   const overlay = useMemo(() => {
     const KakaoCustomOverlay = new kakao.maps.CustomOverlay({
@@ -92,33 +152,30 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
   }, [clickable, xAnchor, yAnchor])
 
   useEffect(() => {
-    if (onCreate) onCreate(overlay)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [overlay, onCreate])
-
-  useEffect(() => {
     if (!roadview) return
 
-    kakao.maps.event.addListener(roadview, "init", () => {
-      overlay.setMap(roadview)
+    overlay.setMap(roadview)
 
-      if (isFocus) {
-        const projection = roadview.getProjection() // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
+    if (isFocus) {
+      const projection = roadview.getProjection() // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
 
-        // 커스텀오버레이의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
-        const viewpoint = projection.viewpointFromCoords(
-          overlay.getPosition(),
-          overlay.getAltitude()
-        )
-        roadview.setViewpoint(viewpoint) //커스텀 오버레이를 로드뷰의 가운데에 오도록 로드뷰의 시점을 변화 시킵니다.
-      }
-    })
+      // 커스텀오버레이의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
+      const viewpoint = projection.viewpointFromCoords(
+        overlay.getPosition(),
+        overlay.getAltitude()
+      )
+      roadview.setViewpoint(viewpoint) //커스텀 오버레이를 로드뷰의 가운데에 오도록 로드뷰의 시점을 변화 시킵니다.
+    }
 
     return () => {
       overlay.setMap(null)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [overlay, roadview])
+
+  useEffect(() => {
+    if (onCreate) onCreate(overlay)
+  }, [overlay, onCreate])
 
   useEffect(() => {
     overlay.setPosition(overlayPosition)
@@ -138,6 +195,22 @@ const CustomOverlayRoadview: React.FC<CustomOverlayRoadviewProps> = ({
     if (!range) return
     overlay.setRange(range)
   }, [overlay, range])
+
+  useEffect(() => {
+    if (id) container.current.id = id
+  }, [id])
+
+  useEffect(() => {
+    if (className) container.current.className = className
+  }, [className])
+
+  useEffect(() => {
+    if (style) {
+      for (const [key, value] of Object.entries(style)) {
+        container.current.style[key] = value
+      }
+    }
+  }, [style])
 
   return ReactDOM.createPortal(children, container.current)
 }

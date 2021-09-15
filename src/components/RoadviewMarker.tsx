@@ -1,8 +1,8 @@
 import React, { useMemo } from "react"
-import useMap from "../hooks/useMap"
+import useRoadview from "../hooks/useRoadview"
 import Marker from "./Marker"
 
-export interface MapMarkerProps {
+export interface RoadviewMarkerProps {
   /**
    * 표시 위치
    */
@@ -14,6 +14,24 @@ export interface MapMarkerProps {
     | {
         x: number
         y: number
+      }
+    | {
+        /**
+         * 가로 각도, 0부터 360 사이의 값으로 북쪽부터 시계방향으로 대응한다.
+         */
+        pan: number
+        /**
+         * 세로 각도, -90부터 90 사이의 값으로 위쪽부터 아래쪽으로 대응한다.
+         */
+        tilt: number
+        /**
+         * 확대 수준, -3부터 3 사이의 정수이다.
+         */
+        zoom?: number
+        /**
+         * 특정 위치의 로드뷰 고유의 아이디 값
+         */
+        panoId?: number
       }
 
   image?: {
@@ -99,11 +117,6 @@ export interface MapMarkerProps {
   title?: string
 
   /**
-   * 드래그 가능한 마커, 로드뷰에 올릴 경우에는 유효하지 않다.
-   */
-  draggable?: boolean
-
-  /**
    * 클릭 가능한 마커
    */
   clickable?: boolean
@@ -117,6 +130,16 @@ export interface MapMarkerProps {
    * 마커 투명도 (0-1)
    */
   opacity?: number
+
+  /**
+   * 로드뷰에 올라있는 마커의 높이 값(m 단위)
+   */
+  altitude?: number
+
+  /**
+   * 로드뷰 상에서 마커의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 마커는 로드뷰에서 보이지 않게 된다.
+   */
+  range?: number
 
   /**
    * InfoWindow 옵션
@@ -158,12 +181,12 @@ export interface MapMarkerProps {
  * Map에서 Marker를 생성할 때 사용 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `maker` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const MapMarker: React.FC<MapMarkerProps> = ({
+const RoadviewMarker: React.FC<RoadviewMarkerProps> = ({
   image,
   position,
   children,
+  altitude,
   clickable,
-  draggable,
   infoWindowOptions,
   onClick,
   onDragEnd,
@@ -172,10 +195,11 @@ const MapMarker: React.FC<MapMarkerProps> = ({
   onMouseOver,
   onCreate,
   opacity,
+  range,
   title,
   zIndex,
 }) => {
-  const map = useMap(`MapMarker`)
+  const roadview = useRoadview(`RoadviewMarker`)
 
   const markerImage = useMemo(() => {
     return (
@@ -214,19 +238,44 @@ const MapMarker: React.FC<MapMarkerProps> = ({
     if ("lat" in position) {
       return new kakao.maps.LatLng(position.lat, position.lng)
     }
-    return new kakao.maps.Coords(position.x, position.y).toLatLng()
+    if ("x" in position) {
+      return new kakao.maps.Coords(position.x, position.y).toLatLng()
+    }
+    return new kakao.maps.Viewpoint(
+      position.pan,
+      position.tilt,
+      position.zoom,
+      position.panoId
+    )
 
+    /* eslint-disable react-hooks/exhaustive-deps */
+  }, [
     // @ts-ignore
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [position.lat, position.lng, position.x, position.y])
+    position.lat,
+    // @ts-ignore
+    position.lng,
+    // @ts-ignore
+    position.x,
+    // @ts-ignore
+    position.y,
+    // @ts-ignore
+    position.pan,
+    // @ts-ignore
+    position.tilt,
+    // @ts-ignore
+    position.zoom,
+    // @ts-ignore
+    position?.panoId,
+  ])
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <Marker
-      map={map}
+      map={roadview}
       position={markerPosition}
       image={markerImage}
+      altitude={altitude}
       clickable={clickable}
-      draggable={draggable}
       infoWindowOptions={infoWindowOptions}
       onClick={onClick}
       onDragEnd={onDragEnd}
@@ -235,6 +284,7 @@ const MapMarker: React.FC<MapMarkerProps> = ({
       onMouseOver={onMouseOver}
       onCreate={onCreate}
       opacity={opacity}
+      range={range}
       title={title}
       zIndex={zIndex}
     >
@@ -243,4 +293,4 @@ const MapMarker: React.FC<MapMarkerProps> = ({
   )
 }
 
-export default MapMarker
+export default RoadviewMarker

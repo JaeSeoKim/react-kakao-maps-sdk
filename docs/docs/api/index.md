@@ -23,6 +23,8 @@ custom_edit_url: null
 - [PolygonProps](interfaces/PolygonProps.md)
 - [PolylineProps](interfaces/PolylineProps.md)
 - [RectangleProps](interfaces/RectangleProps.md)
+- [RoadviewInfoWindowProps](interfaces/RoadviewInfoWindowProps.md)
+- [RoadviewMarkerProps](interfaces/RoadviewMarkerProps.md)
 - [RoadviewProps](interfaces/RoadviewProps.md)
 - [ZoomControlProps](interfaces/ZoomControlProps.md)
 
@@ -43,6 +45,8 @@ custom_edit_url: null
 - [Polyline](variables/Polyline.md)
 - [Rectangle](variables/Rectangle.md)
 - [Roadview](variables/Roadview.md)
+- [RoadviewInfoWindow](variables/RoadviewInfoWindow.md)
+- [RoadviewMarker](variables/RoadviewMarker.md)
 - [ZoomControl](variables/ZoomControl.md)
 
 ## Functions

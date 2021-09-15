@@ -149,10 +149,6 @@ const Marker: React.FC<MarkerProps> = ({
   }, [])
 
   useEffect(() => {
-    if (onCreate) onCreate(marker)
-  }, [marker, onCreate])
-
-  useEffect(() => {
     if (markerCluster) {
       markerCluster.addMarker(marker)
     } else {
@@ -167,6 +163,10 @@ const Marker: React.FC<MarkerProps> = ({
       }
     }
   }, [map, markerCluster, marker])
+
+  useEffect(() => {
+    if (onCreate) onCreate(marker)
+  }, [marker, onCreate])
 
   useKakaoEvent(marker, "click", onClick)
   useKakaoEvent(marker, "dragstart", onDragStart)

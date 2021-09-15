@@ -125,13 +125,13 @@ const Rectangle: React.FC<RectangleProps> = ({
   }, [])
 
   useEffect(() => {
-    if (onCreate) onCreate(rectangle)
-  }, [rectangle, onCreate])
-
-  useEffect(() => {
     rectangle.setMap(map)
     return () => rectangle.setMap(null)
   }, [map, rectangle])
+
+  useEffect(() => {
+    if (onCreate) onCreate(rectangle)
+  }, [rectangle, onCreate])
 
   useEffect(() => {
     rectangle.setOptions({

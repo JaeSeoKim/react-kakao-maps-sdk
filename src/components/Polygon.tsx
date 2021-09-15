@@ -126,13 +126,13 @@ const Polygon: React.FC<PolygonProps> = ({
   }, [])
 
   useEffect(() => {
-    if (onCreate) onCreate(polygon)
-  }, [polygon, onCreate])
-
-  useEffect(() => {
     polygon.setMap(map)
     return () => polygon.setMap(null)
   }, [map, polygon])
+
+  useEffect(() => {
+    if (onCreate) onCreate(polygon)
+  }, [polygon, onCreate])
 
   useEffect(() => {
     polygon.setOptions({

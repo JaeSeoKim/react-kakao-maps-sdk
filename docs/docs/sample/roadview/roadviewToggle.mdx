@@ -1,0 +1,75 @@
+---
+title: "로드뷰와 지도 토글하기"
+sidebar_position: 9
+---
+
+지도 위에 특정 장소를 표시하는 마커를 로드뷰에서도 마커로 표시하고 특정 장소가 잘보이도록 로드뷰의 파노라마 ID와 시점(ViewPoint)을 설정합니다. 지도 위의 로드뷰 버튼을 클릭하면 로드뷰가 보여지고 로드뷰 위의 지도 버튼은 클릭하면 지도가 보여지게됩니다.
+
+로드뷰의 파노라마 ID와 시점(ViewPoint)은 Wizard를 사용하면 쉽게 확인할 수 있습니다. [Wizard를 사용해보세요!](https://apis.map.kakao.com/web/wizard/)
+
+> original docs : https://apis.map.kakao.com/web/sample/roadviewToggle/
+
+```jsx live
+function(){
+  const [toggle, setToggle] = useState("map")
+
+  const placePosition = {
+    lat: 33.450701,
+    lng: 126.570667,
+  }
+
+  return (
+    <div style={{ width: "100%", height: "300px", position: "relative" }}>
+      <Map // 로드뷰를 표시할 Container
+        center={placePosition}
+        style={{
+          display: toggle === "map" ? "block" : "none",
+          width: "100%",
+          height: "100%",
+        }}
+        level={3}
+      >
+        <MapMarker position={placePosition} />
+        {toggle === "map" && (
+          <input
+            style={{
+              position: "absolute",
+              top: "5px",
+              left: "5px",
+              zIndex: 10,
+            }}
+            type="button"
+            onClick={() => setToggle("roadview")}
+            title="로드뷰 보기"
+            value="로드뷰"
+          />
+        )}
+      </Map>
+      <Roadview // 로드뷰를 표시할 Container
+        position={{ ...placePosition, radius: 50 }}
+        style={{
+          display: toggle === "roadview" ? "block" : "none",
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <RoadviewMarker position={placePosition} />
+        {toggle === "roadview" && (
+          <input
+            style={{
+              position: "absolute",
+              top: "5px",
+              left: "5px",
+              zIndex: 10,
+            }}
+            type="button"
+            onClick={() => setToggle("map")}
+            title="지도 보기"
+            value="지도"
+          />
+        )}
+      </Roadview>
+    </div>
+  )
+}
+```

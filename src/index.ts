@@ -11,12 +11,6 @@ export type { MapInfoWindowProps } from "./components/MapInfoWindow"
 export { default as CustomOverlayMap } from "./components/CustomOverlayMap"
 export type { CustomOverlayMapProps } from "./components/CustomOverlayMap"
 
-export { default as Roadview } from "./components/Roadview"
-export type { RoadviewProps } from "./components/Roadview"
-
-export { default as CustomOverlayRoadview } from "./components/CustomOverlayRoadview"
-export type { CustomOverlayRoadviewProps } from "./components/CustomOverlayRoadview"
-
 export { default as MapTypeControl } from "./components/MapTypeControl"
 export type { MapTypeControlProps } from "./components/MapTypeControl"
 
@@ -46,6 +40,18 @@ export type { MarkerClustererProps } from "./components/MarkerClusterer"
 
 export { default as AbstractOverlay } from "./components/AbstractOverlay"
 export type { AbstractOverlayProps } from "./components/AbstractOverlay"
+
+export { default as Roadview } from "./components/Roadview"
+export type { RoadviewProps } from "./components/Roadview"
+
+export { default as CustomOverlayRoadview } from "./components/CustomOverlayRoadview"
+export type { CustomOverlayRoadviewProps } from "./components/CustomOverlayRoadview"
+
+export { default as RoadviewMarker } from "./components/RoadviewMarker"
+export type { RoadviewMarkerProps } from "./components/RoadviewMarker"
+
+export { default as RoadviewInfoWindow } from "./components/RoadviewInfoWindow"
+export type { RoadviewInfoWindowProps } from "./components/RoadviewInfoWindow"
 
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"

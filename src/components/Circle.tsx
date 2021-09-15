@@ -128,16 +128,15 @@ const Circle: React.FC<CircleProps> = ({
   }, [])
 
   useEffect(() => {
-    if (onCreate) onCreate(circle)
-  }, [circle, onCreate])
-
-  useEffect(() => {
     circle.setMap(map)
-
     return () => {
       circle.setMap(null)
     }
   }, [map, circle])
+
+  useEffect(() => {
+    if (onCreate) onCreate(circle)
+  }, [circle, onCreate])
 
   useEffect(() => {
     circle.setRadius(radius)

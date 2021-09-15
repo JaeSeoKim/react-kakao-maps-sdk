@@ -120,13 +120,13 @@ const Polyline: React.FC<PolylineProps> = ({
   }, [])
 
   useEffect(() => {
-    if (onCreate) onCreate(polyline)
-  }, [polyline, onCreate])
-
-  useEffect(() => {
     polyline.setMap(map)
     return () => polyline.setMap(null)
   }, [map, polyline])
+
+  useEffect(() => {
+    if (onCreate) onCreate(polyline)
+  }, [polyline, onCreate])
 
   useEffect(() => {
     polyline.setOptions({

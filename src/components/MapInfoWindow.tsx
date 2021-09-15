@@ -4,6 +4,21 @@ import useMap from "../hooks/useMap"
 
 export interface MapInfoWindowProps {
   /**
+   * Contianer id에 대해서 지정합니다.
+   */
+  id?: string
+
+  /**
+   * Contianer className에 대해서 지정합니다.
+   */
+  className?: string
+
+  /**
+   * Contianer style에 대해서 지정합니다.
+   */
+  style?: CSSStyleDeclaration
+
+  /**
    * 인포윈도가 표시될 위치
    */
   position: {
@@ -26,16 +41,6 @@ export interface MapInfoWindowProps {
   zIndex?: number
 
   /**
-   * 로드뷰에 올라있는 인포윈도우의 높이 값(m 단위)
-   */
-  altitude?: number
-
-  /**
-   * 로드뷰 상에서 인포윈도우의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 인포윈도우는 보이지 않게 된다
-   */
-  range?: number
-
-  /**
    * 인포윈도우 객체 생성후 해당 객체를 반환하는 함수
    */
   onCreate?: (infoWindow: kakao.maps.InfoWindow) => void
@@ -46,11 +51,12 @@ export interface MapInfoWindowProps {
  * `onCreate` 이벤트를 통해 생성 후 `infoWindow` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
 const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
+  id,
+  className,
+  style,
   position,
   children,
-  altitude,
   disableAutoPan,
-  range,
   removable,
   zIndex,
   onCreate,
@@ -62,9 +68,10 @@ const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
 
   return (
     <InfoWindow
-      altitude={altitude}
+      id={id}
+      className={className}
+      style={style}
       disableAutoPan={disableAutoPan}
-      range={range}
       removable={removable}
       zIndex={zIndex}
       map={map}

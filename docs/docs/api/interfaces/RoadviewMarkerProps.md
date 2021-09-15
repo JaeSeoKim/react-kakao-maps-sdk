@@ -1,12 +1,24 @@
 ---
-id: "MapMarkerProps"
-title: "Interface: MapMarkerProps"
-sidebar_label: "MapMarkerProps"
+id: "RoadviewMarkerProps"
+title: "Interface: RoadviewMarkerProps"
+sidebar_label: "RoadviewMarkerProps"
 sidebar_position: 0
 custom_edit_url: null
 ---
 
 ## Properties
+
+### altitude
+
+• `Optional` **altitude**: `number`
+
+로드뷰에 올라있는 마커의 높이 값(m 단위)
+
+#### Defined in
+
+components/RoadviewMarker.tsx:137
+
+___
 
 ### clickable
 
@@ -16,19 +28,7 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapMarker.tsx:109](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L109)
-
-___
-
-### draggable
-
-• `Optional` **draggable**: `boolean`
-
-드래그 가능한 마커, 로드뷰에 올릴 경우에는 유효하지 않다.
-
-#### Defined in
-
-[components/MapMarker.tsx:104](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L104)
+components/RoadviewMarker.tsx:122
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L19)
+components/RoadviewMarker.tsx:37
 
 ___
 
@@ -83,7 +83,7 @@ InfoWindow 옵션
 
 #### Defined in
 
-[components/MapMarker.tsx:124](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L124)
+components/RoadviewMarker.tsx:147
 
 ___
 
@@ -95,19 +95,31 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:119](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L119)
+components/RoadviewMarker.tsx:132
 
 ___
 
 ### position
 
-• **position**: { `lat`: `number` ; `lng`: `number`  } \| { `x`: `number` ; `y`: `number`  }
+• **position**: { `lat`: `number` ; `lng`: `number`  } \| { `x`: `number` ; `y`: `number`  } \| { `pan`: `number` ; `panoId?`: `number` ; `tilt`: `number` ; `zoom?`: `number`  }
 
 표시 위치
 
 #### Defined in
 
-[components/MapMarker.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L9)
+components/RoadviewMarker.tsx:9
+
+___
+
+### range
+
+• `Optional` **range**: `number`
+
+로드뷰 상에서 마커의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 마커는 로드뷰에서 보이지 않게 된다.
+
+#### Defined in
+
+components/RoadviewMarker.tsx:142
 
 ___
 
@@ -119,7 +131,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:99](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L99)
+components/RoadviewMarker.tsx:117
 
 ___
 
@@ -131,7 +143,7 @@ ___
 
 #### Defined in
 
-[components/MapMarker.tsx:114](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L114)
+components/RoadviewMarker.tsx:127
 
 ## Methods
 
@@ -153,7 +165,7 @@ click 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:69](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L69)
+components/RoadviewMarker.tsx:87
 
 ___
 
@@ -175,7 +187,7 @@ Maker 생성 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:94](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L94)
+components/RoadviewMarker.tsx:112
 
 ___
 
@@ -197,7 +209,7 @@ dragend 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:89](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L89)
+components/RoadviewMarker.tsx:107
 
 ___
 
@@ -219,7 +231,7 @@ dragstart 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:84](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L84)
+components/RoadviewMarker.tsx:102
 
 ___
 
@@ -241,7 +253,7 @@ mouseout 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:79](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L79)
+components/RoadviewMarker.tsx:97
 
 ___
 
@@ -263,4 +275,4 @@ mouseover 이벤트 핸들러
 
 #### Defined in
 
-[components/MapMarker.tsx:74](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapMarker.tsx#L74)
+components/RoadviewMarker.tsx:92

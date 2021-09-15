@@ -17,7 +17,19 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:42](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L42)
+[components/CustomOverlayRoadview.tsx:76](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L76)
+
+___
+
+### className
+
+• `Optional` **className**: `string`
+
+CustomOverlay의 Contianer className에 대해서 지정합니다.
+
+#### Defined in
+
+[components/CustomOverlayRoadview.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L14)
 
 ___
 
@@ -29,7 +41,19 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L21)
+[components/CustomOverlayRoadview.tsx:55](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L55)
+
+___
+
+### id
+
+• `Optional` **id**: `string`
+
+CustomOverlay의 Contianer id에 대해서 지정합니다.
+
+#### Defined in
+
+[components/CustomOverlayRoadview.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L9)
 
 ___
 
@@ -41,26 +65,19 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L16)
+[components/CustomOverlayRoadview.tsx:50](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L50)
 
 ___
 
 ### position
 
-• **position**: `Object`
+• **position**: { `lat`: `number` ; `lng`: `number`  } \| { `pan`: `number` ; `panoId?`: `number` ; `tilt`: `number` ; `zoom?`: `number`  }
 
 커스텀 오버레이의 좌표
 
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `lat` | `number` |
-| `lng` | `number` |
-
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L9)
+[components/CustomOverlayRoadview.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L24)
 
 ___
 
@@ -74,7 +91,19 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:49](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L49)
+[components/CustomOverlayRoadview.tsx:83](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L83)
+
+___
+
+### style
+
+• `Optional` **style**: `CSSStyleDeclaration`
+
+CustomOverlay의 Contianer style에 대해서 지정합니다.
+
+#### Defined in
+
+[components/CustomOverlayRoadview.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L19)
 
 ___
 
@@ -86,7 +115,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L26)
+[components/CustomOverlayRoadview.tsx:60](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L60)
 
 ___
 
@@ -98,7 +127,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L31)
+[components/CustomOverlayRoadview.tsx:65](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L65)
 
 ___
 
@@ -110,7 +139,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L36)
+[components/CustomOverlayRoadview.tsx:70](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L70)
 
 ## Methods
 
@@ -132,4 +161,4 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:54](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/CustomOverlayRoadview.tsx#L54)
+[components/CustomOverlayRoadview.tsx:88](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/CustomOverlayRoadview.tsx#L88)

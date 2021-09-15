@@ -1,0 +1,81 @@
+---
+title: "마커의 고도와 반경 조절하기"
+sidebar_position: 5
+---
+
+로드뷰에 올리는 마커의 고도와, 반경을 조절하여 로드뷰내에 올릴 수 있습니다.
+
+---
+
+마커의 고도를 설정하면, 로드뷰에 올라갈때 상하 위치를 조절할 수 있습니다.
+단, 마커의 고도는 실제 고도정보를 이용하지 않고 추측된(계산된) 값을 사용하므로, 실제 정보와 다를 수 있습니다.
+
+마커의 범위를 설정하면(기본값 500m) 로드뷰 상에서 거리에 따라 노출제어를 할 수 있습니다.
+즉, 범위값을 100으로 줄경우, 마커의 중심좌표와 로드뷰 중심좌표간의 거리가 100m이내에 있을 때만 화면에 보이게 됩니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/roadviewOverlay1/
+
+```jsx live
+function(){
+  const myPosition = {
+    lat: 33.450529632322265,
+    lng: 126.57038644763402,
+  }
+
+  return (
+    <>
+      <Map // 로드뷰를 표시할 Container
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "300px",
+        }}
+        level={3}
+      >
+        <MapMarker position={myPosition}>
+          <div style={{ color: "#000" }}>내가 일하고 싶은 곳</div>
+        </MapMarker>
+      </Map>
+      <Roadview // 로드뷰를 표시할 Container
+        position={{
+          lat: 33.450335213582655,
+          lng: 126.57022069762772,
+          radius: 50,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "300px",
+        }}
+      >
+        <RoadviewMarker
+          position={myPosition}
+          altitude={6}
+          range={100}
+          onCreate={(marker) => {
+            const rv = marker.getMap()
+
+            // 로드뷰 마커가 중앙에 오도록 로드뷰의 viewpoint 조정합니다.
+            const projection = rv.getProjection() // viewpoint(화면좌표)값을 추출할 수 있는 projection 객체를 가져옵니다.
+
+            // 마커의 position과 altitude값을 통해 viewpoint값(화면좌표)를 추출합니다.
+            const viewpoint = projection.viewpointFromCoords(
+              marker.getPosition(),
+              marker.getAltitude()
+            )
+            rv.setViewpoint(viewpoint) //로드뷰에 뷰포인트를 설정합니다.
+            rv.relayout()
+          }}
+        >
+          <div style={{ color: "#000" }}>내가 일하고 싶은 곳</div>
+        </RoadviewMarker>
+      </Roadview>
+    </>
+  )
+}
+```

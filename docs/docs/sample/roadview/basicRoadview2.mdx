@@ -1,0 +1,77 @@
+---
+title: "로드뷰 도로를 이용하여 로드뷰 생성하기"
+sidebar_position: 2
+---
+
+지도 위에 로드뷰 도로를 올리고, 로드뷰 도로를 클릭하거나, 마커를 이동시켜 로드뷰를 표시합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/basicRoadview2/
+
+```jsx live
+function(){
+  const [isError, setIsError] = useState(false)
+  const [center, setCenter] = useState({
+    lat: 33.450422139819736,
+    lng: 126.5709139924533,
+  })
+
+  return (
+    <div style={{ display: "flex" }}>
+      <Map // 로드뷰를 표시할 Container
+        center={{
+          lat: 33.450422139819736,
+          lng: 126.5709139924533,
+        }}
+        style={{
+          // 지도의 크기
+          width: isError ? "100%" : "50%",
+          height: "300px",
+        }}
+        level={3}
+        onClick={(_, mouseEvent) => {
+          setCenter({
+            // @ts-ignore
+            lat: mouseEvent.latLng.getLat(),
+            // @ts-ignore
+            lng: mouseEvent.latLng.getLng(),
+          })
+          setIsError(false)
+        }}
+      >
+        <MapTypeId type={kakao.maps.MapTypeId.ROADVIEW} />
+        <MapMarker
+          position={center}
+          draggable={true}
+          onDragEnd={(marker) => {
+            setCenter({
+              // @ts-ignore
+              lat: marker.getPosition().getLat(),
+              // @ts-ignore
+              lng: marker.getPosition().getLng(),
+            })
+            setIsError(false)
+          }}
+          image={{
+            src: "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png",
+            size: { width: 26, height: 46 },
+            options: {
+              spriteSize: { width: 1666, height: 168 },
+              spriteOrigin: { x: 705, y: 114 },
+              offset: { x: 13, y: 46 },
+            },
+          }}
+        />
+      </Map>
+      <Roadview // 로드뷰를 표시할 Container
+        position={{ ...center, radius: 50 }}
+        style={{
+          // 지도의 크기
+          width: isError ? "0" : "50%",
+          height: "300px",
+        }}
+        onErrorGetNearestPanoId={() => setIsError(true)}
+      ></Roadview>
+    </div>
+  )
+}
+```

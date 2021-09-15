@@ -1,3 +1,12 @@
+### 0.2.1
+
+- RoadviewInfoWindow, RoadviewMarker 추가
+- Map, Roadview relayout 로직 제거
+- React.Portal Contianer Element의 id, className, style 재정의 Props 추가
+- 일부 컴포넌트의 로직 오류 수정
+- kakao.maps.d.ts Update!
+- Roadview 예제 추가!
+
 ### 0.2.0
 
 - AbstractOverlay 추가

@@ -8,15 +8,15 @@ custom_edit_url: null
 
 ## Properties
 
-### altitude
+### className
 
-• `Optional` **altitude**: `number`
+• `Optional` **className**: `string`
 
-로드뷰에 올라있는 인포윈도우의 높이 값(m 단위)
+Contianer className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L31)
+[components/MapInfoWindow.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L14)
 
 ___
 
@@ -28,7 +28,19 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L16)
+[components/MapInfoWindow.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L31)
+
+___
+
+### id
+
+• `Optional` **id**: `string`
+
+Contianer id에 대해서 지정합니다.
+
+#### Defined in
+
+[components/MapInfoWindow.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L9)
 
 ___
 
@@ -47,19 +59,7 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L9)
-
-___
-
-### range
-
-• `Optional` **range**: `number`
-
-로드뷰 상에서 인포윈도우의 가시반경(m 단위), 두 지점 사이의 거리가 지정한 값보다 멀어지면 인포윈도우는 보이지 않게 된다
-
-#### Defined in
-
-[components/MapInfoWindow.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L36)
+[components/MapInfoWindow.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L24)
 
 ___
 
@@ -71,7 +71,19 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:21](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L21)
+[components/MapInfoWindow.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L36)
+
+___
+
+### style
+
+• `Optional` **style**: `CSSStyleDeclaration`
+
+Contianer style에 대해서 지정합니다.
+
+#### Defined in
+
+[components/MapInfoWindow.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L19)
 
 ___
 
@@ -83,7 +95,7 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:26](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L26)
+[components/MapInfoWindow.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L41)
 
 ## Methods
 
@@ -105,4 +117,4 @@ ___
 
 #### Defined in
 
-[components/MapInfoWindow.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/0abe091/src/components/MapInfoWindow.tsx#L41)
+[components/MapInfoWindow.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/562aa12/src/components/MapInfoWindow.tsx#L46)

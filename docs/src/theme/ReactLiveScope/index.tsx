@@ -442,6 +442,98 @@ const MarkerTrackerStyle = () => (
   </Head>
 )
 
+const MoveRoadviewStyle = () => (
+  <Head>
+    <style>{`
+    .map_wrap {overflow:hidden;height:330px}
+    /* 지도위에 로드뷰의 위치와 각도를 표시하기 위한 map walker 아이콘의 스타일 */
+    .MapWalker {position:absolute;margin:-26px 0 0 -51px}
+    .MapWalker .figure {position:absolute;width:25px;left:38px;top:-2px;
+        height:39px;background:url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png) -298px -114px no-repeat}
+    .MapWalker .angleBack {width:102px;height:52px;background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png) -834px -2px no-repeat;}
+    .MapWalker.m0 .figure {background-position: -298px -114px;}
+    .MapWalker.m1 .figure {background-position: -335px -114px;}
+    .MapWalker.m2 .figure {background-position: -372px -114px;}
+    .MapWalker.m3 .figure {background-position: -409px -114px;}
+    .MapWalker.m4 .figure {background-position: -446px -114px;}
+    .MapWalker.m5 .figure {background-position: -483px -114px;}
+    .MapWalker.m6 .figure {background-position: -520px -114px;}
+    .MapWalker.m7 .figure {background-position: -557px -114px;}
+    .MapWalker.m8 .figure {background-position: -2px -114px;}
+    .MapWalker.m9 .figure {background-position: -39px -114px;}
+    .MapWalker.m10 .figure {background-position: -76px -114px;}
+    .MapWalker.m11 .figure {background-position: -113px -114px;}
+    .MapWalker.m12 .figure {background-position: -150px -114px;}
+    .MapWalker.m13 .figure {background-position: -187px -114px;}
+    .MapWalker.m14 .figure {background-position: -224px -114px;}
+    .MapWalker.m15 .figure {background-position: -261px -114px;}
+    .MapWalker.m0 .angleBack {background-position: -834px -2px;}
+    .MapWalker.m1 .angleBack {background-position: -938px -2px;}
+    .MapWalker.m2 .angleBack {background-position: -1042px -2px;}
+    .MapWalker.m3 .angleBack {background-position: -1146px -2px;}
+    .MapWalker.m4 .angleBack {background-position: -1250px -2px;}
+    .MapWalker.m5 .angleBack {background-position: -1354px -2px;}
+    .MapWalker.m6 .angleBack {background-position: -1458px -2px;}
+    .MapWalker.m7 .angleBack {background-position: -1562px -2px;}
+    .MapWalker.m8 .angleBack {background-position: -2px -2px;}
+    .MapWalker.m9 .angleBack {background-position: -106px -2px;}
+    .MapWalker.m10 .angleBack {background-position: -210px -2px;}
+    .MapWalker.m11 .angleBack {background-position: -314px -2px;}
+    .MapWalker.m12 .angleBack {background-position: -418px -2px;}
+    .MapWalker.m13 .angleBack {background-position: -522px -2px;}
+    .MapWalker.m14 .angleBack {background-position: -626px -2px;}
+    .MapWalker.m15 .angleBack {background-position: -730px -2px;}
+    `}</style>
+  </Head>
+)
+
+const RoadviewOverlay1Style = () => (
+  <Head>
+    <style>{`
+    .screen_out {display:block;overflow:hidden;position:absolute;left:-9999px;width:1px;height:1px;font-size:0;line-height:0;text-indent:-9999px}
+    .wrap_content {}
+    .wrap_map {display:inline-block;width:50%;height:300px;position:relative}
+    .wrap_roadview {display:inline-block;width:50%;height:300px;position:relative}
+    .wrap_button {position:absolute;left:15px;top:12px;z-index:2}
+    .btn_comm {border:none;float:left;display:block;width:70px;height:27px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/sample_button_control.png) no-repeat}
+    .btn_linkMap {background-position:0 0;}
+    .btn_resetMap {background-position:-69px 0;}
+    .btn_linkRoadview {background-position:0 0;}
+    .btn_resetRoadview {background-position:-69px 0;}
+    `}</style>
+  </Head>
+)
+
+const RoadviewImageOverlayStyle = () => (
+  <Head>
+    <style>{`
+    #overlayImg {
+      width: 394px;
+      height: 242px;
+      border: 1px solid #096320;
+      transition: linear 0.5s opacity;
+    }
+    #overlayImg:hover {
+      opacity: 0;
+    }
+    `}</style>
+  </Head>
+)
+
+const RoadviewWithMapButtonStyle = () => (
+  <Head>
+    <style>{`
+    #container {overflow:hidden;height:300px;position:relative;}
+    #rvWrapper {width:50%;height:300px;top:0;right:0;position:absolute;z-index:0;}
+    #container.view_roadview #mapWrapper {width: 50%;}
+    #roadviewControl {position:absolute;top:5px;left:5px;width:42px;height:42px;z-index: 1;cursor: pointer; background: url(https://t1.daumcdn.net/localimg/localimages/07/2018/pc/common/img_search.png) 0 -450px no-repeat;}
+    #roadviewControl.active {background-position:0 -350px;}
+    #close {position: absolute;padding: 4px;top: 5px;left: 5px;cursor: pointer;background: #fff;border-radius: 4px;border: 1px solid #c8c8c8;box-shadow: 0px 1px #888;}
+    #close .img {display: block;background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/rv_close.png) no-repeat;width: 14px;height: 14px;}
+    `}</style>
+  </Head>
+)
+
 // Add react-live imports you need here
 const ReactLiveScope = {
   React,
@@ -464,6 +556,10 @@ const ReactLiveScope = {
   MarkerWithCustomOverlayStyle,
   DragCustomOverlayStyle,
   MarkerTrackerStyle,
+  MoveRoadviewStyle,
+  RoadviewOverlay1Style,
+  RoadviewImageOverlayStyle,
+  RoadviewWithMapButtonStyle,
 }
 
 export default ReactLiveScope

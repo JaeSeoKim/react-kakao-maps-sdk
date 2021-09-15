@@ -1,0 +1,72 @@
+---
+title: "동동이를 이용하여 로드뷰와 지도 연동하기"
+sidebar_position: 3
+---
+
+로드뷰를 이동 및 회전 시키면, 지도 위의 동동이(MapWalker)도 같이 움직입니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/moveRoadview/
+
+```jsx live
+function(){
+  const [center, setCenter] = useState({
+    lat: 33.450422139819736,
+    lng: 126.5709139924533,
+  })
+
+  const [pan, setPan] = useState(0)
+
+  const getAngleClassName = (angle) => {
+    const threshold = 22.5 //이미지가 변화되어야 되는(각도가 변해야되는) 임계 값
+    for (var i = 0; i < 16; i++) {
+      //각도에 따라 변화되는 앵글 이미지의 수가 16개
+      if (angle > threshold * i && angle < threshold * (i + 1)) {
+        //각도(pan)에 따라 아이콘의 class명을 변경
+        return "m" + i
+      }
+    }
+  }
+
+  return (
+    <>
+      <MoveRoadviewStyle />
+      <div style={{ display: "flex" }}>
+        <Map // 로드뷰를 표시할 Container
+          center={center}
+          style={{
+            // 지도의 크기
+            width: "50%",
+            height: "300px",
+          }}
+          level={3}
+        >
+          <MapTypeId type={kakao.maps.MapTypeId.ROADVIEW} />
+          <CustomOverlayMap
+            position={center}
+            className={`MapWalker ${getAngleClassName(pan)}`}
+            yAnchor={1}
+          >
+            <div className={`angleBack`}></div>
+            <div className={"figure"}></div>
+          </CustomOverlayMap>
+        </Map>
+        <Roadview // 로드뷰를 표시할 Container
+          position={{ ...center, radius: 50 }}
+          style={{
+            width: "50%",
+            height: "300px",
+          }}
+          pan={pan}
+          onViewpointChange={(roadview) => setPan(roadview.getViewpoint().pan)}
+          onPositionChanged={(roadview) =>
+            setCenter({
+              lat: roadview.getPosition().getLat(),
+              lng: roadview.getPosition().getLng(),
+            })
+          }
+        ></Roadview>
+      </div>
+    </>
+  )
+}
+```

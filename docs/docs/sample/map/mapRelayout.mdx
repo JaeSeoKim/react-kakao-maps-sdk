@@ -9,21 +9,20 @@ sidebar_position: 14
 그래서 크기를 변경한 이후에는 반드시 relayout 함수를 호출하여 픽셀과 좌표정보를 새로 설정해주어야합니다.
 window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다.
 
----
-
-`react-kakao-maps-sdk` 에서는 기본적으로 `style`, `className`, `id`을 `Props`로 받고 있고 해당 객체는 `useEffect` 를 통해 dependency에 추가 되어 변화가 발생시 자동으로 `map.relayout` 함수를 호출 하고 있습니다.
-
-만약 상위 단계에서의 style 변화 등 호출 해야 하는 경우에만 `onCreate`, `useMap` 등 을 통해 `map.relayout` 를 직접 호출 하여서 사용하면 됩니다.
-
 > original docs : https://apis.map.kakao.com/web/sample/mapRelayout/
 
 ```jsx live
 function(){
   const Main = () => {
+    const [map, setMap] = useState()
     const [style, setStyle] = useState({
       width: "100%",
       height: "450px",
     })
+
+    useEffect(() => {
+      if(map) map.relayout()
+    }, [map, style])
 
     return (
       <>
@@ -35,6 +34,7 @@ function(){
           }}
           style={style}
           level={3} // 지도의 확대 레벨
+          onCreate={setMap}
         >
         </Map>
         <button

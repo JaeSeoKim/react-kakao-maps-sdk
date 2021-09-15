@@ -1,0 +1,49 @@
+---
+title: "로드뷰에 이미지 올리기"
+sidebar_position: 7
+---
+
+로드뷰에 이미지를 올릴 수 있습니다. 로드뷰에 이전 거리 사진을 올려 현재 로드뷰와 비교할 수 있습니다.
+
+로드뷰에 아래 이미지를 올려보겠습니다.
+
+![오버레이 이미지](https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/roadviewoverlay_img_02.png)
+
+> original docs : https://apis.map.kakao.com/web/sample/roadviewImageOverlay/
+
+```jsx live
+function(){
+  return (
+    <>
+      <RoadviewImageOverlayStyle />
+      <Roadview // 로드뷰를 표시할 Container
+        position={{
+          lat: 37.572743,
+          lng: 126.977228,
+          radius: 50,
+        }}
+        style={{
+          width: "600px",
+          height: "600px",
+        }}
+        pan={300}
+        tilt={-7}
+        zoom={3}
+      >
+        <CustomOverlayRoadview
+          position={{
+            pan: 299.7,
+            tilt: -7.6,
+          }}
+        >
+          <img
+            id={"overlayImg"}
+            alt={"overlayImg"}
+            src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/roadviewoverlay_img_02.png"
+          />
+        </CustomOverlayRoadview>
+      </Roadview>
+    </>
+  )
+}
+```

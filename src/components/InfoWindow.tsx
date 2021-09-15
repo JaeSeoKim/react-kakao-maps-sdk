@@ -2,6 +2,21 @@ import React, { useEffect, useMemo, useRef } from "react"
 import ReactDom from "react-dom"
 
 interface InfoWindowProps {
+  /**
+   * Contianer id에 대해서 지정합니다.
+   */
+  id?: string
+
+  /**
+   * Contianer className에 대해서 지정합니다.
+   */
+  className?: string
+
+  /**
+   * Contianer style에 대해서 지정합니다.
+   */
+  style?: CSSStyleDeclaration
+
   map: kakao.maps.Map | kakao.maps.Roadview
   position: kakao.maps.LatLng | kakao.maps.Viewpoint
   marker?: kakao.maps.Marker
@@ -38,6 +53,9 @@ interface InfoWindowProps {
 }
 
 const InfoWindow: React.FC<InfoWindowProps> = ({
+  id,
+  className,
+  style,
   map,
   position,
   marker,
@@ -67,16 +85,16 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
   }, [disableAutoPan, removable])
 
   useEffect(() => {
-    if (onCreate) onCreate(infoWindow)
-  }, [infoWindow, onCreate])
-
-  useEffect(() => {
     infoWindow.open(map, marker)
     return () => {
       infoWindow.close()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, marker])
+
+  useEffect(() => {
+    if (onCreate) onCreate(infoWindow)
+  }, [infoWindow, onCreate])
 
   useEffect(() => {
     if (!infoWindow) return
@@ -97,6 +115,22 @@ const InfoWindow: React.FC<InfoWindowProps> = ({
     if (!infoWindow || !zIndex) return
     infoWindow.setZIndex(zIndex)
   }, [infoWindow, zIndex])
+
+  useEffect(() => {
+    if (id) container.current.id = id
+  }, [id])
+
+  useEffect(() => {
+    if (className) container.current.className = className
+  }, [className])
+
+  useEffect(() => {
+    if (style) {
+      for (const [key, value] of Object.entries(style)) {
+        container.current.style[key] = value
+      }
+    }
+  }, [style])
 
   return ReactDom.createPortal(children, container.current)
 }
