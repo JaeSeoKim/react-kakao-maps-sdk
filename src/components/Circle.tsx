@@ -139,6 +139,10 @@ const Circle: React.FC<CircleProps> = ({
   }, [circle, onCreate])
 
   useEffect(() => {
+    if (circle) circle.setPosition(circleCenter)
+  }, [circle, circleCenter])
+
+  useEffect(() => {
     circle.setRadius(radius)
   }, [circle, radius])
 

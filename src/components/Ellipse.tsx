@@ -120,13 +120,13 @@ const Ellipse: React.FC<EllipseProps> = ({
 }) => {
   const map = useMap(`Ellipse`)
 
-  const EllipseCenter = useMemo(() => {
+  const ellipseCenter = useMemo(() => {
     return new kakao.maps.LatLng(center.lat, center.lng)
   }, [center.lat, center.lng])
 
   const ellipse = useMemo(() => {
     return new kakao.maps.Ellipse({
-      center: EllipseCenter,
+      center: ellipseCenter,
       rx,
       ry,
       fillColor,
@@ -151,6 +151,10 @@ const Ellipse: React.FC<EllipseProps> = ({
   useEffect(() => {
     if (onCreate) onCreate(ellipse)
   }, [ellipse, onCreate])
+
+  useEffect(() => {
+    if (ellipse) ellipse.setPosition(ellipseCenter)
+  }, [ellipse, ellipseCenter])
 
   useEffect(() => {
     ellipse.setRadius(rx, ry)
