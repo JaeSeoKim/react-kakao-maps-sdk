@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
@@ -259,11 +259,14 @@ const Map: React.FC<MapProps> = ({
 
   const container = useRef<HTMLDivElement>(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!window.kakao) {
       console.warn(
         "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
       )
+      return
+    }
+    if (!container.current) {
       return
     }
 
