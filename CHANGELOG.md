@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.0.4
+
+#### Fixed 🐞
+
+- SSR을 위한 `useLayoutEffect` 에서 `useEffect` 로 변경
+
 ### v1.0.3
 
 #### Fixed 🐞
