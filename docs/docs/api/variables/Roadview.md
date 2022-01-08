@@ -14,4 +14,4 @@ props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합�
 
 #### Defined in
 
-[components/Roadview.tsx:103](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Roadview.tsx#L103)
+[components/Roadview.tsx:103](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/Roadview.tsx#L103)

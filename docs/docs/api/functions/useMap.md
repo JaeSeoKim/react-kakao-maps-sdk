@@ -23,4 +23,4 @@ Map 객체 내부가 아니라면 Error를 발생 시킵니다.
 
 #### Defined in
 
-[hooks/useMap.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/hooks/useMap.tsx#L8)
+[hooks/useMap.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/hooks/useMap.tsx#L8)

@@ -16,4 +16,4 @@ ZoomControl의 Position를 정의 한다.
 
 #### Defined in
 
-[components/ZoomControl.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/ZoomControl.tsx#L8)
+[components/ZoomControl.tsx:8](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/ZoomControl.tsx#L8)

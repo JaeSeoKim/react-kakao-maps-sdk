@@ -12,4 +12,4 @@ Map 상에 다각형을 그립니다.
 
 #### Defined in
 
-[components/Polygon.tsx:85](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/Polygon.tsx#L85)
+[components/Polygon.tsx:85](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/Polygon.tsx#L85)

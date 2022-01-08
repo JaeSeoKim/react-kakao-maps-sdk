@@ -13,4 +13,4 @@ Map에서 Marker를 생성할 때 사용 합니다.
 
 #### Defined in
 
-[components/RoadviewMarker.tsx:184](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/RoadviewMarker.tsx#L184)
+[components/RoadviewMarker.tsx:184](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/RoadviewMarker.tsx#L184)

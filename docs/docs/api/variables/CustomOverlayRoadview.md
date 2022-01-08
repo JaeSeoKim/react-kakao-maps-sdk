@@ -13,4 +13,4 @@ Roadview에 CustomOverlay를 올릴 때 사용하는 컴포넌트 입니다.
 
 #### Defined in
 
-[components/CustomOverlayRoadview.tsx:95](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayRoadview.tsx#L95)
+[components/CustomOverlayRoadview.tsx:95](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayRoadview.tsx#L95)

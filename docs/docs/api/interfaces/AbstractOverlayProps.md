@@ -28,7 +28,7 @@ panel.appendChild(node.current)
 
 #### Defined in
 
-[components/AbstractOverlay.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/AbstractOverlay.tsx#L16)
+[components/AbstractOverlay.tsx:16](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/AbstractOverlay.tsx#L16)
 
 ___
 
@@ -58,7 +58,7 @@ node.current.style.top = point.y - height / 2 + "px"
 
 #### Defined in
 
-[components/AbstractOverlay.tsx:34](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/AbstractOverlay.tsx#L34)
+[components/AbstractOverlay.tsx:34](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/AbstractOverlay.tsx#L34)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 #### Defined in
 
-[components/AbstractOverlay.tsx:50](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/AbstractOverlay.tsx#L50)
+[components/AbstractOverlay.tsx:50](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/AbstractOverlay.tsx#L50)
 
 ___
 
@@ -102,4 +102,4 @@ this.node.parentNode.removeChild(this.node);
 
 #### Defined in
 
-[components/AbstractOverlay.tsx:45](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/AbstractOverlay.tsx#L45)
+[components/AbstractOverlay.tsx:45](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/AbstractOverlay.tsx#L45)

@@ -16,7 +16,7 @@ CustomOverlay의 Contianer className에 대해서 지정합니다.
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L14)
+[components/CustomOverlayMap.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L14)
 
 ___
 
@@ -28,7 +28,7 @@ true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트�
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L31)
+[components/CustomOverlayMap.tsx:31](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L31)
 
 ___
 
@@ -40,7 +40,7 @@ CustomOverlay의 Contianer id에 대해서 지정합니다.
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L9)
+[components/CustomOverlayMap.tsx:9](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L9)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L24)
+[components/CustomOverlayMap.tsx:24](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L24)
 
 ___
 
@@ -71,7 +71,7 @@ CustomOverlay의 Contianer style에 대해서 지정합니다.
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L19)
+[components/CustomOverlayMap.tsx:19](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L19)
 
 ___
 
@@ -83,7 +83,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L36)
+[components/CustomOverlayMap.tsx:36](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L36)
 
 ___
 
@@ -95,7 +95,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L41)
+[components/CustomOverlayMap.tsx:41](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L41)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L46)
+[components/CustomOverlayMap.tsx:46](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L46)
 
 ## Methods
 
@@ -129,4 +129,4 @@ ___
 
 #### Defined in
 
-[components/CustomOverlayMap.tsx:51](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/CustomOverlayMap.tsx#L51)
+[components/CustomOverlayMap.tsx:51](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/CustomOverlayMap.tsx#L51)

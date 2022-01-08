@@ -12,4 +12,4 @@ custom_edit_url: null
 
 #### Defined in
 
-[components/MapTypeId.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps/blob/1c2440a/src/components/MapTypeId.tsx#L14)
+[components/MapTypeId.tsx:14](https://github.com/JaeSeoKim/react-kakao-maps-sdk/blob/fb6f0aa/src/components/MapTypeId.tsx#L14)
