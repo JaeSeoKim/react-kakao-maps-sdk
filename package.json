@@ -19,7 +19,10 @@
   "keywords": [
     "react",
     "kakao-maps",
+    "daum-map",
     "daum-maps",
+    "kakaomap",
+    "kakao-maps",
     "kakao-maps-sdk"
   ],
   "type": "module",
@@ -38,40 +41,34 @@
     "prepare": "husky install && gitmoji --init"
   },
   "dependencies": {
-    "kakao.maps.d.ts": "^0.1.24"
+    "kakao.maps.d.ts": "^0.1.25"
   },
   "peerDependencies": {
     "react": ">=17.0.2 || >=16.9.0",
     "react-dom": ">=17.0.2 || >=16.9.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^16.11.7",
-    "@types/react": "^17.0.34",
-    "@types/react-dom": "^17.0.11",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
+    "@types/node": "^17.0.21",
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-react-app": "^6.0.0",
-    "eslint-plugin-flowtype": "^5.9.2",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jest": "^24.4.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.25.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testing-library": "^3.10.2",
-    "gitmoji-cli": "^4.7.0",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-react-app": "^7.0.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "gitmoji-cli": "^4.9.0",
     "husky": "^7.0.4",
-    "lint-staged": "^11.1.2",
-    "microbundle": "^0.14.1",
+    "lint-staged": "^12.3.7",
+    "microbundle": "^0.14.2",
     "npm-run-all": "^4.1.5",
-    "prettier": "2.4.1",
-    "typescript": "^4.4.4"
+    "prettier": "2.6.0",
+    "typescript": "^4.6.2"
   },
   "files": [
     "/lib"
