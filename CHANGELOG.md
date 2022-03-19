@@ -1,5 +1,13 @@
 # Changelog ✍️
 
+### v1.0.5
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.25"](https://github.com/JaeSeoKim/kakao.maps.d.ts/tree/v0.1.25)
+
+  [geocoder 추가 메서드 type 작성](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/8)
+
 ### v1.0.4
 
 #### Fixed 🐞
