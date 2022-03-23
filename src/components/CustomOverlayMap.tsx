@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useRef } from "react"
+import React, { useContext, useEffect, useMemo, useRef } from "react"
 import ReactDOM from "react-dom"
 import useMap from "../hooks/useMap"
+import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
 
 export interface CustomOverlayMapProps {
   /**
@@ -67,6 +68,8 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   zIndex,
   onCreate,
 }) => {
+  const markerCluster = useContext(KakaoMapMarkerClustererContext)
+
   const map = useMap(`CustomOverlayMap`)
   const container = useRef(document.createElement("div"))
 
@@ -92,11 +95,20 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
   useEffect(() => {
     if (!map) return
 
-    overlay.setMap(map)
-    return () => {
-      overlay.setMap(null)
+    if (markerCluster) {
+      markerCluster.addMarker(overlay as unknown as kakao.maps.Marker)
+    } else {
+      overlay.setMap(map)
     }
-  }, [map, overlay])
+
+    return () => {
+      if (markerCluster) {
+        markerCluster.removeMarker(overlay as unknown as kakao.maps.Marker)
+      } else {
+        overlay.setMap(null)
+      }
+    }
+  }, [map, markerCluster, overlay])
 
   useEffect(() => {
     if (onCreate) onCreate(overlay)
