@@ -1,5 +1,21 @@
 # Changelog ✍️
 
+### v1.0.6
+
+#### Feat ✨
+
+- [Enable CustomOverlayMap clustering](https://github.com/JaeSeoKim/react-kakao-maps-sdk/pull/10)
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.26"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.26)
+
+  [update MarkerClusterer to handle Marker and CustomOverlay as union](https://github.com/JaeSeoKim/kakao.maps.d.ts/pull/2)
+
+#### Contributors 🤓
+
+- [@thomas-min](https://github.com/thomas-min)
+
 ### v1.0.5
 
 #### Bump 📡
