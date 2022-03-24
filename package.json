@@ -41,7 +41,7 @@
     "prepare": "husky install && gitmoji --init"
   },
   "dependencies": {
-    "kakao.maps.d.ts": "^0.1.25"
+    "kakao.maps.d.ts": "^0.1.26"
   },
   "peerDependencies": {
     "react": ">=17.0.2 || >=16.9.0",
