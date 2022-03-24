@@ -1,7 +1,7 @@
 name: docs
 on:
   release:
-    types: [created]
+    types: [published]
   workflow_dispatch:
     inputs:
       work:

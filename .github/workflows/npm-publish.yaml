@@ -1,7 +1,12 @@
 name: Node.js Package
 on:
   release:
-    types: [created]
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      work:
+        description: 작업 트리거
+        required: false
 
 jobs:
   build:
