@@ -96,14 +96,14 @@ const CustomOverlayMap: React.FC<CustomOverlayMapProps> = ({
     if (!map) return
 
     if (markerCluster) {
-      markerCluster.addMarker(overlay as unknown as kakao.maps.Marker)
+      markerCluster.addMarker(overlay)
     } else {
       overlay.setMap(map)
     }
 
     return () => {
       if (markerCluster) {
-        markerCluster.removeMarker(overlay as unknown as kakao.maps.Marker)
+        markerCluster.removeMarker(overlay)
       } else {
         overlay.setMap(null)
       }
