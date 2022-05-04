@@ -1,6 +1,7 @@
 import React, { useMemo } from "react"
 import InfoWindow from "./InfoWindow"
 import useMap from "../hooks/useMap"
+import { FCWithChildren } from "../types"
 
 export interface MapInfoWindowProps {
   /**
@@ -50,7 +51,7 @@ export interface MapInfoWindowProps {
  * Map 컴포넌트에서 InfoWindow를 그릴 때 사용됩니다.
  * `onCreate` 이벤트를 통해 생성 후 `infoWindow` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const MapInfoWindow: React.FC<MapInfoWindowProps> = ({
+const MapInfoWindow: FCWithChildren<MapInfoWindowProps> = ({
   id,
   className,
   style,

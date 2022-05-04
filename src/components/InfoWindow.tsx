@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react"
 import ReactDom from "react-dom"
+import { FCWithChildren } from "../types"
 
 interface InfoWindowProps {
   /**
@@ -52,7 +53,7 @@ interface InfoWindowProps {
   onCreate?: (infoWindow: kakao.maps.InfoWindow) => void
 }
 
-const InfoWindow: React.FC<InfoWindowProps> = ({
+const InfoWindow: FCWithChildren<InfoWindowProps> = ({
   id,
   className,
   style,

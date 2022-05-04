@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
+import { FCWithChildren } from "../types"
 
 export const KakaoMapMarkerClustererContext =
   React.createContext<kakao.maps.MarkerClusterer>(
@@ -116,7 +117,7 @@ export interface MarkerClustererProps {
   onCreate?: (target: kakao.maps.MarkerClusterer) => void
 }
 
-const MarkerClusterer: React.FC<MarkerClustererProps> = ({
+const MarkerClusterer: FCWithChildren<MarkerClustererProps> = ({
   children,
   averageCenter,
   calculator,

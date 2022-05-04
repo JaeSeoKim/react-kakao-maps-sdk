@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
+import { FCWithChildren } from "../types"
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map
@@ -219,7 +220,7 @@ export interface MapProps {
  * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `map` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const Map: React.FC<MapProps> = ({
+const Map: FCWithChildren<MapProps> = ({
   id = "kakao-map-container",
   style,
   children,
