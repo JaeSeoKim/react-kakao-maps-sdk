@@ -123,7 +123,7 @@ interface MarkerProps {
   }
 }
 
-const Marker: React.FC<MarkerProps> = ({
+const Marker: React.FC<React.PropsWithChildren<MarkerProps>> = ({
   map,
   position,
   children,

@@ -116,7 +116,9 @@ export interface MarkerClustererProps {
   onCreate?: (target: kakao.maps.MarkerClusterer) => void
 }
 
-const MarkerClusterer: React.FC<MarkerClustererProps> = ({
+const MarkerClusterer: React.FC<
+  React.PropsWithChildren<MarkerClustererProps>
+> = ({
   children,
   averageCenter,
   calculator,

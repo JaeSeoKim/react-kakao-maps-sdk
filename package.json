@@ -44,8 +44,8 @@
     "kakao.maps.d.ts": "^0.1.26"
   },
   "peerDependencies": {
-    "react": ">=17.0.2 || >=16.9.0",
-    "react-dom": ">=17.0.2 || >=16.9.0"
+    "react": ">=18.0.0 || >=17.0.2 || >=16.9.0",
+    "react-dom": ">=18.0.0 || >=17.0.2 || >=16.9.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",

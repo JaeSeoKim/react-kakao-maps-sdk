@@ -52,7 +52,7 @@ interface InfoWindowProps {
   onCreate?: (infoWindow: kakao.maps.InfoWindow) => void
 }
 
-const InfoWindow: React.FC<InfoWindowProps> = ({
+const InfoWindow: React.FC<React.PropsWithChildren<InfoWindowProps>> = ({
   id,
   className,
   style,
