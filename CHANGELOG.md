@@ -1,5 +1,19 @@
 # Changelog ✍️
 
+### v1.0.7
+
+#### Feat ✨
+
+- [Support React 18 ](https://github.com/JaeSeoKim/react-kakao-maps-sdk/pull/13)
+
+#### Bump 📡
+
+- devDependencies (@types, eslint, etc...)
+
+#### Contributors 🤓
+
+- [@kimkanu](https://github.com/kimkanu)
+
 ### v1.0.6
 
 #### Feat ✨
