@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
-import { FCWithChildren } from "../types"
 
 export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
   undefined as unknown as kakao.maps.Roadview
@@ -101,7 +100,7 @@ export interface RoadviewProps {
  * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `Roadview` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const Roadview: FCWithChildren<RoadviewProps> = ({
+const Roadview: React.FC<React.PropsWithChildren<RoadviewProps>> = ({
   id = "kakao-roadview-container",
   style,
   children,

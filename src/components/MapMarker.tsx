@@ -1,6 +1,5 @@
 import React, { useMemo } from "react"
 import useMap from "../hooks/useMap"
-import { FCWithChildren } from "../types"
 import Marker from "./Marker"
 
 export interface MapMarkerProps {
@@ -174,7 +173,7 @@ export interface MapMarkerProps {
  * Map에서 Marker를 생성할 때 사용 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `maker` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const MapMarker: FCWithChildren<MapMarkerProps> = ({
+const MapMarker: React.FC<React.PropsWithChildren<MapMarkerProps>> = ({
   image,
   position,
   children,

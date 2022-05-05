@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useRef } from "react"
 import ReactDOM from "react-dom"
 import useMap from "../hooks/useMap"
-import { FCWithChildren } from "../types"
 import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
 
 export interface CustomOverlayMapProps {
@@ -57,7 +56,9 @@ export interface CustomOverlayMapProps {
  * Map에 CustomOverlay를 올릴 때 사용하는 컴포넌트 입니다.
  * `onCreate` 함수를 통해서 `CustomOverlay` 객체에 직접 접근 및 초기 설정 작업을 지정할 수 있습니다.
  */
-const CustomOverlayMap: FCWithChildren<CustomOverlayMapProps> = ({
+const CustomOverlayMap: React.FC<
+  React.PropsWithChildren<CustomOverlayMapProps>
+> = ({
   id,
   className,
   style,

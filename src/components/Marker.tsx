@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
-import { FCWithChildren } from "../types"
 import InfoWindow from "./InfoWindow"
 import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
 
@@ -124,7 +123,7 @@ interface MarkerProps {
   }
 }
 
-const Marker: FCWithChildren<MarkerProps> = ({
+const Marker: React.FC<React.PropsWithChildren<MarkerProps>> = ({
   map,
   position,
   children,
