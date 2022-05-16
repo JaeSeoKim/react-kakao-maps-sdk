@@ -2,11 +2,6 @@ name: docs
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      work:
-        description: 작업 트리거
-        required: false
 
 jobs:
   build:
@@ -21,11 +16,11 @@ jobs:
         run: npm i -g npm@7
       - name: install core dependency
         run: |
-          npm install
+          npm ci
       - name: build docusaurus
         working-directory: docs
         run: |
-          npm install
+          npm ci
           npm run build
         env:
           KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}

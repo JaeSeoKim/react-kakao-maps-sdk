@@ -1,4 +1,5 @@
 #!/bin/sh
 # gitmoji as a commit hook
-exec < /dev/tty
-./node_modules/.bin/gitmoji --hook $1 $2
+
+exec </dev/tty
+node_modules/.bin/gitmoji --hook $1 $2

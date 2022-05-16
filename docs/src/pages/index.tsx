@@ -22,6 +22,7 @@ function HomepageHeader() {
             <div
               style={{
                 margin: "5px",
+                color: "black",
               }}
             >
               React 💙 Kakao Map!

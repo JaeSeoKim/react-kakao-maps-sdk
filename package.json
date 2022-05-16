@@ -33,12 +33,13 @@
   "module": "./lib/index.module.js",
   "unpkg": "./lib/index.umd.js",
   "scripts": {
-    "build": "microbundle --jsx React.createElement",
-    "dev": "npm run build watch",
+    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment",
+    "dev": "npm run build -- watch",
     "style": "run-s style:*",
     "style:lint": "eslint .",
-    "style:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
-    "prepare": "husky install && gitmoji --init"
+    "style:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --write",
+    "prepare": "husky install",
+    "preversion": "HUSKY=0"
   },
   "dependencies": {
     "kakao.maps.d.ts": "^0.1.26"
@@ -48,13 +49,13 @@
     "react-dom": ">=18.0.0 || >=17.0.2 || >=16.9.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.31",
-    "@types/react": "^18.0.8",
-    "@types/react-dom": "^18.0.3",
-    "@typescript-eslint/eslint-plugin": "^5.22.0",
-    "@typescript-eslint/parser": "^5.22.0",
+    "@types/node": "^17.0.33",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.14.0",
+    "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-flowtype": "^8.0.3",
@@ -63,9 +64,9 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
     "gitmoji-cli": "^5.0.0",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "lint-staged": "^12.4.1",
-    "microbundle": "^0.14.2",
+    "microbundle": "^0.15.0",
     "npm-run-all": "^4.1.5",
     "prettier": "2.6.2",
     "typescript": "^4.6.4"
@@ -84,5 +85,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.{js,jsx,ts,tsx,json,html,css}": "prettier --write"
   }
 }
