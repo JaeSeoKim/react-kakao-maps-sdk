@@ -23,43 +23,43 @@ export type DrawingManagerProps<
     /**
      * 그리기 요소를 선택하면 발생한다.
      */
-    onSelect?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onSelect?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 그리기를 시작하면 발생한다.
      */
-    onDrawstart?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onDrawstart?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 그리기 시작 후, 마우스를 이동하면 발생한다.
      */
-    onDraw?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onDraw?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 그리기를 시작하면 발생한다.
      */
-    onDrawend?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onDrawend?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 다음 단계 그리기를 하면 발생한다. (Polyline, Polygon, Arrow 한정)
      */
-    onDrawnext?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onDrawnext?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 그리기를 취소하면 발생한다.
      */
-    onCancle?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onCancle?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 그리기 요소를 삭제하면 발생한다.
      */
-    onRemove?: (event: kakao.maps.drawing.MouseEvent) => {}
+    onRemove?: (event: kakao.maps.drawing.MouseEvent) => void
 
     /**
      * 그리기 요소들의 상태가 변경되면 발생한다.
      * 각 요소의 생성/수정/이동/삭제 동작과 undo 또는 redo 함수 호출이 이에 해당한다.
      */
-    onStateChanged?: () => {}
+    onStateChanged?: () => void
   }
 
 /**
