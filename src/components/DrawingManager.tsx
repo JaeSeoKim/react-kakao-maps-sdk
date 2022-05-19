@@ -196,17 +196,6 @@ const DrawingManager = React.forwardRef(function <
 ) {
   const map = useMap()
 
-  new kakao.maps.drawing.DrawingManager({
-    map,
-    drawingMode: [kakao.maps.drawing.OverlayType.CIRCLE],
-    guideTooltip: ["drag", "draw", "edit"],
-    circleOptions: {
-      draggable: true,
-      editable: false,
-      removable: true,
-    },
-  })
-
   const drawingManager = useMemo(
     () =>
       // @ts-ignore

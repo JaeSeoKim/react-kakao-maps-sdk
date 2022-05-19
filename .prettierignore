@@ -13,4 +13,3 @@ docs/package.json
 docs/package-lock.json
 docs/public
 docs/typedoc-sidebar.js
-docs/src/pages/develop.tsx
