@@ -1,0 +1,224 @@
+---
+title: "Toolbox 사용하기"
+sidebar_position: 13
+---
+
+도형을 좀 더 쉽게 그릴 수 있는 Toolbox를 생성하고 지도에 표시합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/drawingToolbox/
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+<Tabs>
+<TabItem value="jsx" label="JavaScript (live)" default>
+
+```jsx live
+function Main() {
+  // ref 객체를 통해 kakao.maps.drawng.DrawingManager 객체를 전달 받아 사용합니다.
+  const managerRef = useRef(null)
+
+  return (
+    <>
+      <Map
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+      >
+        <DrawingManager
+          ref={managerRef}
+          drawingMode={[
+            kakao.maps.drawing.OverlayType.ARROW,
+            kakao.maps.drawing.OverlayType.CIRCLE,
+            kakao.maps.drawing.OverlayType.ELLIPSE,
+            kakao.maps.drawing.OverlayType.MARKER,
+            kakao.maps.drawing.OverlayType.POLYLINE,
+            kakao.maps.drawing.OverlayType.RECTANGLE,
+            kakao.maps.drawing.OverlayType.POLYGON,
+          ]}
+          guideTooltip={["draw", "drag", "edit"]}
+          markerOptions={{
+            // 마커 옵션입니다
+            draggable: true, // 마커를 그리고 나서 드래그 가능하게 합니다
+            removable: true, // 마커를 삭제 할 수 있도록 x 버튼이 표시됩니다
+          }}
+          polylineOptions={{
+            // 선 옵션입니다
+            draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+            removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+            editable: true, // 그린 후 수정할 수 있도록 설정합니다
+            strokeColor: "#39f", // 선 색
+            hintStrokeStyle: "dash", // 그리중 마우스를 따라다니는 보조선의 선 스타일
+            hintStrokeOpacity: 0.5, // 그리중 마우스를 따라다니는 보조선의 투명도
+          }}
+          rectangleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f", // 외곽선 색
+            fillColor: "#39f", // 채우기 색
+            fillOpacity: 0.5, // 채우기색 투명도
+          }}
+          circleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+          polygonOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+            hintStrokeStyle: "dash",
+            hintStrokeOpacity: 0.5,
+          }}
+          arrowOptions={{
+            draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+            removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+            editable: true, // 그린 후 수정할 수 있도록 설정합니다
+            strokeColor: "#39f", // 선 색
+            hintStrokeStyle: "dash", // 그리중 마우스를 따라다니는 보조선의 선 스타일
+            hintStrokeOpacity: 0.5, // 그리중 마우스를 따라다니는 보조선의 투명도
+          }}
+          ellipseOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+        >
+          <Toolbox />
+        </DrawingManager>
+      </Map>
+    </>
+  )
+}
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+function Main() {
+  // ref 객체를 통해 kakao.maps.drawng.DrawingManager 객체를 전달 받아 사용합니다.
+  // 또한 TypeScript를 사용하기 떄문에 전달 받는 DrawingManager에서 사용하는 OverlayType에 대해서 정의해야 합니다.
+  const managerRef =
+    useRef<
+      kakao.maps.drawing.DrawingManager<
+        | kakao.maps.drawing.OverlayType.ARROW
+        | kakao.maps.drawing.OverlayType.CIRCLE
+        | kakao.maps.drawing.OverlayType.ELLIPSE
+        | kakao.maps.drawing.OverlayType.MARKER
+        | kakao.maps.drawing.OverlayType.POLYLINE
+        | kakao.maps.drawing.OverlayType.RECTANGLE
+        | kakao.maps.drawing.OverlayType.POLYGON
+      >
+    >(null)
+
+  return (
+    <>
+      <Map
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+      >
+        <DrawingManager
+          ref={managerRef}
+          drawingMode={[
+            kakao.maps.drawing.OverlayType.ARROW,
+            kakao.maps.drawing.OverlayType.CIRCLE,
+            kakao.maps.drawing.OverlayType.ELLIPSE,
+            kakao.maps.drawing.OverlayType.MARKER,
+            kakao.maps.drawing.OverlayType.POLYLINE,
+            kakao.maps.drawing.OverlayType.RECTANGLE,
+            kakao.maps.drawing.OverlayType.POLYGON,
+          ]}
+          guideTooltip={["draw", "drag", "edit"]}
+          markerOptions={{
+            // 마커 옵션입니다
+            draggable: true, // 마커를 그리고 나서 드래그 가능하게 합니다
+            removable: true, // 마커를 삭제 할 수 있도록 x 버튼이 표시됩니다
+          }}
+          polylineOptions={{
+            // 선 옵션입니다
+            draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+            removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+            editable: true, // 그린 후 수정할 수 있도록 설정합니다
+            strokeColor: "#39f", // 선 색
+            hintStrokeStyle: "dash", // 그리중 마우스를 따라다니는 보조선의 선 스타일
+            hintStrokeOpacity: 0.5, // 그리중 마우스를 따라다니는 보조선의 투명도
+          }}
+          rectangleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f", // 외곽선 색
+            fillColor: "#39f", // 채우기 색
+            fillOpacity: 0.5, // 채우기색 투명도
+          }}
+          circleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+          polygonOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+            hintStrokeStyle: "dash",
+            hintStrokeOpacity: 0.5,
+          }}
+          arrowOptions={{
+            draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+            removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+            editable: true, // 그린 후 수정할 수 있도록 설정합니다
+            strokeColor: "#39f", // 선 색
+            hintStrokeStyle: "dash", // 그리중 마우스를 따라다니는 보조선의 선 스타일
+            hintStrokeOpacity: 0.5, // 그리중 마우스를 따라다니는 보조선의 투명도
+          }}
+          ellipseOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+        >
+          <Toolbox />
+        </DrawingManager>
+      </Map>
+    </>
+  )
+}
+```
+
+</TabItem>
+</Tabs>

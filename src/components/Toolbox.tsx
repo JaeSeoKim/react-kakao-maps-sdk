@@ -15,6 +15,11 @@ export type ToolboxProps = {
   position?: kakao.maps.ControlPosition
 }
 
+/**
+ * 그리기 툴박스를 생성합니다.
+ *
+ * 해당 컴포넌트는 반드시 `DrawingManager` 컴포넌트의 자식으로 존재해야 합니다.
+ */
 const Toolbox = React.forwardRef(function (
   { position }: ToolboxProps,
   ref: Ref<kakao.maps.drawing.Toolbox>
