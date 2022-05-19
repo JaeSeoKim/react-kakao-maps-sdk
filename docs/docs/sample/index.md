@@ -263,3 +263,15 @@ slug: /sample/
 
 - ### [클러스터 마커에 텍스트 표시하기](/docs/sample/library/chickenClusterer)
   - 치킨집 위치 데이터를 받아와 치킨지도를 만듭니다. 클러스터가 포함하는 마커의 개수가 10, 30, 50의 사이값 일때 클러스터 마커에 포함하는 마커의 개수가 아닌 각각 삐약, 꼬꼬, 꼬끼오, 치멘의 텍스트로 표시합니다
+
+- ### [Drawing Library 사용하기](/docs/sample/library/basicDrawingLibrary)
+  - Drawing Library의 기본적인 사용 방법을 설명합니다. Drawing Library로 사용자에게 쉬운 도형 그리기를 제공하기 위해서 Drawing Manager를 생성합니다.
+
+- ### [Drawing Library에서 데이터 얻기](/docs/sample/library/drawingGetData)
+  - Drawing Library를 이용해 도형을 그리고 그려진 도형의 데이터를 Drawing Manager의 getData 메소드를 이용해 가져온 후 다른 지도에 표시합니다.
+
+- ### [Toolbox 사용하기](/docs/sample/library/drawingToolbox)
+  - 도형을 좀 더 쉽게 그릴 수 있는 Toolbox를 생성하고 지도에 표시합니다.
+
+- ### [Drawing undo, redo](/docs/sample/library/drawingUndo)
+  - 이 샘플에서는 Drawing Manager 객체의 undo, redo 메소드 사용 방법을 설명합니다.
