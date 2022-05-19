@@ -1,5 +1,17 @@
 # Changelog ✍️
 
+### v1.0.8
+
+#### Feat ✨
+
+- DrawingBox
+- Toolbox
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.30"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.30)
+- devDependencies (@types, eslint, etc...)
+
 ### v1.0.7
 
 #### Feat ✨

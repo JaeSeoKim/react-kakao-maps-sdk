@@ -134,6 +134,7 @@ function(){
   - AbstractOverlay
   - Shape
     - Circle, Polyline, Polygon, Rectangle, Ellipse
+  - DrawingBox
 - Roadview
   - Marker
   - InfoWindow
