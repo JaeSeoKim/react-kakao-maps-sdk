@@ -1,0 +1,520 @@
+---
+title: "Drawing Library에서 데이터 얻기"
+sidebar_position: 12
+---
+
+Drawing Library를 이용해 도형을 그리고 그려진 도형의 데이터를 Drawing Manager의 getData 메소드를 이용해 가져온 후 다른 지도에 표시합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/drawingGetData/
+
+import Tabs from "@theme/Tabs"
+import TabItem from "@theme/TabItem"
+
+<Tabs>
+<TabItem value="jsx" label="JavaScript (live)" default>
+
+```jsx live
+function Main() {
+  // ref 객체를 통해 kakao.maps.drawng.DrawingManager 객체를 전달 받아 사용합니다.
+  const managerRef = useRef(null)
+
+  const [overlayData, setOverlayData] = useState({
+    arrow: [],
+    circle: [],
+    ellipse: [],
+    marker: [],
+    polygon: [],
+    polyline: [],
+    rectangle: [],
+  })
+
+  function selectOverlay(type) {
+    const manager = managerRef.current
+    manager.cancel()
+    manager.select(type)
+  }
+
+  function drawOverlayData() {
+    const manager = managerRef.current
+    setOverlayData(manager.getData())
+  }
+
+  // Drawing Manager에서 가져온 데이터 중
+  // 선과 다각형의 꼭지점 정보를 latlng 배열로 반환하는 함수입니다
+  function pointsToPath(points) {
+    return points.map((point) => ({
+      lat: point.y,
+      lng: point.x,
+    }))
+  }
+
+  return (
+    <>
+      <Map
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+      >
+        <DrawingManager
+          ref={managerRef}
+          drawingMode={[
+            kakao.maps.drawing.OverlayType.CIRCLE,
+            kakao.maps.drawing.OverlayType.ELLIPSE,
+            kakao.maps.drawing.OverlayType.MARKER,
+            kakao.maps.drawing.OverlayType.POLYLINE,
+            kakao.maps.drawing.OverlayType.RECTANGLE,
+            kakao.maps.drawing.OverlayType.POLYGON,
+          ]}
+          guideTooltip={["draw", "drag", "edit"]}
+          markerOptions={{
+            // 마커 옵션입니다
+            draggable: true, // 마커를 그리고 나서 드래그 가능하게 합니다
+            removable: true, // 마커를 삭제 할 수 있도록 x 버튼이 표시됩니다
+          }}
+          polylineOptions={{
+            // 선 옵션입니다
+            draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+            removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+            editable: true, // 그린 후 수정할 수 있도록 설정합니다
+            strokeColor: "#39f", // 선 색
+            hintStrokeStyle: "dash", // 그리중 마우스를 따라다니는 보조선의 선 스타일
+            hintStrokeOpacity: 0.5, // 그리중 마우스를 따라다니는 보조선의 투명도
+          }}
+          rectangleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f", // 외곽선 색
+            fillColor: "#39f", // 채우기 색
+            fillOpacity: 0.5, // 채우기색 투명도
+          }}
+          circleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+          polygonOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+            hintStrokeStyle: "dash",
+            hintStrokeOpacity: 0.5,
+          }}
+          ellipseOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+        />
+      </Map>
+      <div
+        style={{
+          display: "flex",
+          gap: "8px",
+        }}
+      >
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.POLYLINE)
+          }}
+        >
+          선
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.CIRCLE)
+          }}
+        >
+          원
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.ELLIPSE)
+          }}
+        >
+          타원
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.MARKER)
+          }}
+        >
+          마커
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.POLYGON)
+          }}
+        >
+          다각형
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.RECTANGLE)
+          }}
+        >
+          사각형
+        </button>
+      </div>
+      <div
+        style={{
+          position: "relative",
+        }}
+      >
+        <Map
+          center={{
+            // 지도의 중심좌표
+            lat: 33.450701,
+            lng: 126.570667,
+          }}
+          style={{
+            width: "100%",
+            height: "450px",
+          }}
+          level={3} // 지도의 확대 레벨
+        >
+          {overlayData.polyline.map(({ points, options }, i) => (
+            <Polyline key={i} path={pointsToPath(points)} {...options} />
+          ))}
+          {overlayData.circle.map(({ options, center, radius }, i) => (
+            <Circle
+              key={i}
+              radius={radius}
+              center={{
+                lat: center.y,
+                lng: center.x,
+              }}
+              {...options}
+            />
+          ))}
+          {overlayData.ellipse.map(({ center, rx, ry, options }, i) => (
+            <Ellipse
+              key={i}
+              center={{
+                lat: center.y,
+                lng: center.x,
+              }}
+              rx={rx}
+              ry={ry}
+              {...options}
+            />
+          ))}
+          {overlayData.marker.map(({ x, y, zIndex }, i) => (
+            <MapMarker
+              key={i}
+              position={{
+                lat: y,
+                lng: x,
+              }}
+              zIndex={zIndex}
+            />
+          ))}
+          {overlayData.polygon.map(({ options, points }, i) => (
+            <Polygon key={i} path={pointsToPath(points)} {...options} />
+          ))}
+          {overlayData.rectangle.map(({ options, sPoint, ePoint }, i) => (
+            <Rectangle
+              key={i}
+              bounds={{
+                sw: {
+                  lat: sPoint.y,
+                  lng: sPoint.x,
+                },
+                ne: {
+                  lat: ePoint.y,
+                  lng: ePoint.x,
+                },
+              }}
+              {...options}
+            />
+          ))}
+        </Map>
+        <div>
+          <button onClick={drawOverlayData}>가져오기</button>
+        </div>
+      </div>
+    </>
+  )
+}
+```
+
+</TabItem>
+<TabItem value="tsx" label="TypeScript">
+
+```tsx
+const Main = () => {
+  type DrawingManagerType = kakao.maps.drawing.DrawingManager<
+    | kakao.maps.drawing.OverlayType.CIRCLE
+    | kakao.maps.drawing.OverlayType.ELLIPSE
+    | kakao.maps.drawing.OverlayType.MARKER
+    | kakao.maps.drawing.OverlayType.POLYLINE
+    | kakao.maps.drawing.OverlayType.RECTANGLE
+    | kakao.maps.drawing.OverlayType.POLYGON
+  >
+
+  const managerRef = useRef<DrawingManagerType>(null)
+
+  const [overlayData, setOverlayData] = useState<
+    ReturnType<DrawingManagerType["getData"]>
+  >({
+    arrow: [],
+    circle: [],
+    ellipse: [],
+    marker: [],
+    polygon: [],
+    polyline: [],
+    rectangle: [],
+  })
+
+  function selectOverlay(
+    type:
+      | kakao.maps.drawing.OverlayType.CIRCLE
+      | kakao.maps.drawing.OverlayType.ELLIPSE
+      | kakao.maps.drawing.OverlayType.MARKER
+      | kakao.maps.drawing.OverlayType.POLYLINE
+      | kakao.maps.drawing.OverlayType.RECTANGLE
+      | kakao.maps.drawing.OverlayType.POLYGON
+  ) {
+    const manager = managerRef.current
+    manager.cancel()
+    manager.select(type)
+  }
+
+  function drawOverlayData() {
+    const manager = managerRef.current
+    setOverlayData(manager.getData())
+  }
+
+  // Drawing Manager에서 가져온 데이터 중
+  // 선과 다각형의 꼭지점 정보를 latlng 배열로 반환하는 함수입니다
+  function pointsToPath(points: Array<{ x: number; y: number }>) {
+    return points.map((point) => ({
+      lat: point.y,
+      lng: point.x,
+    }))
+  }
+
+  return (
+    <>
+      <Map
+        center={{
+          // 지도의 중심좌표
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+        style={{
+          width: "100%",
+          height: "450px",
+        }}
+        level={3} // 지도의 확대 레벨
+      >
+        <DrawingManager
+          ref={managerRef}
+          drawingMode={[
+            kakao.maps.drawing.OverlayType.CIRCLE,
+            kakao.maps.drawing.OverlayType.ELLIPSE,
+            kakao.maps.drawing.OverlayType.MARKER,
+            kakao.maps.drawing.OverlayType.POLYLINE,
+            kakao.maps.drawing.OverlayType.RECTANGLE,
+            kakao.maps.drawing.OverlayType.POLYGON,
+          ]}
+          guideTooltip={["draw", "drag", "edit"]}
+          markerOptions={{
+            // 마커 옵션입니다
+            draggable: true, // 마커를 그리고 나서 드래그 가능하게 합니다
+            removable: true, // 마커를 삭제 할 수 있도록 x 버튼이 표시됩니다
+          }}
+          polylineOptions={{
+            // 선 옵션입니다
+            draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+            removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+            editable: true, // 그린 후 수정할 수 있도록 설정합니다
+            strokeColor: "#39f", // 선 색
+            hintStrokeStyle: "dash", // 그리중 마우스를 따라다니는 보조선의 선 스타일
+            hintStrokeOpacity: 0.5, // 그리중 마우스를 따라다니는 보조선의 투명도
+          }}
+          rectangleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f", // 외곽선 색
+            fillColor: "#39f", // 채우기 색
+            fillOpacity: 0.5, // 채우기색 투명도
+          }}
+          circleOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+          polygonOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+            hintStrokeStyle: "dash",
+            hintStrokeOpacity: 0.5,
+          }}
+          ellipseOptions={{
+            draggable: true,
+            removable: true,
+            editable: true,
+            strokeColor: "#39f",
+            fillColor: "#39f",
+            fillOpacity: 0.5,
+          }}
+        />
+      </Map>
+      <div
+        style={{
+          display: "flex",
+          gap: "8px",
+        }}
+      >
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.POLYLINE)
+          }}
+        >
+          선
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.CIRCLE)
+          }}
+        >
+          원
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.ELLIPSE)
+          }}
+        >
+          타원
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.MARKER)
+          }}
+        >
+          마커
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.POLYGON)
+          }}
+        >
+          다각형
+        </button>
+        <button
+          onClick={(e) => {
+            selectOverlay(kakao.maps.drawing.OverlayType.RECTANGLE)
+          }}
+        >
+          사각형
+        </button>
+      </div>
+      <div
+        style={{
+          position: "relative",
+        }}
+      >
+        <Map
+          center={{
+            // 지도의 중심좌표
+            lat: 33.450701,
+            lng: 126.570667,
+          }}
+          style={{
+            width: "100%",
+            height: "450px",
+          }}
+          level={3} // 지도의 확대 레벨
+        >
+          {overlayData.polyline.map(({ points, options }, i) => (
+            <Polyline key={i} path={pointsToPath(points)} {...options} />
+          ))}
+          {overlayData.circle.map(({ options, center, radius }, i) => (
+            <Circle
+              key={i}
+              radius={radius}
+              center={{
+                lat: center.y,
+                lng: center.x,
+              }}
+              {...options}
+            />
+          ))}
+          {overlayData.ellipse.map(({ center, rx, ry, options }, i) => (
+            <Ellipse
+              key={i}
+              center={{
+                lat: center.y,
+                lng: center.x,
+              }}
+              rx={rx}
+              ry={ry}
+              {...options}
+            />
+          ))}
+          {overlayData.marker.map(({ x, y, zIndex }, i) => (
+            <MapMarker
+              key={i}
+              position={{
+                lat: y,
+                lng: x,
+              }}
+              zIndex={zIndex}
+            />
+          ))}
+          {overlayData.polygon.map(({ options, points }, i) => (
+            <Polygon key={i} path={pointsToPath(points)} {...options} />
+          ))}
+          {overlayData.rectangle.map(({ options, sPoint, ePoint }, i) => (
+            <Rectangle
+              key={i}
+              bounds={{
+                sw: {
+                  lat: sPoint.y,
+                  lng: sPoint.x,
+                },
+                ne: {
+                  lat: ePoint.y,
+                  lng: ePoint.x,
+                },
+              }}
+              {...options}
+            />
+          ))}
+        </Map>
+        <div>
+          <button onClick={drawOverlayData}>가져오기</button>
+        </div>
+      </div>
+    </>
+  )
+}
+```
+
+</TabItem>
+</Tabs>
