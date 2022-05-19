@@ -53,5 +53,8 @@ export type { RoadviewMarkerProps } from "./components/RoadviewMarker"
 export { default as RoadviewInfoWindow } from "./components/RoadviewInfoWindow"
 export type { RoadviewInfoWindowProps } from "./components/RoadviewInfoWindow"
 
+export { default as DrawingManager } from "./components/DrawingManager"
+export type { DrawingManagerProps } from "./components/DrawingManager"
+
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"
