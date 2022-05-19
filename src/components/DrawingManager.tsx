@@ -1,10 +1,16 @@
 import React, {
+  ReactNode,
   Ref,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
 } from "react"
 import useMap from "../hooks/useMap"
+
+export const DrawingManagerContext =
+  React.createContext<kakao.maps.drawing.DrawingManager>(
+    undefined as unknown as kakao.maps.drawing.DrawingManager
+  )
 
 export type DrawingManagerProps<
   T extends kakao.maps.drawing.OverlayType = kakao.maps.drawing.OverlayType
@@ -60,6 +66,11 @@ export type DrawingManagerProps<
      * 각 요소의 생성/수정/이동/삭제 동작과 undo 또는 redo 함수 호출이 이에 해당한다.
      */
     onStateChanged?: () => void
+
+    /**
+     * Toolbox에 대해서 추가할 때 사용합니다.
+     */
+    children?: ReactNode
   }
 
 /**
@@ -191,10 +202,11 @@ const DrawingManager = React.forwardRef(function <
     onCancle,
     onRemove,
     onStateChanged,
+    children,
   }: DrawingManagerProps<T>,
   ref: Ref<kakao.maps.drawing.DrawingManager<T>>
 ) {
-  const map = useMap()
+  const map = useMap("Toolbox")
 
   const drawingManager = useMemo(
     () =>
@@ -249,7 +261,11 @@ const DrawingManager = React.forwardRef(function <
       drawingManager.addListener("state_changed", onStateChanged)
   }, [drawingManager, onStateChanged])
 
-  return null
+  return (
+    <DrawingManagerContext.Provider value={drawingManager}>
+      {children}
+    </DrawingManagerContext.Provider>
+  )
 }) as unknown as <
   T extends kakao.maps.drawing.OverlayType = kakao.maps.drawing.OverlayType
 >(

@@ -56,5 +56,8 @@ export type { RoadviewInfoWindowProps } from "./components/RoadviewInfoWindow"
 export { default as DrawingManager } from "./components/DrawingManager"
 export type { DrawingManagerProps } from "./components/DrawingManager"
 
+export { default as Toolbox } from "./components/Toolbox"
+export type { ToolboxProps } from "./components/Toolbox"
+
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"
