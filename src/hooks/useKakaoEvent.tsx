@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import useIsomorphicLayoutEffect from "./useIsomorphicLayoutEffect"
 
 const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
   /**
@@ -14,7 +14,7 @@ const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
    */
   callback: ((target: T, ...args: any[]) => void) | undefined
 ) => {
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!target || !callback) return
 
     const wrapCallback = (...arg: any[]) => {

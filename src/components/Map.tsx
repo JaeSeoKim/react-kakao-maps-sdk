@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState, useImperativeHandle } from "react"
+import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map
 )
+
 export interface MapProps {
   /**
    * MapContinaer의 id에 대해서 지정합니다.
-   *
-   * @default  "kakao-map-container"
    */
   id?: string
 
@@ -216,186 +216,197 @@ export interface MapProps {
 
 /**
  * 기본적인 Map 객체를 생성하는 Comeponent 입니다.
- * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
- * `onCreate` 이벤트를 통해 생성 후 `map` 객체에 직접 접근하여 초기 설정이 가능합니다.
+ * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 함께 인자로 전달 합니다.
+ *
+ * `ref`를 통해 `map` 객체에 직접 접근하여 사용 가능합니다.
+ *
+ * 또는 onCreate 이벤트를 이용하여 접근이 가능합니다.
  */
-const Map: React.FC<React.PropsWithChildren<MapProps>> = ({
-  id = "kakao-map-container",
-  style,
-  children,
-  center,
-  isPanto = false,
-  padding = 32,
-  className,
-  disableDoubleClick,
-  disableDoubleClickZoom,
-  draggable,
-  zoomable,
-  keyboardShortcuts,
-  level,
-  maxLevel,
-  minLevel,
-  mapTypeId,
-  projectionId,
-  scrollwheel,
-  tileAnimation,
-  onCreate,
-  onBoundsChanged,
-  onCenterChanged,
-  onClick,
-  onDoubleClick,
-  onDrag,
-  onDragEnd,
-  onDragStart,
-  onIdle,
-  onMaptypeidChanged,
-  onMouseMove,
-  onRightClick,
-  onTileLoaded,
-  onZoomChanged,
-  onZoomStart,
-}) => {
-  const [map, setMap] = useState<kakao.maps.Map>()
+const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
+  (
+    {
+      id = "react-kakao-maps-sdk-container",
+      style,
+      children,
+      center,
+      isPanto = false,
+      padding = 32,
+      className,
+      disableDoubleClick,
+      disableDoubleClickZoom,
+      draggable,
+      zoomable,
+      keyboardShortcuts,
+      level,
+      maxLevel,
+      minLevel,
+      mapTypeId,
+      projectionId,
+      scrollwheel,
+      tileAnimation,
+      onBoundsChanged,
+      onCenterChanged,
+      onClick,
+      onDoubleClick,
+      onDrag,
+      onDragEnd,
+      onDragStart,
+      onIdle,
+      onMaptypeidChanged,
+      onMouseMove,
+      onRightClick,
+      onTileLoaded,
+      onZoomChanged,
+      onZoomStart,
+      onCreate,
+    },
+    ref
+  ) => {
+    const [map, setMap] = useState<kakao.maps.Map>()
 
-  const container = useRef<HTMLDivElement>(null)
+    const container = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!window.kakao) {
-      console.warn(
-        "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
-      )
-      return
-    }
-    if (!container.current) {
-      return
-    }
+    useIsomorphicLayoutEffect(() => {
+      if (!window.kakao) {
+        console.warn(
+          "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
+        )
+        return
+      }
 
-    kakao.maps.load(() => {
-      const initalMapCenter =
+      const MapContainer = container.current
+      if (!MapContainer) {
+        return
+      }
+
+      kakao.maps.load(() => {
+        const initalMapCenter =
+          "lat" in center
+            ? new kakao.maps.LatLng(center.lat, center.lng)
+            : new kakao.maps.Coords(center.x, center.y)
+
+        const kakaoMap = new kakao.maps.Map(MapContainer, {
+          center: initalMapCenter,
+          disableDoubleClick: disableDoubleClick,
+          disableDoubleClickZoom: disableDoubleClickZoom,
+          draggable: draggable,
+          keyboardShortcuts: keyboardShortcuts,
+          level: level,
+          mapTypeId: mapTypeId,
+          projectionId: projectionId,
+          scrollwheel: scrollwheel,
+          tileAnimation: tileAnimation,
+        })
+
+        setMap(kakaoMap)
+      })
+    }, [disableDoubleClick, disableDoubleClickZoom, mapTypeId, tileAnimation])
+
+    useImperativeHandle(ref, () => map!, [map])
+
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !onCreate) return
+      onCreate(map)
+    }, [map, onCreate])
+
+    // center position 변경시 map center 변경
+    useIsomorphicLayoutEffect(() => {
+      if (!map) return
+
+      let prevCenter = map.getCenter()
+      if (prevCenter instanceof kakao.maps.Coords) {
+        prevCenter = prevCenter.toLatLng()
+      }
+
+      const centerPosition =
         "lat" in center
           ? new kakao.maps.LatLng(center.lat, center.lng)
           : new kakao.maps.Coords(center.x, center.y)
-      const kakaoMap = new kakao.maps.Map(container.current as HTMLDivElement, {
-        center: initalMapCenter,
-        disableDoubleClick: disableDoubleClick,
-        disableDoubleClickZoom: disableDoubleClickZoom,
-        draggable: draggable,
-        keyboardShortcuts: keyboardShortcuts,
-        level: level,
-        mapTypeId: mapTypeId,
-        projectionId: projectionId,
-        scrollwheel: scrollwheel,
-        tileAnimation: tileAnimation,
-      })
 
-      setMap(kakaoMap)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disableDoubleClick, disableDoubleClickZoom, mapTypeId, tileAnimation])
+      if (
+        (centerPosition instanceof kakao.maps.LatLng &&
+          centerPosition.equals(prevCenter)) ||
+        (centerPosition instanceof kakao.maps.Coords &&
+          centerPosition.toLatLng().equals(prevCenter))
+      ) {
+        return
+      }
 
-  useEffect(() => {
-    if (!map || !onCreate) return
-    onCreate(map)
-  }, [map, onCreate])
+      if (isPanto) {
+        map.panTo(centerPosition, padding)
+      } else {
+        map.setCenter(centerPosition)
+      }
+      // @ts-ignore
+    }, [map, center.lat, center.lng, center.x, center.y])
 
-  // center position 변경시 map center 변경
-  useEffect(() => {
-    if (!map) return
+    useIsomorphicLayoutEffect(() => {
+      if (!map || typeof draggable === "undefined") return
+      map.setDraggable(draggable)
+    }, [map, draggable])
 
-    let prevCenter = map.getCenter()
-    if (prevCenter instanceof kakao.maps.Coords) {
-      prevCenter = prevCenter.toLatLng()
-    }
+    useIsomorphicLayoutEffect(() => {
+      if (!map || typeof zoomable === "undefined") return
+      map.setZoomable(zoomable)
+    }, [map, zoomable])
 
-    const centerPosition =
-      "lat" in center
-        ? new kakao.maps.LatLng(center.lat, center.lng)
-        : new kakao.maps.Coords(center.x, center.y)
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !keyboardShortcuts || typeof keyboardShortcuts !== "boolean")
+        return
+      map.setKeyboardShortcuts(keyboardShortcuts)
+    }, [map, keyboardShortcuts])
 
-    if (
-      (centerPosition instanceof kakao.maps.LatLng &&
-        centerPosition.equals(prevCenter)) ||
-      (centerPosition instanceof kakao.maps.Coords &&
-        centerPosition.toLatLng().equals(prevCenter))
-    ) {
-      return
-    }
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !level) return
+      map.setLevel(level)
+    }, [map, level])
 
-    if (isPanto) {
-      map.panTo(centerPosition, padding)
-    } else {
-      map.setCenter(centerPosition)
-    }
-    // @ts-ignore
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, center.lat, center.lng, center.x, center.y])
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !mapTypeId) return
+      map.setMapTypeId(mapTypeId)
+    }, [map, mapTypeId])
 
-  useEffect(() => {
-    if (!map || typeof draggable === "undefined") return
-    map.setDraggable(draggable)
-  }, [map, draggable])
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !projectionId) return
+      map.setProjectionId(projectionId)
+    }, [map, projectionId])
 
-  useEffect(() => {
-    if (!map || typeof zoomable === "undefined") return
-    map.setZoomable(zoomable)
-  }, [map, zoomable])
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !maxLevel) return
+      map.setMaxLevel(maxLevel)
+    }, [map, maxLevel])
 
-  useEffect(() => {
-    if (!map || !keyboardShortcuts || typeof keyboardShortcuts !== "boolean")
-      return
-    map.setKeyboardShortcuts(keyboardShortcuts)
-  }, [map, keyboardShortcuts])
+    useIsomorphicLayoutEffect(() => {
+      if (!map || !minLevel) return
+      map.setMinLevel(minLevel)
+    }, [map, minLevel])
 
-  useEffect(() => {
-    if (!map || !level) return
-    map.setLevel(level)
-  }, [map, level])
+    useKakaoEvent(map, "bounds_changed", onBoundsChanged)
+    useKakaoEvent(map, "center_changed", onCenterChanged)
+    useKakaoEvent(map, "click", onClick)
+    useKakaoEvent(map, "dblclick", onDoubleClick)
+    useKakaoEvent(map, "drag", onDrag)
+    useKakaoEvent(map, "dragstart", onDragStart)
+    useKakaoEvent(map, "dragend", onDragEnd)
+    useKakaoEvent(map, "idle", onIdle)
+    useKakaoEvent(map, "maptypeid_changed", onMaptypeidChanged)
+    useKakaoEvent(map, "mousemove", onMouseMove)
+    useKakaoEvent(map, "rightclick", onRightClick)
+    useKakaoEvent(map, "tilesloaded", onTileLoaded)
+    useKakaoEvent(map, "zoom_changed", onZoomChanged)
+    useKakaoEvent(map, "zoom_start", onZoomStart)
 
-  useEffect(() => {
-    if (!map || !mapTypeId) return
-    map.setMapTypeId(mapTypeId)
-  }, [map, mapTypeId])
-
-  useEffect(() => {
-    if (!map || !projectionId) return
-    map.setProjectionId(projectionId)
-  }, [map, projectionId])
-
-  useEffect(() => {
-    if (!map || !maxLevel) return
-    map.setMaxLevel(maxLevel)
-  }, [map, maxLevel])
-
-  useEffect(() => {
-    if (!map || !minLevel) return
-    map.setMinLevel(minLevel)
-  }, [map, minLevel])
-
-  useKakaoEvent(map, "bounds_changed", onBoundsChanged)
-  useKakaoEvent(map, "center_changed", onCenterChanged)
-  useKakaoEvent(map, "click", onClick)
-  useKakaoEvent(map, "dblclick", onDoubleClick)
-  useKakaoEvent(map, "drag", onDrag)
-  useKakaoEvent(map, "dragstart", onDragStart)
-  useKakaoEvent(map, "dragend", onDragEnd)
-  useKakaoEvent(map, "idle", onIdle)
-  useKakaoEvent(map, "maptypeid_changed", onMaptypeidChanged)
-  useKakaoEvent(map, "mousemove", onMouseMove)
-  useKakaoEvent(map, "rightclick", onRightClick)
-  useKakaoEvent(map, "tilesloaded", onTileLoaded)
-  useKakaoEvent(map, "zoom_changed", onZoomChanged)
-  useKakaoEvent(map, "zoom_start", onZoomStart)
-
-  return (
-    <>
-      <div id={id} style={style} className={className} ref={container}></div>
-      {map && (
-        <KakaoMapContext.Provider value={map}>
-          {children}
-        </KakaoMapContext.Provider>
-      )}
-    </>
-  )
-}
+    return (
+      <>
+        <div id={id} style={style} className={className} ref={container}></div>
+        {map && (
+          <KakaoMapContext.Provider value={map}>
+            {children}
+          </KakaoMapContext.Provider>
+        )}
+      </>
+    )
+  }
+)
 
 export default Map
