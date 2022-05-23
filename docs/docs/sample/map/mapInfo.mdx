@@ -12,7 +12,7 @@ sidebar_position: 4
 ```jsx live
 function(){
   const Main = () => {
-    const [map, setMap] = useState();
+    const mapRef = useRef();
     const [info, setInfo] = useState();
 
     return (
@@ -25,10 +25,11 @@ function(){
             height: "450px",
           }}
           level={3} // 지도의 확대 레벨
-          onCreate={(map) => setMap(map)}
+          ref={mapRef}
         >
           {map && (
             <button onClick={() => {
+              const map = mapRef.current
               setInfo({
                 center: {
                   lat: map.getCenter().getLat(),

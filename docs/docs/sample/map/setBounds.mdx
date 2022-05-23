@@ -10,7 +10,7 @@ sidebar_position: 13
 ```jsx live
 function(){
   const Main = () => {
-    const [map, setMap] = useState()
+    const mapRef = useRef()
     const [points, setPoints] = useState([
       {lat: 33.452278, lng:126.567803},
       {lat: 33.452671, lng:126.574792},
@@ -39,12 +39,13 @@ function(){
             height: "450px",
           }}
           level={3} // 지도의 확대 레벨
-          onCreate={setMap}
+          ref={mapRef}
         >
           {points.map(point => <MapMarker key={`${point.lat}-${point.lng}`} position={point} />)}
         </Map>
         <button
           onClick={() => {
+            const map = mapRef.current
             if (map) map.setBounds(bounds)
           }}
         >

@@ -14,15 +14,16 @@ window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자�
 ```jsx live
 function(){
   const Main = () => {
-    const [map, setMap] = useState()
+    const mapRef = useRef()
     const [style, setStyle] = useState({
       width: "100%",
       height: "450px",
     })
 
     useEffect(() => {
-      if(map) map.relayout()
-    }, [map, style])
+      const map = mapRef.current
+      if(map) mapRef.relayout()
+    }, [style])
 
     return (
       <>
@@ -34,7 +35,7 @@ function(){
           }}
           style={style}
           level={3} // 지도의 확대 레벨
-          onCreate={setMap}
+          ref={mapRef}
         >
         </Map>
         <button

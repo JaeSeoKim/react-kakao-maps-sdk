@@ -26,3 +26,11 @@
 html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+#map *,
+#roadview *,
+#react-kakao-maps-sdk-map-container *,
+#react-kakao-maps-sdk-roadview-container * {
+  box-sizing: content-box !important;
+  color: #000000;
+}

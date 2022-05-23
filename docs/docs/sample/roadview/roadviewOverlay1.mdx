@@ -9,8 +9,8 @@ sidebar_position: 4
 
 ```jsx live
 function(){
-  const [map, setMap] = useState()
-  const [roadview, setRoadview] = useState()
+  const mapRef = useRef()
+  const roadviewRef = useRef()
   const [resetRoadview, setResetRoadview] = useState()
   const position = {
     lat: 33.450701,
@@ -29,10 +29,7 @@ function(){
             height: "100%",
           }}
           level={3}
-          onCreate={(map) => {
-            setMap(map)
-            map.relayout()
-          }}
+          ref={mapRef}
         >
           <MapMarker position={position}>
             <div style={{ color: "#000" }}>스페이스 닷원</div>
@@ -42,6 +39,7 @@ function(){
           <button
             className="btn_comm btn_linkMap"
             onClick={() => {
+              const map = mapRef.current
               const pos = map.getCenter()
               window.open(
                 `https://map.kakao.com/link/map/${encodeURIComponent(
@@ -56,6 +54,7 @@ function(){
           <button
             className="btn_comm btn_resetMap"
             onClick={() => {
+              const map = mapRef.current
               map.setCenter(new kakao.maps.LatLng(position.lat, position.lng))
             }}
           >
@@ -71,7 +70,7 @@ function(){
             width: "100%",
             height: "100%",
           }}
-          onCreate={setRoadview}
+          ref={roadviewRef}
           onInit={(roadview) => {
             const viewpoint = roadview
               .getProjection()
@@ -94,6 +93,7 @@ function(){
           <button
             className="btn_comm btn_linkMap"
             onClick={() => {
+              const roadview = roadviewRef.current
               const vp = roadview.getViewpoint()
               window.open(
                 `https://map.kakao.com/?panoid=${roadview.getPanoId()}&pan=${
@@ -108,6 +108,7 @@ function(){
           <button
             className="btn_comm btn_resetMap"
             onClick={() => {
+              const roadview = roadviewRef.current
               roadview.setViewpoint(resetRoadview.viewpoint)
               roadview.setPanoId(
                 resetRoadview.panoid,

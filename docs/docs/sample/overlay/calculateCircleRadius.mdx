@@ -14,7 +14,7 @@ _오른쪽 마우스를 클릭하면 원 그리기가 종료됩니다_
 function(){
   const [isDrawing, setIsDrawing] = useState(false)
   const [drawingCircleData, setDrawingCircleData] = useState()
-  const [drawingLine, setDrawingLine] = useState()
+  const drawingLineRef = useRef()
   const [circles, setCircles] = useState([])
   const [mousePosition, setMousePosition] = useState({
     lat: 0,
@@ -40,6 +40,7 @@ function(){
       lng: mouseEvent.latLng.getLng(),
     })
     if (isDrawing) {
+      const drawingLine = drawingLineRef.current
       setDrawingCircleData((prev) => ({
         ...prev,
         radius: drawingLine.getLength(),
@@ -121,7 +122,7 @@ function(){
             />
             <Polyline
               path={[drawingCircleData.center, mousePosition]}
-              onCreate={setDrawingLine}
+              ref={drawingLineRef}
               strokeWeight={3} // 선의 두께 입니다
               strokeColor={"#00a0e9"} // 선의 색깔입니다
               strokeOpacity={1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다

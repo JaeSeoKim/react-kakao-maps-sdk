@@ -10,38 +10,37 @@ sidebar_position: 8
 ```jsx live
 function(){
   const [isAtive, setIsAtive] = useState(false)
-  const [isLoad, setIsLoad] = useState(true)
   const [isVisible, setIsVisible] = useState(false)
-  const [map, setMap] = useState()
-  const [roadview, setRoadview] = useState()
+  const mapRef = useRef()
+  const roadviewRef = useRef()
+
   const [center, setCenter] = useState({
     lat: 33.450422139819736,
     lng: 126.5709139924533,
   })
 
   useEffect(() => {
+    const map = mapRef.current
+    const roadview = roadviewRef.current
     if (roadview && map) {
       roadview.relayout()
       map.relayout()
       map.setCenter(new kakao.maps.LatLng(center.lat, center.lng))
     }
-  }, [isLoad, isVisible, roadview, map, center, isAtive])
+  }, [isVisible, center, isAtive])
 
   return (
     <div style={{ display: "flex", position: "relative", width: "100%", height: "100%" }}>
       <RoadviewWithMapButtonStyle />
       <Map // 로드뷰를 표시할 Container
-        center={{
-          lat: 33.450422139819736,
-          lng: 126.5709139924533,
-        }}
+        center={center}
         style={{
           // 지도의 크기
-          width: isLoad || !isVisible ? "100%" : "50%",
+          width: !isVisible ? "100%" : "50%",
           height: "300px",
         }}
         level={3}
-        onCreate={setMap}
+        ref={mapRef}
       >
         {isAtive && (
           <>
@@ -54,8 +53,6 @@ function(){
                   lat: marker.getPosition().getLat(),
                   lng: marker.getPosition().getLng(),
                 })
-                setIsVisible(true)
-                setIsLoad(true)
               }}
               image={{
                 src: "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/roadview_minimap_wk_2018.png",
@@ -83,7 +80,7 @@ function(){
       <div
         style={{
           position: "relative",
-          width: isVisible && !isLoad ? "50%" : "0",
+          width: isVisible ? "50%" : "0",
           overflow: "hidden"
         }}
       >
@@ -101,12 +98,12 @@ function(){
             })
           }}
           onPanoidChange={() => {
-            setIsLoad(false)
+            isAtive && setIsVisible(true)
           }}
           onErrorGetNearestPanoId={() => {
             setIsVisible(false)
           }}
-          onCreate={setRoadview}
+          ref={roadviewRef}
         >
           <div
             id="close"
