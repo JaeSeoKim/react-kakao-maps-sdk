@@ -248,6 +248,19 @@ slug: /sample/
 - ### [로드뷰와 지도 토글하기](/docs/sample/roadview/roadviewToggle)
   - 지도 위에 특정 장소를 표시하는 마커를 로드뷰에서도 마커로 표시하고 특정 장소가 잘보이도록 로드뷰의 파노라마 ID와 시점(ViewPoint)을 설정합니다. 지도 위의 로드뷰 버튼을 클릭하면 로드뷰가 보여지고 로드뷰 위의 지도 버튼은 클릭하면 지도가 보여지게됩니다.
 
+## 정적지도
+
+<hr/>
+
+- ### [이미지 지도 생성하기](/docs/sample/staticmap/staticMap)
+  - 이미지 지도를 생성합니다.
+
+- ### [이미지 지도에 마커 표시하기](/docs/sample/staticmap/staticMapWithMarker)
+  - 이미지 지도에 마커를 표시합니다.
+
+- ### [마커와 텍스트 표시하기](/docs/sample/staticmap/staticMapWithMarkerText)
+  - 이미지 지도에 마커와 텍스트를 함께 표시합니다.
+
 ## 라이브러리
 
 <hr/>

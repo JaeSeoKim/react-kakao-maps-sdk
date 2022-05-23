@@ -1,0 +1,32 @@
+---
+title: "이미지 지도에 마커 표시하기"
+sidebar_position: 2
+---
+
+이미지 지도에 마커를 표시합니다.
+
+> original docs : https://apis.map.kakao.com/web/sample/staticMapWithMarker/
+
+```jsx live
+function(){
+  return (
+    <StaticMap // 지도를 표시할 Container
+      center={{
+        // 지도의 중심좌표
+        lat: 33.450701,
+        lng: 126.570667
+      }}
+      style={{
+        // 지도의 크기
+        width: "100%",
+        height: "450px",
+      }}
+      marker={{
+        lat: 33.450701,
+        lng: 126.570667
+      }}
+      level={3} // 지도의 확대 레벨
+    />
+  );
+}
+```
