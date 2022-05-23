@@ -42,7 +42,7 @@
     "preversion": "HUSKY=0"
   },
   "dependencies": {
-    "kakao.maps.d.ts": "^0.1.30"
+    "kakao.maps.d.ts": "^0.1.31"
   },
   "peerDependencies": {
     "react": "^17.0.2",
