@@ -5,7 +5,6 @@
   <p>
     <a href="https://www.npmjs.com/package/react-kakao-maps-sdk"><img alt="version" src="https://img.shields.io/npm/v/react-kakao-maps-sdk" /></a>
     <img alt="license" src="https://img.shields.io/npm/l/react-kakao-maps-sdk" />
-    <img alt="npm publish build status" src="https://github.com/JaeSeoKim/react-kakao-maps-sdk/actions/workflows/npm-publish.yaml/badge.svg" />
     <img alt="docs build status" src="https://github.com/JaeSeoKim/react-kakao-maps-sdk/actions/workflows/docs.yaml/badge.svg" />
     <a href="https://www.npmjs.com/package/react-kakao-maps-sdk"><img alt="npm dm" src="https://img.shields.io/npm/dm/react-kakao-maps-sdk" /></a>
     <a href="https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/JaeSeoKim/react-kakao-maps-sdk"></a>
@@ -139,6 +138,7 @@ function(){
   - Marker
   - InfoWindow
   - CustomOverlay
+- StaticMap
 
 ## Contribute
 
