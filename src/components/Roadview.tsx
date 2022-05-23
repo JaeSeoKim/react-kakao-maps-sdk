@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useRef, useState } from "react"
 import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
+import { Loader } from "../util/kakaoMapApiLoader"
 
 export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
   undefined as unknown as kakao.maps.Roadview
@@ -125,17 +126,17 @@ const Roadview = React.forwardRef<
     },
     ref
   ) => {
+    const [isLoaded, setIsLoaded] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [roadview, setRoadview] = useState<kakao.maps.Roadview>()
     const container = useRef<HTMLDivElement>(null)
 
     useIsomorphicLayoutEffect(() => {
-      if (!window.kakao) {
-        console.warn(
-          "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
-        )
-        return
-      }
+      Loader.isLoaded().then(setIsLoaded)
+    }, [])
+
+    useIsomorphicLayoutEffect(() => {
+      if (!isLoaded) return
       if (!container.current) return
 
       const kakaoRoadview = new kakao.maps.Roadview(container.current, {
@@ -149,7 +150,7 @@ const Roadview = React.forwardRef<
 
       setRoadview(kakaoRoadview)
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [panoX, panoY, zoom])
+    }, [isLoaded, panoX, panoY, zoom])
 
     useImperativeHandle(ref, () => roadview!, [roadview])
 

@@ -7,7 +7,7 @@ sidebar_position: 1
 
 Next.js 사용 시, Script 컴포넌트를 사용하여 Kakao 지도 API를 불러와야 합니다.
 
-[Next.js Script Component](https://nextjs.org/docs/basic-features/script)  
+[Next.js Script Component](https://nextjs.org/docs/basic-features/script)
 [Next.js No Sync Scripts](https://nextjs.org/docs/messages/no-sync-scripts)
 
 ## Example

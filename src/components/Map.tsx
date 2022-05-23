@@ -1,6 +1,7 @@
 import React, { useRef, useState, useImperativeHandle } from "react"
 import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
+import { Loader } from "../util/kakaoMapApiLoader"
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map
@@ -265,45 +266,49 @@ const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
     },
     ref
   ) => {
+    const [isLoaded, setIsLoaded] = useState(false)
     const [map, setMap] = useState<kakao.maps.Map>()
-
     const container = useRef<HTMLDivElement>(null)
 
     useIsomorphicLayoutEffect(() => {
-      if (!window.kakao) {
-        console.warn(
-          "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
-        )
-        return
-      }
+      Loader.isLoaded().then(setIsLoaded)
+    }, [])
+
+    useIsomorphicLayoutEffect(() => {
+      if (!isLoaded) return
 
       const MapContainer = container.current
+
       if (!MapContainer) {
         return
       }
 
-      kakao.maps.load(() => {
-        const initalMapCenter =
-          "lat" in center
-            ? new kakao.maps.LatLng(center.lat, center.lng)
-            : new kakao.maps.Coords(center.x, center.y)
+      const initalMapCenter =
+        "lat" in center
+          ? new kakao.maps.LatLng(center.lat, center.lng)
+          : new kakao.maps.Coords(center.x, center.y)
 
-        const kakaoMap = new kakao.maps.Map(MapContainer, {
-          center: initalMapCenter,
-          disableDoubleClick: disableDoubleClick,
-          disableDoubleClickZoom: disableDoubleClickZoom,
-          draggable: draggable,
-          keyboardShortcuts: keyboardShortcuts,
-          level: level,
-          mapTypeId: mapTypeId,
-          projectionId: projectionId,
-          scrollwheel: scrollwheel,
-          tileAnimation: tileAnimation,
-        })
-
-        setMap(kakaoMap)
+      const kakaoMap = new kakao.maps.Map(MapContainer, {
+        center: initalMapCenter,
+        disableDoubleClick: disableDoubleClick,
+        disableDoubleClickZoom: disableDoubleClickZoom,
+        draggable: draggable,
+        keyboardShortcuts: keyboardShortcuts,
+        level: level,
+        mapTypeId: mapTypeId,
+        projectionId: projectionId,
+        scrollwheel: scrollwheel,
+        tileAnimation: tileAnimation,
       })
-    }, [disableDoubleClick, disableDoubleClickZoom, mapTypeId, tileAnimation])
+
+      setMap(kakaoMap)
+    }, [
+      isLoaded,
+      disableDoubleClick,
+      disableDoubleClickZoom,
+      mapTypeId,
+      tileAnimation,
+    ])
 
     useImperativeHandle(ref, () => map!, [map])
 

@@ -64,3 +64,6 @@ export type { StaticMapProps } from "./components/StaticMap"
 
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"
+
+export { Loader } from "./util/kakaoMapApiLoader"
+export { default as useInjectKakaoMapApi } from "./hooks/useInjectKakaoMapApi"
