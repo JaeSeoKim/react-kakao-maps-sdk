@@ -1,5 +1,23 @@
 # Changelog ✍️
 
+### v1.1.0
+
+#### Feat ✨
+
+- StaticMap
+- ref를 통한 객체 접근 지원
+- useInjectKakaoMapApi
+
+#### Fix 🛠
+
+- useEffect -> useLayoutEffect 변경
+- kakao map 연결을 위해 감싸지던 `div` 객체 `hidden` 으로 변경 및 `parentElement` 에 렌더링 하도록 수정
+- 기타 문서 및 타입 오류 수정
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.31"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.31)
+
 ### v1.0.8
 
 #### Feat ✨
