@@ -32,21 +32,6 @@ export interface MapMarkerProps {
 
     options?: {
       /**
-       * Contianer id에 대해서 지정합니다.
-       */
-      id?: string
-
-      /**
-       * Contianer className에 대해서 지정합니다.
-       */
-      className?: string
-
-      /**
-       * Contianer style에 대해서 지정합니다.
-       */
-      style?: React.CSSProperties
-
-      /**
        * 마커 이미지의 alt 속성값을 정의한다.
        */
       alt?: string
@@ -138,21 +123,6 @@ export interface MapMarkerProps {
    */
   infoWindowOptions?: {
     /**
-     * Contianer id에 대해서 지정합니다.
-     */
-    id?: string
-
-    /**
-     * Contianer className에 대해서 지정합니다.
-     */
-    className?: string
-
-    /**
-     * Contianer style에 대해서 지정합니다.
-     */
-    style?: React.CSSProperties
-
-    /**
      * 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false)
      */
     disableAutoPan?: boolean
@@ -173,89 +143,98 @@ export interface MapMarkerProps {
  * Map에서 Marker를 생성할 때 사용 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `maker` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const MapMarker: React.FC<React.PropsWithChildren<MapMarkerProps>> = ({
-  image,
-  position,
-  children,
-  clickable,
-  draggable,
-  infoWindowOptions,
-  onClick,
-  onDragEnd,
-  onDragStart,
-  onMouseOut,
-  onMouseOver,
-  onCreate,
-  opacity,
-  title,
-  zIndex,
-}) => {
-  const map = useMap(`MapMarker`)
+const MapMarker = React.forwardRef<
+  kakao.maps.Marker,
+  React.PropsWithChildren<MapMarkerProps>
+>(
+  (
+    {
+      image,
+      position,
+      children,
+      clickable,
+      draggable,
+      infoWindowOptions,
+      onClick,
+      onDragEnd,
+      onDragStart,
+      onMouseOut,
+      onMouseOver,
+      onCreate,
+      opacity,
+      title,
+      zIndex,
+    },
+    ref
+  ) => {
+    const map = useMap(`MapMarker`)
 
-  const markerImage = useMemo(() => {
-    return (
-      image &&
-      new kakao.maps.MarkerImage(
-        image.src,
-        new kakao.maps.Size(image.size.width, image.size.height),
-        {
-          alt: image.options?.alt,
-          coords: image.options?.coords,
-          offset:
-            image.options?.offset &&
-            new kakao.maps.Point(
-              image.options?.offset.x,
-              image.options?.offset.y
-            ),
-          shape: image.options?.shape,
-          spriteOrigin:
-            image.options?.spriteOrigin &&
-            new kakao.maps.Point(
-              image.options?.spriteOrigin.x,
-              image.options?.spriteOrigin.y
-            ),
-          spriteSize:
-            image.options?.spriteSize &&
-            new kakao.maps.Size(
-              image.options?.spriteSize.width,
-              image.options?.spriteSize.height
-            ),
-        }
+    const markerImage = useMemo(() => {
+      return (
+        image &&
+        new kakao.maps.MarkerImage(
+          image.src,
+          new kakao.maps.Size(image.size.width, image.size.height),
+          {
+            alt: image.options?.alt,
+            coords: image.options?.coords,
+            offset:
+              image.options?.offset &&
+              new kakao.maps.Point(
+                image.options?.offset.x,
+                image.options?.offset.y
+              ),
+            shape: image.options?.shape,
+            spriteOrigin:
+              image.options?.spriteOrigin &&
+              new kakao.maps.Point(
+                image.options?.spriteOrigin.x,
+                image.options?.spriteOrigin.y
+              ),
+            spriteSize:
+              image.options?.spriteSize &&
+              new kakao.maps.Size(
+                image.options?.spriteSize.width,
+                image.options?.spriteSize.height
+              ),
+          }
+        )
       )
+    }, [image])
+
+    const markerPosition = useMemo(() => {
+      if ("lat" in position) {
+        return new kakao.maps.LatLng(position.lat, position.lng)
+      }
+      return new kakao.maps.Coords(position.x, position.y).toLatLng()
+
+      // @ts-ignore
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [position.lat, position.lng, position.x, position.y])
+
+    return (
+      <Marker
+        map={map}
+        position={markerPosition}
+        image={markerImage}
+        clickable={clickable}
+        draggable={draggable}
+        infoWindowOptions={infoWindowOptions}
+        onClick={onClick}
+        onDragEnd={onDragEnd}
+        onDragStart={onDragStart}
+        onMouseOut={onMouseOut}
+        onMouseOver={onMouseOver}
+        onCreate={onCreate}
+        opacity={opacity}
+        title={title}
+        zIndex={zIndex}
+        ref={ref}
+      >
+        {children}
+      </Marker>
     )
-  }, [image])
-
-  const markerPosition = useMemo(() => {
-    if ("lat" in position) {
-      return new kakao.maps.LatLng(position.lat, position.lng)
-    }
-    return new kakao.maps.Coords(position.x, position.y).toLatLng()
-
-    // @ts-ignore
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [position.lat, position.lng, position.x, position.y])
-
-  return (
-    <Marker
-      map={map}
-      position={markerPosition}
-      image={markerImage}
-      clickable={clickable}
-      draggable={draggable}
-      infoWindowOptions={infoWindowOptions}
-      onClick={onClick}
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      onMouseOut={onMouseOut}
-      onMouseOver={onMouseOver}
-      onCreate={onCreate}
-      opacity={opacity}
-      title={title}
-      zIndex={zIndex}
-    >
-      {children}
-    </Marker>
-  )
-}
+  }
+)
 
 export default MapMarker

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useImperativeHandle, useRef, useState } from "react"
+import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 
 export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
@@ -8,8 +9,6 @@ export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
 export interface RoadviewProps {
   /**
    * roadviewContinaer의 id에 대해서 지정합니다.
-   *
-   * @default  "kakao-roadview-container"
    */
   id?: string
 
@@ -100,131 +99,141 @@ export interface RoadviewProps {
  * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `Roadview` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const Roadview: React.FC<React.PropsWithChildren<RoadviewProps>> = ({
-  id = "kakao-roadview-container",
-  style,
-  children,
-  position,
-  className,
-  pan,
-  panoId,
-  panoX,
-  panoY,
-  tilt,
-  zoom,
-  onCreate,
-  onInit,
-  onPanoidChange,
-  onPositionChanged,
-  onViewpointChange,
-  onErrorGetNearestPanoId,
-}) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [roadview, setRoadview] = useState<kakao.maps.Roadview>()
-  const container = useRef<HTMLDivElement>(null)
+const Roadview = React.forwardRef<
+  kakao.maps.Roadview,
+  React.PropsWithChildren<RoadviewProps>
+>(
+  (
+    {
+      id = "react-kakao-maps-sdk-roadview-container",
+      style,
+      children,
+      position,
+      className,
+      pan,
+      panoId,
+      panoX,
+      panoY,
+      tilt,
+      zoom,
+      onCreate,
+      onInit,
+      onPanoidChange,
+      onPositionChanged,
+      onViewpointChange,
+      onErrorGetNearestPanoId,
+    },
+    ref
+  ) => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [roadview, setRoadview] = useState<kakao.maps.Roadview>()
+    const container = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!window.kakao) {
-      console.warn(
-        "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
-      )
-      return
-    }
-    if (!container.current) return
-
-    const kakaoRoadview = new kakao.maps.Roadview(container.current, {
-      pan: pan,
-      panoId: panoId,
-      panoX: panoX,
-      panoY: panoY,
-      tilt: tilt,
-      zoom: zoom,
-    })
-
-    setRoadview(kakaoRoadview)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [panoX, panoY, zoom])
-
-  useEffect(() => {
-    if (!roadview || !onCreate) return
-    onCreate(roadview)
-  }, [roadview, onCreate])
-
-  useEffect(() => {
-    if (
-      !roadview ||
-      panoId ||
-      (roadview.getPosition().getLat() === position.lat &&
-        roadview.getPosition().getLng() === position.lng)
-    )
-      return
-
-    const newPostion = new kakao.maps.LatLng(position.lat, position.lng)
-
-    new kakao.maps.RoadviewClient().getNearestPanoId(
-      newPostion,
-      position.radius,
-      (panoId) => {
-        if (panoId === null && onErrorGetNearestPanoId) {
-          onErrorGetNearestPanoId(roadview)
-        } else {
-          roadview.setPanoId(panoId, newPostion)
-        }
+    useIsomorphicLayoutEffect(() => {
+      if (!window.kakao) {
+        console.warn(
+          "kakao map javascript api를 먼저 불러와야 합니다. `https://apis.map.kakao.com/web/guide`"
+        )
+        return
       }
+      if (!container.current) return
+
+      const kakaoRoadview = new kakao.maps.Roadview(container.current, {
+        pan: pan,
+        panoId: panoId,
+        panoX: panoX,
+        panoY: panoY,
+        tilt: tilt,
+        zoom: zoom,
+      })
+
+      setRoadview(kakaoRoadview)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [panoX, panoY, zoom])
+
+    useImperativeHandle(ref, () => roadview!, [roadview])
+
+    useIsomorphicLayoutEffect(() => {
+      if (!roadview || !onCreate) return
+      onCreate(roadview)
+    }, [roadview, onCreate])
+
+    useIsomorphicLayoutEffect(() => {
+      if (
+        !roadview ||
+        panoId ||
+        (roadview.getPosition().getLat() === position.lat &&
+          roadview.getPosition().getLng() === position.lng)
+      )
+        return
+
+      const newPostion = new kakao.maps.LatLng(position.lat, position.lng)
+
+      new kakao.maps.RoadviewClient().getNearestPanoId(
+        newPostion,
+        position.radius,
+        (panoId) => {
+          if (panoId === null && onErrorGetNearestPanoId) {
+            onErrorGetNearestPanoId(roadview)
+          } else {
+            roadview.setPanoId(panoId, newPostion)
+          }
+        }
+      )
+    }, [
+      roadview,
+      panoId,
+      position.lat,
+      position.lng,
+      position.radius,
+      onErrorGetNearestPanoId,
+    ])
+
+    useIsomorphicLayoutEffect(() => {
+      if (
+        !roadview ||
+        !panoId ||
+        panoId === roadview.getPanoId() ||
+        (roadview.getPosition().getLat() === position.lat &&
+          roadview.getPosition().getLng() === position.lng)
+      )
+        return
+
+      const newPostion = new kakao.maps.LatLng(position.lat, position.lng)
+      roadview.setPanoId(panoId, newPostion)
+    }, [roadview, panoId, position.lat, position.lng])
+
+    useIsomorphicLayoutEffect(() => {
+      if (!roadview) return
+
+      const prevViewpoint = roadview.getViewpoint()
+
+      if (prevViewpoint.pan === pan && prevViewpoint.tilt === tilt) return
+
+      if (pan) prevViewpoint.pan = pan
+      if (tilt) prevViewpoint.tilt = tilt
+      roadview.setViewpoint(prevViewpoint)
+    }, [roadview, pan, tilt])
+
+    useKakaoEvent(roadview, "init", (target) => {
+      setIsLoading(false)
+      if (onInit) onInit(target)
+    })
+    useKakaoEvent(roadview, "panoid_changed", onPanoidChange)
+    useKakaoEvent(roadview, "viewpoint_changed", onViewpointChange)
+    useKakaoEvent(roadview, "position_changed", onPositionChanged)
+
+    return (
+      <>
+        <div id={id} className={className} style={style} ref={container}></div>
+        {roadview && !isLoading && (
+          <KakaoRoadviewContext.Provider value={roadview}>
+            {children}
+          </KakaoRoadviewContext.Provider>
+        )}
+      </>
     )
-  }, [
-    roadview,
-    panoId,
-    position.lat,
-    position.lng,
-    position.radius,
-    onErrorGetNearestPanoId,
-  ])
-
-  useEffect(() => {
-    if (
-      !roadview ||
-      !panoId ||
-      panoId === roadview.getPanoId() ||
-      (roadview.getPosition().getLat() === position.lat &&
-        roadview.getPosition().getLng() === position.lng)
-    )
-      return
-
-    const newPostion = new kakao.maps.LatLng(position.lat, position.lng)
-    roadview.setPanoId(panoId, newPostion)
-  }, [roadview, panoId, position.lat, position.lng])
-
-  useEffect(() => {
-    if (!roadview) return
-
-    const prevViewpoint = roadview.getViewpoint()
-
-    if (prevViewpoint.pan === pan && prevViewpoint.tilt === tilt) return
-
-    if (pan) prevViewpoint.pan = pan
-    if (tilt) prevViewpoint.tilt = tilt
-    roadview.setViewpoint(prevViewpoint)
-  }, [roadview, pan, tilt])
-
-  useKakaoEvent(roadview, "init", (target) => {
-    setIsLoading(false)
-    if (onInit) onInit(target)
-  })
-  useKakaoEvent(roadview, "panoid_changed", onPanoidChange)
-  useKakaoEvent(roadview, "viewpoint_changed", onViewpointChange)
-  useKakaoEvent(roadview, "position_changed", onPositionChanged)
-
-  return (
-    <>
-      <div id={id} className={className} style={style} ref={container}></div>
-      {roadview && !isLoading && (
-        <KakaoRoadviewContext.Provider value={roadview}>
-          {children}
-        </KakaoRoadviewContext.Provider>
-      )}
-    </>
-  )
-}
+  }
+)
 
 export default Roadview

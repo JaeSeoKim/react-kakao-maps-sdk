@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
 
@@ -78,88 +78,95 @@ export interface PolylineProps {
 /**
  * Map 상에 폴리라인을 그립니다.
  */
-const Polyline: React.FC<PolylineProps> = ({
-  path,
-  endArrow,
-  onClick,
-  onMousedown,
-  onMousemove,
-  onMouseout,
-  onMouseover,
-  onCreate,
-  strokeColor,
-  strokeOpacity,
-  strokeStyle,
-  strokeWeight,
-  zIndex,
-}) => {
-  const map = useMap(`Polyline`)
-
-  const polyLinePath = useMemo(() => {
-    if ((path as LatLng[]).every((v) => v instanceof Array)) {
-      return (path as LatLng[][]).map((v) => {
-        return v.map((p) => new kakao.maps.LatLng(p.lat, p.lng))
-      })
-    }
-    return (path as LatLng[]).map((v) => {
-      return new kakao.maps.LatLng(v.lat, v.lng)
-    })
-  }, [path])
-
-  const polyline = useMemo(() => {
-    return new kakao.maps.Polyline({
-      path: polyLinePath,
+const Polyline = React.forwardRef<kakao.maps.Polyline, PolylineProps>(
+  (
+    {
+      path,
       endArrow,
+      onClick,
+      onMousedown,
+      onMousemove,
+      onMouseout,
+      onMouseover,
+      onCreate,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
       zIndex,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    },
+    ref
+  ) => {
+    const map = useMap(`Polyline`)
 
-  useEffect(() => {
-    polyline.setMap(map)
-    return () => polyline.setMap(null)
-  }, [map, polyline])
+    const polyLinePath = useMemo(() => {
+      if ((path as LatLng[]).every((v) => v instanceof Array)) {
+        return (path as LatLng[][]).map((v) => {
+          return v.map((p) => new kakao.maps.LatLng(p.lat, p.lng))
+        })
+      }
+      return (path as LatLng[]).map((v) => {
+        return new kakao.maps.LatLng(v.lat, v.lng)
+      })
+    }, [path])
 
-  useEffect(() => {
-    if (onCreate) onCreate(polyline)
-  }, [polyline, onCreate])
+    const polyline = useMemo(() => {
+      return new kakao.maps.Polyline({
+        path: polyLinePath,
+        endArrow,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+        zIndex,
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  useEffect(() => {
-    polyline.setOptions({
+    useImperativeHandle(ref, () => polyline, [polyline])
+
+    useLayoutEffect(() => {
+      polyline.setMap(map)
+      return () => polyline.setMap(null)
+    }, [map, polyline])
+
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(polyline)
+    }, [polyline, onCreate])
+
+    useLayoutEffect(() => {
+      polyline.setOptions({
+        endArrow,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+      })
+    }, [
+      polyline,
       endArrow,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
-    })
-  }, [
-    polyline,
-    endArrow,
-    strokeColor,
-    strokeOpacity,
-    strokeStyle,
-    strokeWeight,
-  ])
+    ])
 
-  useEffect(() => {
-    polyline.setPath(polyLinePath)
-  }, [polyline, polyLinePath])
+    useLayoutEffect(() => {
+      polyline.setPath(polyLinePath)
+    }, [polyline, polyLinePath])
 
-  useEffect(() => {
-    if (zIndex) polyline.setZIndex(zIndex)
-  }, [polyline, zIndex])
+    useLayoutEffect(() => {
+      if (zIndex) polyline.setZIndex(zIndex)
+    }, [polyline, zIndex])
 
-  useKakaoEvent(polyline, "mouseover", onMouseover)
-  useKakaoEvent(polyline, "mouseout", onMouseout)
-  useKakaoEvent(polyline, "mousemove", onMousemove)
-  useKakaoEvent(polyline, "mousedown", onMousedown)
-  useKakaoEvent(polyline, "click", onClick)
+    useKakaoEvent(polyline, "mouseover", onMouseover)
+    useKakaoEvent(polyline, "mouseout", onMouseout)
+    useKakaoEvent(polyline, "mousemove", onMousemove)
+    useKakaoEvent(polyline, "mousedown", onMousedown)
+    useKakaoEvent(polyline, "click", onClick)
 
-  return null
-}
+    return null
+  }
+)
 
 export default Polyline

@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useMemo } from "react"
+import React, {
+  useContext,
+  useImperativeHandle,
+  useLayoutEffect,
+  useMemo,
+} from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import InfoWindow from "./InfoWindow"
 import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
@@ -82,21 +87,6 @@ interface MarkerProps {
    */
   infoWindowOptions?: {
     /**
-     * Contianer id에 대해서 지정합니다.
-     */
-    id?: string
-
-    /**
-     * Contianer className에 대해서 지정합니다.
-     */
-    className?: string
-
-    /**
-     * Contianer style에 대해서 지정합니다.
-     */
-    style?: React.CSSProperties
-
-    /**
      * 인포윈도우를 열 때 지도가 자동으로 패닝하지 않을지의 여부 (기본값: false)
      */
     disableAutoPan?: boolean
@@ -123,155 +113,162 @@ interface MarkerProps {
   }
 }
 
-const Marker: React.FC<React.PropsWithChildren<MarkerProps>> = ({
-  map,
-  position,
-  children,
-  altitude,
-  clickable,
-  draggable,
-  image,
-  infoWindowOptions,
-  onCreate,
-  onClick,
-  onDragEnd,
-  onDragStart,
-  onMouseOut,
-  onMouseOver,
-  opacity,
-  range,
-  title,
-  zIndex,
-}) => {
-  const markerCluster = useContext(KakaoMapMarkerClustererContext)
-
-  // Marker 객체는 단 한번만 생성 되도록 함
-  const marker = useMemo(() => {
-    const kakaoMarker = new kakao.maps.Marker({
+const Marker = React.forwardRef<
+  kakao.maps.Marker,
+  React.PropsWithChildren<MarkerProps>
+>(
+  (
+    {
+      map,
+      position,
+      children,
       altitude,
       clickable,
       draggable,
       image,
+      infoWindowOptions,
+      onCreate,
+      onClick,
+      onDragEnd,
+      onDragStart,
+      onMouseOut,
+      onMouseOver,
       opacity,
       range,
       title,
       zIndex,
-      position,
-    })
+    },
+    ref
+  ) => {
+    const markerCluster = useContext(KakaoMapMarkerClustererContext)
 
-    return kakaoMarker
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // Marker 객체는 단 한번만 생성 되도록 함
+    const marker = useMemo(() => {
+      const kakaoMarker = new kakao.maps.Marker({
+        altitude,
+        clickable,
+        draggable,
+        image,
+        opacity,
+        range,
+        title,
+        zIndex,
+        position,
+      })
 
-  useEffect(() => {
-    if (markerCluster) {
-      markerCluster.addMarker(marker)
-    } else {
-      marker.setMap(map)
-    }
+      return kakaoMarker
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    return () => {
+    useImperativeHandle(ref, () => marker, [marker])
+
+    useLayoutEffect(() => {
       if (markerCluster) {
-        markerCluster.removeMarker(marker)
+        markerCluster.addMarker(marker)
       } else {
-        marker.setMap(null)
+        marker.setMap(map)
       }
-    }
-  }, [map, markerCluster, marker])
 
-  useEffect(() => {
-    if (onCreate) onCreate(marker)
-  }, [marker, onCreate])
+      return () => {
+        if (markerCluster) {
+          markerCluster.removeMarker(marker)
+        } else {
+          marker.setMap(null)
+        }
+      }
+    }, [map, markerCluster, marker])
 
-  useKakaoEvent(marker, "click", onClick)
-  useKakaoEvent(marker, "dragstart", onDragStart)
-  useKakaoEvent(marker, "dragend", onDragEnd)
-  useKakaoEvent(marker, "mouseout", onMouseOut)
-  useKakaoEvent(marker, "mouseover", onMouseOver)
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(marker)
+    }, [marker, onCreate])
 
-  // position이 변경되면 객체를 갱신한다.
-  useEffect(() => {
-    if (!map || !marker || !position) return
+    useKakaoEvent(marker, "click", onClick)
+    useKakaoEvent(marker, "dragstart", onDragStart)
+    useKakaoEvent(marker, "dragend", onDragEnd)
+    useKakaoEvent(marker, "mouseout", onMouseOut)
+    useKakaoEvent(marker, "mouseover", onMouseOver)
 
-    marker.setPosition(position)
-  }, [map, marker, position])
+    // position이 변경되면 객체를 갱신한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || !position) return
 
-  // image 객체가 존재하면 이미지를 로드한다
-  useEffect(() => {
-    if (!map || !marker || !image) return
+      marker.setPosition(position)
+    }, [map, marker, position])
 
-    marker.setImage(image)
-  }, [map, marker, image])
+    // image 객체가 존재하면 이미지를 로드한다
+    useLayoutEffect(() => {
+      if (!map || !marker || !image) return
 
-  // altitude 값이 있으면 높이를 조정한다
-  useEffect(() => {
-    if (!map || !marker || !altitude) return
+      marker.setImage(image)
+    }, [map, marker, image])
 
-    marker.setAltitude(altitude)
-  }, [map, marker, altitude])
+    // altitude 값이 있으면 높이를 조정한다
+    useLayoutEffect(() => {
+      if (!map || !marker || !altitude) return
 
-  // clickable 값이 있으면 클릭이 가능하도록 한다.
-  useEffect(() => {
-    if (!map || !marker || typeof clickable === "undefined") return
+      marker.setAltitude(altitude)
+    }, [map, marker, altitude])
 
-    marker.setClickable(clickable)
-  }, [map, marker, clickable])
+    // clickable 값이 있으면 클릭이 가능하도록 한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || typeof clickable === "undefined") return
 
-  // draggable 값이 있으면 드래그가 가능하도록 한다.
-  useEffect(() => {
-    if (!map || !marker || typeof draggable === "undefined") return
+      marker.setClickable(clickable)
+    }, [map, marker, clickable])
 
-    marker.setDraggable(draggable)
-  }, [map, marker, draggable])
+    // draggable 값이 있으면 드래그가 가능하도록 한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || typeof draggable === "undefined") return
 
-  // opacity 값이 있으면 투명도를 조절한다.
-  useEffect(() => {
-    if (!map || !marker || !opacity) return
+      marker.setDraggable(draggable)
+    }, [map, marker, draggable])
 
-    marker.setOpacity(opacity)
-  }, [map, marker, opacity])
+    // opacity 값이 있으면 투명도를 조절한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || !opacity) return
 
-  // range 값이 있으면 마커의 가시반경을 조절한다.
-  useEffect(() => {
-    if (!map || !marker || !range) return
+      marker.setOpacity(opacity)
+    }, [map, marker, opacity])
 
-    marker.setRange(range)
-  }, [map, marker, range])
+    // range 값이 있으면 마커의 가시반경을 조절한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || !range) return
 
-  // title 값이 있으면 마커의 제목을 조절한다.
-  useEffect(() => {
-    if (!map || !marker || !title) return
+      marker.setRange(range)
+    }, [map, marker, range])
 
-    marker.setTitle(title)
-  }, [map, marker, title])
+    // title 값이 있으면 마커의 제목을 조절한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || !title) return
 
-  // zIndex 값이 있으면 마커의 zindex를 조절한다.
-  useEffect(() => {
-    if (!map || !marker || !zIndex) return
+      marker.setTitle(title)
+    }, [map, marker, title])
 
-    marker.setZIndex(zIndex)
-  }, [map, marker, zIndex])
+    // zIndex 값이 있으면 마커의 zindex를 조절한다.
+    useLayoutEffect(() => {
+      if (!map || !marker || !zIndex) return
 
-  if (children)
-    return (
-      <InfoWindow
-        position={position}
-        map={map}
-        marker={marker}
-        id={infoWindowOptions?.id}
-        className={infoWindowOptions?.className}
-        style={infoWindowOptions?.style}
-        altitude={infoWindowOptions?.altitude}
-        disableAutoPan={infoWindowOptions?.disableAutoPan}
-        range={infoWindowOptions?.range}
-        removable={infoWindowOptions?.removable}
-        zIndex={infoWindowOptions?.zIndex}
-      >
-        {children}
-      </InfoWindow>
-    )
+      marker.setZIndex(zIndex)
+    }, [map, marker, zIndex])
 
-  return null
-}
+    if (children)
+      return (
+        <InfoWindow
+          position={position}
+          map={map}
+          marker={marker}
+          altitude={infoWindowOptions?.altitude}
+          disableAutoPan={infoWindowOptions?.disableAutoPan}
+          range={infoWindowOptions?.range}
+          removable={infoWindowOptions?.removable}
+          zIndex={infoWindowOptions?.zIndex}
+        >
+          {children}
+        </InfoWindow>
+      )
+
+    return null
+  }
+)
 
 export default Marker

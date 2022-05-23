@@ -29,49 +29,105 @@ export type DrawingManagerProps<
     /**
      * 그리기 요소를 선택하면 발생한다.
      */
-    onSelect?: (event: kakao.maps.drawing.MouseEvent) => void
+    onSelect?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 그리기를 시작하면 발생한다.
      */
-    onDrawstart?: (event: kakao.maps.drawing.MouseEvent) => void
+    onDrawstart?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 그리기 시작 후, 마우스를 이동하면 발생한다.
      */
-    onDraw?: (event: kakao.maps.drawing.MouseEvent) => void
+    onDraw?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 그리기를 시작하면 발생한다.
      */
-    onDrawend?: (event: kakao.maps.drawing.MouseEvent) => void
+    onDrawend?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 다음 단계 그리기를 하면 발생한다. (Polyline, Polygon, Arrow 한정)
      */
-    onDrawnext?: (event: kakao.maps.drawing.MouseEvent) => void
+    onDrawnext?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 그리기를 취소하면 발생한다.
      */
-    onCancle?: (event: kakao.maps.drawing.MouseEvent) => void
+    onCancle?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 그리기 요소를 삭제하면 발생한다.
      */
-    onRemove?: (event: kakao.maps.drawing.MouseEvent) => void
+    onRemove?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>,
+      event: kakao.maps.drawing.MouseEvent
+    ) => void
 
     /**
      * 그리기 요소들의 상태가 변경되면 발생한다.
      * 각 요소의 생성/수정/이동/삭제 동작과 undo 또는 redo 함수 호출이 이에 해당한다.
      */
-    onStateChanged?: () => void
+    onStateChanged?: (
+      drawingManager: kakao.maps.drawing.DrawingManager<T>
+    ) => void
+
+    /**
+     * 객체 생성후 해당 이벤트가 발생합니다.
+     */
+    onCreate?: (drawingManager: kakao.maps.drawing.DrawingManager<T>) => void
 
     /**
      * Toolbox에 대해서 추가할 때 사용합니다.
      */
     children?: ReactNode
   }
+
+function useDrawingManagerEvent<T extends kakao.maps.drawing.OverlayType>(
+  target: kakao.maps.drawing.DrawingManager<T> | undefined,
+  type:
+    | "drawstart"
+    | "draw"
+    | "drawend"
+    | "drawnext"
+    | "select"
+    | "cancel"
+    | "remove"
+    | "state_changed",
+  callback:
+    | ((target: kakao.maps.drawing.DrawingManager<T>, ...args: any) => void)
+    | undefined
+) {
+  useLayoutEffect(() => {
+    if (!target || !callback) return
+
+    const wrapCallback = (...arg: any[]) => {
+      if (arg === undefined) return callback(target)
+      else return callback(target, ...arg)
+    }
+
+    // @ts-ignore
+    target.addListener(type, wrapCallback)
+  }, [callback, target, type])
+}
 
 /**
  * 그리기 관리자 객체를 생성하는 컴포넌트 입니다.
@@ -202,6 +258,7 @@ const DrawingManager = React.forwardRef(function <
     onCancle,
     onRemove,
     onStateChanged,
+    onCreate,
     children,
   }: DrawingManagerProps<T>,
   ref: Ref<kakao.maps.drawing.DrawingManager<T>>
@@ -209,9 +266,16 @@ const DrawingManager = React.forwardRef(function <
   const map = useMap("Toolbox")
 
   const drawingManager = useMemo(
-    () =>
+    () => {
+      if (!window.kakao.maps.drawing) {
+        console.warn(
+          "drawing 라이브러리를 별도 로드 해야 사용 가능합니다. `https://apis.map.kakao.com/web/guide/#loadlibrary`"
+        )
+        return
+      }
+
       // @ts-ignore
-      new kakao.maps.drawing.DrawingManager({
+      return new kakao.maps.drawing.DrawingManager({
         map,
         drawingMode,
         guideTooltip,
@@ -222,44 +286,27 @@ const DrawingManager = React.forwardRef(function <
         polygonOptions,
         polylineOptions,
         rectangleOptions,
-      }),
+      })
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   )
-  useImperativeHandle(ref, () => drawingManager, [drawingManager])
+  useImperativeHandle(ref, () => drawingManager!, [drawingManager])
 
   useLayoutEffect(() => {
-    onSelect && drawingManager.addListener("select", onSelect)
-  }, [drawingManager, onSelect])
+    drawingManager && onCreate && onCreate(drawingManager)
+  }, [drawingManager, onCreate])
 
-  useLayoutEffect(() => {
-    onDrawstart && drawingManager.addListener("drawstart", onDrawstart)
-  }, [drawingManager, onDrawstart])
+  useDrawingManagerEvent(drawingManager, "select", onSelect)
+  useDrawingManagerEvent(drawingManager, "drawstart", onDrawstart)
+  useDrawingManagerEvent(drawingManager, "draw", onDraw)
+  useDrawingManagerEvent(drawingManager, "drawend", onDrawend)
+  useDrawingManagerEvent(drawingManager, "drawnext", onDrawnext)
+  useDrawingManagerEvent(drawingManager, "cancel", onCancle)
+  useDrawingManagerEvent(drawingManager, "remove", onRemove)
+  useDrawingManagerEvent(drawingManager, "state_changed", onStateChanged)
 
-  useLayoutEffect(() => {
-    onDraw && drawingManager.addListener("draw", onDraw)
-  }, [drawingManager, onDraw])
-
-  useLayoutEffect(() => {
-    onDrawend && drawingManager.addListener("drawend", onDrawend)
-  }, [drawingManager, onDrawend])
-
-  useLayoutEffect(() => {
-    onDrawnext && drawingManager.addListener("drawnext", onDrawnext)
-  }, [drawingManager, onDrawnext])
-
-  useLayoutEffect(() => {
-    onCancle && drawingManager.addListener("cancel", onCancle)
-  }, [drawingManager, onCancle])
-
-  useLayoutEffect(() => {
-    onRemove && drawingManager.addListener("remove", onRemove)
-  }, [drawingManager, onRemove])
-
-  useLayoutEffect(() => {
-    onStateChanged &&
-      drawingManager.addListener("state_changed", onStateChanged)
-  }, [drawingManager, onStateChanged])
+  if (!drawingManager) return null
 
   return (
     <DrawingManagerContext.Provider value={drawingManager}>

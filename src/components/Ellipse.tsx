@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
 
@@ -100,33 +100,10 @@ export interface EllipseProps {
 /**
  * Map 상에 타원을 그립니다.
  */
-const Ellipse: React.FC<EllipseProps> = ({
-  center,
-  rx,
-  ry,
-  fillColor,
-  fillOpacity,
-  strokeColor,
-  strokeOpacity,
-  strokeStyle,
-  strokeWeight,
-  zIndex,
-  onMouseover,
-  onMouseout,
-  onMousemove,
-  onMousedown,
-  onClick,
-  onCreate,
-}) => {
-  const map = useMap(`Ellipse`)
-
-  const ellipseCenter = useMemo(() => {
-    return new kakao.maps.LatLng(center.lat, center.lng)
-  }, [center.lat, center.lng])
-
-  const ellipse = useMemo(() => {
-    return new kakao.maps.Ellipse({
-      center: ellipseCenter,
+const Ellipse = React.forwardRef<kakao.maps.Ellipse, EllipseProps>(
+  (
+    {
+      center,
       rx,
       ry,
       fillColor,
@@ -136,61 +113,91 @@ const Ellipse: React.FC<EllipseProps> = ({
       strokeStyle,
       strokeWeight,
       zIndex,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      onMouseover,
+      onMouseout,
+      onMousemove,
+      onMousedown,
+      onClick,
+      onCreate,
+    },
+    ref
+  ) => {
+    const map = useMap(`Ellipse`)
 
-  useEffect(() => {
-    ellipse.setMap(map)
+    const ellipseCenter = useMemo(() => {
+      return new kakao.maps.LatLng(center.lat, center.lng)
+    }, [center.lat, center.lng])
 
-    return () => {
-      ellipse.setMap(null)
-    }
-  }, [map, ellipse])
+    const ellipse = useMemo(() => {
+      return new kakao.maps.Ellipse({
+        center: ellipseCenter,
+        rx,
+        ry,
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+        zIndex,
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  useEffect(() => {
-    if (onCreate) onCreate(ellipse)
-  }, [ellipse, onCreate])
+    useImperativeHandle(ref, () => ellipse, [ellipse])
 
-  useEffect(() => {
-    if (ellipse) ellipse.setPosition(ellipseCenter)
-  }, [ellipse, ellipseCenter])
+    useLayoutEffect(() => {
+      ellipse.setMap(map)
 
-  useEffect(() => {
-    ellipse.setRadius(rx, ry)
-  }, [ellipse, rx, ry])
+      return () => {
+        ellipse.setMap(null)
+      }
+    }, [map, ellipse])
 
-  useEffect(() => {
-    if (!zIndex) return
-    ellipse.setZIndex(zIndex)
-  }, [ellipse, zIndex])
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(ellipse)
+    }, [ellipse, onCreate])
 
-  useEffect(() => {
-    ellipse.setOptions({
+    useLayoutEffect(() => {
+      if (ellipse) ellipse.setPosition(ellipseCenter)
+    }, [ellipse, ellipseCenter])
+
+    useLayoutEffect(() => {
+      ellipse.setRadius(rx, ry)
+    }, [ellipse, rx, ry])
+
+    useLayoutEffect(() => {
+      if (!zIndex) return
+      ellipse.setZIndex(zIndex)
+    }, [ellipse, zIndex])
+
+    useLayoutEffect(() => {
+      ellipse.setOptions({
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+      })
+    }, [
+      ellipse,
       fillColor,
       fillOpacity,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
-    })
-  }, [
-    ellipse,
-    fillColor,
-    fillOpacity,
-    strokeColor,
-    strokeOpacity,
-    strokeStyle,
-    strokeWeight,
-  ])
+    ])
 
-  useKakaoEvent(ellipse, "mouseover", onMouseover)
-  useKakaoEvent(ellipse, "mouseout", onMouseout)
-  useKakaoEvent(ellipse, "mousemove", onMousemove)
-  useKakaoEvent(ellipse, "mousedown", onMousedown)
-  useKakaoEvent(ellipse, "click", onClick)
+    useKakaoEvent(ellipse, "mouseover", onMouseover)
+    useKakaoEvent(ellipse, "mouseout", onMouseout)
+    useKakaoEvent(ellipse, "mousemove", onMousemove)
+    useKakaoEvent(ellipse, "mousedown", onMousedown)
+    useKakaoEvent(ellipse, "click", onClick)
 
-  return null
-}
+    return null
+  }
+)
 
 export default Ellipse

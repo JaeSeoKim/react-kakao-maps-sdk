@@ -1,22 +1,12 @@
-import React, { useEffect, useMemo, useRef } from "react"
+import React, {
+  useLayoutEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+} from "react"
 import ReactDom from "react-dom"
 
 interface InfoWindowProps {
-  /**
-   * Contianer id에 대해서 지정합니다.
-   */
-  id?: string
-
-  /**
-   * Contianer className에 대해서 지정합니다.
-   */
-  className?: string
-
-  /**
-   * Contianer style에 대해서 지정합니다.
-   */
-  style?: React.CSSProperties
-
   map: kakao.maps.Map | kakao.maps.Roadview
   position: kakao.maps.LatLng | kakao.maps.Viewpoint
   marker?: kakao.maps.Marker
@@ -52,87 +42,81 @@ interface InfoWindowProps {
   onCreate?: (infoWindow: kakao.maps.InfoWindow) => void
 }
 
-const InfoWindow: React.FC<React.PropsWithChildren<InfoWindowProps>> = ({
-  id,
-  className,
-  style,
-  map,
-  position,
-  marker,
-  children,
-  altitude,
-  disableAutoPan,
-  range,
-  removable,
-  zIndex,
-  onCreate,
-}) => {
-  const container = useRef(document.createElement("div"))
+const InfoWindow = React.forwardRef<
+  kakao.maps.InfoWindow,
+  React.PropsWithChildren<InfoWindowProps>
+>(
+  (
+    {
+      map,
+      position,
+      marker,
+      children,
+      altitude,
+      disableAutoPan,
+      range,
+      removable,
+      zIndex,
+      onCreate,
+    },
+    ref
+  ) => {
+    const container = useRef(document.createElement("div"))
 
-  const infoWindow = useMemo(() => {
-    const kakaoInfoWindow = new kakao.maps.InfoWindow({
-      altitude: altitude,
-      disableAutoPan: disableAutoPan,
-      range: range,
-      removable: removable,
-      zIndex: zIndex,
-      content: container.current,
-      position: position,
-    })
-    container.current.style.whiteSpace = "nowrap"
-    return kakaoInfoWindow
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disableAutoPan, removable])
+    const infoWindow = useMemo(() => {
+      const kakaoInfoWindow = new kakao.maps.InfoWindow({
+        altitude: altitude,
+        disableAutoPan: disableAutoPan,
+        range: range,
+        removable: removable,
+        zIndex: zIndex,
+        content: container.current,
+        position: position,
+      })
+      container.current.style.display = "none"
+      return kakaoInfoWindow
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [disableAutoPan, removable])
 
-  useEffect(() => {
-    infoWindow.open(map, marker)
-    return () => {
-      infoWindow.close()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, marker])
+    useImperativeHandle(ref, () => infoWindow, [infoWindow])
 
-  useEffect(() => {
-    if (onCreate) onCreate(infoWindow)
-  }, [infoWindow, onCreate])
-
-  useEffect(() => {
-    if (!infoWindow) return
-    infoWindow.setPosition(position)
-  }, [infoWindow, position])
-
-  useEffect(() => {
-    if (!infoWindow || !altitude) return
-    infoWindow.setAltitude(altitude)
-  }, [infoWindow, altitude])
-
-  useEffect(() => {
-    if (!infoWindow || !range) return
-    infoWindow.setRange(range)
-  }, [infoWindow, range])
-
-  useEffect(() => {
-    if (!infoWindow || !zIndex) return
-    infoWindow.setZIndex(zIndex)
-  }, [infoWindow, zIndex])
-
-  useEffect(() => {
-    if (id) container.current.id = id
-  }, [id])
-
-  useEffect(() => {
-    if (className) container.current.className = className
-  }, [className])
-
-  useEffect(() => {
-    if (style) {
-      for (const [key, value] of Object.entries(style)) {
-        container.current.style[key] = value
+    useLayoutEffect(() => {
+      infoWindow.open(map, marker)
+      return () => {
+        infoWindow.close()
       }
-    }
-  }, [style])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [map, marker])
 
-  return ReactDom.createPortal(children, container.current)
-}
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(infoWindow)
+    }, [infoWindow, onCreate])
+
+    useLayoutEffect(() => {
+      if (!infoWindow) return
+      infoWindow.setPosition(position)
+    }, [infoWindow, position])
+
+    useLayoutEffect(() => {
+      if (!infoWindow || !altitude) return
+      infoWindow.setAltitude(altitude)
+    }, [infoWindow, altitude])
+
+    useLayoutEffect(() => {
+      if (!infoWindow || !range) return
+      infoWindow.setRange(range)
+    }, [infoWindow, range])
+
+    useLayoutEffect(() => {
+      if (!infoWindow || !zIndex) return
+      infoWindow.setZIndex(zIndex)
+    }, [infoWindow, zIndex])
+
+    return (
+      container.current.parentElement &&
+      ReactDom.createPortal(children, container.current.parentElement)
+    )
+  }
+)
 
 export default InfoWindow

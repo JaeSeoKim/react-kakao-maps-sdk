@@ -50,37 +50,33 @@ export interface MapInfoWindowProps {
  * Map 컴포넌트에서 InfoWindow를 그릴 때 사용됩니다.
  * `onCreate` 이벤트를 통해 생성 후 `infoWindow` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const MapInfoWindow: React.FC<React.PropsWithChildren<MapInfoWindowProps>> = ({
-  id,
-  className,
-  style,
-  position,
-  children,
-  disableAutoPan,
-  removable,
-  zIndex,
-  onCreate,
-}) => {
-  const map = useMap(`MapInfoWindow`)
-  const infoPosition = useMemo(() => {
-    return new kakao.maps.LatLng(position.lat, position.lng)
-  }, [position.lat, position.lng])
+const MapInfoWindow = React.forwardRef<
+  kakao.maps.InfoWindow,
+  React.PropsWithChildren<MapInfoWindowProps>
+>(
+  (
+    { position, children, disableAutoPan, removable, zIndex, onCreate },
+    ref
+  ) => {
+    const map = useMap(`MapInfoWindow`)
+    const infoPosition = useMemo(() => {
+      return new kakao.maps.LatLng(position.lat, position.lng)
+    }, [position.lat, position.lng])
 
-  return (
-    <InfoWindow
-      id={id}
-      className={className}
-      style={style}
-      disableAutoPan={disableAutoPan}
-      removable={removable}
-      zIndex={zIndex}
-      map={map}
-      position={infoPosition}
-      onCreate={onCreate}
-    >
-      {children}
-    </InfoWindow>
-  )
-}
+    return (
+      <InfoWindow
+        disableAutoPan={disableAutoPan}
+        removable={removable}
+        zIndex={zIndex}
+        map={map}
+        position={infoPosition}
+        onCreate={onCreate}
+        ref={ref}
+      >
+        {children}
+      </InfoWindow>
+    )
+  }
+)
 
 export default MapInfoWindow

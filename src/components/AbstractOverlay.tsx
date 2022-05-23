@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import useMap from "../hooks/useMap"
 
 export interface AbstractOverlayProps {
@@ -147,12 +147,10 @@ export interface AbstractOverlayProps {
  *}
  * ```
  */
-const AbstractOverlay: React.FC<AbstractOverlayProps> = ({
-  draw,
-  onAdd,
-  onRemove,
-  onCreate,
-}) => {
+const AbstractOverlay = React.forwardRef<
+  kakao.maps.AbstractOverlay,
+  AbstractOverlayProps
+>(({ draw, onAdd, onRemove, onCreate }, ref) => {
   const map = useMap()
 
   const reactAbstractOverlay = useMemo(() => {
@@ -168,7 +166,9 @@ const AbstractOverlay: React.FC<AbstractOverlayProps> = ({
     return overlay
   }, [draw, onAdd, onRemove])
 
-  useEffect(() => {
+  useImperativeHandle(ref, () => reactAbstractOverlay, [reactAbstractOverlay])
+
+  useLayoutEffect(() => {
     reactAbstractOverlay.setMap(map)
 
     return () => {
@@ -176,10 +176,11 @@ const AbstractOverlay: React.FC<AbstractOverlayProps> = ({
     }
   }, [map, reactAbstractOverlay])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (onCreate) onCreate(reactAbstractOverlay)
   }, [reactAbstractOverlay, onCreate])
+
   return null
-}
+})
 
 export default AbstractOverlay

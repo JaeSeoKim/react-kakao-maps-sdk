@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useImperativeHandle, useMemo } from "react"
 import useMap from "../hooks/useMap"
 
 export interface ZoomControlProps {
@@ -11,26 +11,28 @@ export interface ZoomControlProps {
 /**
  * 확대·축소 컨트롤을 생성한다.
  */
-const ZoomControl: React.FC<ZoomControlProps> = ({
-  position = kakao.maps.ControlPosition.RIGHT,
-}) => {
-  const map = useMap(`ZoomControl`)
+const ZoomControl = React.forwardRef<kakao.maps.ZoomControl, ZoomControlProps>(
+  ({ position = kakao.maps.ControlPosition.RIGHT }, ref) => {
+    const map = useMap(`ZoomControl`)
 
-  const ZoomControl = useMemo(() => {
-    return new kakao.maps.ZoomControl()
-  }, [])
+    const ZoomControl = useMemo(() => {
+      return new kakao.maps.ZoomControl()
+    }, [])
 
-  useEffect(() => {
-    map.addControl(ZoomControl, position)
+    useImperativeHandle(ref, () => ZoomControl, [ZoomControl])
 
-    return () => {
-      map.removeControl(ZoomControl)
-    }
+    useEffect(() => {
+      map.addControl(ZoomControl, position)
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, position])
+      return () => {
+        map.removeControl(ZoomControl)
+      }
 
-  return null
-}
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [map, position])
+
+    return null
+  }
+)
 
 export default ZoomControl

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
 
@@ -89,32 +89,10 @@ export interface CircleProps {
 /**
  * Map 상에 원을 그립니다.
  */
-const Circle: React.FC<CircleProps> = ({
-  center,
-  radius,
-  fillColor,
-  fillOpacity,
-  strokeColor,
-  strokeOpacity,
-  strokeStyle,
-  strokeWeight,
-  zIndex,
-  onMouseover,
-  onMouseout,
-  onMousemove,
-  onMousedown,
-  onClick,
-  onCreate,
-}) => {
-  const map = useMap(`Circle`)
-
-  const circleCenter = useMemo(() => {
-    return new kakao.maps.LatLng(center.lat, center.lng)
-  }, [center.lat, center.lng])
-
-  const circle = useMemo(() => {
-    return new kakao.maps.Circle({
-      center: circleCenter,
+const Circle = React.forwardRef<kakao.maps.Circle, CircleProps>(
+  (
+    {
+      center,
       radius,
       fillColor,
       fillOpacity,
@@ -123,60 +101,89 @@ const Circle: React.FC<CircleProps> = ({
       strokeStyle,
       strokeWeight,
       zIndex,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+      onMouseover,
+      onMouseout,
+      onMousemove,
+      onMousedown,
+      onClick,
+      onCreate,
+    },
+    ref
+  ) => {
+    const map = useMap(`Circle`)
 
-  useEffect(() => {
-    circle.setMap(map)
-    return () => {
-      circle.setMap(null)
-    }
-  }, [map, circle])
+    const circleCenter = useMemo(() => {
+      return new kakao.maps.LatLng(center.lat, center.lng)
+    }, [center.lat, center.lng])
 
-  useEffect(() => {
-    if (onCreate) onCreate(circle)
-  }, [circle, onCreate])
+    const circle = useMemo(() => {
+      return new kakao.maps.Circle({
+        center: circleCenter,
+        radius,
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+        zIndex,
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  useEffect(() => {
-    if (circle) circle.setPosition(circleCenter)
-  }, [circle, circleCenter])
+    useImperativeHandle(ref, () => circle, [circle])
 
-  useEffect(() => {
-    circle.setRadius(radius)
-  }, [circle, radius])
+    useLayoutEffect(() => {
+      circle.setMap(map)
+      return () => {
+        circle.setMap(null)
+      }
+    }, [map, circle])
 
-  useEffect(() => {
-    if (!zIndex) return
-    circle.setZIndex(zIndex)
-  }, [circle, zIndex])
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(circle)
+    }, [circle, onCreate])
 
-  useEffect(() => {
-    circle.setOptions({
+    useLayoutEffect(() => {
+      if (circle) circle.setPosition(circleCenter)
+    }, [circle, circleCenter])
+
+    useLayoutEffect(() => {
+      circle.setRadius(radius)
+    }, [circle, radius])
+
+    useLayoutEffect(() => {
+      if (!zIndex) return
+      circle.setZIndex(zIndex)
+    }, [circle, zIndex])
+
+    useLayoutEffect(() => {
+      circle.setOptions({
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+      })
+    }, [
+      circle,
       fillColor,
       fillOpacity,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
-    })
-  }, [
-    circle,
-    fillColor,
-    fillOpacity,
-    strokeColor,
-    strokeOpacity,
-    strokeStyle,
-    strokeWeight,
-  ])
+    ])
 
-  useKakaoEvent(circle, "mouseover", onMouseover)
-  useKakaoEvent(circle, "mouseout", onMouseout)
-  useKakaoEvent(circle, "mousemove", onMousemove)
-  useKakaoEvent(circle, "mousedown", onMousedown)
-  useKakaoEvent(circle, "click", onClick)
+    useKakaoEvent(circle, "mouseover", onMouseover)
+    useKakaoEvent(circle, "mouseout", onMouseout)
+    useKakaoEvent(circle, "mousemove", onMousemove)
+    useKakaoEvent(circle, "mousedown", onMousedown)
+    useKakaoEvent(circle, "click", onClick)
 
-  return null
-}
+    return null
+  }
+)
 
 export default Circle

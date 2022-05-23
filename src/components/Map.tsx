@@ -218,14 +218,17 @@ export interface MapProps {
  * 기본적인 Map 객체를 생성하는 Comeponent 입니다.
  * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 함께 인자로 전달 합니다.
  *
- * `ref`를 통해 `map` 객체에 직접 접근하여 사용 가능합니다.
+ * `ref`를 통해 `map` 객체에 직접 접근하여 사용 또는 onCreate 이벤트를 이용하여 접근이 가능합니다.
  *
- * 또는 onCreate 이벤트를 이용하여 접근이 가능합니다.
+ * > *주의 사항* `Map`, `RoadView` 컴포넌트에 한하여, ref 객체가 컴포넌트 마운트 시점에 바로 초기화가 안될 수 있습니다.
+ * >
+ * > 컴포넌트 마운트 시점에 `useEffect` 를 활용하여, 특정 로직을 수행하고 싶은 경우 `ref` 객체를 사용하는 것보다
+ * > `onCreate` 이벤트와 `useState`를 함께 활용하여 제어하는 것을 추천 드립니다.
  */
 const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
   (
     {
-      id = "react-kakao-maps-sdk-container",
+      id = "react-kakao-maps-sdk-map-container",
       style,
       children,
       center,

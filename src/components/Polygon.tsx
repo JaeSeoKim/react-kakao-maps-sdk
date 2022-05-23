@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useLayoutEffect, useImperativeHandle, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
 
@@ -82,92 +82,99 @@ export interface PolygonProps {
 /**
  * Map 상에 다각형을 그립니다.
  */
-const Polygon: React.FC<PolygonProps> = ({
-  path,
-  onClick,
-  onMousedown,
-  onMousemove,
-  onMouseout,
-  onMouseover,
-  onCreate,
-  strokeColor,
-  strokeOpacity,
-  strokeStyle,
-  strokeWeight,
-  fillColor,
-  fillOpacity,
-  zIndex,
-}) => {
-  const map = useMap(`Polygon`)
-
-  const polygonPath = useMemo(() => {
-    if ((path as LatLng[]).every((v) => v instanceof Array)) {
-      return (path as LatLng[][]).map((v) => {
-        return v.map((p) => new kakao.maps.LatLng(p.lat, p.lng))
-      })
-    }
-    return (path as LatLng[]).map((v) => {
-      return new kakao.maps.LatLng(v.lat, v.lng)
-    })
-  }, [path])
-
-  const polygon = useMemo(() => {
-    return new kakao.maps.Polygon({
-      path: polygonPath,
-      fillColor,
-      fillOpacity,
+const Polygon = React.forwardRef<kakao.maps.Polygon, PolygonProps>(
+  (
+    {
+      path,
+      onClick,
+      onMousedown,
+      onMousemove,
+      onMouseout,
+      onMouseover,
+      onCreate,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
+      fillColor,
+      fillOpacity,
       zIndex,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    },
+    ref
+  ) => {
+    const map = useMap(`Polygon`)
 
-  useEffect(() => {
-    polygon.setMap(map)
-    return () => polygon.setMap(null)
-  }, [map, polygon])
+    const polygonPath = useMemo(() => {
+      if ((path as LatLng[]).every((v) => v instanceof Array)) {
+        return (path as LatLng[][]).map((v) => {
+          return v.map((p) => new kakao.maps.LatLng(p.lat, p.lng))
+        })
+      }
+      return (path as LatLng[]).map((v) => {
+        return new kakao.maps.LatLng(v.lat, v.lng)
+      })
+    }, [path])
 
-  useEffect(() => {
-    if (onCreate) onCreate(polygon)
-  }, [polygon, onCreate])
+    const polygon = useMemo(() => {
+      return new kakao.maps.Polygon({
+        path: polygonPath,
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+        zIndex,
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  useEffect(() => {
-    polygon.setOptions({
+    useImperativeHandle(ref, () => polygon, [polygon])
+
+    useLayoutEffect(() => {
+      polygon.setMap(map)
+      return () => polygon.setMap(null)
+    }, [map, polygon])
+
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(polygon)
+    }, [polygon, onCreate])
+
+    useLayoutEffect(() => {
+      polygon.setOptions({
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+      })
+    }, [
+      polygon,
       fillColor,
       fillOpacity,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
-    })
-  }, [
-    polygon,
-    fillColor,
-    fillOpacity,
-    strokeColor,
-    strokeOpacity,
-    strokeStyle,
-    strokeWeight,
-  ])
+    ])
 
-  useEffect(() => {
-    polygon.setPath(polygonPath)
-  }, [polygon, polygonPath])
+    useLayoutEffect(() => {
+      polygon.setPath(polygonPath)
+    }, [polygon, polygonPath])
 
-  useEffect(() => {
-    if (zIndex) polygon.setZIndex(zIndex)
-  }, [polygon, zIndex])
+    useLayoutEffect(() => {
+      if (zIndex) polygon.setZIndex(zIndex)
+    }, [polygon, zIndex])
 
-  useKakaoEvent(polygon, "mouseover", onMouseover)
-  useKakaoEvent(polygon, "mouseout", onMouseout)
-  useKakaoEvent(polygon, "mousemove", onMousemove)
-  useKakaoEvent(polygon, "mousedown", onMousedown)
-  useKakaoEvent(polygon, "click", onClick)
+    useKakaoEvent(polygon, "mouseover", onMouseover)
+    useKakaoEvent(polygon, "mouseout", onMouseout)
+    useKakaoEvent(polygon, "mousemove", onMousemove)
+    useKakaoEvent(polygon, "mousedown", onMousedown)
+    useKakaoEvent(polygon, "click", onClick)
 
-  return null
-}
+    return null
+  }
+)
 
 export default Polygon

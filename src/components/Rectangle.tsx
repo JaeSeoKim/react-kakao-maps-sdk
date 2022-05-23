@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
 
@@ -85,88 +85,95 @@ export interface RectangleProps {
 /**
  * Map 상에 사각형을 그립니다.
  */
-const Rectangle: React.FC<RectangleProps> = ({
-  bounds,
-  onClick,
-  onMousedown,
-  onMousemove,
-  onMouseout,
-  onMouseover,
-  onCreate,
-  strokeColor,
-  strokeOpacity,
-  strokeStyle,
-  strokeWeight,
-  fillColor,
-  fillOpacity,
-  zIndex,
-}) => {
-  const map = useMap(`Rectangle`)
-
-  const rectangleBounds = useMemo(() => {
-    return new kakao.maps.LatLngBounds(
-      new kakao.maps.LatLng(bounds.sw.lat, bounds.sw.lng),
-      new kakao.maps.LatLng(bounds.ne.lat, bounds.ne.lng)
-    )
-  }, [bounds])
-
-  const rectangle = useMemo(() => {
-    return new kakao.maps.Rectangle({
-      bounds: rectangleBounds,
-      fillColor,
-      fillOpacity,
+const Rectangle = React.forwardRef<kakao.maps.Rectangle, RectangleProps>(
+  (
+    {
+      bounds,
+      onClick,
+      onMousedown,
+      onMousemove,
+      onMouseout,
+      onMouseover,
+      onCreate,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
+      fillColor,
+      fillOpacity,
       zIndex,
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    },
+    ref
+  ) => {
+    const map = useMap(`Rectangle`)
 
-  useEffect(() => {
-    rectangle.setMap(map)
-    return () => rectangle.setMap(null)
-  }, [map, rectangle])
+    const rectangleBounds = useMemo(() => {
+      return new kakao.maps.LatLngBounds(
+        new kakao.maps.LatLng(bounds.sw.lat, bounds.sw.lng),
+        new kakao.maps.LatLng(bounds.ne.lat, bounds.ne.lng)
+      )
+    }, [bounds])
 
-  useEffect(() => {
-    if (onCreate) onCreate(rectangle)
-  }, [rectangle, onCreate])
+    const rectangle = useMemo(() => {
+      return new kakao.maps.Rectangle({
+        bounds: rectangleBounds,
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+        zIndex,
+      })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-  useEffect(() => {
-    rectangle.setOptions({
+    useImperativeHandle(ref, () => rectangle, [rectangle])
+
+    useLayoutEffect(() => {
+      rectangle.setMap(map)
+      return () => rectangle.setMap(null)
+    }, [map, rectangle])
+
+    useLayoutEffect(() => {
+      if (onCreate) onCreate(rectangle)
+    }, [rectangle, onCreate])
+
+    useLayoutEffect(() => {
+      rectangle.setOptions({
+        fillColor,
+        fillOpacity,
+        strokeColor,
+        strokeOpacity,
+        strokeStyle,
+        strokeWeight,
+      })
+    }, [
+      rectangle,
       fillColor,
       fillOpacity,
       strokeColor,
       strokeOpacity,
       strokeStyle,
       strokeWeight,
-    })
-  }, [
-    rectangle,
-    fillColor,
-    fillOpacity,
-    strokeColor,
-    strokeOpacity,
-    strokeStyle,
-    strokeWeight,
-  ])
+    ])
 
-  useEffect(() => {
-    rectangle.setBounds(rectangleBounds)
-  }, [rectangle, rectangleBounds])
+    useLayoutEffect(() => {
+      rectangle.setBounds(rectangleBounds)
+    }, [rectangle, rectangleBounds])
 
-  useEffect(() => {
-    if (zIndex) rectangle.setZIndex(zIndex)
-  }, [rectangle, zIndex])
+    useLayoutEffect(() => {
+      if (zIndex) rectangle.setZIndex(zIndex)
+    }, [rectangle, zIndex])
 
-  useKakaoEvent(rectangle, "mouseover", onMouseover)
-  useKakaoEvent(rectangle, "mouseout", onMouseout)
-  useKakaoEvent(rectangle, "mousemove", onMousemove)
-  useKakaoEvent(rectangle, "mousedown", onMousedown)
-  useKakaoEvent(rectangle, "click", onClick)
+    useKakaoEvent(rectangle, "mouseover", onMouseover)
+    useKakaoEvent(rectangle, "mouseout", onMouseout)
+    useKakaoEvent(rectangle, "mousemove", onMousemove)
+    useKakaoEvent(rectangle, "mousedown", onMousedown)
+    useKakaoEvent(rectangle, "click", onClick)
 
-  return null
-}
+    return null
+  }
+)
 
 export default Rectangle

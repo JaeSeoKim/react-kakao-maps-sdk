@@ -20,8 +20,6 @@ const MapTypeId: React.FC<MapTypeIdProps> = ({ type }) => {
     return () => {
       map.removeOverlayMapTypeId(type)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, type])
 
   return null
