@@ -59,5 +59,8 @@ export type { DrawingManagerProps } from "./components/DrawingManager"
 export { default as Toolbox } from "./components/Toolbox"
 export type { ToolboxProps } from "./components/Toolbox"
 
+export { default as StaticMap } from "./components/StaticMap"
+export type { StaticMapProps } from "./components/StaticMap"
+
 export { default as useMap } from "./hooks/useMap"
 export { default as useRoadview } from "./hooks/useRoadview"
