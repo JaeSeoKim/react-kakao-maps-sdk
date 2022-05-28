@@ -2,6 +2,11 @@ name: docs
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      work:
+        description: 작업 트리거
+        required: false
 
 jobs:
   build:
