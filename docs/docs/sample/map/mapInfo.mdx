@@ -27,7 +27,7 @@ function(){
           level={3} // 지도의 확대 레벨
           ref={mapRef}
         >
-          {map && (
+          {mapRef && (
             <button onClick={() => {
               const map = mapRef.current
               setInfo({
