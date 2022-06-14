@@ -27,29 +27,27 @@ function(){
           level={3} // 지도의 확대 레벨
           ref={mapRef}
         >
-          {map && (
-            <button onClick={() => {
-              const map = mapRef.current
-              setInfo({
-                center: {
-                  lat: map.getCenter().getLat(),
-                  lng: map.getCenter().getLng(),
-                },
-                level: map.getLevel(),
-                typeId: map.getMapTypeId(),
-                swLatLng: {
-                  lat: map.getBounds().getSouthWest().getLat(),
-                  lng: map.getBounds().getSouthWest().getLng(),
-                },
-                neLatLng: {
-                  lat: map.getBounds().getNorthEast().getLat(),
-                  lng: map.getBounds().getNorthEast().getLng(),
-                },
-              })
-            }}>
-              정보 가져 오기!
-            </button>
-          )}
+          <button onClick={() => {
+            const map = mapRef.current
+            setInfo({
+              center: {
+                lat: map.getCenter().getLat(),
+                lng: map.getCenter().getLng(),
+              },
+              level: map.getLevel(),
+              typeId: map.getMapTypeId(),
+              swLatLng: {
+                lat: map.getBounds().getSouthWest().getLat(),
+                lng: map.getBounds().getSouthWest().getLng(),
+              },
+              neLatLng: {
+                lat: map.getBounds().getNorthEast().getLat(),
+                lng: map.getBounds().getNorthEast().getLng(),
+              },
+            })
+          }}>
+            정보 가져 오기!
+          </button>
           {info && (
             <div>
               <p>위도 : {info.center.lat}</p>

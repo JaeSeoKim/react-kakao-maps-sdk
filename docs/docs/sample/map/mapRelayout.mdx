@@ -22,7 +22,7 @@ function(){
 
     useEffect(() => {
       const map = mapRef.current
-      if(map) mapRef.relayout()
+      if(map) map.relayout()
     }, [style])
 
     return (
