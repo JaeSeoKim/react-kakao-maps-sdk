@@ -115,12 +115,23 @@ export class Loader {
 
   public static isLoaded(): Promise<boolean> {
     return new Promise((resolve) => {
-      if (window.kakao && window.kakao.maps) return resolve(true)
-
-      if (!Loader.instance)
+      if (!Loader.instance) {
+        if (window.kakao && window.kakao.maps) {
+          /**
+           * kakao 객체가 autoload=false 되어 있거나, 아직 로딩이 완료 되지 못한 상황인 경우 load 처리를 실행하거나 기다리도록 처리 필요.
+           */
+          // @ts-ignore
+          if (window.kakao.maps.readyState !== 0) {
+            return resolve(true)
+          }
+          return window.kakao.maps.load(() => {
+            resolve(true)
+          })
+        }
         return Loader.loadcheckcallbacks.push((e) => {
           resolve(!e)
         })
+      }
 
       if (
         Loader.instance.status === LoaderStatus.FAILURE ||

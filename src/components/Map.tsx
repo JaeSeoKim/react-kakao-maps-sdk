@@ -302,6 +302,10 @@ const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
       })
 
       setMap(kakaoMap)
+
+      return () => {
+        MapContainer.innerHTML = ""
+      }
     }, [
       isLoaded,
       disableDoubleClick,

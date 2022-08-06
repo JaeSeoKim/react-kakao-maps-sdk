@@ -39,6 +39,13 @@ module.exports = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      liveCodeBlock: {
+        /**
+         * live playground 위치를 에디터의 위 또는 아래로 설정합니다.
+         * 설정할 수 있는 값: "top" | "bottom"
+         */
+        playgroundPosition: 'top',
+      },
       colorMode: {
         defaultMode: "dark",
         disableSwitch: false,
@@ -146,6 +153,6 @@ module.exports = {
     ],
   ],
   scripts: [
-    `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services,clusterer,drawing`,
+    `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services,clusterer,drawing&autoload=false`,
   ],
 }

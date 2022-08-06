@@ -137,9 +137,12 @@ const Roadview = React.forwardRef<
 
     useIsomorphicLayoutEffect(() => {
       if (!isLoaded) return
-      if (!container.current) return
 
-      const kakaoRoadview = new kakao.maps.Roadview(container.current, {
+      const RoadviewContainer = container.current;
+
+      if (!RoadviewContainer) return
+
+      const kakaoRoadview = new kakao.maps.Roadview(RoadviewContainer, {
         pan: pan,
         panoId: panoId,
         panoX: panoX,
@@ -149,6 +152,10 @@ const Roadview = React.forwardRef<
       })
 
       setRoadview(kakaoRoadview)
+
+      return () => {
+        RoadviewContainer.innerHTML = ""
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoaded, panoX, panoY, zoom])
 

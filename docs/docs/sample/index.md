@@ -252,7 +252,7 @@ slug: /sample/
 
 <hr/>
 
-- ### [이미지 지도 생성하기](/docs/sample/staticmap/staticMap)
+- ### [이미지 지도 생성하기](/docs/sample/staticmap/basicStaticMap)
   - 이미지 지도를 생성합니다.
 
 - ### [이미지 지도에 마커 표시하기](/docs/sample/staticmap/staticMapWithMarker)
