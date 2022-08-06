@@ -1,5 +1,12 @@
 # Changelog ✍️
 
+### v1.1.2
+
+#### Fix 🛠
+
+- kakao map load 완료 이전에 map 객체를 렌더링 하는 오류 수정 [#25](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/25)
+- React peerDependency 잘못 설정되어 있던 오류 수정 [#26](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/26)
+
 ### v1.1.1
 
 #### Bump 📡
