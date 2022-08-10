@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.3
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.33"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.33)
+
 ### v1.1.2
 
 #### Fix 🛠
