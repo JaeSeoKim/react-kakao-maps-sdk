@@ -274,8 +274,8 @@ const DrawingManager = React.forwardRef(function <
         return
       }
 
-      // @ts-ignore
       return new kakao.maps.drawing.DrawingManager({
+        // @ts-ignore
         map,
         drawingMode,
         guideTooltip,

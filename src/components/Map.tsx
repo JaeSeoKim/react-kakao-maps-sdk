@@ -1,28 +1,14 @@
 import React, { useRef, useState, useImperativeHandle } from "react"
 import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
+import { PolymorphicComponentPropsWithOutRef } from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map
 )
 
-export interface MapProps {
-  /**
-   * MapContinaer의 id에 대해서 지정합니다.
-   */
-  id?: string
-
-  /**
-   * MapContainer의 className에 대해서 지정합니다.
-   */
-  className?: string
-
-  /**
-   * MapContainer의 style에 대해서 지정합니다.
-   */
-  style?: React.CSSProperties
-
+export type MapProps = {
   /**
    * 중심으로 설정할 위치 입니다.
    */
@@ -213,7 +199,13 @@ export interface MapProps {
    * 지도 기본 타일(일반지도, 스카이뷰, 하이브리드)이 변경되면 발생한다.
    */
   onMaptypeidChanged?: (target: kakao.maps.Map) => void
+
+  children?: React.ReactNode | undefined
 }
+
+type MapComponent = <T extends React.ElementType = "div">(
+  props: PolymorphicComponentPropsWithOutRef<T, MapProps>
+) => React.ReactElement | null
 
 /**
  * 기본적인 Map 객체를 생성하는 Comeponent 입니다.
@@ -226,16 +218,14 @@ export interface MapProps {
  * > 컴포넌트 마운트 시점에 `useEffect` 를 활용하여, 특정 로직을 수행하고 싶은 경우 `ref` 객체를 사용하는 것보다
  * > `onCreate` 이벤트와 `useState`를 함께 활용하여 제어하는 것을 추천 드립니다.
  */
-const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
-  (
+const Map: MapComponent = React.forwardRef(
+  <T extends React.ElementType = "div">(
     {
-      id = "react-kakao-maps-sdk-map-container",
-      style,
+      as,
       children,
       center,
       isPanto = false,
       padding = 32,
-      className,
       disableDoubleClick,
       disableDoubleClickZoom,
       draggable,
@@ -263,9 +253,11 @@ const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
       onZoomChanged,
       onZoomStart,
       onCreate,
-    },
-    ref
+      ...props
+    }: PolymorphicComponentPropsWithOutRef<T, MapProps>,
+    ref: React.ForwardedRef<kakao.maps.Map>
   ) => {
+    const Container = as || "div"
     const [isLoaded, setIsLoaded] = useState(false)
     const [map, setMap] = useState<kakao.maps.Map>()
     const container = useRef<HTMLDivElement>(null)
@@ -410,7 +402,7 @@ const Map = React.forwardRef<kakao.maps.Map, React.PropsWithChildren<MapProps>>(
 
     return (
       <>
-        <div id={id} style={style} className={className} ref={container}></div>
+        <Container {...props} ref={container} />
         {map && (
           <KakaoMapContext.Provider value={map}>
             {children}

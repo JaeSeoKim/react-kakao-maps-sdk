@@ -49,27 +49,27 @@
     "react-dom": ">=16.9.0"
   },
   "devDependencies": {
-    "@types/node": "^18.6.4",
-    "@types/react": "^18.0.15",
+    "@types/node": "^18.7.21",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
-    "@typescript-eslint/parser": "^5.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.21.0",
+    "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "gitmoji-cli": "^5.0.3",
+    "gitmoji-cli": "^6.2.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "microbundle": "^0.15.0",
+    "microbundle": "^0.15.1",
     "npm-run-all": "^4.1.5",
     "prettier": "2.7.1",
-    "typescript": "^4.7.4"
+    "typescript": "^4.8.3"
   },
   "files": [
     "/lib"

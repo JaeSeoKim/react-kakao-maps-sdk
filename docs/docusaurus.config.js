@@ -131,8 +131,8 @@ module.exports = {
       "docusaurus-plugin-module-alias",
       {
         alias: {
-          react: path.resolve(__dirname, "../node_modules/react"),
-          "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
+          // react: path.resolve(__dirname, "../node_modules/react"),
+          // "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
           "kakao.maps.d.ts": path.resolve("../node_modules/kakao.maps.d.ts"),
           "react-kakao-maps-sdk": path.resolve(__dirname, "../src"),
         },

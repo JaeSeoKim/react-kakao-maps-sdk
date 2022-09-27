@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useRef, useState } from "react"
 import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
+import { PolymorphicComponentProps, PolymorphicComponentPropsWithOutRef } from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 
 export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
@@ -8,21 +9,6 @@ export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
 )
 
 export interface RoadviewProps {
-  /**
-   * roadviewContinaer의 id에 대해서 지정합니다.
-   */
-  id?: string
-
-  /**
-   * roadviewContainer의 className에 대해서 지정합니다.
-   */
-  className?: string
-
-  /**
-   * roadviewContainer의 style에 대해서 지정합니다.
-   */
-  style?: React.CSSProperties
-
   /**
    * 중심으로 설정할 위치 입니다.
    * 해당 lat와 lng에 해당하는 radius범위 안에서 가장가까운 Roadview을 선택합니다.
@@ -95,22 +81,20 @@ export interface RoadviewProps {
   onErrorGetNearestPanoId?: (target: kakao.maps.Roadview) => void
 }
 
+type RoadviewComponent = <T extends React.ElementType = "div">(
+  props: PolymorphicComponentPropsWithOutRef<T, RoadviewProps>
+) => React.ReactElement | null
 /**
  * Roadview를 Roadview를 생성하는 컴포넌트 입니다.
  * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.
  * `onCreate` 이벤트를 통해 생성 후 `Roadview` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
-const Roadview = React.forwardRef<
-  kakao.maps.Roadview,
-  React.PropsWithChildren<RoadviewProps>
->(
-  (
+const Roadview: RoadviewComponent = React.forwardRef(
+  <T extends React.ElementType = "div">(
     {
-      id = "react-kakao-maps-sdk-roadview-container",
-      style,
+      as,
       children,
       position,
-      className,
       pan,
       panoId,
       panoX,
@@ -123,9 +107,11 @@ const Roadview = React.forwardRef<
       onPositionChanged,
       onViewpointChange,
       onErrorGetNearestPanoId,
-    },
-    ref
+      ...props
+    }: PolymorphicComponentProps<T, React.PropsWithChildren<RoadviewProps>>,
+    ref: React.ForwardedRef<kakao.maps.Roadview>
   ) => {
+    const Container = as || "div"
     const [isLoaded, setIsLoaded] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [roadview, setRoadview] = useState<kakao.maps.Roadview>()
@@ -138,7 +124,7 @@ const Roadview = React.forwardRef<
     useIsomorphicLayoutEffect(() => {
       if (!isLoaded) return
 
-      const RoadviewContainer = container.current;
+      const RoadviewContainer = container.current
 
       if (!RoadviewContainer) return
 
@@ -233,7 +219,7 @@ const Roadview = React.forwardRef<
 
     return (
       <>
-        <div id={id} className={className} style={style} ref={container}></div>
+        <Container ref={container} {...props} />
         {roadview && !isLoading && (
           <KakaoRoadviewContext.Provider value={roadview}>
             {children}

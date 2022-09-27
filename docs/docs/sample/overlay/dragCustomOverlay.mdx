@@ -23,7 +23,6 @@ function(){
     (e) => {
       // 이벤트 버블링 현상이 발생하지 않도록 방지 합니다.
       e.preventDefault()
-
       const map = mapRef.current
 
       const proj = map.getProjection() // 지도 객체로 부터 화면픽셀좌표, 지도좌표간 변환을 위한 MapProjection 객체를 얻어옵니다
@@ -71,7 +70,7 @@ function(){
 
       document.addEventListener("mousemove", onMouseMove)
     },
-    [onMouseMove, map, position.lat, position.lng]
+    [onMouseMove, position.lat, position.lng]
   )
 
   useEffect(() => {
