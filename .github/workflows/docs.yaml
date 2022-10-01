@@ -10,13 +10,20 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        node-version: [16.x]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            docs/package-lock.json
       - name: install core dependency
         run: |
           npm ci
