@@ -16,10 +16,10 @@ function(){
 
   useEffect(() => {
     setPositions(clusterPositionsData.positions);
-  },[])
+  }, []);
 
   const onClusterclick = (_target, cluster) => {
-    const map = mapRef.current
+    const map = mapRef.current;
     // 현재 지도 레벨에서 1레벨 확대한 레벨
     const level = map.getLevel() - 1;
 
