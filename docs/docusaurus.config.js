@@ -44,7 +44,7 @@ module.exports = {
          * live playground 위치를 에디터의 위 또는 아래로 설정합니다.
          * 설정할 수 있는 값: "top" | "bottom"
          */
-        playgroundPosition: 'top',
+        playgroundPosition: "top",
       },
       colorMode: {
         defaultMode: "dark",
