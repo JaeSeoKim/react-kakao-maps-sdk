@@ -1,7 +1,10 @@
 import React, { useImperativeHandle, useRef, useState } from "react"
 import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 import useKakaoEvent from "../hooks/useKakaoEvent"
-import { PolymorphicComponentProps, PolymorphicComponentPropsWithOutRef } from "../types"
+import {
+  PolymorphicComponentProps,
+  PolymorphicComponentPropsWithOutRef,
+} from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 
 export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
@@ -92,6 +95,7 @@ type RoadviewComponent = <T extends React.ElementType = "div">(
 const Roadview: RoadviewComponent = React.forwardRef(
   <T extends React.ElementType = "div">(
     {
+      id,
       as,
       children,
       position,
@@ -219,7 +223,11 @@ const Roadview: RoadviewComponent = React.forwardRef(
 
     return (
       <>
-        <Container ref={container} {...props} />
+        <Container
+          ref={container}
+          id={id || "react-kakao-maps-sdk-roadview-container"}
+          {...props}
+        />
         {roadview && !isLoading && (
           <KakaoRoadviewContext.Provider value={roadview}>
             {children}

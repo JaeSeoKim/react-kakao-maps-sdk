@@ -221,6 +221,7 @@ type MapComponent = <T extends React.ElementType = "div">(
 const Map: MapComponent = React.forwardRef(
   <T extends React.ElementType = "div">(
     {
+      id,
       as,
       children,
       center,
@@ -402,7 +403,11 @@ const Map: MapComponent = React.forwardRef(
 
     return (
       <>
-        <Container {...props} ref={container} />
+        <Container
+          id={id || "react-kakao-maps-sdk-map-container"}
+          {...props}
+          ref={container}
+        />
         {map && (
           <KakaoMapContext.Provider value={map}>
             {children}
