@@ -18,6 +18,10 @@ module.exports = {
   onBrokenMarkdownLinks: "warn",
   organizationName: "JaeSeoKim",
   projectName: "react-kakao-maps-sdk",
+  i18n: {
+    defaultLocale: "ko",
+    locales: ["ko"],
+  },
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -44,7 +48,7 @@ module.exports = {
          * live playground 위치를 에디터의 위 또는 아래로 설정합니다.
          * 설정할 수 있는 값: "top" | "bottom"
          */
-        playgroundPosition: 'top',
+        playgroundPosition: "top",
       },
       colorMode: {
         defaultMode: "dark",
@@ -131,8 +135,8 @@ module.exports = {
       "docusaurus-plugin-module-alias",
       {
         alias: {
-          // react: path.resolve(__dirname, "../node_modules/react"),
-          // "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
+          react: path.resolve(__dirname, "../node_modules/react"),
+          "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
           "kakao.maps.d.ts": path.resolve("../node_modules/kakao.maps.d.ts"),
           "react-kakao-maps-sdk": path.resolve(__dirname, "../src"),
         },
