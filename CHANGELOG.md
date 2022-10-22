@@ -1,5 +1,12 @@
 # Changelog ✍️
 
+### v1.1.5
+
+#### Fixed 🐞
+
+- Map, Roadview 컴포넌트 type 에러 수정
+- kakaoMap load 버그 수정
+
 ### v1.1.4
 
 #### Feat ✨
