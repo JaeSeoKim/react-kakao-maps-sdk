@@ -12,24 +12,28 @@ Next.js 사용 시, Script 컴포넌트를 사용하여 Kakao 지도 API를 불�
 
 ## Example
 
-### \_app.js
+### \_document.js
 
 ```jsx
-import Script from "next/script"
+import { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
-function MyApp({ Component, pageProps }) {
+export default function Document() {
   return (
-    <>
-      <Script
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다.&libraries=services,clusterer&autoload=false"
-        strategy="beforeInteractive"
-      />
-      <Component {...pageProps} />
-    </>
-  )
+    <Html>
+      <Head />
+      <body>
+        <Main />
+        <NextScript />
+        <Script
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다.&libraries=services,clusterer&autoload=false"
+          strategy="beforeInteractive"
+        />
+      </body>
+    </Html>
+  );
 }
 
-export default MyApp
 ```
 
 ### index.js
