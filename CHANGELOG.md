@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.6
+
+#### Fixed 🐞
+
+- Map, Roadview 컴포넌트 ref type 에러 수정
+
 ### v1.1.5
 
 #### Fixed 🐞
