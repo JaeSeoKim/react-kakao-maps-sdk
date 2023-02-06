@@ -85,8 +85,10 @@ export interface RoadviewProps {
 }
 
 type RoadviewComponent = <T extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithOutRef<T, RoadviewProps>
+  props: PolymorphicComponentPropsWithOutRef<T, RoadviewProps> &
+    React.RefAttributes<kakao.maps.Roadview>
 ) => React.ReactElement | null
+
 /**
  * Roadview를 Roadview를 생성하는 컴포넌트 입니다.
  * props로 받는 `on*` 이벤트는 해당 `kakao.maps.Map` 객체를 반환 합니다.

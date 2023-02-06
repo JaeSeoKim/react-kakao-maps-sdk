@@ -204,7 +204,8 @@ export type MapProps = {
 }
 
 type MapComponent = <T extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithOutRef<T, MapProps>
+  props: PolymorphicComponentPropsWithOutRef<T, MapProps> &
+    React.RefAttributes<kakao.maps.Map>
 ) => React.ReactElement | null
 
 /**
