@@ -8,7 +8,7 @@ const useKakaoEvent = <T extends kakao.maps.event.EventTarget>(
   /**
    * event 타입
    */
-  type: string,
+  type: "center_changed"|"zoom_start"|"zoom_changed"|"bounds_changed"|"click"|"dblclick"|"rightclick"|"mouseover"|"mouseout"|"mousemove"|"mousedown"|"dragstart"|"drag"|"dragend"|"idle"|"tilesloaded"|"maptypeid_changed"|"clusterclick"|"clusterover"|"clusterout"|"clusterdblclick"|"clusterrightclick"|"clustered"|"init"|"panoid_changed"|"viewpoint_changed"|"position_changed",
   /**
    * 호출될 callback
    */
