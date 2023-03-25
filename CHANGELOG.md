@@ -1,5 +1,19 @@
 # Changelog ✍️
 
+### v1.1.7
+
+#### Feat ✨
+
+- `useKakaoEvent` event type 추론 기능 추가 [#47](https://github.com/JaeSeoKim/react-kakao-maps-sdk/pull/47)
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.34"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.34)
+
+#### Contributors 🤓
+
+- [@puki4416](https://github.com/puki4416)
+
 ### v1.1.6
 
 #### Fixed 🐞
