@@ -1,5 +1,15 @@
 # Changelog ✍️
 
+### v1.1.8
+
+#### Fixed 🐞
+
+- `kakaoMapApiLoader` kakao.map 외부 소스로 사전 정의시 처리 오류 수정
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.35"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.35)
+
 ### v1.1.7
 
 #### Feat ✨
