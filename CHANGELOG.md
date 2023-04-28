@@ -1,5 +1,15 @@
 # Changelog ✍️
 
+### v1.1.9
+
+#### Fixed 🐞
+
+- `DrawingManager` OverlayType string literal union type hint 추가 [#51](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/51)
+
+#### Bump 📡
+
+- [kakao.maps.d.ts": "^0.1.38"](https://github.com/JaeSeoKim/kakao.maps.d.ts/releases/tag/v0.1.38)
+
 ### v1.1.8
 
 #### Fixed 🐞

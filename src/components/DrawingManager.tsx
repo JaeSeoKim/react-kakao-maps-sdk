@@ -24,7 +24,7 @@ export type DrawingManagerProps<
     /**
      * 사용할 그리기 요소 지정한다 (기본값: 모든 그리기 요소)
      */
-    drawingMode?: Array<T>
+    drawingMode?: Array<T | `${T}`>
 
     /**
      * 그리기 요소를 선택하면 발생한다.
@@ -274,7 +274,7 @@ const DrawingManager = React.forwardRef(function <
         return
       }
 
-      return new kakao.maps.drawing.DrawingManager({
+      return new kakao.maps.drawing.DrawingManager<T>({
         // @ts-ignore
         map,
         drawingMode,

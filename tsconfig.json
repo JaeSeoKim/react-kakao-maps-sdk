@@ -16,7 +16,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
     "resolveJsonModule": true,
     "removeComments": false,
     "types": ["kakao.maps.d.ts"]
