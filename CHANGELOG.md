@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.10
+
+#### Fixed 🐞
+
+- `MarkerClusterer` onClustered 이벤트 Marker 갯수만큼 호출되는 현상 수정 [#52](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/52)
+
 ### v1.1.9
 
 #### Fixed 🐞
