@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useImperativeHandle, useMemo } from "react"
+import React, { useLayoutEffect, useImperativeHandle, useMemo, useEffect, useContext } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
 
@@ -144,7 +144,7 @@ const MarkerClusterer = React.forwardRef<
     ref
   ) => {
     const map = useMap(`MarkerClusterer`)
-    const markerCluster = useMemo(() => {
+    const markerClusterer = useMemo(() => {
       if (!window.kakao.maps.MarkerClusterer) {
         console.warn(
           "clusterer 라이브러리를 별도 로드 해야 사용 가능합니다. `https://apis.map.kakao.com/web/guide/#loadlibrary`"
@@ -166,82 +166,93 @@ const MarkerClusterer = React.forwardRef<
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    useImperativeHandle(ref, () => markerCluster!, [markerCluster])
+    useImperativeHandle(ref, () => markerClusterer!, [markerClusterer])
 
     useLayoutEffect(() => {
-      markerCluster?.setMap(map)
-    }, [map, markerCluster])
+      markerClusterer?.setMap(map)
+    }, [map, markerClusterer])
 
     useLayoutEffect(() => {
-      if (markerCluster && onCreate) onCreate(markerCluster)
-    }, [markerCluster, onCreate])
+      if (markerClusterer && onCreate) onCreate(markerClusterer)
+    }, [markerClusterer, onCreate])
 
     useLayoutEffect(() => {
-      if (markerCluster && gridSize) {
-        markerCluster.setGridSize(gridSize)
-        markerCluster.redraw()
+      if (markerClusterer && gridSize) {
+        markerClusterer.setGridSize(gridSize)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, gridSize])
+    }, [markerClusterer, gridSize])
 
     useLayoutEffect(() => {
-      if (markerCluster && minClusterSize) {
-        markerCluster.setMinClusterSize(minClusterSize)
-        markerCluster.redraw()
+      if (markerClusterer && minClusterSize) {
+        markerClusterer.setMinClusterSize(minClusterSize)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, minClusterSize])
+    }, [markerClusterer, minClusterSize])
 
     useLayoutEffect(() => {
-      if (markerCluster && typeof averageCenter !== "undefined") {
-        markerCluster.setAverageCenter(averageCenter)
-        markerCluster.redraw()
+      if (markerClusterer && typeof averageCenter !== "undefined") {
+        markerClusterer.setAverageCenter(averageCenter)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, averageCenter])
+    }, [markerClusterer, averageCenter])
 
     useLayoutEffect(() => {
-      if (markerCluster && minLevel) {
-        markerCluster.setMinLevel(minLevel)
-        markerCluster.redraw()
+      if (markerClusterer && minLevel) {
+        markerClusterer.setMinLevel(minLevel)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, minLevel])
+    }, [markerClusterer, minLevel])
 
     useLayoutEffect(() => {
-      if (markerCluster && texts) {
-        markerCluster.setTexts(texts)
-        markerCluster.redraw()
+      if (markerClusterer && texts) {
+        markerClusterer.setTexts(texts)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, texts])
+    }, [markerClusterer, texts])
 
     useLayoutEffect(() => {
-      if (markerCluster && calculator) {
-        markerCluster.setCalculator(calculator)
-        markerCluster.redraw()
+      if (markerClusterer && calculator) {
+        markerClusterer.setCalculator(calculator)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, calculator])
+    }, [markerClusterer, calculator])
+
+    useKakaoEvent(markerClusterer, "clustered", onClustered)
+    useKakaoEvent(markerClusterer, "clusterclick", onClusterclick)
+    useKakaoEvent(markerClusterer, "clusterover", onClusterover)
+    useKakaoEvent(markerClusterer, "clusterout", onClusterout)
+    useKakaoEvent(markerClusterer, "clusterdblclick", onClusterdblclick)
+    useKakaoEvent(markerClusterer, "clusterrightclick", onClusterrightclick)
 
     useLayoutEffect(() => {
-      if (markerCluster && styles) {
-        markerCluster.setStyles(styles)
-        markerCluster.redraw()
+      if (markerClusterer && styles) {
+        markerClusterer.setStyles(styles)
+        markerClusterer.redraw()
       }
-    }, [markerCluster, styles])
+    }, [markerClusterer, styles])
 
-    useKakaoEvent(markerCluster, "clusterclick", onClusterclick)
-    useKakaoEvent(markerCluster, "clusterover", onClusterover)
-    useKakaoEvent(markerCluster, "clusterout", onClusterout)
-    useKakaoEvent(markerCluster, "clusterdblclick", onClusterdblclick)
-    useKakaoEvent(markerCluster, "clusterrightclick", onClusterrightclick)
-    useKakaoEvent(markerCluster, "clustered", onClustered)
 
-    if (!markerCluster) {
+
+    if (!markerClusterer) {
       return null
     }
 
     return (
-      <KakaoMapMarkerClustererContext.Provider value={markerCluster}>
+      <KakaoMapMarkerClustererContext.Provider value={markerClusterer}>
         {children}
+        <MarkerClustererRedraw children={children} />
       </KakaoMapMarkerClustererContext.Provider>
     )
   }
 )
+
+const MarkerClustererRedraw: React.FC<{ children: React.ReactNode }> = ({ children: _ }) => {
+  const markerClusterer = useContext(KakaoMapMarkerClustererContext)
+  useEffect(() => {
+    markerClusterer.redraw()
+  })
+  return null
+}
 
 export default MarkerClusterer

@@ -85,14 +85,14 @@ const CustomOverlayMap = React.forwardRef<
       if (!map) return
 
       if (markerCluster) {
-        markerCluster.addMarker(overlay)
+        markerCluster.addMarker(overlay, true)
       } else {
         overlay.setMap(map)
       }
 
       return () => {
         if (markerCluster) {
-          markerCluster.removeMarker(overlay)
+          markerCluster.removeMarker(overlay, true)
         } else {
           overlay.setMap(null)
         }

@@ -164,14 +164,14 @@ const Marker = React.forwardRef<
 
     useLayoutEffect(() => {
       if (markerCluster) {
-        markerCluster.addMarker(marker)
+        markerCluster.addMarker(marker, true)
       } else {
         marker.setMap(map)
       }
 
       return () => {
         if (markerCluster) {
-          markerCluster.removeMarker(marker)
+          markerCluster.removeMarker(marker, true)
         } else {
           marker.setMap(null)
         }
