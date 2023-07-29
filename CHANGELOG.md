@@ -1,5 +1,9 @@
 # Changelog ✍️
 
+### v1.1.11
+
+- NPM 배포 unpublish 이후 registry 캐시 문제로 인한 Version UP 조치
+
 ### v1.1.10
 
 #### Fixed 🐞
