@@ -7,7 +7,6 @@ sidebar_position: 14
 이 정보로 지도 객체는 지도표시, 마커 표시, 확대, 축소, 이동 등의 좌표 계산 등 지도 표시에 필요한 여러가지 연산을 수행하는데
 이때 지도 div의 크기가 변경이 되면 지도객체가 가지고 있는 픽셀과 좌표정보가 div를 표시하는 크기와 달라지기 때문에 지도가 정상적으로 표출되지 않을 수도 있습니다.
 그래서 크기를 변경한 이후에는 반드시 relayout 함수를 호출하여 픽셀과 좌표정보를 새로 설정해주어야합니다.
-window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다.
 
 > original docs : https://apis.map.kakao.com/web/sample/mapRelayout/
 

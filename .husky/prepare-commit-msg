@@ -1,5 +1,11 @@
 #!/bin/sh
 # gitmoji as a commit hook
 
+
+if [ !$CI ]
+then 
+
 exec </dev/tty
 node_modules/.bin/gitmoji --hook $1 $2
+
+fi

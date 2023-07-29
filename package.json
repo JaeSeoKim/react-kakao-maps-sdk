@@ -1,6 +1,6 @@
 {
   "name": "react-kakao-maps-sdk",
-  "version": "1.1.10-beta",
+  "version": "1.1.10",
   "description": "React components for using kakao map api",
   "license": "MIT",
   "author": {
@@ -63,13 +63,13 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "gitmoji-cli": "^6.2.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
+    "gitmoji-cli": "^8.4.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
     "microbundle": "^0.15.1",
     "npm-run-all": "^4.1.5",
     "prettier": "2.8.8",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   },
   "files": [
     "/lib"

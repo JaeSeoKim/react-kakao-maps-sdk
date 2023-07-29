@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useImperativeHandle, useMemo, useEffect, useContext } from "react"
+import React, { useLayoutEffect, useImperativeHandle, useMemo, useContext } from "react"
 import useKakaoEvent from "../hooks/useKakaoEvent"
 import useMap from "../hooks/useMap"
+import useIsomorphicLayoutEffect from "../hooks/useIsomorphicLayoutEffect"
 
 export const KakaoMapMarkerClustererContext =
   React.createContext<kakao.maps.MarkerClusterer>(
@@ -249,7 +250,7 @@ const MarkerClusterer = React.forwardRef<
 
 const MarkerClustererRedraw: React.FC<{ children: React.ReactNode }> = ({ children: _ }) => {
   const markerClusterer = useContext(KakaoMapMarkerClustererContext)
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     markerClusterer.redraw()
   })
   return null
