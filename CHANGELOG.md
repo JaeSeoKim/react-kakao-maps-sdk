@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.12
+
+#### Fixed 🐞
+
+- ECMAScript Modules 지원을 위한 package.json exports 명시 [#54](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/54)
+
 ### v1.1.11
 
 - NPM 배포 unpublish 이후 registry 캐시 문제로 인한 Version UP 조치
