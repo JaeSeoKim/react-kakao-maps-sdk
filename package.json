@@ -28,10 +28,16 @@
   "type": "module",
   "source": "./src/index.ts",
   "types": "./lib/@types/index.d.ts",
-  "exports": "./lib/index.modern.js",
   "main": "./lib/index.cjs",
   "module": "./lib/index.module.js",
   "unpkg": "./lib/index.umd.js",
+  "exports": {
+    ".": {
+      "import": "./lib/index.module.js",
+      "require": "./lib/index.cjs",
+      "types": "./lib/@types/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment",
     "dev": "npm run build -- watch",
