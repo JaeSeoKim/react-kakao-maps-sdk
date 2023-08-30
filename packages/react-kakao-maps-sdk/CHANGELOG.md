@@ -1,5 +1,15 @@
 # Changelog ✍️
 
+### v1.1.13
+
+#### Fixed 🐞
+
+- react displayname 명시
+- StaticMap에서 Loader를 통한 kakao.maps 확인하도록 수정
+- Loader.isLoaded() 로직 수정 (최종적으로 로딩이 성공하거나, 완벽하게 실패한 경우에만 resolve 하도록 수정)
+- export 방식 수정
+- bundler 변경(microbundle -> rollup(babel, typescript))
+
 ### v1.1.12
 
 #### Fixed 🐞
