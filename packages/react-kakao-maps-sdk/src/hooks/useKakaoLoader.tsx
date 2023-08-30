@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from "react"
 import { Loader, LoaderOptions } from "../util/kakaoMapApiLoader"
 
 /**
- * Kakao Map Api를 injection 합니다.
+ * Kakao Map Api를 Loading 합니다.
  *
- * 해당 hook은 cleanup 시점에도 Kakao Map Api를 제거 하지 않고, 동일한 hook를 여러 위치에서 호출 하더라도 최초 한번만 injection 됩니다.
+ * 해당 hook은 cleanup 시점에도 Kakao Map Api를 제거 하지 않고, 동일한 hook를 여러 위치에서 호출 하더라도 최초 한번만 Loading 됩니다.
  */
 export const useKakaoLoader = (options: LoaderOptions) => {
   const [state, setState] = useState<{

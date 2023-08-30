@@ -3,7 +3,7 @@ title: Hook을 이용하여 Kakao 지도 API 불러오기
 sidebar_position: 2
 ---
 
-동기적으로 Kakao Map API를 불러오고 싶거나, Script 태그를 삽입 하기 힘든 경우 `useInjectKakaoMapApi` hook를 이용하여 사용할 수 있습니다.
+동기적으로 Kakao Map API를 불러오고 싶거나, Script 태그를 삽입 하기 힘든 경우 `useKakaoLoader` hook를 이용하여 사용할 수 있습니다.
 
 해당 Hook를 사용시 `react-kakao-maps-sdk` 라이브러리 내부에서 `Loader` 를 통한 loading 상태를 관찰하고 있기 때문에 렌더링 이후 hook를 통한 Kakao 지도 API를 불러오더라도 자동으로 리렌더링이 가능합니다.
 
@@ -11,7 +11,7 @@ sidebar_position: 2
 
 ```tsx
 function(){
-  const { loading, error } = useInjectKakaoMapApi({
+  const { loading, error } = useKakaoLoader({
     appkey: "...", // 발급 받은 APPKEY
     ...options // 추가 옵션
   })
