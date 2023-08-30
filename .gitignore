@@ -18,6 +18,7 @@ stats.html
 *.map
 *.log
 *.DS_Store
+.eslintcache
 
 # env
 .env
