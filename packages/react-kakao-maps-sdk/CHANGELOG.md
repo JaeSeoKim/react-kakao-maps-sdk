@@ -1,5 +1,12 @@
 # Changelog ✍️
 
+### v1.1.14
+
+#### Fixed 🐞
+
+- package.json types 경로 오류 수정(v1.1.13 unpublish 조치)
+- AbstractOverlay display-name 오류 수정
+
 ### v1.1.13
 
 #### Fixed 🐞
