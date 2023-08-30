@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
 
       - name: Set publishing config
-        run: echo '//npm.pkg.github.com/:_authToken=${NPM_TOKEN}' >> .npmrc
+        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
         
       - name: publish pacakages
         working-directory: packages/react-kakao-maps-sdk
