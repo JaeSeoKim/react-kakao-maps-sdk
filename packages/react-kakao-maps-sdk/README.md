@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./docs/static/img/logo.png" width="128px"/>
+  <img src="https://raw.githubusercontent.com/JaeSeoKim/react-kakao-maps-sdk/main/docs/static/img/logo.png" width="128px"/>
   <h1>react-kakao-maps-sdk</h1>
   <p><a href="https://apis.map.kakao.com/" alt="kakao api">Kakao Maps API</a>를 react에 맞게 포팅한 라이브러리 입니다.</p>
   <p>
@@ -17,11 +17,28 @@
 
 [Kakao 지도 Javscript API](https://apis.map.kakao.com/web/guide/)
 
+### HTML Script Tag를 이용하여 Kakao 지도 API 불러오기
+
 ```html
 <script
   type="text/javascript"
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다.&libraries=services,clusterer"
 ></script>
+```
+
+### [Hook을 이용하여 Kakao 지도 API 불러오기](https://react-kakao-maps-sdk.jaeseokim.dev/docs/setup/withHook)
+
+```tsx
+const Component = () => {
+  const { loading, error } = useKakaoLoader({
+    appkey: "...", // 발급 받은 APPKEY
+    ...options // 추가 옵션
+  })
+
+  return <>
+    ...
+  <>
+}
 ```
 
 ## TypeScript
@@ -49,6 +66,8 @@
 npm install react-kakao-maps-sdk
 # or
 yarn add react-kakao-maps-sdk
+# or
+pnpm add react-kakao-maps-sdk
 ```
 
 ## Simple Usage
@@ -92,6 +111,8 @@ function(){
 ```
 
 ### 맵위에 마커 클러스터 올리기
+
+> **※ 참고**: 해당 기능을 사용하기 위해서는 사용자는 반드시  `clusterer` library를 불러와야 합니다. 
 
 ```jsx live
 function(){
