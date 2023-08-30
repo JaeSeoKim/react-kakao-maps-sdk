@@ -49,7 +49,7 @@
     "watch:type": "tsc -p tsconfig.build.json --watch",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "prepack": "run-s build"
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.11",
