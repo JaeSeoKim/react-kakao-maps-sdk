@@ -41,6 +41,6 @@ jobs:
       - name: publish pacakages
         working-directory: packages/react-kakao-maps-sdk
         run: |
-          pnpm publish
+          pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
