@@ -10,8 +10,7 @@
     "lint": "pnpm --parallel --aggregate-output -r lint",
     "prettier": "prettier . --check",
     "prettier:write": "prettier . --write",
-    "prepare": "is-ci || husky install",
-    "preversion": "CI=1"
+    "prepare": "is-ci || husky install"
   },
   "engines": {
     "node": ">=18",
