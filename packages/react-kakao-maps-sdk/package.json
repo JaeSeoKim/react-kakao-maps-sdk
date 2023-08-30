@@ -10,7 +10,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk.git"
+    "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk.git",
+    "directory": "packages/react-kakao-maps-sdk"
   },
   "homepage": "https://react-kakao-maps-sdk.jaeseokim.dev/",
   "bugs": {
