@@ -1,0 +1,6 @@
+packages:
+  - "dev"
+  - "docs"
+  - "packages/*"
+  - "configs/*"
+  - "!**/__test__/**"

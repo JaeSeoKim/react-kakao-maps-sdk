@@ -135,20 +135,18 @@ module.exports = {
       "docusaurus-plugin-module-alias",
       {
         alias: {
-          react: path.resolve(__dirname, "../node_modules/react"),
-          "react-dom": path.resolve(__dirname, "../node_modules/react-dom"),
-          "kakao.maps.d.ts": path.resolve("../node_modules/kakao.maps.d.ts"),
-          "react-kakao-maps-sdk": path.resolve(__dirname, "../src"),
+          react: path.resolve(__dirname, "./node_modules/react"),
+          "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
         },
       },
     ],
     [
       "docusaurus-plugin-typedoc",
       {
-        entryPoints: ["../src/index.ts"],
-        tsconfig: "../tsconfig.json",
+        entryPoints: ["../packages/react-kakao-maps-sdk/src/index.ts"],
+        entryPointStrategy: "resolve",
+        tsconfig: ["../packages/react-kakao-maps-sdk/tsconfig.build.json"],
         readme: "none",
-        allReflectionsHaveOwnDocument: true,
         sidebar: {
           categoryLabel: "API",
         },

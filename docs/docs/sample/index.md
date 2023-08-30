@@ -72,7 +72,6 @@ slug: /sample/
 
   - 지도 객체는 생성될 때 지도 div 크기에 따라 픽셀과 좌표정보를 설정하여 가지고 있습니다.이 정보로 지도 객체는 지도표시, 마커 표시, 확대, 축소, 이동 등의 좌표 계산 등 지도 표시에 필요한 여러가지 연산을 수행하는데 이때 지도 div의 크기가 변경이 되면 지도객체가 가지고 있는 픽셀과 좌표정보가 div를 표시하는 크기와 달라지기 때문에 지도가 정상적으로 표출되지 않을 수도 있습니다.그래서 크기를 변경한 이후에는 반드시 relayout 함수를 호출하여 픽셀과 좌표정보를 새로 설정해주어야합니다.window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다.
 
-
 - ### [클릭 이벤트 등록하기](/docs/sample/map/addMapClickEvent)
 
   - 지도를 마우스로 클릭했을때 click 이벤트가 발생합니다. 이 예제에서는 지도를 클릭했을 때 지도 아래쪽에 해당 위치의 좌표를 뿌려주고 있습니다.
@@ -209,9 +208,11 @@ slug: /sample/
   - 지도에 커스텀 오버레이와 마커 이미지를 이용해 다른 이미지로 마커를 표시합니다.
 
 - ### [커스텀오버레이를 드래그 하기](/docs/sample/overlay/dragCustomOverlay)
+
   - 지도 컨테이너 내 좌표와 화면 좌표 픽셀 변환을 이용해 커스텀 오버레이를 드래그 기능을 구현합니다. 커스텀 오버레이를 mousedown 한 후 mousemove 이벤트를 등록해 마우스가 얼마나 이동했는지 계산하고 커스텀 오버레이 위치에 반영합니다.
 
 - ### [지도 영역 밖의 마커위치 추적하기](/docs/sample/overlay/markerTracker)
+
   - 지도 영역 밖에 찍혀있는 마커의 방향을 지도상에 표현하고 싶을 경우가 있습니다. 이 예제에서는 지도 영역 밖에있는 마커의 위치를 추적하여 알려주는 기능을 구현하고 있습니다. Marker나 CustomOverlay는 지도 영역 밖에 위치하면 다시 영역안에 들어오기 전까지 자동으로 숨김처리 됩니다. 그렇기 때문에 보다 자연스러운 효과를 위해서 숨김처리 기능이 없는 AbstractOverlay를 사용하였습니다.
 
 - ### [구멍난 다각형 만들기](/docs/sample/overlay/donut)
@@ -222,27 +223,35 @@ slug: /sample/
 <hr/>
 
 - ### [로드뷰 생성하기](/docs/sample/roadview/basicRoadview)
+
   - 로드뷰를 생성하는 기본 예제입니다. 로드뷰는 모든 좌표에 존재하는 것이 아니므로, 특정 위치의 좌표에서 가장 가까운 곳에 존재하는 사진을 가져와야 합니다. 아래 예제는 이러한 방식으로 (파노라마) 사진 ID값을 얻은 후에, 이를 로드뷰에 표시하고 있습니다.
 
 - ### [로드뷰 도로를 이용하여 로드뷰 생성하기](/docs/sample/roadview/basicRoadview2)
+
   - 지도 위에 로드뷰 도로를 올리고, 로드뷰 도로를 클릭하거나, 마커를 이동시켜 로드뷰를 표시합니다.
 
 - ### [동동이를 이용하여 로드뷰와 지도 연동하기](/docs/sample/roadview/moveRoadview)
+
   - 로드뷰를 이동 및 회전 시키면, 지도 위의 동동이(MapWalker)도 같이 움직입니다.
 
 - ### [로드뷰에 마커와 인포윈도우 올리기](/docs/sample/roadview/roadviewOverlay1)
+
   - 지도와 로드뷰에 각각 마커와 인포윈도우를 올리고, Kakao 지도와 로드뷰로 이동, 로드뷰를 리셋할 수 있는 버튼을 생성합니다.
 
 - ### [로드뷰에 마커와 인포윈도우 올리기](/docs/sample/roadview/roadviewOverlay1)
+
   - 지도와 로드뷰에 각각 마커와 인포윈도우를 올리고, Kakao 지도와 로드뷰로 이동, 로드뷰를 리셋할 수 있는 버튼을 생성합니다.
 
 - ### [로드뷰에 커스텀오버레이 올리기](/docs/sample/roadview/roadviewCustomOverlay)
+
   - 지도와 로드뷰에 커스텀 오버레이를 올립니다. 로드뷰는 커스텀 오버레이가 중앙에 오도록 viewpoint값을 변경시킵니다.
 
 - ### [로드뷰에 이미지 올리기](/docs/sample/roadview/roadviewImageOverlay)
+
   - 로드뷰에 이미지를 올릴 수 있습니다. 로드뷰에 이전 거리 사진을 올려 현재 로드뷰와 비교할 수 있습니다.
 
 - ### [로드뷰에 이미지 올리기](/docs/sample/roadview/roadviewWithMapButton)
+
   - 지도 위의 로드뷰 버튼을 클릭하면 지도 위에 로드뷰 도로 오버레이와 동동이(MapWalker)가 표시되고 지도 중심을 기준으로 로드뷰가 함께 표시됩니다. 지도 위의 동동이를 원하는 로드뷰 도로 위로 이동시키면 해당 위치의 로드뷰가 보여지게 되고, 해당 위치에 로드뷰 정보가 없거나 로드뷰 위의 x버튼을 클릭하면 로드뷰는 지도 뒤로 숨겨지고 지도만 표시됩니다.
 
 - ### [로드뷰와 지도 토글하기](/docs/sample/roadview/roadviewToggle)
@@ -253,9 +262,11 @@ slug: /sample/
 <hr/>
 
 - ### [이미지 지도 생성하기](/docs/sample/staticmap/basicStaticMap)
+
   - 이미지 지도를 생성합니다.
 
 - ### [이미지 지도에 마커 표시하기](/docs/sample/staticmap/staticMapWithMarker)
+
   - 이미지 지도에 마커를 표시합니다.
 
 - ### [마커와 텍스트 표시하기](/docs/sample/staticmap/staticMapWithMarkerText)
@@ -266,24 +277,31 @@ slug: /sample/
 <hr/>
 
 - ### [키워드로 장소검색하기](/docs/sample/library/keywordBasic)
+
   - 지도 위에 특정 장소를 표시하는 마커를 로드뷰에서도 마커로 표시하고 특정 장소가 잘보이도록 로드뷰의 파노라마 ID와 시점(ViewPoint)을 설정합니다. 지도 위의 로드뷰 버튼을 클릭하면 로드뷰가 보여지고 로드뷰 위의 지도 버튼은 클릭하면 지도가 보여지게됩니다.
 
 - ### [마커 클러스터러 사용하기](/docs/sample/library/basicClusterer)
+
   - 마커 클러스터러를 사용하는 기본 예제입니다.
 
 - ### [마커 클러스터러에 클릭이벤트 추가하기](/docs/sample/library/addClustererClickEvent)
+
   - 마커 클러스터러에 클릭 이벤트를 등록합니다. 클러스터 마커를 클릭했을 때 해당 클러스터러 마커의 위치를 중심으로 지도를 1레벨씩 확대하는 예제입니다.
 
 - ### [클러스터 마커에 텍스트 표시하기](/docs/sample/library/chickenClusterer)
+
   - 치킨집 위치 데이터를 받아와 치킨지도를 만듭니다. 클러스터가 포함하는 마커의 개수가 10, 30, 50의 사이값 일때 클러스터 마커에 포함하는 마커의 개수가 아닌 각각 삐약, 꼬꼬, 꼬끼오, 치멘의 텍스트로 표시합니다
 
 - ### [Drawing Library 사용하기](/docs/sample/library/basicDrawingLibrary)
+
   - Drawing Library의 기본적인 사용 방법을 설명합니다. Drawing Library로 사용자에게 쉬운 도형 그리기를 제공하기 위해서 Drawing Manager를 생성합니다.
 
 - ### [Drawing Library에서 데이터 얻기](/docs/sample/library/drawingGetData)
+
   - Drawing Library를 이용해 도형을 그리고 그려진 도형의 데이터를 Drawing Manager의 getData 메소드를 이용해 가져온 후 다른 지도에 표시합니다.
 
 - ### [Toolbox 사용하기](/docs/sample/library/drawingToolbox)
+
   - 도형을 좀 더 쉽게 그릴 수 있는 Toolbox를 생성하고 지도에 표시합니다.
 
 - ### [Drawing undo, redo](/docs/sample/library/drawingUndo)

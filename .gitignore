@@ -1,26 +1,27 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+# Dependency directory
+node_modules
+_node_modules
+.pnp.cjs
 
 # testing
 /coverage
 
-# production
-/build
-/lib
-react-kakao-maps-sdk-*.tgz
+# build
+dist
+esm
+
+stats.html
 
 # misc
-.DS_Store
+*.tsbuildinfo
+*.tgz
+*.map
+*.log
+*.DS_Store
+
+# env
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*

@@ -67,7 +67,6 @@ npm install && cd docs && npm install
 
 ## 문서 기여하기
 
-
 ### 문서 Server 실행하기
 
 문서 Server를 실행 하기전에 `KAKAOMAP_API_KEY` 에 대한 KEY를 환경 변수에 설정하고 실행 해야 합니다.

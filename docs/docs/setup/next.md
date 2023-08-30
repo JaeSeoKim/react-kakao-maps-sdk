@@ -15,8 +15,8 @@ Next.js 사용 시, Script 컴포넌트를 사용하여 Kakao 지도 API를 불�
 ### \_document.js
 
 ```jsx
-import { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
+import { Html, Head, Main, NextScript } from "next/document"
+import Script from "next/script"
 
 export default function Document() {
   return (
@@ -31,9 +31,8 @@ export default function Document() {
         />
       </body>
     </Html>
-  );
+  )
 }
-
 ```
 
 ### index.js

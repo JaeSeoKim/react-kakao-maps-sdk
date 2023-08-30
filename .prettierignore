@@ -1,15 +1,33 @@
-.cache
+# Dependency directory
 node_modules
-package.json
-package-lock.json
-public
-lib
+_node_modules
+.pnp.cjs
+pnpm-lock.yaml
+
+# testing
+/coverage
+
+# build
+dist
+esm
+
+stats.html
+
+# docs
 
 docs/.cache
 docs/.docusaurus
 docs/build
+docs/docs/api
 docs/node_modules
 docs/package.json
 docs/package-lock.json
 docs/public
 docs/typedoc-sidebar.js
+
+# misc
+*.tsbuildinfo
+*.tgz
+*.map
+*.log
+*.DS_Store

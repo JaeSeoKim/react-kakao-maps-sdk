@@ -1,0 +1,21 @@
+{
+  "name": "@configs/rollup",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "./src/index.cjs",
+  "devDependencies": {
+    "@babel/core": "^7.22.11",
+    "@babel/plugin-transform-runtime": "^7.22.10",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "builtin-modules": "^3.3.0",
+    "rollup": "^3.28.1",
+    "rollup-plugin-preserve-directives": "^0.2.0",
+    "rollup-plugin-visualizer": "^5.9.2"
+  },
+  "peerDependencies": {
+    "rollup": "^3.28.1"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "react-kakao-maps-sdk",
+  "version": "1.1.12",
+  "description": "React components for using kakao map api",
+  "license": "MIT",
+  "author": {
+    "name": "JaeSeoKim",
+    "email": "devjaeseo@gmail.com",
+    "url": "https://about.jaeseokim.dev/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk.git"
+  },
+  "homepage": "https://react-kakao-maps-sdk.jaeseokim.dev/",
+  "bugs": {
+    "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues"
+  },
+  "keywords": [
+    "react",
+    "kakao-maps",
+    "daum-map",
+    "daum-maps",
+    "kakaomap",
+    "kakao-maps",
+    "kakao-maps-sdk"
+  ],
+  "main": "./src/index.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "require": "./src/index.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "esm"
+  ],
+  "scripts": {
+    "clean": "rimraf dist/ esm/",
+    "build": "pnpm clean && pnpm lint && pnpm run \"/^build:(?!analyze).*/\"",
+    "build:analyze": "rollup --config --configAnalyze",
+    "build:js": "rollup -c",
+    "build:type": "tsc -p tsconfig.build.json",
+    "watch": "pnpm run \"/^watch:.*/\"",
+    "watch:js": "rollup -c -w",
+    "watch:type": "tsc -p tsconfig.build.json --watch",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "prepack": "run-s build"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.22.11",
+    "kakao.maps.d.ts": "^0.1.38"
+  },
+  "devDependencies": {
+    "@configs/babel": "workspace:*",
+    "@configs/eslint-config": "workspace:^",
+    "@configs/rollup": "workspace:*",
+    "@types/node": "^20.5.6",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
+    "eslint": "^8.48.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.1",
+    "rollup": "^3.28.1",
+    "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8 || ^17 || ^18",
+    "react-dom": "^16.8 || ^17 || ^18"
+  },
+  "publishConfig": {
+    "type": "module",
+    "exports": {
+      ".": {
+        "import": "./esm/index.js",
+        "require": "./dist/index.cjs",
+        "types": "./types/index.d.ts"
+      },
+      "./package.json": "./package.json"
+    },
+    "main": "./dist/index.cjs",
+    "module": "./esm/index.js",
+    "types": "./types/index.d.ts"
+  }
+}

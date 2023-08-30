@@ -1,99 +1,42 @@
 {
-  "name": "react-kakao-maps-sdk",
-  "version": "1.1.12",
-  "description": "React components for using kakao map api",
-  "license": "MIT",
-  "author": {
-    "name": "JaeSeoKim",
-    "email": "devjaeseo@gmail.com",
-    "url": "https://about.jaeseokim.dev/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk.git"
-  },
-  "homepage": "https://react-kakao-maps-sdk.jaeseokim.dev/",
-  "bugs": {
-    "url": "https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues"
-  },
-  "keywords": [
-    "react",
-    "kakao-maps",
-    "daum-map",
-    "daum-maps",
-    "kakaomap",
-    "kakao-maps",
-    "kakao-maps-sdk"
-  ],
-  "type": "module",
-  "source": "./src/index.ts",
-  "types": "./lib/@types/index.d.ts",
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.module.js",
-  "unpkg": "./lib/index.umd.js",
-  "exports": {
-    ".": {
-      "import": "./lib/index.module.js",
-      "require": "./lib/index.cjs",
-      "types": "./lib/@types/index.d.ts"
-    }
-  },
+  "name": "workspace",
+  "private": true,
   "scripts": {
-    "build": "microbundle --jsx React.createElement --jsxFragment React.Fragment",
-    "dev": "npm run build -- watch",
-    "style": "run-s style:*",
-    "style:lint": "eslint .",
-    "style:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --write",
-    "prepare": "husky install",
+    "dev": "pnpm -C ./dev dev",
+    "docs": "pnpm -C ./docs start",
+    "build": "pnpm run prettier && pnpm run \"/^build:(?!analyze).*/\"",
+    "build:docs": "pnpm -C ./docs build",
+    "build:packages": "pnpm --parallel --aggregate-output --filter \"./packages/**\" build",
+    "lint": "pnpm --parallel --aggregate-output -r lint",
+    "prettier": "prettier . --check",
+    "prettier:write": "prettier . --write",
+    "prepare": "is-ci || husky install",
     "preversion": "CI=1"
   },
-  "dependencies": {
-    "kakao.maps.d.ts": "^0.1.38"
-  },
-  "peerDependencies": {
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
   },
   "devDependencies": {
-    "@types/node": "^18.16.2",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.1",
-    "@typescript-eslint/eslint-plugin": "^5.38.0",
-    "@typescript-eslint/parser": "^5.38.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^8.24.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-flowtype": "^8.0.3",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-react": "^7.31.8",
-    "eslint-plugin-react-hooks": "^4.6.0",
+    "@configs/babel": "workspace:*",
+    "@configs/prettier": "workspace:*",
     "gitmoji-cli": "^8.4.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "microbundle": "^0.15.1",
-    "npm-run-all": "^4.1.5",
-    "prettier": "2.8.8",
-    "typescript": "^5.1.6"
-  },
-  "files": [
-    "/lib"
-  ],
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "is-ci": "^3.0.1",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --cache --fix",
-    "*.{js,jsx,ts,tsx,json,html,css}": "prettier --write"
+    "*.{js,cjs,mjs,jsx,ts,tsx}": "eslint --cache --fix",
+    "*.{js,cjs,mjs,jsx,ts,tsx,json,html,css}": "prettier --write"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react-simple-code-editor>react": "17",
+        "react-simple-code-editor>react-dom": "17"
+      }
+    }
   }
 }

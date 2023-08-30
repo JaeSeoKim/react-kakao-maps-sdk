@@ -1,0 +1,12 @@
+{
+  "name": "@configs/prettier",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "./src/index.cjs",
+  "devDependencies": {
+    "prettier": "^3.0.2"
+  },
+  "peerDependencies": {
+    "prettier": "^3"
+  }
+}
