@@ -80,12 +80,12 @@
       ".": {
         "import": "./esm/index.js",
         "require": "./dist/index.cjs",
-        "types": "./types/index.d.ts"
+        "types": "./dist/index.d.ts"
       },
       "./package.json": "./package.json"
     },
     "main": "./dist/index.cjs",
     "module": "./esm/index.js",
-    "types": "./types/index.d.ts"
+    "types": "./dist/index.d.ts"
   }
 }
