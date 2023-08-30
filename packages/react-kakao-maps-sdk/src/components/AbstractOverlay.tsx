@@ -150,7 +150,7 @@ export interface AbstractOverlayProps {
 export const AbstractOverlay = React.forwardRef<
   kakao.maps.AbstractOverlay,
   AbstractOverlayProps
->(({ draw, onAdd, onRemove, onCreate }, ref) => {
+>(function AbstractOverlay({ draw, onAdd, onRemove, onCreate }, ref) {
   const map = useMap()
 
   const reactAbstractOverlay = useMemo(() => {
