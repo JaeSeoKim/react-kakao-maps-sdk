@@ -1,10 +1,7 @@
 import React, { useImperativeHandle, useRef, useState } from "react"
 import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
-import {
-  PolymorphicComponentProps,
-  PolymorphicComponentPropsWithOutRef,
-} from "../types"
+import { PolymorphicComponentPropsWithOutRef } from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 import { SIGNATURE } from "../util/constants"
 
@@ -12,7 +9,7 @@ export const KakaoRoadviewContext = React.createContext<kakao.maps.Roadview>(
   undefined as unknown as kakao.maps.Roadview,
 )
 
-export interface RoadviewProps {
+export interface _RoadviewProps {
   /**
    * 중심으로 설정할 위치 입니다.
    * 해당 lat와 lng에 해당하는 radius범위 안에서 가장가까운 Roadview을 선택합니다.
@@ -83,12 +80,17 @@ export interface RoadviewProps {
    * getNearestPanoId 동작 실패시 호출 합니다.
    */
   onErrorGetNearestPanoId?: (target: kakao.maps.Roadview) => void
+
+  children?: React.ReactNode | undefined
 }
 
-type RoadviewComponent = <T extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithOutRef<T, RoadviewProps> &
-    React.RefAttributes<kakao.maps.Roadview>,
-) => React.ReactNode | null
+export type RoadViewProps<T extends React.ElementType = "div"> =
+  PolymorphicComponentPropsWithOutRef<T, _RoadviewProps> &
+    React.RefAttributes<kakao.maps.Roadview>
+
+export type RoadviewComponent = <T extends React.ElementType = "div">(
+  props: RoadViewProps<T>,
+) => React.ReactNode
 
 /**
  * Roadview를 Roadview를 생성하는 컴포넌트 입니다.
@@ -116,7 +118,7 @@ export const Roadview: RoadviewComponent = React.forwardRef(function Roadview<
     onViewpointChange,
     onErrorGetNearestPanoId,
     ...props
-  }: PolymorphicComponentProps<T, React.PropsWithChildren<RoadviewProps>>,
+  }: RoadViewProps<T>,
   ref: React.ForwardedRef<kakao.maps.Roadview>,
 ) {
   const Container = as || "div"

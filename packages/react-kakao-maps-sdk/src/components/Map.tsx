@@ -9,7 +9,7 @@ export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map,
 )
 
-export type MapProps = {
+export type _MapProps = {
   /**
    * 중심으로 설정할 위치 입니다.
    */
@@ -204,10 +204,13 @@ export type MapProps = {
   children?: React.ReactNode | undefined
 }
 
-type MapComponent = <T extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithOutRef<T, MapProps> &
-    React.RefAttributes<kakao.maps.Map>,
-) => React.ReactNode | undefined
+export type MapProps<T extends React.ElementType = "div"> =
+  PolymorphicComponentPropsWithOutRef<T, _MapProps> &
+    React.RefAttributes<kakao.maps.Map>
+
+export type MapComponent = <T extends React.ElementType = "div">(
+  props: MapProps<T>,
+) => React.ReactNode
 
 /**
  * 기본적인 Map 객체를 생성하는 Comeponent 입니다.
@@ -258,7 +261,7 @@ export const Map: MapComponent = React.forwardRef(function Map<
     onZoomStart,
     onCreate,
     ...props
-  }: PolymorphicComponentPropsWithOutRef<T, MapProps>,
+  }: MapProps<T>,
   ref: React.ForwardedRef<kakao.maps.Map>,
 ) {
   const Container = as || "div"

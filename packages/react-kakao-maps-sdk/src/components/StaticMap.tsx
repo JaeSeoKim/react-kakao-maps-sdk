@@ -3,7 +3,7 @@ import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
 import { Loader } from "../util/kakaoMapApiLoader"
 import { PolymorphicComponentPropsWithOutRef } from "../types"
 
-export interface StaticMapProps {
+export interface _StaticMapProps {
   /**
    * MapContinaer의 id에 대해서 지정합니다.
    */
@@ -75,10 +75,13 @@ export interface StaticMapProps {
   onCreate?: (maker: kakao.maps.StaticMap) => void
 }
 
-type StaticMapComponent = <T extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithOutRef<T, StaticMapProps> &
-    React.RefAttributes<kakao.maps.StaticMap>,
-) => React.ReactNode | undefined
+export type StaticMapProps<T extends React.ElementType = "div"> =
+  PolymorphicComponentPropsWithOutRef<T, _StaticMapProps> &
+    React.RefAttributes<kakao.maps.StaticMap>
+
+export type StaticMapComponent = <T extends React.ElementType = "div">(
+  props: StaticMapProps<T>,
+) => React.ReactNode
 
 export const StaticMap: StaticMapComponent = React.forwardRef(
   function StaticMap<T extends React.ElementType = "div">(
@@ -91,7 +94,7 @@ export const StaticMap: StaticMapComponent = React.forwardRef(
       mapTypeId,
       onCreate,
       ...props
-    }: PolymorphicComponentPropsWithOutRef<T, StaticMapProps>,
+    }: StaticMapProps<T>,
     ref: React.ForwardedRef<kakao.maps.StaticMap>,
   ) {
     const Container = as || "div"
