@@ -26,6 +26,7 @@
     "kakao-maps",
     "kakao-maps-sdk"
   ],
+  "sideEffects": false,
   "main": "./src/index.ts",
   "type": "module",
   "exports": {
