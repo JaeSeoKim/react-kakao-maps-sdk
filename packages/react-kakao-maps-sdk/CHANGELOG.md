@@ -1,5 +1,17 @@
 # Changelog ✍️
 
+### v1.1.15
+
+#### Feat ✨
+
+- package.json에 `sideEffects: false` 추가 
+- Reduce bundle size(Marker 중복 코드 일부 제거)
+
+#### Fixed 🐞
+
+- Polymorphic Component type 오류 수정
+
+
 ### v1.1.14
 
 #### Fixed 🐞
