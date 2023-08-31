@@ -146,60 +146,8 @@ export interface MapMarkerProps {
 export const MapMarker = React.forwardRef<
   kakao.maps.Marker,
   React.PropsWithChildren<MapMarkerProps>
->(function MapMarker(
-  {
-    image,
-    position,
-    children,
-    clickable,
-    draggable,
-    infoWindowOptions,
-    onClick,
-    onDragEnd,
-    onDragStart,
-    onMouseOut,
-    onMouseOver,
-    onCreate,
-    opacity,
-    title,
-    zIndex,
-  },
-  ref,
-) {
+>(function MapMarker({ position, ...args }, ref) {
   const map = useMap(`MapMarker`)
-
-  const markerImage = useMemo(() => {
-    return (
-      image &&
-      new kakao.maps.MarkerImage(
-        image.src,
-        new kakao.maps.Size(image.size.width, image.size.height),
-        {
-          alt: image.options?.alt,
-          coords: image.options?.coords,
-          offset:
-            image.options?.offset &&
-            new kakao.maps.Point(
-              image.options?.offset.x,
-              image.options?.offset.y,
-            ),
-          shape: image.options?.shape,
-          spriteOrigin:
-            image.options?.spriteOrigin &&
-            new kakao.maps.Point(
-              image.options?.spriteOrigin.x,
-              image.options?.spriteOrigin.y,
-            ),
-          spriteSize:
-            image.options?.spriteSize &&
-            new kakao.maps.Size(
-              image.options?.spriteSize.width,
-              image.options?.spriteSize.height,
-            ),
-        },
-      )
-    )
-  }, [image])
 
   const markerPosition = useMemo(() => {
     if ("lat" in position) {
@@ -212,26 +160,5 @@ export const MapMarker = React.forwardRef<
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [position.lat, position.lng, position.x, position.y])
 
-  return (
-    <Marker
-      map={map}
-      position={markerPosition}
-      image={markerImage}
-      clickable={clickable}
-      draggable={draggable}
-      infoWindowOptions={infoWindowOptions}
-      onClick={onClick}
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      onMouseOut={onMouseOut}
-      onMouseOver={onMouseOver}
-      onCreate={onCreate}
-      opacity={opacity}
-      title={title}
-      zIndex={zIndex}
-      ref={ref}
-    >
-      {children}
-    </Marker>
-  )
+  return <Marker map={map} position={markerPosition} {...args} ref={ref} />
 })

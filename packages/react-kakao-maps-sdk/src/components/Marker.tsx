@@ -8,7 +8,7 @@ import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { InfoWindow } from "./InfoWindow"
 import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
 
-interface MarkerProps {
+export interface MarkerProps {
   map: kakao.maps.Map | kakao.maps.Roadview
   position: kakao.maps.LatLng | kakao.maps.Viewpoint
 
@@ -45,7 +45,52 @@ interface MarkerProps {
   /**
    * 마커의 이미지
    */
-  image?: kakao.maps.MarkerImage
+  image?: {
+    /**
+     * 표시 이미지 src
+     */
+    src: string
+
+    /**
+     * 표시 이미지 크기
+     */
+    size: {
+      width: number
+      height: number
+    }
+
+    options?: {
+      /**
+       * 마커 이미지의 alt 속성값을 정의한다.
+       */
+      alt?: string
+
+      /**
+       * 마커의 클릭 또는 마우스오버 가능한 영역을 표현하는 좌표값
+       */
+      coords?: string
+
+      /**
+       * 마커의 좌표에 일치시킬 이미지 안의 좌표 (기본값: 이미지의 가운데 아래)
+       */
+      offset?: { x: number; y: number }
+
+      /**
+       * 마커의 클릭 또는 마우스오버 가능한 영역의 모양
+       */
+      shape?: "default" | "rect" | "circle" | "poly"
+
+      /**
+       * 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+       */
+      spriteOrigin?: { x: number; y: number }
+
+      /**
+       * 스프라이트 이미지의 전체 크기
+       */
+      spriteSize?: { width: number; height: number }
+    }
+  }
 
   /**
    * 마커 엘리먼트의 타이틀 속성 값 (툴팁)
@@ -161,6 +206,41 @@ export const Marker = React.forwardRef<
 
   useImperativeHandle(ref, () => marker, [marker])
 
+  const markerImage = useMemo(() => {
+    return (
+      image &&
+      new kakao.maps.MarkerImage(
+        image.src,
+        new kakao.maps.Size(image.size.width, image.size.height),
+        {
+          alt: image.options?.alt,
+          coords: image.options?.coords,
+          offset:
+            image.options?.offset &&
+            new kakao.maps.Point(
+              image.options?.offset.x,
+              image.options?.offset.y,
+            ),
+          shape: image.options?.shape,
+          spriteOrigin:
+            image.options?.spriteOrigin &&
+            new kakao.maps.Point(
+              image.options?.spriteOrigin.x,
+              image.options?.spriteOrigin.y,
+            ),
+          spriteSize:
+            image.options?.spriteSize &&
+            new kakao.maps.Size(
+              image.options?.spriteSize.width,
+              image.options?.spriteSize.height,
+            ),
+        },
+      )
+    )
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(image)])
+
   useLayoutEffect(() => {
     if (markerCluster) {
       markerCluster.addMarker(marker, true)
@@ -196,10 +276,10 @@ export const Marker = React.forwardRef<
 
   // image 객체가 존재하면 이미지를 로드한다
   useLayoutEffect(() => {
-    if (!map || !marker || !image) return
+    if (!map || !marker || !markerImage) return
 
-    marker.setImage(image)
-  }, [map, marker, image])
+    marker.setImage(markerImage)
+  }, [map, marker, markerImage])
 
   // altitude 값이 있으면 높이를 조정한다
   useLayoutEffect(() => {

@@ -169,61 +169,8 @@ export interface RoadviewMarkerProps {
 export const RoadviewMarker = React.forwardRef<
   kakao.maps.Marker,
   React.PropsWithChildren<RoadviewMarkerProps>
->(function RoadviewMarker(
-  {
-    image,
-    position,
-    children,
-    altitude,
-    clickable,
-    infoWindowOptions,
-    onClick,
-    onDragEnd,
-    onDragStart,
-    onMouseOut,
-    onMouseOver,
-    onCreate,
-    opacity,
-    range,
-    title,
-    zIndex,
-  },
-  ref,
-) {
+>(function RoadviewMarker({ position, ...args }, ref) {
   const roadview = useRoadview(`RoadviewMarker`)
-
-  const markerImage = useMemo(() => {
-    return (
-      image &&
-      new kakao.maps.MarkerImage(
-        image.src,
-        new kakao.maps.Size(image.size.width, image.size.height),
-        {
-          alt: image.options?.alt,
-          coords: image.options?.coords,
-          offset:
-            image.options?.offset &&
-            new kakao.maps.Point(
-              image.options?.offset.x,
-              image.options?.offset.y,
-            ),
-          shape: image.options?.shape,
-          spriteOrigin:
-            image.options?.spriteOrigin &&
-            new kakao.maps.Point(
-              image.options?.spriteOrigin.x,
-              image.options?.spriteOrigin.y,
-            ),
-          spriteSize:
-            image.options?.spriteSize &&
-            new kakao.maps.Size(
-              image.options?.spriteSize.width,
-              image.options?.spriteSize.height,
-            ),
-        },
-      )
-    )
-  }, [image])
 
   const markerPosition = useMemo(() => {
     if ("lat" in position) {
@@ -262,27 +209,5 @@ export const RoadviewMarker = React.forwardRef<
   /* eslint-enable @typescript-eslint/ban-ts-comment */
   /* eslint-enable react-hooks/exhaustive-deps */
 
-  return (
-    <Marker
-      map={roadview}
-      position={markerPosition}
-      image={markerImage}
-      altitude={altitude}
-      clickable={clickable}
-      infoWindowOptions={infoWindowOptions}
-      onClick={onClick}
-      onDragEnd={onDragEnd}
-      onDragStart={onDragStart}
-      onMouseOut={onMouseOut}
-      onMouseOver={onMouseOver}
-      onCreate={onCreate}
-      opacity={opacity}
-      range={range}
-      title={title}
-      zIndex={zIndex}
-      ref={ref}
-    >
-      {children}
-    </Marker>
-  )
+  return <Marker map={roadview} position={markerPosition} {...args} ref={ref} />
 })

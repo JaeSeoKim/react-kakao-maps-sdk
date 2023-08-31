@@ -1,1 +1,1 @@
-export const SIGNATURE = `__reactKakaoMapsSdk`
+export const SIGNATURE = `__react-kakao-maps-sdk__`
