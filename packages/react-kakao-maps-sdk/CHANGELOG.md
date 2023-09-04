@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.17
+
+#### Fixed 🐞
+
+- kakaoMapApiLoader.isLoaded 함수 수정 [#58](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/58)
+
 ### v1.1.16
 
 #### Fixed 🐞
