@@ -186,26 +186,6 @@ export const Marker = React.forwardRef<
 ) {
   const markerCluster = useContext(KakaoMapMarkerClustererContext)
 
-  // Marker 객체는 단 한번만 생성 되도록 함
-  const marker = useMemo(() => {
-    const kakaoMarker = new kakao.maps.Marker({
-      altitude,
-      clickable,
-      draggable,
-      image,
-      opacity,
-      range,
-      title,
-      zIndex,
-      position,
-    })
-
-    return kakaoMarker
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useImperativeHandle(ref, () => marker, [marker])
-
   const markerImage = useMemo(() => {
     return (
       image &&
@@ -240,6 +220,25 @@ export const Marker = React.forwardRef<
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(image)])
+
+  const marker = useMemo(() => {
+    const kakaoMarker = new kakao.maps.Marker({
+      altitude,
+      clickable,
+      draggable,
+      image: markerImage,
+      opacity,
+      range,
+      title,
+      zIndex,
+      position,
+    })
+
+    return kakaoMarker
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useImperativeHandle(ref, () => marker, [marker])
 
   useLayoutEffect(() => {
     if (markerCluster) {
