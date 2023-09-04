@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.18
+
+#### Fixed 🐞
+
+- kakaoMapApiLoader.isLoaded 함수 수정(return이 추가되어 있지 않아, `Loader.instance` 참조하게 되는 오류 수정 ) [#58](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/58)
+
 ### v1.1.17
 
 #### Fixed 🐞
