@@ -123,7 +123,7 @@ export class Loader {
             resolve(true)
           })
         }
-        return Loader.loadcheckcallbacks.push((e) => {
+        Loader.loadcheckcallbacks.push((e) => {
           resolve(!e)
         })
       }
@@ -131,7 +131,9 @@ export class Loader {
       if (Loader.instance.status === LoaderStatus.FAILURE) {
         return resolve(false)
       }
-
+      if (Loader.instance.status === LoaderStatus.SUCCESS) {
+        return resolve(true)
+      }
       Loader.loadcheckcallbacks.push((e) => resolve(!e))
     })
   }
