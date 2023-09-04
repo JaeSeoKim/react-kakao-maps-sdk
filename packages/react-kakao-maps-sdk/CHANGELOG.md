@@ -1,16 +1,21 @@
 # Changelog ✍️
 
+### v1.1.16
+
+#### Fixed 🐞
+
+- Marker Component에서 MarkerImage를 내부에 잘못 전달하여, 오류가 발생한 문제 수정 [#56](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/56)
+
 ### v1.1.15
 
 #### Feat ✨
 
-- package.json에 `sideEffects: false` 추가 
+- package.json에 `sideEffects: false` 추가
 - Reduce bundle size(Marker 중복 코드 일부 제거)
 
 #### Fixed 🐞
 
 - Polymorphic Component type 오류 수정
-
 
 ### v1.1.14
 
