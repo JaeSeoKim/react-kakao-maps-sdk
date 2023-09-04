@@ -123,7 +123,7 @@ export class Loader {
             resolve(true)
           })
         }
-        Loader.loadcheckcallbacks.push((e) => {
+        return Loader.loadcheckcallbacks.push((e) => {
           resolve(!e)
         })
       }
