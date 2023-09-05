@@ -1,5 +1,12 @@
 # Changelog ✍️
 
+### v1.1.19
+
+#### Fixed 🐞
+
+- Map, Roadview, StaticMap에서 `React.ExoticComponent`가 React 18버전부터 타입이 변경되어 호환이 안되는 문제 수정 [#57](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/57) 
+
+
 ### v1.1.18
 
 #### Fixed 🐞

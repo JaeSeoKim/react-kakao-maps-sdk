@@ -1,6 +1,6 @@
 {
   "name": "react-kakao-maps-sdk",
-  "version": "1.1.18",
+  "version": "1.1.19-beta",
   "description": "React components for using kakao map api",
   "license": "MIT",
   "author": {
@@ -54,7 +54,7 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.11",
+    "@babel/runtime": "^7.22.15",
     "kakao.maps.d.ts": "^0.1.38"
   },
   "devDependencies": {
