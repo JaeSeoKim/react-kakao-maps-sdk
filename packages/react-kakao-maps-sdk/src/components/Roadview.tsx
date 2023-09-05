@@ -1,7 +1,10 @@
 import React, { useImperativeHandle, useRef, useState } from "react"
 import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
-import { PolymorphicComponentPropsWithOutRef } from "../types"
+import {
+  CompatibleReactElement,
+  PolymorphicComponentPropsWithOutRef,
+} from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 import { SIGNATURE } from "../util/constants"
 
@@ -90,7 +93,7 @@ export type RoadViewProps<T extends React.ElementType = "div"> =
 
 export type RoadviewComponent = <T extends React.ElementType = "div">(
   props: RoadViewProps<T>,
-) => React.ReactNode
+) => CompatibleReactElement
 
 /**
  * Roadview를 Roadview를 생성하는 컴포넌트 입니다.

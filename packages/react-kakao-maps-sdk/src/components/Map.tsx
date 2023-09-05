@@ -1,7 +1,10 @@
 import React, { useRef, useState, useImperativeHandle } from "react"
 import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
-import { PolymorphicComponentPropsWithOutRef } from "../types"
+import {
+  CompatibleReactElement,
+  PolymorphicComponentPropsWithOutRef,
+} from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 import { SIGNATURE } from "../util/constants"
 
@@ -210,7 +213,7 @@ export type MapProps<T extends React.ElementType = "div"> =
 
 export type MapComponent = <T extends React.ElementType = "div">(
   props: MapProps<T>,
-) => React.ReactNode
+) => CompatibleReactElement
 
 /**
  * 기본적인 Map 객체를 생성하는 Comeponent 입니다.

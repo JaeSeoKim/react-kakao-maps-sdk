@@ -1,7 +1,10 @@
 import React, { useRef, useState, useImperativeHandle } from "react"
 import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
 import { Loader } from "../util/kakaoMapApiLoader"
-import { PolymorphicComponentPropsWithOutRef } from "../types"
+import {
+  CompatibleReactElement,
+  PolymorphicComponentPropsWithOutRef,
+} from "../types"
 
 export interface _StaticMapProps {
   /**
@@ -81,7 +84,7 @@ export type StaticMapProps<T extends React.ElementType = "div"> =
 
 export type StaticMapComponent = <T extends React.ElementType = "div">(
   props: StaticMapProps<T>,
-) => React.ReactNode
+) => CompatibleReactElement
 
 export const StaticMap: StaticMapComponent = React.forwardRef(
   function StaticMap<T extends React.ElementType = "div">(
