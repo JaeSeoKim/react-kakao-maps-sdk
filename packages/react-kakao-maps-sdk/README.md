@@ -112,7 +112,7 @@ function(){
 
 ### 맵위에 마커 클러스터 올리기
 
-> **※ 참고**: 해당 기능을 사용하기 위해서는 사용자는 반드시  `clusterer` library를 불러와야 합니다. 
+> **※ 참고**: 해당 기능을 사용하기 위해서는 사용자는 반드시 `clusterer` library를 불러와야 합니다.
 
 ```jsx live
 function(){
