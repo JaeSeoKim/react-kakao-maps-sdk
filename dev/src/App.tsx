@@ -39,7 +39,7 @@ function App() {
       }}
       level={3} // 지도의 확대 레벨
     >
-      {positions.map((position, index) => (
+      {positions.map((position) => (
         <MapMarker
           key={`${position.title}-${position.latlng}`}
           position={position.latlng} // 마커를 표시할 위치
