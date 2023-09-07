@@ -131,7 +131,10 @@ export const Roadview: RoadviewComponent = React.forwardRef(function Roadview<
   const container = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
-    Loader.isLoaded().then(setIsLoaded)
+    const callback = Loader.addLoadEventLisnter((err) => setIsLoaded(!err))
+    return () => {
+      Loader.removeLoadEventLisnter(callback)
+    }
   }, [])
 
   useIsomorphicLayoutEffect(() => {

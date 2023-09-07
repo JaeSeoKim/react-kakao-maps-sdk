@@ -51,6 +51,8 @@ export enum LoaderStatus {
 
 const DEFAULT_ID = `${SIGNATURE}_Loader`
 
+export type LoaderErorr = Event | string
+
 /**
  * Kakao Map Api Loader
  *
@@ -60,7 +62,7 @@ const DEFAULT_ID = `${SIGNATURE}_Loader`
  */
 export class Loader {
   private static instance: Loader
-  private static loadcheckcallbacks: ((e?: ErrorEvent) => void)[] = []
+  private static loadEventCallback = new Set<(e?: LoaderErorr) => void>()
 
   public readonly id: string
   public readonly appkey: string
@@ -69,11 +71,11 @@ export class Loader {
   public readonly nonce: string | undefined
   public readonly retries: number
 
-  private callbacks: ((e?: ErrorEvent) => void)[] = []
+  private callbacks: ((e?: LoaderErorr) => void)[] = []
   private done = false
   private loading = false
-  private errors: ErrorEvent[] = []
-  private onerrorEvent: ErrorEvent | undefined
+  private errors: LoaderErorr[] = []
+  private onEvent: LoaderErorr | undefined
 
   constructor({
     appkey,
@@ -91,15 +93,19 @@ export class Loader {
     this.url = url
 
     if (Loader.instance) {
-      if (!Loader.equalOptions(this.options, Loader.instance.options)) {
+      if (
+        Loader.instance.status !== LoaderStatus.FAILURE &&
+        !Loader.equalOptions(this.options, Loader.instance.options)
+      ) {
         throw new Error(
-          `Loader must not be called again with different options. ${JSON.stringify(
+          `Loader must not be called again with different options. \n${JSON.stringify(
             this.options,
-          )} !== ${JSON.stringify(Loader.instance.options)}`,
+            null,
+            2,
+          )}\n!==\n${JSON.stringify(Loader.instance.options, null, 2)}`,
         )
       }
-
-      return Loader.instance
+      Loader.instance.reset()
     }
     Loader.instance = this
   }
@@ -115,43 +121,32 @@ export class Loader {
     }
   }
 
-  public static isLoaded(): Promise<boolean> {
-    return new Promise((resolve) => {
-      if (!Loader.instance) {
-        if (window.kakao && window.kakao.maps) {
-          return window.kakao.maps.load(() => {
-            resolve(true)
-          })
-        }
-        return Loader.loadcheckcallbacks.push((e) => {
-          resolve(!e)
-        })
-      }
+  public static addLoadEventLisnter(callback: (err?: LoaderErorr) => void) {
+    if (window.kakao && window.kakao.maps) {
+      window.kakao.maps.load(callback)
+    }
+    Loader.loadEventCallback.add(callback)
+    return callback
+  }
 
-      if (Loader.instance.status === LoaderStatus.FAILURE) {
-        return resolve(false)
-      }
-      if (Loader.instance.status === LoaderStatus.SUCCESS) {
-        return resolve(true)
-      }
-      Loader.loadcheckcallbacks.push((e) => resolve(!e))
-    })
+  public static removeLoadEventLisnter(callback: (err?: LoaderErorr) => void) {
+    return Loader.loadEventCallback.delete(callback)
   }
 
   public load(): Promise<typeof kakao> {
     return new Promise((resolve, reject) => {
-      this.loadCallback((err?: ErrorEvent) => {
+      this.loadCallback((err?: LoaderErorr) => {
         if (!err) {
           resolve(window.kakao)
         } else {
-          reject(err.error)
+          reject(err)
         }
       })
     })
   }
 
   public get status(): LoaderStatus {
-    if (this.onerrorEvent) {
+    if (this.onEvent) {
       return LoaderStatus.FAILURE
     }
     if (this.done) {
@@ -167,7 +162,7 @@ export class Loader {
     return this.done && !this.loading && this.errors.length >= this.retries + 1
   }
 
-  private loadCallback(fn: (e?: ErrorEvent) => void): void {
+  private loadCallback(fn: (e?: LoaderErorr) => void): void {
     this.callbacks.push(fn)
     this.execute()
   }
@@ -180,10 +175,10 @@ export class Loader {
 
   private reset(): void {
     this.deleteScript()
-    this.done = false
+    this.done = true
     this.loading = false
     this.errors = []
-    this.onerrorEvent = undefined
+    this.onEvent = undefined
   }
 
   private execute() {
@@ -231,24 +226,8 @@ export class Loader {
     document.head.appendChild(script)
   }
 
-  private loadErrorCallback(
-    event: Event | string,
-    source?: string,
-    lineno?: number,
-    colno?: number,
-    error?: Error,
-  ): void {
-    this.errors.push({
-      /* eslint-disable @typescript-eslint/ban-ts-comment */
-      event,
-      source,
-      // @ts-ignore
-      lineno,
-      // @ts-ignore
-      colno,
-      error,
-      /* eslint-enable @typescript-eslint/ban-ts-comment */
-    })
+  private loadErrorCallback(event: LoaderErorr): void {
+    this.errors.push(event)
 
     if (this.errors.length <= this.retries) {
       const delay = this.errors.length * 2 ** this.errors.length
@@ -260,8 +239,18 @@ export class Loader {
         this.setScript()
       }, delay)
     } else {
-      this.onerrorEvent = this.errors[this.errors.length - 1]
-      this.callback()
+      this.done = true
+      this.loading = false
+      this.onEvent = this.errors[this.errors.length - 1]
+
+      this.callbacks.forEach((cb) => {
+        cb(this.onEvent)
+      })
+      this.callbacks = []
+
+      Loader.loadEventCallback.forEach((cb) => {
+        cb(this.onEvent)
+      })
     }
   }
 
@@ -291,14 +280,13 @@ export class Loader {
       this.loading = false
 
       this.callbacks.forEach((cb) => {
-        cb(this.onerrorEvent)
+        cb(this.onEvent)
       })
       this.callbacks = []
 
-      Loader.loadcheckcallbacks.forEach((cb) => {
-        cb(this.onerrorEvent)
+      Loader.loadEventCallback.forEach((cb) => {
+        cb(this.onEvent)
       })
-      Loader.loadcheckcallbacks = []
     })
   }
 

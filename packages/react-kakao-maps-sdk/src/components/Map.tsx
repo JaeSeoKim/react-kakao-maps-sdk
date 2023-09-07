@@ -273,7 +273,10 @@ export const Map: MapComponent = React.forwardRef(function Map<
   const container = useRef<HTMLDivElement>(null)
 
   useIsomorphicLayoutEffect(() => {
-    Loader.isLoaded().then(setIsLoaded)
+    const callback = Loader.addLoadEventLisnter((err) => setIsLoaded(!err))
+    return () => {
+      Loader.removeLoadEventLisnter(callback)
+    }
   }, [])
 
   useIsomorphicLayoutEffect(() => {
