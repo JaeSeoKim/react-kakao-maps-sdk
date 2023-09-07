@@ -3,4 +3,5 @@ packages:
   - "docs"
   - "packages/*"
   - "configs/*"
+  - "examples/*"
   - "!**/__test__/**"
