@@ -35,11 +35,10 @@ jobs:
 
       - name: Set publishing config
         run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
-        
+
       - name: publish pacakages
         working-directory: packages/react-kakao-maps-sdk
         run: |
           pnpm publish --no-git-checks --access public --tag latest
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
-
