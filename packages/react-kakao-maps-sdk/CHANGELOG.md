@@ -4,8 +4,9 @@
 
 #### Fixed 🐞
 
-- Map, Roadview, StaticMap에서 `React.ExoticComponent`가 React 18버전부터 타입이 변경되어 호환이 안되는 문제 수정 [#57](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/57) 
-
+- Map, Roadview, StaticMap에서 `React.ExoticComponent`가 React 18버전부터 타입이 변경되어 호환이 안되는 문제 수정 [#57](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/57)
+- KakaoMapApiLoader `load`에 대한 이벤트 관리 방법 변경 [#58](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/58)
+- `useKakaoLoader` 반환값 변경 `{state, error}` -> `[state, error]`
 
 ### v1.1.18
 

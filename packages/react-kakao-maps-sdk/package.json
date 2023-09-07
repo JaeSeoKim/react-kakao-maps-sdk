@@ -1,6 +1,6 @@
 {
   "name": "react-kakao-maps-sdk",
-  "version": "1.1.19-beta",
+  "version": "1.1.19",
   "description": "React components for using kakao map api",
   "license": "MIT",
   "author": {
