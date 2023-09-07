@@ -6,8 +6,8 @@
   "main": "./src/index.cjs",
   "devDependencies": {
     "@babel/plugin-proposal-explicit-resource-management": "^7.22.6",
-    "@babel/preset-env": "^7.22.14",
-    "@babel/preset-react": "^7.22.5",
-    "@babel/preset-typescript": "^7.22.11"
+    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.22.15"
   }
 }

@@ -19,7 +19,7 @@
   "devDependencies": {
     "@configs/babel": "workspace:*",
     "@configs/prettier": "workspace:*",
-    "gitmoji-cli": "^8.4.0",
+    "gitmoji-cli": "^8.5.0",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "lint-staged": "^14.0.1",
