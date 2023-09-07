@@ -7,7 +7,6 @@
     "build": "pnpm run prettier && pnpm run \"/^build:(?!analyze).*/\"",
     "build:docs": "pnpm -C ./docs build",
     "build:packages": "pnpm --parallel --aggregate-output --filter \"./packages/**\" build",
-    "build:examples": "pnpm --parallel --aggregate-output --filter \"./examples/**\" build",
     "lint": "pnpm --parallel --aggregate-output -r lint",
     "prettier": "prettier . --check",
     "prettier:write": "prettier . --write",

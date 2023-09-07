@@ -18,6 +18,5 @@ NEXT_PUBLIC_APPKEY=발급받은APPKEY
 
 ```shell
 pnpm install
-pnpm run build:pacakges
-pnpm run build:examples
+pnpm run dev
 ```
