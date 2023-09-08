@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const lightCodeTheme = require("prism-react-renderer/themes/github")
 const darkCodeTheme = require("prism-react-renderer/themes/dracula")
 const path = require("path")
@@ -154,6 +156,9 @@ module.exports = {
       },
     ],
   ],
+  customFields: {
+    KAKAOMAP_API_KEY: process.env.KAKAOMAP_API_KEY,
+  },
   scripts: [
     `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services,clusterer,drawing&autoload=false`,
   ],

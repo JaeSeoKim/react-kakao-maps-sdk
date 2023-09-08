@@ -1,0 +1,13 @@
+{
+  "name": "sample-original",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "serve": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "16.0.3",
+    "express": "^4.18.2",
+    "glob": "^10.3.4"
+  }
+}

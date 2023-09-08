@@ -30,7 +30,7 @@
 
 ```tsx
 const Component = () => {
-  const { loading, error } = useKakaoLoader({
+  const [ loading, error ] = useKakaoLoader({
     appkey: "...", // 발급 받은 APPKEY
     ...options // 추가 옵션
   })
