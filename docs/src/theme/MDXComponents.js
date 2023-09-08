@@ -39,7 +39,8 @@ export default function useKakaoLoader() {
         showLineNumbers: true,
         showInlineErrors: true,
         wrapContent: true,
-        editorHeight: 370,
+        editorHeight: 480,
+        editorWidthPercentage: 30,
       }}
     />
   )
