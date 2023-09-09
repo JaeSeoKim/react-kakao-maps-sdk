@@ -1,6 +1,7 @@
 packages:
   - "dev"
   - "docs"
+  - "sample-original"
   - "packages/*"
   - "configs/*"
   - "examples/*"
