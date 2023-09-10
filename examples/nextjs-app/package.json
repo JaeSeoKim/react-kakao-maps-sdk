@@ -26,6 +26,6 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
-    "kakao.maps.d.ts": "^0.1.38"
+    "kakao.maps.d.ts": "^0.1.39"
   }
 }

@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.22.15",
-    "kakao.maps.d.ts": "^0.1.38"
+    "kakao.maps.d.ts": "^0.1.39"
   },
   "devDependencies": {
     "@configs/babel": "workspace:*",

@@ -44,7 +44,7 @@
     "docusaurus-plugin-module-alias": "0.0.2",
     "docusaurus-plugin-typedoc": "^0.19.2",
     "eslint": "^8.48.0",
-    "kakao.maps.d.ts": "^0.1.38",
+    "kakao.maps.d.ts": "^0.1.39",
     "typedoc": "^0.24.8",
     "typedoc-plugin-markdown": "^3.16.0",
     "typescript": "5.1.6"
