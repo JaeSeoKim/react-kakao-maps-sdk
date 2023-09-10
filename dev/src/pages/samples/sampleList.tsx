@@ -3,6 +3,7 @@ import BasicMap from "./basicMap"
 import MoveMap from "./moveMap"
 import ChangeLevel from "./changeLevel"
 import MapInfo from "./mapInfo"
+import AddMapControl from "./addMapControl"
 
 export const samples: RouteObject[] = [
   {
@@ -17,9 +18,12 @@ export const samples: RouteObject[] = [
     path: "changeLevel",
     element: <ChangeLevel />,
   },
-
   {
     path: "mapInfo",
     element: <MapInfo />,
+  },
+  {
+    path: "addMapControl",
+    element: <AddMapControl />,
   },
 ]

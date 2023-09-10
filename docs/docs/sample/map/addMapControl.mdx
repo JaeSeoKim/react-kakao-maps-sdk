@@ -7,30 +7,6 @@ sidebar_position: 5
 
 > original docs : https://apis.map.kakao.com/web/sample/addMapControl/
 
-```jsx live
-function(){
-  const Main = () => {
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          id="map"
-          center={{
-            // 지도의 중심좌표
-            lat: 36.2683,
-            lng: 127.6358,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={3} // 지도의 확대 레벨
-        >
-          <ZoomControl position={kakao.maps.ControlPosition.TOPRIGHT} />
-          <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT}/>
-        </Map>
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+import codesource from "!!raw-loader!../../../../dev/src/pages/samples/addMapControl.tsx"
+
+<LiveEditor>{codesource}</LiveEditor>
