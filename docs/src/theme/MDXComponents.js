@@ -3,10 +3,11 @@ import MDXComponents from "@theme-original/MDXComponents"
 import { Sandpack } from "@codesandbox/sandpack-react"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 
-function LiveEditor({ children }) {
+function LiveEditor({ children, files }) {
   const {
     siteConfig: { customFields },
   } = useDocusaurusContext()
+  if (!files) files = {}
 
   return (
     <Sandpack
@@ -17,6 +18,7 @@ function LiveEditor({ children }) {
         },
       }}
       files={{
+        ...files,
         "/App.tsx": children,
         "/useKakaoLoader.tsx": `
 import { useKakaoLoader as useKakaoLoaderOrigin } from "react-kakao-maps-sdk"
