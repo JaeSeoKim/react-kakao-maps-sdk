@@ -4,7 +4,18 @@
 
 #### Feat ✨
 
-- `MapTypeId` 과 `ControlPosition`에 대한 Props 전달에 enum key string도 전달 받을 수 있도록 추가(kakao 객체가 loading 안된 상황에서도 사용할 수 있도록 지원)
+- `kakao.maps.MapTypeId` 와 `kakao.maps.ControlPosition`를 Props 전달 받는 컴포넌트의 경우 enum key string으로도 전달 받을 수 있도록 추가(kakao 객체가 loading 안된 상황에서도 사용할 수 있도록 지원)
+
+```tsx
+// before
+<MapTypeControl position={kakao.maps.positions.TOPRIGHT} />
+<ZoomControl position={kakao.maps.positions.RIGHT} />
+
+// after
+<MapTypeControl position={"TOPRIGHT"} />
+<ZoomControl position={"RIGHT"} />
+
+```
 
 ### v1.1.20
 
