@@ -5,7 +5,9 @@ export interface ZoomControlProps {
   /**
    * ZoomControl의 Position를 정의 한다.
    */
-  position?: kakao.maps.ControlPosition
+  position?:
+    | kakao.maps.ControlPosition
+    | keyof typeof kakao.maps.ControlPosition
 }
 
 /**
@@ -14,8 +16,15 @@ export interface ZoomControlProps {
 export const ZoomControl = React.forwardRef<
   kakao.maps.ZoomControl,
   ZoomControlProps
->(function ZoomControl({ position = kakao.maps.ControlPosition.RIGHT }, ref) {
+>(function ZoomControl(
+  { position: _position = kakao.maps.ControlPosition.RIGHT },
+  ref,
+) {
   const map = useMap(`ZoomControl`)
+  const position =
+    typeof _position === "string"
+      ? kakao.maps.ControlPosition[_position]
+      : _position
 
   const ZoomControl = useMemo(() => {
     return new kakao.maps.ZoomControl()

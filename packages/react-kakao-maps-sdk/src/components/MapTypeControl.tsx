@@ -5,7 +5,9 @@ export interface MapTypeControlProps {
   /**
    * MapTypeControl의 Position를 정의 한다.
    */
-  position?: kakao.maps.ControlPosition
+  position?:
+    | kakao.maps.ControlPosition
+    | keyof typeof kakao.maps.ControlPosition
 }
 
 /**
@@ -16,10 +18,14 @@ export const MapTypeControl = React.forwardRef<
   kakao.maps.MapTypeControl,
   MapTypeControlProps
 >(function MapTypeControl(
-  { position = kakao.maps.ControlPosition.TOPRIGHT },
+  { position: _position = kakao.maps.ControlPosition.TOPRIGHT },
   ref,
 ) {
   const map = useMap(`MapTypeControl`)
+  const position =
+    typeof _position === "string"
+      ? kakao.maps.ControlPosition[_position]
+      : _position
 
   const mapTypeControl = useMemo(() => {
     return new kakao.maps.MapTypeControl()
@@ -31,7 +37,7 @@ export const MapTypeControl = React.forwardRef<
     map.addControl(mapTypeControl, position)
 
     return () => {
-      map.removeControl(mapTypeControl)
+      map.removeControl(position)
     }
   }, [map, mapTypeControl, position])
 

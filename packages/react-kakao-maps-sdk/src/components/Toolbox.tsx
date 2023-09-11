@@ -12,7 +12,9 @@ export type ToolboxProps = {
   /**
    * Toolbox의 Position를 정의 한다.
    */
-  position?: kakao.maps.ControlPosition
+  position?:
+    | kakao.maps.ControlPosition
+    | keyof typeof kakao.maps.ControlPosition
 }
 
 /**
@@ -21,10 +23,13 @@ export type ToolboxProps = {
  * 해당 컴포넌트는 반드시 `DrawingManager` 컴포넌트의 자식으로 존재해야 합니다.
  */
 export const Toolbox = React.forwardRef(function Toolbox(
-  { position }: ToolboxProps,
+  { position: _position = kakao.maps.ControlPosition.TOP }: ToolboxProps,
   ref: Ref<kakao.maps.drawing.Toolbox>,
 ) {
-  position = position || kakao.maps.ControlPosition.TOP
+  const position =
+    typeof _position === "string"
+      ? kakao.maps.ControlPosition[_position]
+      : _position
 
   const map = useMap("Toolbox")
   const drawingmanager = useContext(DrawingManagerContext)
@@ -44,7 +49,7 @@ export const Toolbox = React.forwardRef(function Toolbox(
 
   useLayoutEffect(() => {
     const element = toolbox.getElement()
-    map.addControl(element, position!)
+    map.addControl(element, position)
     return () => {
       map.removeControl(element)
     }

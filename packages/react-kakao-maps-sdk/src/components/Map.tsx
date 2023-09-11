@@ -57,7 +57,7 @@ export type _MapProps = {
   /**
    * 지도 종류 (기본값: 일반 지도)
    */
-  mapTypeId?: kakao.maps.MapTypeId
+  mapTypeId?: kakao.maps.MapTypeId | keyof typeof kakao.maps.MapTypeId
 
   /**
    * 마우스 드래그, 휠, 모바일 터치를 이용한 시점 변경(이동, 확대, 축소) 가능 여부
@@ -293,15 +293,18 @@ export const Map: MapComponent = React.forwardRef(function Map<
 
     const kakaoMap = new kakao.maps.Map(MapContainer, {
       center: initalMapCenter,
-      disableDoubleClick: disableDoubleClick,
-      disableDoubleClickZoom: disableDoubleClickZoom,
-      draggable: draggable,
-      keyboardShortcuts: keyboardShortcuts,
-      level: level,
-      mapTypeId: mapTypeId,
-      projectionId: projectionId,
-      scrollwheel: scrollwheel,
-      tileAnimation: tileAnimation,
+      disableDoubleClick,
+      disableDoubleClickZoom,
+      draggable,
+      keyboardShortcuts,
+      level,
+      mapTypeId:
+        typeof mapTypeId === "string"
+          ? kakao.maps.MapTypeId[mapTypeId]
+          : mapTypeId,
+      projectionId,
+      scrollwheel,
+      tileAnimation,
     })
 
     setMap(kakaoMap)
@@ -309,13 +312,7 @@ export const Map: MapComponent = React.forwardRef(function Map<
     return () => {
       MapContainer.innerHTML = ""
     }
-  }, [
-    isLoaded,
-    disableDoubleClick,
-    disableDoubleClickZoom,
-    mapTypeId,
-    tileAnimation,
-  ])
+  }, [isLoaded, disableDoubleClick, disableDoubleClickZoom, tileAnimation])
 
   useImperativeHandle(ref, () => map!, [map])
 
@@ -379,7 +376,11 @@ export const Map: MapComponent = React.forwardRef(function Map<
 
   useIsomorphicLayoutEffect(() => {
     if (!map || !mapTypeId) return
-    map.setMapTypeId(mapTypeId)
+    map.setMapTypeId(
+      typeof mapTypeId === "string"
+        ? kakao.maps.MapTypeId[mapTypeId]
+        : mapTypeId,
+    )
   }, [map, mapTypeId])
 
   useIsomorphicLayoutEffect(() => {

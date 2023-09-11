@@ -13,16 +13,6 @@ export interface _StaticMapProps {
   id?: string
 
   /**
-   * MapContainer의 className에 대해서 지정합니다.
-   */
-  className?: string
-
-  /**
-   * MapContainer의 style에 대해서 지정합니다.
-   */
-  style?: React.CSSProperties
-
-  /**
    * 중심으로 설정할 위치 입니다.
    */
   center: {
@@ -39,7 +29,7 @@ export interface _StaticMapProps {
   /**
    * 지도 종류 (기본값: 일반 지도)
    */
-  mapTypeId?: kakao.maps.MapTypeId
+  mapTypeId?: kakao.maps.MapTypeId | keyof typeof kakao.maps.MapTypeId
 
   /**
    * 이미지 지도에 표시할 마커 또는 마커 배열
@@ -145,7 +135,10 @@ export const StaticMap: StaticMapComponent = React.forwardRef(
       const kakaoStaticMap = new kakao.maps.StaticMap(MapContainer, {
         center: new kakao.maps.LatLng(center.lat, center.lng),
         level,
-        mapTypeId,
+        mapTypeId:
+          typeof mapTypeId === "string"
+            ? kakao.maps.MapTypeId[mapTypeId]
+            : mapTypeId,
         marker: _marker,
       })
       setMap(kakaoStaticMap)
@@ -169,7 +162,12 @@ export const StaticMap: StaticMapComponent = React.forwardRef(
     }, [map, level])
 
     useIsomorphicLayoutEffect(() => {
-      if (map && mapTypeId) map.setMapTypeId(mapTypeId)
+      if (map && mapTypeId)
+        map.setMapTypeId(
+          typeof mapTypeId === "string"
+            ? kakao.maps.MapTypeId[mapTypeId]
+            : mapTypeId,
+        )
     }, [map, mapTypeId])
 
     return <Container id={id} {...props} ref={container}></Container>
