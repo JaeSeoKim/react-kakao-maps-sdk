@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { Map, MapTypeControl } from "react-kakao-maps-sdk"
 import useKakaoLoader from "./useKakaoLoader"
 
@@ -50,10 +50,6 @@ export default function MapInfo() {
     setInfo(message)
   }
 
-  const CustomMapTypeControl = () => (
-    <MapTypeControl position={kakao.maps.ControlPosition.TOPRIGHT} />
-  ) // 렌더링 시점에 kakao 객체 존재 하지 않는 오류 우회 하기 위한 Wrapping 처리
-
   return (
     <Map // 지도를 표시할 Container
       center={{ lat: 33.450701, lng: 126.570667 }}
@@ -65,7 +61,7 @@ export default function MapInfo() {
       level={3} // 지도의 확대 레벨
       ref={mapRef}
     >
-      <CustomMapTypeControl />
+      <MapTypeControl position={"TOPRIGHT"} />
       <button id="getInfoBtn" onClick={getInfo}>
         맵정보 가져오기
       </button>

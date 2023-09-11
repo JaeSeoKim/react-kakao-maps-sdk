@@ -1,24 +1,13 @@
 import { Map } from "react-kakao-maps-sdk"
 import useKakaoLoader from "./useKakaoLoader"
 import AddMapCustomControlStyle from "./addMapCustomControl.style"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 export default function AddMapCustomControl() {
   useKakaoLoader()
 
   const mapRef = useRef<kakao.maps.Map>(null)
   const [mapType, setMapType] = useState<"roadmap" | "skyview">("roadmap")
-
-  useEffect(() => {
-    const map = mapRef.current
-    if (!map) return
-
-    if (mapType === "roadmap") {
-      map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP)
-    } else {
-      map.setMapTypeId(kakao.maps.MapTypeId.HYBRID)
-    }
-  }, [mapType])
 
   const zoomIn = () => {
     const map = mapRef.current
@@ -50,6 +39,7 @@ export default function AddMapCustomControl() {
             overflow: "hidden",
           }}
           level={3}
+          mapTypeId={mapType === "roadmap" ? "ROADMAP" : "HYBRID"}
           ref={mapRef}
         ></Map>
         {/* 지도타입 컨트롤 div 입니다 */}
