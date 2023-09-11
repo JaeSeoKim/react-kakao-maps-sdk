@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.21
+
+#### Feat ✨
+
+- `MapTypeId` 과 `ControlPosition`에 대한 Props 전달에 enum key string도 전달 받을 수 있도록 추가(kakao 객체가 loading 안된 상황에서도 사용할 수 있도록 지원)
+
 ### v1.1.20
 
 #### Bump 📡
