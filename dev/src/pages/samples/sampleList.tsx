@@ -6,6 +6,7 @@ import MapInfo from "./mapInfo"
 import AddMapControl from "./addMapControl"
 import AddMapCustomControl from "./addMapCustomControl"
 import DisableMapDragMove from "./disableMapDragMove"
+import EnableDisableZoomInOut from "./enableDisableZoomInOut"
 
 export const samples: RouteObject[] = [
   {
@@ -35,5 +36,9 @@ export const samples: RouteObject[] = [
   {
     path: "disableMapDragMove",
     element: <DisableMapDragMove />,
+  },
+  {
+    path: "enableDisableZoomInOut",
+    element: <EnableDisableZoomInOut />,
   },
 ]
