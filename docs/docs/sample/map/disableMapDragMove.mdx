@@ -7,31 +7,6 @@ sidebar_position: 6
 
 > original docs : https://apis.map.kakao.com/web/sample/disableMapDragMove/
 
-```jsx live
-function(){
-  const Main = () => {
-    const [draggable, setDraggable] = useState(true)
+import codesource from "!!raw-loader!../../../../dev/src/pages/samples/disableMapDragMove.tsx"
 
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 37.566826,
-            lng: 126.9786567,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={3} // 지도의 확대 레벨
-          draggable={draggable}
-        />
-        <button onClick={() => setDraggable(false)}>지도 드래그 이동 끄기</button>
-        <button onClick={() => setDraggable(true)}>지도 드래그 이동 켜기</button>
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+<LiveEditor>{codesource}</LiveEditor>
