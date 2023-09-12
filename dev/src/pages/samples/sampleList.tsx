@@ -7,6 +7,9 @@ import AddMapControl from "./addMapControl"
 import AddMapCustomControl from "./addMapCustomControl"
 import DisableMapDragMove from "./disableMapDragMove"
 import EnableDisableZoomInOut from "./enableDisableZoomInOut"
+import AddTrafficOverlay from "./addTrafficOverlay"
+import AddRoadviewOverlay from "./addRoadviewOverlay"
+import AddTerrainOverlay from "./addTerrainOverlay"
 
 export const samples: RouteObject[] = [
   {
@@ -40,5 +43,17 @@ export const samples: RouteObject[] = [
   {
     path: "enableDisableZoomInOut",
     element: <EnableDisableZoomInOut />,
+  },
+  {
+    path: "addTrafficOverlay",
+    element: <AddTrafficOverlay />,
+  },
+  {
+    path: "addRoadviewOverlay",
+    element: <AddRoadviewOverlay />,
+  },
+  {
+    path: "addTerrainOverlay",
+    element: <AddTerrainOverlay />,
   },
 ]

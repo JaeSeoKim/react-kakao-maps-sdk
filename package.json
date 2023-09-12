@@ -28,7 +28,7 @@
   },
   "lint-staged": {
     "*.{js,cjs,mjs,jsx,ts,tsx}": "eslint --cache --fix",
-    "*.{js,cjs,mjs,jsx,ts,tsx,json,html,css}": "prettier --write"
+    "*.{js,cjs,mjs,jsx,ts,tsx,json,html,css,md,mdx}": "prettier --write"
   },
   "pnpm": {
     "peerDependencyRules": {
