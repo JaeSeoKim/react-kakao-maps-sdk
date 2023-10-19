@@ -139,6 +139,7 @@ module.exports = {
         alias: {
           react: path.resolve(__dirname, "./node_modules/react"),
           "react-dom": path.resolve(__dirname, "./node_modules/react-dom"),
+          "~samples": path.resolve(__dirname, "./../dev/src/pages/samples/"),
         },
       },
     ],
