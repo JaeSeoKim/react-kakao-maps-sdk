@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.22
+
+#### Fixed 🐞
+
+- next.js SSR시 간혈적으로 document 객체를 접근하여 발생하는 오류 수정 [#62](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/62)
+
 ### v1.1.21
 
 #### Feat ✨
