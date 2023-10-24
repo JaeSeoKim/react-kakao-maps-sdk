@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { Loader, LoaderOptions } from "../util/kakaoMapApiLoader"
 
 /**
@@ -15,20 +15,26 @@ export const useKakaoLoader = (options: LoaderOptions) => {
     [loading: boolean, error: ErrorEvent | undefined]
   >([true, undefined])
 
-  const loader = useMemo(
-    () => new Loader(options),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [JSON.stringify(options)],
-  )
+  useEffect(
+    () => {
+      new Loader({ ...options })
+        .load()
+        .then(() => setState([false, undefined]))
+        .catch((error) => {
+          setState([false, error])
+        })
+    },
 
-  useEffect(() => {
-    loader
-      .load()
-      .then(() => setState([false, undefined]))
-      .catch((error) => {
-        setState([false, error])
-      })
-  }, [loader])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      options.appkey,
+      options.id,
+      options.libraries,
+      options.nonce,
+      options.retries,
+      options.url,
+    ],
+  )
 
   return state
 }
