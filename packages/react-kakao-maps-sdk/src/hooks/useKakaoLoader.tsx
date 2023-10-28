@@ -29,10 +29,10 @@ export const useKakaoLoader = (options: LoaderOptions) => {
     [
       options.appkey,
       options.id,
-      options.libraries,
       options.nonce,
       options.retries,
       options.url,
+      ...options.libraries
     ],
   )
 
