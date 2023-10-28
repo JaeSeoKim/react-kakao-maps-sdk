@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.23
+
+#### Fixed 🐞
+
+- `useKakaoLoader` 내부에서 hook dependency가 잘못구성된 버그 수정 [#63](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/63)
+
 ### v1.1.22
 
 #### Fixed 🐞
