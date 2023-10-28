@@ -26,14 +26,7 @@ export const useKakaoLoader = (options: LoaderOptions) => {
     },
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      options.appkey,
-      options.id,
-      options.nonce,
-      options.retries,
-      options.url,
-      ...options.libraries
-    ],
+    [JSON.stringify(options)],
   )
 
   return state
