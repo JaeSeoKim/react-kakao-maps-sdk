@@ -27,6 +27,7 @@ export default function Document() {
         <NextScript />
         <Script
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다.&libraries=services,clusterer&autoload=false"
+          crossOrigin={undefined}
           strategy="beforeInteractive"
         />
       </body>
