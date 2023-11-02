@@ -92,22 +92,32 @@ export class Loader {
     this.retries = retries
     this.url = url
 
-    if (Loader.instance) {
-      if (
-        Loader.instance.status !== LoaderStatus.FAILURE &&
-        !Loader.equalOptions(this.options, Loader.instance.options)
-      ) {
-        throw new Error(
-          `Loader must not be called again with different options. \n${JSON.stringify(
-            this.options,
-            null,
-            2,
-          )}\n!==\n${JSON.stringify(Loader.instance.options, null, 2)}`,
-        )
+    if (
+      Loader.instance &&
+      !Loader.equalOptions(this.options, Loader.instance.options)
+    ) {
+      if (!Loader.equalOptions(this.options, Loader.instance.options)) {
+        switch (Loader.instance.status) {
+          case LoaderStatus.FAILURE:
+            throw new Error(
+              `Loader must not be called again with different options. \n${JSON.stringify(
+                this.options,
+                null,
+                2,
+              )}\n!==\n${JSON.stringify(Loader.instance.options, null, 2)}`,
+            )
+            break
+          default:
+            Loader.instance.reset()
+            Loader.instance = this
+            break
+        }
       }
-      Loader.instance.reset()
     }
-    Loader.instance = this
+    if (!Loader.instance) {
+      Loader.instance = this
+    }
+    return Loader.instance
   }
 
   public get options() {
@@ -276,16 +286,16 @@ export class Loader {
 
   private callback() {
     kakao.maps.load(() => {
-      this.done = true
-      this.loading = false
+      Loader.instance.done = true
+      Loader.instance.loading = false
 
-      this.callbacks.forEach((cb) => {
-        cb(this.onEvent)
+      Loader.instance.callbacks.forEach((cb) => {
+        cb(Loader.instance.onEvent)
       })
-      this.callbacks = []
+      Loader.instance.callbacks = []
 
       Loader.loadEventCallback.forEach((cb) => {
-        cb(this.onEvent)
+        cb(Loader.instance.onEvent)
       })
     })
   }

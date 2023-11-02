@@ -1,10 +1,12 @@
 import { Map, useKakaoLoader } from "react-kakao-maps-sdk"
 
 export function Dev() {
-  useKakaoLoader({
+  const [loading, error] = useKakaoLoader({
     appkey: import.meta.env.VITE_KAKAOMAP_API_KEY,
     libraries: ["clusterer", "drawing", "services"],
   })
+
+  console.log(loading, error)
 
   return (
     <Map // 지도를 표시할 Container
