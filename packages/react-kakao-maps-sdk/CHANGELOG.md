@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.24
+
+#### Fixed 🐞
+
+- `useKakaoLoader` Loader 객체가 중복 생성시 잘못 스크립트를 초기화 시키는 오류 수정 [#66](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/66) [#65](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/65)
+
 ### v1.1.23
 
 #### Fixed 🐞
