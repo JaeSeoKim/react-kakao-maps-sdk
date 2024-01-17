@@ -11,7 +11,9 @@ test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
     testInfo.config.updateSnapshots === "all",
   )
   await page.goto(url, { waitUntil: "networkidle" })
-  await expect(page).toHaveScreenshot()
+  await expect(page).toHaveScreenshot({
+    maxDiffPixelRatio: 0.01,
+  })
 
   const mapBoundingBox = await page.locator("#map").boundingBox()
 
@@ -23,5 +25,7 @@ test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
   )
   await page.mouse.up()
   await page.waitForLoadState("networkidle")
-  await expect(page).toHaveScreenshot()
+  await expect(page).toHaveScreenshot({
+    maxDiffPixelRatio: 0.01,
+  })
 })

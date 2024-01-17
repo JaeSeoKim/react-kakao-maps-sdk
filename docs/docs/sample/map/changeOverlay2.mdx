@@ -7,61 +7,6 @@ sidebar_position: 12
 
 > original docs : https://apis.map.kakao.com/web/sample/changeOverlay2/
 
-```jsx live
-function(){
-  const Main = () => {
-    const [mapTypeIds, setMapTypeIds] = useState([])
+import codesource from "!!raw-loader!~samples/changeOverlay2.tsx"
 
-    const handler = (target, type) => {
-      if (target.checked) {
-        return setMapTypeIds([...mapTypeIds, type])
-      }
-      setMapTypeIds(
-        mapTypeIds.filter(
-          (mapTypeId) => mapTypeId !== type
-        )
-      )
-    }
-
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 37.566826,
-            lng: 126.9786567,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={7} // 지도의 확대 레벨
-        >
-          {mapTypeIds.map(mapTypeId => <MapTypeId type={mapTypeId} />)}
-        </Map>
-        <input
-          type="checkbox"
-          onChange={({ target }) => handler(target, kakao.maps.MapTypeId.TERRAIN)}
-        />
-        지적편집도 정보 보기
-        <input
-          type="checkbox"
-          onChange={({ target }) => handler(target, kakao.maps.MapTypeId.TRAFFIC)}
-        />
-        지형정보 보기
-        <input
-          type="checkbox"
-          onChange={({ target }) => handler(target, kakao.maps.MapTypeId.BICYCLE)}
-        />
-        교통정보 보기
-        <input
-          type="checkbox"
-          onChange={({ target }) => handler(target, kakao.maps.MapTypeId.USE_DISTRICT)}
-        />
-        지적편집도 보기
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+<LiveEditor>{codesource}</LiveEditor>

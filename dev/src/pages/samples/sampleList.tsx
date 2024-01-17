@@ -11,6 +11,7 @@ import AddTrafficOverlay from "./addTrafficOverlay"
 import AddRoadviewOverlay from "./addRoadviewOverlay"
 import AddTerrainOverlay from "./addTerrainOverlay"
 import ChangeOverlay1 from "./changeOverlay1"
+import ChangeOverlay2 from "./changeOverlay2"
 
 export const samples: RouteObject[] = [
   {
@@ -60,5 +61,9 @@ export const samples: RouteObject[] = [
   {
     path: "changeOverlay1",
     element: <ChangeOverlay1 />,
+  },
+  {
+    path: "changeOverlay2",
+    element: <ChangeOverlay2 />,
   },
 ]

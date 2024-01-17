@@ -7,58 +7,6 @@ sidebar_position: 11
 
 > original docs : https://apis.map.kakao.com/web/sample/changeOverlay1/
 
-```jsx live
-function(){
-  const Main = () => {
-    const [mapTypeId, setMapTypeId] = useState()
+import codesource from "!!raw-loader!~samples/changeOverlay1.tsx"
 
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 37.566826,
-            lng: 126.9786567,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={7} // 지도의 확대 레벨
-        >
-          {mapTypeId && <MapTypeId type={mapTypeId}/>}
-        </Map>
-        <button
-          onClick={() => {
-            setMapTypeId(kakao.maps.MapTypeId.TRAFFIC)
-          }}
-        >
-          교통정보 보기
-        </button>
-        <button
-          onClick={() => {
-            setMapTypeId(kakao.maps.MapTypeId.ROADVIEW)
-          }}
-        >
-          로드뷰 도로정보 보기
-        </button>
-        <button
-          onClick={() => {
-            setMapTypeId(kakao.maps.MapTypeId.TERRAIN)
-          }}
-        >
-          지형정보 보기
-        </button>
-        <button
-          onClick={() => {
-            setMapTypeId(kakao.maps.MapTypeId.USE_DISTRICT)
-          }}
-        >
-          지적편집도 보기
-        </button>
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+<LiveEditor>{codesource}</LiveEditor>
