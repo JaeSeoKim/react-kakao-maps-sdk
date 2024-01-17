@@ -162,9 +162,11 @@ export const StaticMap: StaticMapComponent = React.forwardRef(
     useKakaoMapsSetEffect(
       map,
       "setMapTypeId",
-      typeof mapTypeId === "string"
-        ? kakao.maps.MapTypeId[mapTypeId]
-        : mapTypeId!,
+      isLoaded
+        ? typeof mapTypeId === "string"
+          ? kakao.maps.MapTypeId[mapTypeId]
+          : mapTypeId!
+        : undefined!,
     )
 
     return <Container id={id} {...props} ref={container}></Container>

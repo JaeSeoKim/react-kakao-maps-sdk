@@ -364,9 +364,11 @@ export const Map: MapComponent = React.forwardRef(function Map<
   useKakaoMapsSetEffect(
     map,
     "setMapTypeId",
-    typeof mapTypeId === "string"
-      ? kakao.maps.MapTypeId[mapTypeId]
-      : mapTypeId!,
+    isLoaded
+      ? typeof mapTypeId === "string"
+        ? kakao.maps.MapTypeId[mapTypeId]
+        : mapTypeId!
+      : undefined!,
   )
   useKakaoMapsSetEffect(map, "setProjectionId", projectionId!)
   useKakaoMapsSetEffect(map, "setMinLevel", maxLevel!)
