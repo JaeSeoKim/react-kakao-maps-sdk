@@ -6,6 +6,7 @@ const builtinModules = require("builtin-modules")
 const { babel } = require("@rollup/plugin-babel")
 const { visualizer } = require("rollup-plugin-visualizer")
 const preserveDirectives = require("rollup-plugin-preserve-directives").default
+const terser = require("@rollup/plugin-terser").default
 
 exports.generateRollupConfig = function generateRollupConfig({
   packageDir,
@@ -58,8 +59,8 @@ exports.generateRollupConfig = function generateRollupConfig({
         format: format,
         dir: path.dirname(output),
         entryFileNames: `[name]${path.extname(output)}`,
-        preserveModules: true,
-        preserveModulesRoot: path.dirname(input),
+        preserveModules: isESMModule,
+        preserveModulesRoot: isESMModule ? path.dirname(input) : undefined,
         ...(isESMModule ? {} : { exports: "named" }),
       },
       external: externalOption,
@@ -79,9 +80,18 @@ exports.generateRollupConfig = function generateRollupConfig({
             ],
           ],
         }),
-        preserveDirectives(),
+        ...(isESMModule ? [preserveDirectives()] : [terser()]),
         json(),
-        ...(analyze ? [visualizer()] : []),
+        ...(analyze
+          ? [
+              visualizer({
+                filename: `${isESMModule ? "esm" : "dist"}-stats.html`,
+                open: true,
+                brotliSize: true,
+                template: "treemap",
+              }),
+            ]
+          : []),
       ],
       onwarn(warning, warn) {
         if (warning.code !== "MODULE_LEVEL_DIRECTIVE") {

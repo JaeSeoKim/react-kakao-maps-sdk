@@ -10,7 +10,7 @@ _node_modules
 dist
 esm
 
-stats.html
+*-stats.html
 
 # misc
 *.tsbuildinfo
