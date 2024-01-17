@@ -8,6 +8,7 @@ import React, {
 import ReactDOM from "react-dom"
 import { useMap } from "../hooks/useMap"
 import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export interface CustomOverlayMapProps {
   /**
@@ -102,14 +103,8 @@ export const CustomOverlayMap = React.forwardRef<
     if (onCreate) onCreate(overlay)
   }, [overlay, onCreate])
 
-  useLayoutEffect(() => {
-    overlay.setPosition(overlayPosition)
-  }, [overlay, overlayPosition])
-
-  useLayoutEffect(() => {
-    if (!zIndex) return
-    overlay.setZIndex(zIndex)
-  }, [overlay, zIndex])
+  useKakaoMapsSetEffect(overlay, "setPosition", overlayPosition)
+  useKakaoMapsSetEffect(overlay, "setZIndex", zIndex!)
 
   return (
     container.current.parentElement &&

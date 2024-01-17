@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useMemo } from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import { useMap } from "../hooks/useMap"
 
 export interface ZoomControlProps {
@@ -32,15 +32,13 @@ export const ZoomControl = React.forwardRef<
 
   useImperativeHandle(ref, () => ZoomControl, [ZoomControl])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     map.addControl(ZoomControl, position)
 
     return () => {
       map.removeControl(ZoomControl)
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map, position])
+  }, [map, position, ZoomControl])
 
   return null
 })

@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export interface CircleProps {
   /**
@@ -144,18 +145,9 @@ export const Circle = React.forwardRef<kakao.maps.Circle, CircleProps>(
       if (onCreate) onCreate(circle)
     }, [circle, onCreate])
 
-    useLayoutEffect(() => {
-      if (circle) circle.setPosition(circleCenter)
-    }, [circle, circleCenter])
-
-    useLayoutEffect(() => {
-      circle.setRadius(radius)
-    }, [circle, radius])
-
-    useLayoutEffect(() => {
-      if (!zIndex) return
-      circle.setZIndex(zIndex)
-    }, [circle, zIndex])
+    useKakaoMapsSetEffect(circle, "setPosition", circleCenter!)
+    useKakaoMapsSetEffect(circle, "setRadius", radius!)
+    useKakaoMapsSetEffect(circle, "setZIndex", zIndex!)
 
     useLayoutEffect(() => {
       circle.setOptions({

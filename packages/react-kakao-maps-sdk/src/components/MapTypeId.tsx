@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useLayoutEffect } from "react"
 import { useMap } from "../hooks/useMap"
 
 export interface MapTypeIdProps {
@@ -15,9 +15,8 @@ export const MapTypeId: React.FC<MapTypeIdProps> = ({ type: _type }) => {
   const map = useMap(`MapTypeId`)
   const type = typeof _type === "string" ? kakao.maps.MapTypeId[_type] : _type
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     map.addOverlayMapTypeId(type)
-
     return () => {
       map.removeOverlayMapTypeId(type)
     }

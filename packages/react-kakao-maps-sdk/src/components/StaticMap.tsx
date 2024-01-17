@@ -5,6 +5,7 @@ import {
   CompatibleReactElement,
   PolymorphicComponentPropsWithOutRef,
 } from "../types"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export interface _StaticMapProps {
   /**
@@ -157,18 +158,14 @@ export const StaticMap: StaticMapComponent = React.forwardRef(
       if (map) map.setCenter(new kakao.maps.LatLng(center.lat, center.lng))
     }, [map, center.lat, center.lng])
 
-    useIsomorphicLayoutEffect(() => {
-      if (map && level) map.setLevel(level)
-    }, [map, level])
-
-    useIsomorphicLayoutEffect(() => {
-      if (map && mapTypeId)
-        map.setMapTypeId(
-          typeof mapTypeId === "string"
-            ? kakao.maps.MapTypeId[mapTypeId]
-            : mapTypeId,
-        )
-    }, [map, mapTypeId])
+    useKakaoMapsSetEffect(map, "setLevel", level!)
+    useKakaoMapsSetEffect(
+      map,
+      "setMapTypeId",
+      typeof mapTypeId === "string"
+        ? kakao.maps.MapTypeId[mapTypeId]
+        : mapTypeId!,
+    )
 
     return <Container id={id} {...props} ref={container}></Container>
   },

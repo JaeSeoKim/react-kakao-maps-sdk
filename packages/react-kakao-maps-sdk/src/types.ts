@@ -37,3 +37,8 @@ export type CompatibleReactElement =
   React.ExoticComponent extends OldReactExoticComponent
     ? React.ReactElement
     : React.ReactNode
+
+/**
+ * Obtain the parameters of a function type in a tuple
+ */
+export type _Parameters<T> = T extends (...args: infer P) => unknown ? P : never

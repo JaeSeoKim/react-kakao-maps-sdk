@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useImperativeHandle, useMemo } from "react"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 interface LatLng {
   lat: number
@@ -159,13 +160,8 @@ export const Polygon = React.forwardRef<kakao.maps.Polygon, PolygonProps>(
       strokeWeight,
     ])
 
-    useLayoutEffect(() => {
-      polygon.setPath(polygonPath)
-    }, [polygon, polygonPath])
-
-    useLayoutEffect(() => {
-      if (zIndex) polygon.setZIndex(zIndex)
-    }, [polygon, zIndex])
+    useKakaoMapsSetEffect(polygon, "setPath", polygonPath)
+    useKakaoMapsSetEffect(polygon, "setZIndex", zIndex!)
 
     useKakaoEvent(polygon, "mouseover", onMouseover)
     useKakaoEvent(polygon, "mouseout", onMouseout)

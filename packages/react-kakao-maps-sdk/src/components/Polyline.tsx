@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 interface LatLng {
   lat: number
@@ -151,13 +152,8 @@ export const Polyline = React.forwardRef<kakao.maps.Polyline, PolylineProps>(
       strokeWeight,
     ])
 
-    useLayoutEffect(() => {
-      polyline.setPath(polyLinePath)
-    }, [polyline, polyLinePath])
-
-    useLayoutEffect(() => {
-      if (zIndex) polyline.setZIndex(zIndex)
-    }, [polyline, zIndex])
+    useKakaoMapsSetEffect(polyline, "setPath", polyLinePath)
+    useKakaoMapsSetEffect(polyline, "setZIndex", zIndex!)
 
     useKakaoEvent(polyline, "mouseover", onMouseover)
     useKakaoEvent(polyline, "mouseout", onMouseout)

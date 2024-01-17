@@ -7,13 +7,14 @@ import React, {
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
 import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export const KakaoMapMarkerClustererContext =
   React.createContext<kakao.maps.MarkerClusterer>(
     undefined as unknown as kakao.maps.MarkerClusterer,
   )
 
-export interface MarkerClustererProps {
+export type MarkerClustererProps = React.PropsWithChildren<{
   /**
    * 클러스터의 격자 크기. 화면 픽셀 단위이며 해당 격자 영역 안에 마커가 포함되면 클러스터에 포함시킨다
    * @default 60
@@ -120,13 +121,25 @@ export interface MarkerClustererProps {
    * MarkerClusterer 생성 후 해당 객체를 전달하는 함수
    */
   onCreate?: (target: kakao.maps.MarkerClusterer) => void
-}
+}>
 
 export const MarkerClusterer = React.forwardRef<
   kakao.maps.MarkerClusterer,
-  React.PropsWithChildren<MarkerClustererProps>
+  MarkerClustererProps
 >(function MarkerClusterer(
   {
+    onClusterclick,
+    onClusterdblclick,
+    onClustered,
+    onClusterout,
+    onClusterover,
+    onClusterrightclick,
+    onCreate,
+    ...props
+  },
+  ref,
+) {
+  const {
     children,
     averageCenter,
     calculator,
@@ -138,16 +151,8 @@ export const MarkerClusterer = React.forwardRef<
     minLevel,
     styles,
     texts,
-    onClusterclick,
-    onClusterdblclick,
-    onClustered,
-    onClusterout,
-    onClusterover,
-    onClusterrightclick,
-    onCreate,
-  },
-  ref,
-) {
+  } = props
+
   const map = useMap(`MarkerClusterer`)
   const markerClusterer = useMemo(() => {
     if (!window.kakao.maps.MarkerClusterer) {
@@ -174,54 +179,26 @@ export const MarkerClusterer = React.forwardRef<
   useImperativeHandle(ref, () => markerClusterer!, [markerClusterer])
 
   useLayoutEffect(() => {
-    markerClusterer?.setMap(map)
+    if (!markerClusterer) return
+
+    markerClusterer.setMap(map)
+    return () => {
+      markerClusterer.setMap(null)
+    }
   }, [map, markerClusterer])
 
   useLayoutEffect(() => {
     if (markerClusterer && onCreate) onCreate(markerClusterer)
   }, [markerClusterer, onCreate])
 
-  useLayoutEffect(() => {
-    if (markerClusterer && gridSize) {
-      markerClusterer.setGridSize(gridSize)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, gridSize])
-
-  useLayoutEffect(() => {
-    if (markerClusterer && minClusterSize) {
-      markerClusterer.setMinClusterSize(minClusterSize)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, minClusterSize])
-
-  useLayoutEffect(() => {
-    if (markerClusterer && typeof averageCenter !== "undefined") {
-      markerClusterer.setAverageCenter(averageCenter)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, averageCenter])
-
-  useLayoutEffect(() => {
-    if (markerClusterer && minLevel) {
-      markerClusterer.setMinLevel(minLevel)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, minLevel])
-
-  useLayoutEffect(() => {
-    if (markerClusterer && texts) {
-      markerClusterer.setTexts(texts)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, texts])
-
-  useLayoutEffect(() => {
-    if (markerClusterer && calculator) {
-      markerClusterer.setCalculator(calculator)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, calculator])
+  useKakaoMapsSetEffect(markerClusterer, "setGridSize", gridSize!)
+  useKakaoMapsSetEffect(markerClusterer, "setMinClusterSize", minClusterSize!)
+  useKakaoMapsSetEffect(markerClusterer, "setAverageCenter", averageCenter!)
+  useKakaoMapsSetEffect(markerClusterer, "setAverageCenter", averageCenter!)
+  useKakaoMapsSetEffect(markerClusterer, "setMinLevel", minLevel!)
+  useKakaoMapsSetEffect(markerClusterer, "setTexts", texts!)
+  useKakaoMapsSetEffect(markerClusterer, "setCalculator", calculator!)
+  useKakaoMapsSetEffect(markerClusterer, "setStyles", styles!)
 
   useKakaoEvent(markerClusterer, "clustered", onClustered)
   useKakaoEvent(markerClusterer, "clusterclick", onClusterclick)
@@ -230,13 +207,6 @@ export const MarkerClusterer = React.forwardRef<
   useKakaoEvent(markerClusterer, "clusterdblclick", onClusterdblclick)
   useKakaoEvent(markerClusterer, "clusterrightclick", onClusterrightclick)
 
-  useLayoutEffect(() => {
-    if (markerClusterer && styles) {
-      markerClusterer.setStyles(styles)
-      markerClusterer.redraw()
-    }
-  }, [markerClusterer, styles])
-
   if (!markerClusterer) {
     return null
   }
@@ -244,14 +214,12 @@ export const MarkerClusterer = React.forwardRef<
   return (
     <KakaoMapMarkerClustererContext.Provider value={markerClusterer}>
       {children}
-      <MarkerClustererRedraw>{children}</MarkerClustererRedraw>
+      <MarkerClustererRedraw {...props} />
     </KakaoMapMarkerClustererContext.Provider>
   )
 })
 
-const MarkerClustererRedraw: React.FC<{ children: React.ReactNode }> = ({
-  children: _,
-}) => {
+const MarkerClustererRedraw: React.FC<MarkerClustererProps> = () => {
   const markerClusterer = useContext(KakaoMapMarkerClustererContext)
   useIsomorphicLayoutEffect(() => {
     markerClusterer.redraw()

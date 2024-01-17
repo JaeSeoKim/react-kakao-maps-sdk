@@ -7,6 +7,7 @@ import {
 } from "../types"
 import { Loader } from "../util/kakaoMapApiLoader"
 import { SIGNATURE } from "../util/constants"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export const KakaoMapContext = React.createContext<kakao.maps.Map>(
   undefined as unknown as kakao.maps.Map,
@@ -97,14 +98,17 @@ export type _MapProps = {
   /**
    * 키보드의 방향키와 +, – 키로 지도 이동,확대,축소 가능 여부 (기본값: false)
    */
-  keyboardShortcuts?:
-    | boolean
-    | {
-        /**
-         * 지도 이동 속도
-         */
-        speed: number
-      }
+  keyboardShortcuts?: boolean
+  // | {
+  //     /**
+  //      * 지도 이동 속도
+  //      *
+  //      * 문서상으로는 존재하지만, 실제로 속도가 반영되는 것은 없는 것으로 보임.
+  //      *
+  //      * @docs https://apis.map.kakao.com/web/documentation/#Map
+  //      */
+  //     speed: number
+  //   }
 
   /**
    * map 생성 후 해당 객체를 전달하는 함수
@@ -353,50 +357,20 @@ export const Map: MapComponent = React.forwardRef(function Map<
     // @ts-ignore
   }, [map, center.lat, center.lng, center.x, center.y])
 
-  useIsomorphicLayoutEffect(() => {
-    if (!map || typeof draggable === "undefined") return
-    map.setDraggable(draggable)
-  }, [map, draggable])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || typeof zoomable === "undefined") return
-    map.setZoomable(zoomable)
-  }, [map, zoomable])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || !keyboardShortcuts || typeof keyboardShortcuts !== "boolean")
-      return
-    map.setKeyboardShortcuts(keyboardShortcuts)
-  }, [map, keyboardShortcuts])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || !level) return
-    map.setLevel(level)
-  }, [map, level])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || !mapTypeId) return
-    map.setMapTypeId(
-      typeof mapTypeId === "string"
-        ? kakao.maps.MapTypeId[mapTypeId]
-        : mapTypeId,
-    )
-  }, [map, mapTypeId])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || !projectionId) return
-    map.setProjectionId(projectionId)
-  }, [map, projectionId])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || !maxLevel) return
-    map.setMaxLevel(maxLevel)
-  }, [map, maxLevel])
-
-  useIsomorphicLayoutEffect(() => {
-    if (!map || !minLevel) return
-    map.setMinLevel(minLevel)
-  }, [map, minLevel])
+  useKakaoMapsSetEffect(map, "setDraggable", draggable!)
+  useKakaoMapsSetEffect(map, "setZoomable", zoomable!)
+  useKakaoMapsSetEffect(map, "setKeyboardShortcuts", keyboardShortcuts!)
+  useKakaoMapsSetEffect(map, "setLevel", level!)
+  useKakaoMapsSetEffect(
+    map,
+    "setMapTypeId",
+    typeof mapTypeId === "string"
+      ? kakao.maps.MapTypeId[mapTypeId]
+      : mapTypeId!,
+  )
+  useKakaoMapsSetEffect(map, "setProjectionId", projectionId!)
+  useKakaoMapsSetEffect(map, "setMinLevel", maxLevel!)
+  useKakaoMapsSetEffect(map, "setMaxLevel", minLevel!)
 
   useKakaoEvent(map, "bounds_changed", onBoundsChanged)
   useKakaoEvent(map, "center_changed", onCenterChanged)

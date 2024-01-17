@@ -6,6 +6,7 @@ import React, {
 } from "react"
 import ReactDOM from "react-dom"
 import { useRoadview } from "../hooks/useRoadview"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export interface CustomOverlayRoadviewProps {
   /**
@@ -156,24 +157,10 @@ export const CustomOverlayRoadview = React.forwardRef<
     if (onCreate) onCreate(overlay)
   }, [overlay, onCreate])
 
-  useLayoutEffect(() => {
-    overlay.setPosition(overlayPosition)
-  }, [overlay, overlayPosition])
-
-  useLayoutEffect(() => {
-    if (!zIndex) return
-    overlay.setZIndex(zIndex)
-  }, [overlay, zIndex])
-
-  useLayoutEffect(() => {
-    if (!altitude) return
-    overlay.setAltitude(altitude)
-  }, [overlay, altitude])
-
-  useLayoutEffect(() => {
-    if (!range) return
-    overlay.setRange(range)
-  }, [overlay, range])
+  useKakaoMapsSetEffect(overlay, "setPosition", overlayPosition)
+  useKakaoMapsSetEffect(overlay, "setZIndex", zIndex!)
+  useKakaoMapsSetEffect(overlay, "setAltitude", altitude!)
+  useKakaoMapsSetEffect(overlay, "setRange", range!)
 
   return (
     container.current.parentElement &&

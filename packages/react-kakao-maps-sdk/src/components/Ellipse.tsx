@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 export interface EllipseProps {
   /**
@@ -158,18 +159,9 @@ export const Ellipse = React.forwardRef<kakao.maps.Ellipse, EllipseProps>(
       if (onCreate) onCreate(ellipse)
     }, [ellipse, onCreate])
 
-    useLayoutEffect(() => {
-      if (ellipse) ellipse.setPosition(ellipseCenter)
-    }, [ellipse, ellipseCenter])
-
-    useLayoutEffect(() => {
-      ellipse.setRadius(rx, ry)
-    }, [ellipse, rx, ry])
-
-    useLayoutEffect(() => {
-      if (!zIndex) return
-      ellipse.setZIndex(zIndex)
-    }, [ellipse, zIndex])
+    useKakaoMapsSetEffect(ellipse, "setPosition", ellipseCenter)
+    useKakaoMapsSetEffect(ellipse, "setRadius", rx, ry)
+    useKakaoMapsSetEffect(ellipse, "setZIndex", zIndex!)
 
     useLayoutEffect(() => {
       ellipse.setOptions({

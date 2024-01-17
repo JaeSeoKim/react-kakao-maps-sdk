@@ -5,6 +5,7 @@ import React, {
   useRef,
 } from "react"
 import ReactDom from "react-dom"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 interface InfoWindowProps {
   map: kakao.maps.Map | kakao.maps.Roadview
@@ -91,25 +92,10 @@ export const InfoWindow = React.forwardRef<
     if (onCreate) onCreate(infoWindow)
   }, [infoWindow, onCreate])
 
-  useLayoutEffect(() => {
-    if (!infoWindow) return
-    infoWindow.setPosition(position)
-  }, [infoWindow, position])
-
-  useLayoutEffect(() => {
-    if (!infoWindow || !altitude) return
-    infoWindow.setAltitude(altitude)
-  }, [infoWindow, altitude])
-
-  useLayoutEffect(() => {
-    if (!infoWindow || !range) return
-    infoWindow.setRange(range)
-  }, [infoWindow, range])
-
-  useLayoutEffect(() => {
-    if (!infoWindow || !zIndex) return
-    infoWindow.setZIndex(zIndex)
-  }, [infoWindow, zIndex])
+  useKakaoMapsSetEffect(infoWindow, "setPosition", position)
+  useKakaoMapsSetEffect(infoWindow, "setAltitude", altitude!)
+  useKakaoMapsSetEffect(infoWindow, "setRange", range!)
+  useKakaoMapsSetEffect(infoWindow, "setZIndex", zIndex!)
 
   return (
     container.current.parentElement &&

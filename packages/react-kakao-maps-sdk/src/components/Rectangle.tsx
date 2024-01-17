@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
+import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
 interface LatLng {
   lat: number
@@ -158,13 +159,8 @@ export const Rectangle = React.forwardRef<kakao.maps.Rectangle, RectangleProps>(
       strokeWeight,
     ])
 
-    useLayoutEffect(() => {
-      rectangle.setBounds(rectangleBounds)
-    }, [rectangle, rectangleBounds])
-
-    useLayoutEffect(() => {
-      if (zIndex) rectangle.setZIndex(zIndex)
-    }, [rectangle, zIndex])
+    useKakaoMapsSetEffect(rectangle, "setBounds", rectangleBounds)
+    useKakaoMapsSetEffect(rectangle, "setZIndex", zIndex!)
 
     useKakaoEvent(rectangle, "mouseover", onMouseover)
     useKakaoEvent(rectangle, "mouseout", onMouseout)
