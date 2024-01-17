@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.26
+
+#### Fixed 🐞
+
+- `Map`, `StaticMap` 에서 kakao.maps가 load 되기전에 `kakao.maps.MapTypeId` 를 접근하던 오류 수정
+
 ### v1.1.25
 
 #### Refactor ♻️
