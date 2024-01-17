@@ -12,6 +12,7 @@ import AddRoadviewOverlay from "./addRoadviewOverlay"
 import AddTerrainOverlay from "./addTerrainOverlay"
 import ChangeOverlay1 from "./changeOverlay1"
 import ChangeOverlay2 from "./changeOverlay2"
+import SetBounds from "./setBounds"
 
 export const samples: RouteObject[] = [
   {
@@ -65,5 +66,9 @@ export const samples: RouteObject[] = [
   {
     path: "changeOverlay2",
     element: <ChangeOverlay2 />,
+  },
+  {
+    path: "setBounds",
+    element: <SetBounds />,
   },
 ]
