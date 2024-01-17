@@ -8,6 +8,8 @@ on:
         description: 작업 트리거
         required: false
   push:
+    branches:
+      - main
     paths:
       - "docs/**"
 
