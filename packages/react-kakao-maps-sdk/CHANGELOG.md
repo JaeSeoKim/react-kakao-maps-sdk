@@ -1,5 +1,17 @@
 # Changelog ✍️
 
+### v1.1.25
+
+#### Refactor ♻️
+
+- Reduce bundle size (- 2.92kb)
+  - before: esm root 60.13kb
+  - after: esm root 57.21kb
+
+#### Fixed 🐞
+
+- `MarkerClusterer` 가 Un Mount 되었을 때 지도에서 제거되지 않던 오류 수정
+
 ### v1.1.24
 
 #### Fixed 🐞
