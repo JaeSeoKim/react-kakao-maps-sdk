@@ -11,6 +11,7 @@ on:
     paths:
       - "docs/**"
       - "packages/react-kakao-maps-sdk/src/**"
+      - "packages/react-kakao-maps-sdk/__test__/**"
 
 env:
   CI: true
