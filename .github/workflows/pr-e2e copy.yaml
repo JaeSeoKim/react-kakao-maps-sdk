@@ -36,7 +36,7 @@ jobs:
         run: pnpm install
       - name: Install Playwright Browsers
         working-directory: packages/react-kakao-maps-sdk
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
       - name: Make Playwright tests snapshot
         working-directory: packages/react-kakao-maps-sdk
         run: |

@@ -1,4 +1,9 @@
-import { test, expect } from "@playwright/test"
+import { test, expect, Page } from "@playwright/test"
+
+const waitNetworkIdleWithTimeout = async (page: Page, timeout?: number) => {
+  await page.waitForLoadState("networkidle")
+  await page.waitForTimeout(timeout ?? 300)
+}
 
 const getUrl = (id: string, isUpdateSanpShots: boolean = false) =>
   isUpdateSanpShots
@@ -11,6 +16,7 @@ test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
     testInfo.config.updateSnapshots === "all",
   )
   await page.goto(url, { waitUntil: "networkidle" })
+  await waitNetworkIdleWithTimeout(page)
   await expect(page).toHaveScreenshot("firstRender.png")
 
   const drag = async () => {
@@ -27,11 +33,13 @@ test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
 
   await page.getByText("지도 드래그 이동 끄기").click()
   await drag()
+  await waitNetworkIdleWithTimeout(page)
   expect(await page.screenshot()).toMatchSnapshot("firstRender.png")
   await expect(page).toHaveScreenshot()
 
   await page.getByText("지도 드래그 이동 켜기").click()
   await drag()
+  await waitNetworkIdleWithTimeout(page)
   expect(await page.screenshot()).not.toMatchSnapshot("firstRender.png")
   await expect(page).toHaveScreenshot()
 })
