@@ -15,6 +15,7 @@ import ChangeOverlay2 from "./changeOverlay2"
 import SetBounds from "./setBounds"
 import MapRelayout from "./mapRelayout"
 import AddMapClickEvent from "./addMapClickEvent"
+import AddMapClickEventWithMarker from "./addMapClickEventWithMarker"
 
 export const samples: RouteObject[] = [
   {
@@ -80,5 +81,9 @@ export const samples: RouteObject[] = [
   {
     path: "addMapClickEvent",
     element: <AddMapClickEvent />,
+  },
+  {
+    path: "addMapClickEventWithMarker",
+    element: <AddMapClickEventWithMarker />,
   },
 ]
