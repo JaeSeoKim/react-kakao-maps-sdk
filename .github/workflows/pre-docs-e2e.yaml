@@ -14,6 +14,8 @@ on:
 
 env:
   CI: true
+  KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
+  VITE_KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
 
 jobs:
   test:
@@ -44,12 +46,6 @@ jobs:
       - name: Install Playwright Browsers
         working-directory: packages/react-kakao-maps-sdk
         run: npx playwright install --with-deps
-      - name: Setup .env
-        run: |
-          echo "KAKAOMAP_API_KEY=$KAKAOMAP_API_KEY" > ./sample-original/.env
-          echo "VITE_KAKAOMAP_API_KEY=$KAKAOMAP_API_KEY" > ./dev/.env
-        env:
-          KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
       - name: Make Playwright tests snapshot
         working-directory: packages/react-kakao-maps-sdk
         run: |
