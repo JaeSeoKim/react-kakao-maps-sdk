@@ -10,41 +10,6 @@ sidebar_position: 14
 
 > original docs : https://apis.map.kakao.com/web/sample/mapRelayout/
 
-```jsx live
-function(){
-  const Main = () => {
-    const mapRef = useRef()
-    const [style, setStyle] = useState({
-      width: "100%",
-      height: "450px",
-    })
+import codesource from "!!raw-loader!~samples/mapRelayout.tsx"
 
-    useEffect(() => {
-      const map = mapRef.current
-      if(map) map.relayout()
-    }, [style])
-
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 33.450701,
-            lng: 126.570667,
-          }}
-          style={style}
-          level={3} // 지도의 확대 레벨
-          ref={mapRef}
-        >
-        </Map>
-        <button
-          onClick={() => setStyle({ width: "650px", height: "650px"})}
-        >
-          지도 크기 바꾸기
-        </button>
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+<LiveEditor>{codesource}</LiveEditor>
