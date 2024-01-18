@@ -1,18 +1,20 @@
-name: npm-publish
+name: pr-e2e
 on:
-  release:
-    types: [published]
+  pull_request:
+    branches: [main]
 
 env:
   CI: true
+  KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
+  VITE_KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
 
 jobs:
-  publish:
+  test:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
       - uses: pnpm/action-setup@v2
@@ -32,13 +34,19 @@ jobs:
             ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install
-
-      - name: Set publishing config
-        run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' >> .npmrc
-
-      - name: publish pacakages
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Make Playwright tests snapshot
         working-directory: packages/react-kakao-maps-sdk
         run: |
-          pnpm publish --no-git-checks --access public --tag latest
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+          pnpm run test -u
+      - name: Run Playwright tests
+        working-directory: packages/react-kakao-maps-sdk
+        run: |
+          pnpm run test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: pr-playwright-report
+          path: packages/react-kakao-maps-sdk/playwright-report/
+          retention-days: 15

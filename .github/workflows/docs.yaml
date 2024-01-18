@@ -1,19 +1,7 @@
 name: docs
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
-    inputs:
-      work:
-        description: 작업 트리거
-        required: false
-  push:
-    branches:
-      - main
-    paths:
-      - "docs/**"
   workflow_run:
-    workflows: [E2E]
+    workflows: [pre-docs-e2e]
     types: [completed]
 
 env:

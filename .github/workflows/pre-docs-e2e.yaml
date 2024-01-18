@@ -1,7 +1,20 @@
-name: E2E
+name: pre-docs-e2e
 on:
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      work:
+        description: 작업 트리거
+        required: false
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+
+env:
+  CI: true
+  KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
+  VITE_KAKAOMAP_API_KEY: ${{ secrets.KAKAOMAP_API_KEY }}
 
 jobs:
   test:
@@ -44,4 +57,4 @@ jobs:
         with:
           name: playwright-report
           path: packages/react-kakao-maps-sdk/playwright-report/
-          retention-days: 30
+          retention-days: 7
