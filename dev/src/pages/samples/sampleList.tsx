@@ -14,6 +14,7 @@ import ChangeOverlay1 from "./changeOverlay1"
 import ChangeOverlay2 from "./changeOverlay2"
 import SetBounds from "./setBounds"
 import MapRelayout from "./mapRelayout"
+import AddMapClickEvent from "./addMapClickEvent"
 
 export const samples: RouteObject[] = [
   {
@@ -75,5 +76,9 @@ export const samples: RouteObject[] = [
   {
     path: "mapRelayout",
     element: <MapRelayout />,
+  },
+  {
+    path: "addMapClickEvent",
+    element: <AddMapClickEvent />,
   },
 ]

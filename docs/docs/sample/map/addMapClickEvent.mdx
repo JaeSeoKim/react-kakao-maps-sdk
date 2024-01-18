@@ -7,33 +7,6 @@ sidebar_position: 15
 
 > original docs : https://apis.map.kakao.com/web/sample/addMapClickEvent/
 
-```jsx live
-function(){
-  const Main = () => {
-    const [position, setPosition] = useState()
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 33.450701,
-            lng: 126.570667,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={3} // 지도의 확대 레벨
-          onClick={(_t, mouseEvent) => setPosition({
-            lat: mouseEvent.latLng.getLat(),
-            lng: mouseEvent.latLng.getLng(),
-          })}
-        >
-        </Map>
-        {position && <p>{'클릭한 위치의 위도는 ' + position.lat + ' 이고, 경도는 ' + position.lng + ' 입니다'}</p>}
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+import codesource from "!!raw-loader!~samples/addMapClickEvent.tsx"
+
+<LiveEditor>{codesource}</LiveEditor>
