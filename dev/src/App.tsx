@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { samples } from "./pages/samples/sampleList"
+import { samples } from "./pages/sampleList"
 
 function App() {
   return (
