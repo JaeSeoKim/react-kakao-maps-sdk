@@ -1,17 +1,8 @@
-import { test, expect, Page } from "@playwright/test"
-
-const waitNetworkIdleWithTimeout = async (page: Page, timeout?: number) => {
-  await page.waitForLoadState("networkidle")
-  await page.waitForTimeout(timeout ?? 300)
-}
-
-const getUrl = (id: string, isUpdateSanpShots: boolean = false) =>
-  isUpdateSanpShots
-    ? `http://127.0.0.1:5252/samples/${id}.html`
-    : `/samples/${id}`
+import { test, expect } from "@playwright/test"
+import { getTestUrl, waitNetworkIdleWithTimeout } from "./util"
 
 test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
-  const url = getUrl(
+  const url = getTestUrl(
     "enableDisableZoomInOut",
     testInfo.config.updateSnapshots === "all",
   )

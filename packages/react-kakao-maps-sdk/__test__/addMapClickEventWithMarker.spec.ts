@@ -1,17 +1,13 @@
 import { test, expect } from "@playwright/test"
-
-const getUrl = (id: string, isUpdateSanpShots: boolean = false) =>
-  isUpdateSanpShots
-    ? `http://127.0.0.1:5252/samples/${id}.html`
-    : `/samples/${id}`
+import { getTestUrl, waitNetworkIdleWithTimeout } from "./util"
 
 test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
-  const url = getUrl(
+  const url = getTestUrl(
     "addMapClickEventWithMarker",
     testInfo.config.updateSnapshots === "all",
   )
   await page.goto(url, { waitUntil: "networkidle" })
-  await page.waitForLoadState("networkidle")
+  await waitNetworkIdleWithTimeout(page)
   await expect(page).toHaveScreenshot({
     maxDiffPixels: 120, // map의 center값을 넘겼지만, `map.getCenter()` 시 넘어오는 값이 정확하게 일치하지 않아서 fail 나는 부분을 무시
   })

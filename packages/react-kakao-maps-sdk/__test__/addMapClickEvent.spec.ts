@@ -1,17 +1,13 @@
 import { test, expect } from "@playwright/test"
-
-const getUrl = (id: string, isUpdateSanpShots: boolean = false) =>
-  isUpdateSanpShots
-    ? `http://127.0.0.1:5252/samples/${id}.html`
-    : `/samples/${id}`
+import { getTestUrl, waitNetworkIdleWithTimeout } from "./util"
 
 test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
-  const url = getUrl(
+  const url = getTestUrl(
     "addMapClickEvent",
     testInfo.config.updateSnapshots === "all",
   )
   await page.goto(url, { waitUntil: "networkidle" })
-  await page.waitForLoadState("networkidle")
+  await waitNetworkIdleWithTimeout(page)
   await expect(page).toHaveScreenshot()
 
   const mapBoundingBox = await page.locator("#map").boundingBox()
