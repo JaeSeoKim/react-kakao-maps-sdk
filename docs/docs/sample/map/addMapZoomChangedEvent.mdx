@@ -9,31 +9,6 @@ sidebar_position: 18
 
 > original docs : https://apis.map.kakao.com/web/sample/addMapZoomChangedEvent/
 
-```jsx live
-function(){
-  const Main = () => {
-    const [level, setLevel] = useState()
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 33.450701,
-            lng: 126.570667,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={3} // 지도의 확대 레벨
-          onZoomChanged={(map) => setLevel(map.getLevel())}
-        >
-          <ZoomControl />
-        </Map>
-        {level && <p>{'현재 지도 레벨은 ' + level + ' 입니다'}</p>}
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+import codesource from "!!raw-loader!~samples/addMapZoomChangedEvent.tsx"
+
+<LiveEditor>{codesource}</LiveEditor>
