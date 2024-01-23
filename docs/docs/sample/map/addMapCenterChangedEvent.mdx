@@ -9,41 +9,6 @@ sidebar_position: 19
 
 > original docs : https://apis.map.kakao.com/web/sample/addMapCenterChangedEvent/
 
-```jsx live
-function(){
-  const Main = () => {
-    const [state, setState] = useState()
-    return (
-      <>
-        <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 33.450701,
-            lng: 126.570667,
-          }}
-          style={{
-            width: "100%",
-            height: "450px",
-          }}
-          level={3} // 지도의 확대 레벨
-          onCenterChanged={(map) => setState({
-            level: map.getLevel(),
-            center: {
-              lat: map.getCenter().getLat(),
-              lng: map.getCenter().getLng(),
-            }
-          })}
-        >
-        </Map>
-        {!!state && (
-          <>
-            <p>{'지도 레벨은 ' + state.level + ' 이고'}</p>
-            <p>{'중심 좌표는 위도 ' + state.center.lat + ', 경도 ' + state.center.lng +' 입니다'}</p>
-          </>
-        )}
-      </>
-    )
-  }
-  return (<Main/>)
-}
-```
+import codesource from "!!raw-loader!~samples/addMapCenterChangedEvent.tsx"
+
+<LiveEditor>{codesource}</LiveEditor>
