@@ -60,13 +60,13 @@ function Main() {
           ref={managerRef}
           onStateChanged={handleStateChanged}
           drawingMode={[
-            kakao.maps.drawing.OverlayType.ARROW,
-            kakao.maps.drawing.OverlayType.CIRCLE,
-            kakao.maps.drawing.OverlayType.ELLIPSE,
-            kakao.maps.drawing.OverlayType.MARKER,
-            kakao.maps.drawing.OverlayType.POLYLINE,
-            kakao.maps.drawing.OverlayType.RECTANGLE,
-            kakao.maps.drawing.OverlayType.POLYGON,
+            "arrow",
+            "circle",
+            "ellipse",
+            "marker",
+            "polyline",
+            "rectangle",
+            "polygon",
           ]}
           guideTooltip={["draw", "drag", "edit"]}
           markerOptions={{
