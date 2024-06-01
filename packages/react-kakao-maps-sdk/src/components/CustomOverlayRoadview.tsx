@@ -1,9 +1,4 @@
-import React, {
-  useImperativeHandle,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-} from "react"
+import React, { useImperativeHandle, useLayoutEffect, useMemo } from "react"
 import ReactDOM from "react-dom"
 import { useRoadview } from "../hooks/useRoadview"
 import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
@@ -96,7 +91,6 @@ export const CustomOverlayRoadview = React.forwardRef<
   ref,
 ) {
   const roadview = useRoadview(`CustomOverlayRoadview`)
-  const container = useRef(document.createElement("div"))
 
   const overlayPosition = useMemo(() => {
     if ("lat" in position) {
@@ -128,18 +122,25 @@ export const CustomOverlayRoadview = React.forwardRef<
   /* eslint-enable react-hooks/exhaustive-deps */
 
   const overlay = useMemo(() => {
+    const container = document.createElement("div")
+    container.style.display = "none"
+
     const KakaoCustomOverlay = new kakao.maps.CustomOverlay({
       clickable: clickable,
       xAnchor: xAnchor,
       yAnchor: yAnchor,
       zIndex: zIndex,
       position: overlayPosition,
-      content: container.current,
+      content: container,
     })
-    container.current.style.display = "none"
     return KakaoCustomOverlay
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickable, xAnchor, yAnchor])
+
+  const container = useMemo(
+    () => overlay.getContent() as HTMLElement,
+    [overlay],
+  )
 
   useImperativeHandle(ref, () => overlay, [overlay])
 
@@ -163,7 +164,7 @@ export const CustomOverlayRoadview = React.forwardRef<
   useKakaoMapsSetEffect(overlay, "setRange", range!)
 
   return (
-    container.current.parentElement &&
-    ReactDOM.createPortal(children, container.current.parentElement)
+    container.parentElement &&
+    ReactDOM.createPortal(children, container.parentElement)
   )
 })

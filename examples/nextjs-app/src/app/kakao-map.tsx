@@ -3,7 +3,7 @@
 import { Map, MapMarker, useKakaoLoader } from "react-kakao-maps-sdk"
 
 export default function KakaoMap() {
-  const { error } = useKakaoLoader({
+  const [_, error] = useKakaoLoader({
     appkey: process.env.NEXT_PUBLIC_APPKEY!, // 발급 받은 APPKEY
     // ...options,
   })

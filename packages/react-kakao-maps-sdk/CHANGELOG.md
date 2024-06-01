@@ -1,5 +1,11 @@
 # Changelog ✍️
 
+### v1.1.27
+
+#### Fixed 🐞
+
+- next.js 14 이상 환경에서 `InfoWindow`, `CustomOverlay` 를 통해 렌더링한 자식 컴포넌트가 보이지 않는 오류 수정 [#73](https://github.com/JaeSeoKim/react-kakao-maps-sdk/issues/73)
+
 ### v1.1.26
 
 #### Fixed 🐞

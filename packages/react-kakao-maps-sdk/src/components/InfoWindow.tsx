@@ -1,9 +1,4 @@
-import React, {
-  useLayoutEffect,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from "react"
+import React, { useLayoutEffect, useImperativeHandle, useMemo } from "react"
 import ReactDom from "react-dom"
 import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
@@ -61,22 +56,27 @@ export const InfoWindow = React.forwardRef<
   },
   ref,
 ) {
-  const container = useRef(document.createElement("div"))
-
   const infoWindow = useMemo(() => {
+    const container = document.createElement("div")
+    container.style.display = "none"
+
     const kakaoInfoWindow = new kakao.maps.InfoWindow({
       altitude: altitude,
       disableAutoPan: disableAutoPan,
       range: range,
       removable: removable,
       zIndex: zIndex,
-      content: container.current,
+      content: container,
       position: position,
     })
-    container.current.style.display = "none"
     return kakaoInfoWindow
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disableAutoPan, removable])
+
+  const container = useMemo(
+    () => infoWindow.getContent() as HTMLElement,
+    [infoWindow],
+  )
 
   useImperativeHandle(ref, () => infoWindow, [infoWindow])
 
@@ -97,8 +97,5 @@ export const InfoWindow = React.forwardRef<
   useKakaoMapsSetEffect(infoWindow, "setRange", range!)
   useKakaoMapsSetEffect(infoWindow, "setZIndex", zIndex!)
 
-  return (
-    container.current.parentElement &&
-    ReactDom.createPortal(children, container.current.parentElement)
-  )
+  return ReactDom.createPortal(children, container.parentElement ?? container)
 })

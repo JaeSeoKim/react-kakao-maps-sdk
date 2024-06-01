@@ -3,7 +3,6 @@ import React, {
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
-  useRef,
 } from "react"
 import ReactDOM from "react-dom"
 import { useMap } from "../hooks/useMap"
@@ -58,26 +57,32 @@ export const CustomOverlayMap = React.forwardRef<
   const markerCluster = useContext(KakaoMapMarkerClustererContext)
 
   const map = useMap(`CustomOverlayMap`)
-  const container = useRef(document.createElement("div"))
 
   const overlayPosition = useMemo(() => {
     return new kakao.maps.LatLng(position.lat, position.lng)
   }, [position.lat, position.lng])
 
   const overlay = useMemo(() => {
+    const container = document.createElement("div")
+    container.style.display = "none"
+
     const KakaoCustomOverlay = new kakao.maps.CustomOverlay({
       clickable: clickable,
       xAnchor: xAnchor,
       yAnchor: yAnchor,
       zIndex: zIndex,
       position: overlayPosition,
-      content: container.current,
+      content: container,
     })
-    container.current.style.display = "none"
 
     return KakaoCustomOverlay
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickable, xAnchor, yAnchor])
+
+  const container = useMemo(
+    () => overlay.getContent() as HTMLElement,
+    [overlay],
+  )
 
   useImperativeHandle(ref, () => overlay, [overlay])
 
@@ -107,7 +112,7 @@ export const CustomOverlayMap = React.forwardRef<
   useKakaoMapsSetEffect(overlay, "setZIndex", zIndex!)
 
   return (
-    container.current.parentElement &&
-    ReactDOM.createPortal(children, container.current.parentElement)
+    container.parentElement &&
+    ReactDOM.createPortal(children, container.parentElement)
   )
 })

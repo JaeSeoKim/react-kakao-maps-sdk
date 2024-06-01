@@ -52,7 +52,7 @@
     "watch:js": "rollup -c -w",
     "watch:type": "tsc -p tsconfig.build.json --watch",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "prepack": "pnpm run build"
   },
   "dependencies": {
@@ -64,12 +64,12 @@
     "@configs/eslint-config": "workspace:^",
     "@configs/rollup": "workspace:*",
     "@playwright/test": "^1.37.1",
-    "@types/node": "^20.5.9",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
+    "@types/node": "^20.13.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "eslint": "^8.48.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "rimraf": "^5.0.1",
     "rollup": "^3.29.0",
     "typescript": "^5.2.2"

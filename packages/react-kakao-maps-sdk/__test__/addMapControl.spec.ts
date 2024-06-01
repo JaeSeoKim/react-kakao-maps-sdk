@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test"
-import { getTestUrl, waitNetworkIdleWithTimeout } from "./util"
+import { getTestUrl } from "./util"
 
 test("ScreenShot 렌더링 결과 비교", async ({ page }, testInfo) => {
   const url = getTestUrl(
