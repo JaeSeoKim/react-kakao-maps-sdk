@@ -194,7 +194,6 @@ export const MarkerClusterer = React.forwardRef<
   useKakaoMapsSetEffect(markerClusterer, "setGridSize", gridSize!)
   useKakaoMapsSetEffect(markerClusterer, "setMinClusterSize", minClusterSize!)
   useKakaoMapsSetEffect(markerClusterer, "setAverageCenter", averageCenter!)
-  useKakaoMapsSetEffect(markerClusterer, "setAverageCenter", averageCenter!)
   useKakaoMapsSetEffect(markerClusterer, "setMinLevel", minLevel!)
   useKakaoMapsSetEffect(markerClusterer, "setTexts", texts!)
   useKakaoMapsSetEffect(markerClusterer, "setCalculator", calculator!)
