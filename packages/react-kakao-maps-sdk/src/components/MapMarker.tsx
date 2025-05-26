@@ -89,9 +89,9 @@ export interface MapMarkerProps {
   onDragEnd?: (marker: kakao.maps.Marker) => void
 
   /**
-   * Maker 생성 이벤트 핸들러
+   * Marker 생성 이벤트 핸들러
    */
-  onCreate?: (maker: kakao.maps.Marker) => void
+  onCreate?: (marker: kakao.maps.Marker) => void
 
   /**
    * 마커 엘리먼트의 타이틀 속성 값 (툴팁)
@@ -141,7 +141,7 @@ export interface MapMarkerProps {
 
 /**
  * Map에서 Marker를 생성할 때 사용 합니다.
- * `onCreate` 이벤트를 통해 생성 후 `maker` 객체에 직접 접근하여 초기 설정이 가능합니다.
+ * `onCreate` 이벤트를 통해 생성 후 `marker` 객체에 직접 접근하여 초기 설정이 가능합니다.
  */
 export const MapMarker = React.forwardRef<
   kakao.maps.Marker,

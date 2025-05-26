@@ -66,7 +66,7 @@ export interface _StaticMapProps {
   /**
    * StaticMap 생성 이벤트 핸들러
    */
-  onCreate?: (maker: kakao.maps.StaticMap) => void
+  onCreate?: (marker: kakao.maps.StaticMap) => void
 }
 
 export type StaticMapProps<T extends React.ElementType = "div"> =
