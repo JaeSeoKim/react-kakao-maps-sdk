@@ -262,8 +262,6 @@ export const Marker = React.forwardRef<
   useKakaoMapsSetEffect(marker, "setDraggable", draggable!)
   useKakaoMapsSetEffect(marker, "setOpacity", opacity!)
   useKakaoMapsSetEffect(marker, "setRange", range!)
-  useKakaoMapsSetEffect(marker, "setRange", range!)
-  useKakaoMapsSetEffect(marker, "setTitle", title!)
   useKakaoMapsSetEffect(marker, "setTitle", title!)
   useKakaoMapsSetEffect(marker, "setZIndex", zIndex!)
 
