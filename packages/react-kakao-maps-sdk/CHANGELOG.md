@@ -1,5 +1,20 @@
 # Changelog ✍️
 
+### v1.2.0
+
+#### Feat ✨
+
+- Support React 19 [#79](https://github.com/JaeSeoKim/react-kakao-maps-sdk/pull/79)
+
+#### Fixed 🐞
+
+- Fix typo maker -> marker [#80](https://github.com/JaeSeoKim/react-kakao-maps-sdk/pull/80)
+- Remove duplicated useKakaoMapsSetEffect [#81](https://github.com/JaeSeoKim/react-kakao-maps-sdk/pull/81)
+
+#### Contributors 🤓
+
+- [@gomjellie](https://github.com/gomjellie)
+
 ### v1.1.27
 
 #### Fixed 🐞
