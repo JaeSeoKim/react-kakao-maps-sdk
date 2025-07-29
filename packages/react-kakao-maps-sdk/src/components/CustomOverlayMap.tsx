@@ -1,83 +1,90 @@
 import React, {
   useContext,
+  useEffect,
   useImperativeHandle,
   useLayoutEffect,
   useMemo,
+  useRef,
 } from "react"
 import ReactDOM from "react-dom"
 import { useMap } from "../hooks/useMap"
-import { KakaoMapMarkerClustererContext } from "./MarkerClusterer"
+import { MarkerClustererContext } from "./MarkerClusterer"
 import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
 
+// --- 타입 정의 ---
+
 export interface CustomOverlayMapProps {
-  /**
-   * 커스텀 오버레이의 좌표
-   */
   position: {
     lat: number
     lng: number
   }
-  /**
-   * true 로 설정하면 컨텐츠 영역을 클릭했을 경우 지도 이벤트를 막아준다.
-   */
   clickable?: boolean
-
-  /**
-   * 컨텐츠의 x축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
-   */
   xAnchor?: number
-
-  /**
-   * 컨텐츠의 y축 위치. 0_1 사이의 값을 가진다. 기본값은 0.5
-   */
   yAnchor?: number
-
-  /**
-   * 커스텀 오버레이의 z-index
-   */
   zIndex?: number
-
-  /**
-   * 커스텀 오버레이를 생성 후 해당 객체를 가지고 callback 함수를 실행 시켜줌
-   */
   onCreate?: (customOverlay: kakao.maps.CustomOverlay) => void
 }
 
-/**
- * Map에 CustomOverlay를 올릴 때 사용하는 컴포넌트 입니다.
- * `onCreate` 이벤트 또는 `ref` 객체를 통해서 `CustomOverlay` 객체에 직접 접근 및 초기 설정 작업을 지정할 수 있습니다.
- */
+// --- 컴포넌트 구현 ---
+
+let overlayCounter = 0
+
 export const CustomOverlayMap = React.forwardRef<
   kakao.maps.CustomOverlay,
   React.PropsWithChildren<CustomOverlayMapProps>
->(function CustomOverlayMap(
-  { position, children, clickable, xAnchor, yAnchor, zIndex, onCreate },
-  ref,
-) {
-  const markerCluster = useContext(KakaoMapMarkerClustererContext)
+>(function CustomOverlayMap({ children, ...props }, ref) {
+  const map = useMap("CustomOverlayMap")
+  const registry = useContext(MarkerClustererContext)
 
-  const map = useMap(`CustomOverlayMap`)
+  // 고유 ID 생성
+  const id = useRef(overlayCounter++).current
+  const isMounted = useRef(false)
 
-  const overlayPosition = useMemo(() => {
-    return new kakao.maps.LatLng(position.lat, position.lng)
-  }, [position.lat, position.lng])
+  // 클러스터러 하위에 있을 경우, 설명서(Descriptor) 등록/수정/해제 로직
+  useEffect(() => {
+    if (!registry) return
+
+    const descriptor = {
+      id,
+      type: "CustomOverlayMap" as const,
+      props,
+      children,
+    }
+
+    if (!isMounted.current) {
+      registry.register(descriptor)
+      isMounted.current = true
+    } else {
+      // update 호출 시 자신의 타입 "CustomOverlayMap"을 전달
+      registry.update(id, "CustomOverlayMap", props, children)
+    }
+
+    return () => {
+      registry.unregister(id)
+    }
+  }, [registry, id, props, children])
+
+  // 클러스터러 하위에 있을 경우, 렌더링은 부모에게 위임하므로 null 반환
+  if (registry) {
+    return null
+  }
+
+  // --- 이하 독립적으로 사용될 때의 기존 로직 (Fallback) ---
+
+  const overlayPosition = useMemo(
+    () => new kakao.maps.LatLng(props.position.lat, props.position.lng),
+    [props.position.lat, props.position.lng],
+  )
 
   const overlay = useMemo(() => {
     const container = document.createElement("div")
-    container.style.display = "none"
-
-    const KakaoCustomOverlay = new kakao.maps.CustomOverlay({
-      clickable: clickable,
-      xAnchor: xAnchor,
-      yAnchor: yAnchor,
-      zIndex: zIndex,
+    return new kakao.maps.CustomOverlay({
+      ...props,
       position: overlayPosition,
       content: container,
     })
-
-    return KakaoCustomOverlay
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clickable, xAnchor, yAnchor])
+  }, [props.clickable, props.xAnchor, props.yAnchor])
 
   const container = useMemo(
     () => overlay.getContent() as HTMLElement,
@@ -87,32 +94,16 @@ export const CustomOverlayMap = React.forwardRef<
   useImperativeHandle(ref, () => overlay, [overlay])
 
   useLayoutEffect(() => {
-    if (!map) return
-
-    if (markerCluster) {
-      markerCluster.addMarker(overlay, true)
-    } else {
-      overlay.setMap(map)
-    }
-
-    return () => {
-      if (markerCluster) {
-        markerCluster.removeMarker(overlay, true)
-      } else {
-        overlay.setMap(null)
-      }
-    }
-  }, [map, markerCluster, overlay])
+    overlay.setMap(map)
+    return () => overlay.setMap(null)
+  }, [map, overlay])
 
   useLayoutEffect(() => {
-    if (onCreate) onCreate(overlay)
-  }, [overlay, onCreate])
+    if (props.onCreate) props.onCreate(overlay)
+  }, [overlay, props.onCreate])
 
   useKakaoMapsSetEffect(overlay, "setPosition", overlayPosition)
-  useKakaoMapsSetEffect(overlay, "setZIndex", zIndex!)
+  useKakaoMapsSetEffect(overlay, "setZIndex", props.zIndex!)
 
-  return (
-    container.parentElement &&
-    ReactDOM.createPortal(children, container.parentElement)
-  )
+  return ReactDOM.createPortal(children, container)
 })
