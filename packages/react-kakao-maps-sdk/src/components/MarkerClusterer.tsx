@@ -1,227 +1,293 @@
 import React, {
-  useLayoutEffect,
+  createContext,
+  useEffect,
   useImperativeHandle,
-  useMemo,
-  useContext,
+  useRef,
+  useState,
 } from "react"
-import { useKakaoEvent } from "../hooks/useKakaoEvent"
+import ReactDOM from "react-dom"
 import { useMap } from "../hooks/useMap"
-import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
-import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
+import { useKakaoEvent } from "../hooks/useKakaoEvent"
+import type { MarkerProps } from "./Marker"
+import type { CustomOverlayMapProps } from "./CustomOverlayMap"
 
-export const KakaoMapMarkerClustererContext =
-  React.createContext<kakao.maps.MarkerClusterer>(
-    undefined as unknown as kakao.maps.MarkerClusterer,
-  )
+// --- 타입 정의 ---
+
+type ChildType = "Marker" | "CustomOverlayMap"
+type ChildProps =
+  | (MarkerProps & { children?: React.ReactNode })
+  | CustomOverlayMapProps
+interface ChildDescriptor {
+  id: number
+  type: ChildType
+  props: ChildProps
+  children?: React.ReactNode
+}
+interface MarkerRegistry {
+  register(descriptor: ChildDescriptor): void
+  unregister(id: number): void
+  update(
+    id: number,
+    type: ChildType,
+    newProps: ChildProps,
+    children?: React.ReactNode,
+  ): void
+}
+
+export const MarkerClustererContext = createContext<MarkerRegistry | null>(null)
 
 export type MarkerClustererProps = React.PropsWithChildren<{
-  /**
-   * 클러스터의 격자 크기. 화면 픽셀 단위이며 해당 격자 영역 안에 마커가 포함되면 클러스터에 포함시킨다
-   * @default 60
-   */
   gridSize?: number
-  /**
-   * 마커들의 좌표 평균을 클러스터 좌표 설정 여부
-   * @default false
-   */
   averageCenter?: boolean
-  /**
-   * 클러스터링 할 지도의 최소 레벨 값. 지정한 숫자에 해당하는 레벨 미만에서는 클러스터링 하지 않는다
-   * @default 0
-   */
   minLevel?: number
-  /**
-   * 클러스터링 할 최소 마커 수
-   * @default 2
-   */
   minClusterSize?: number
-  /**
-   * 클러스터의 스타일. 여러개를 선언하면 calculator 로 구분된 사이즈 구간마다 서로 다른 스타일을 적용시킬 수 있다
-   */
   styles?: React.CSSProperties[] | object[]
-  /**
-   * 클러스터에 표시할 문자열 또는 문자열 생성 함수.
-   * @default "클러스터에 포함된 숫자"
-   */
   texts?: string[] | ((size: number) => string)
-  /**
-   * 클러스터 크기를 구분하는 값을 가진 배열 또는 구분값 생성함수
-   * @default [10, 100, 1000, 10000]
-   */
   calculator?: number[] | ((size: number) => number[])
-  /**
-   * 클러스터 클릭 시 지도 확대 여부. true로 설정하면 클러스터 클릭 시 확대 되지 않는다
-   * @default false
-   */
   disableClickZoom?: boolean
-  /**
-   * 클러스터 클릭 가능 여부 지정 옵션. false일 경우 클러스터의 clusterclick, clusterdblclick, clusterrightclick 이벤트가 발생하지 않으며, 커서가 변경되지 않는다.
-   * @default true
-   */
   clickable?: boolean
-  /**
-   * 클러스터에 마우스 over/out 가능 여부 지정 옵션. false일 경우 클러스터의 clusterover, clusterout 이벤트가 발생하지 않는다.
-   * @default true
-   */
   hoverable?: boolean
-
-  /**
-   * 클러스터 마커를 클릭 했을 때 발생한다.
-   * 이벤트 핸들러 함수 인자로는 Cluster 객체가 넘어온다.
-   * 클러스터 마커 클릭 시 지도가 줌인 되는 경우 원하는 Cluster 객체를 얻지 못할 수도 있다.
-   * 때문에 MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정하여
-   * 클러스터 마커를 클릭했을 때 지도가 줌인되지 않도록 설정 후 사용한다.
-   */
   onClusterclick?: (
     target: kakao.maps.MarkerClusterer,
     cluster: kakao.maps.Cluster,
   ) => void
-  /**
-   * 클러스터 마커를 마우스 오버 했을 때 발생한다
-   * 이벤트 핸들러 함수 인자로는 마우스 오버한 Cluster 객체가 넘어온다.
-   */
   onClusterover?: (
     target: kakao.maps.MarkerClusterer,
     cluster: kakao.maps.Cluster,
   ) => void
-  /**
-   * 클러스터 마커를 마우스 아웃 했을 때 발생한다
-   * 이벤트 핸들러 함수 인자로는 마우스 아웃된 Cluster 객체가 넘어온다.
-   */
   onClusterout?: (
     target: kakao.maps.MarkerClusterer,
     cluster: kakao.maps.Cluster,
   ) => void
-  /**
-   * 클러스터 마커를 더블클릭 했을 때 발생한다
-   * 이벤트 핸들러 함수 인자로는 더블클릭한 Cluster 객체가 넘어온다.
-   * MarkerClusterer 를 생성할 때 disableClickZoom 옵션을 true로 설정해야만 이벤트가 발생한다.
-   */
   onClusterdblclick?: (
     target: kakao.maps.MarkerClusterer,
     cluster: kakao.maps.Cluster,
   ) => void
-  /**
-   * 클러스터 마커를 오른쪽 클릭 했을 때 발생한다
-   * 이벤트 핸들러 함수 인자로는 오른쪽 클릭한 Cluster 객체가 넘어온다.
-   */
   onClusterrightclick?: (
     target: kakao.maps.MarkerClusterer,
     cluster: kakao.maps.Cluster,
   ) => void
-  /**
-   * 클러스터링이 완료됐을 때 발생한다.
-   * 이벤트 핸들러 함수 인자로는 생성된 Cluster 객체 전체가 배열로 넘어온다.
-   */
   onClustered?: (
     target: kakao.maps.MarkerClusterer,
     clusters: kakao.maps.Cluster[],
   ) => void
-  /**
-   * MarkerClusterer 생성 후 해당 객체를 전달하는 함수
-   */
   onCreate?: (target: kakao.maps.MarkerClusterer) => void
 }>
+
+// --- 컴포넌트 구현 ---
 
 export const MarkerClusterer = React.forwardRef<
   kakao.maps.MarkerClusterer,
   MarkerClustererProps
->(function MarkerClusterer(
-  {
-    onClusterclick,
-    onClusterdblclick,
-    onClustered,
-    onClusterout,
-    onClusterover,
-    onClusterrightclick,
-    onCreate,
-    ...props
-  },
-  ref,
-) {
+>(function MarkerClusterer({ children, ...props }, ref) {
+  const map = useMap("MarkerClusterer")
+  const [clusterer, setClusterer] = useState<kakao.maps.MarkerClusterer>()
+  const [portals, setPortals] = useState<
+    { id: number; container: HTMLElement; children: React.ReactNode }[]
+  >([])
+
   const {
-    children,
-    averageCenter,
-    calculator,
-    clickable,
-    disableClickZoom,
     gridSize,
-    hoverable,
-    minClusterSize,
+    averageCenter,
     minLevel,
+    minClusterSize,
     styles,
     texts,
+    calculator,
+    disableClickZoom,
+    clickable,
+    hoverable,
+    onClusterclick,
+    onClusterover,
+    onClusterout,
+    onClusterdblclick,
+    onClusterrightclick,
+    onClustered,
+    onCreate,
   } = props
 
-  const map = useMap(`MarkerClusterer`)
-  const markerClusterer = useMemo(() => {
-    if (!window.kakao.maps.MarkerClusterer) {
-      console.warn(
-        "clusterer 라이브러리를 별도 로드 해야 사용 가능합니다. `https://apis.map.kakao.com/web/guide/#loadlibrary`",
-      )
-      return
-    }
-    return new kakao.maps.MarkerClusterer({
-      averageCenter,
-      calculator,
-      clickable,
-      disableClickZoom,
+  const markerDescriptorsRef = useRef(new Map<number, ChildDescriptor>())
+  const kakaoInstancesRef = useRef(
+    new Map<number, kakao.maps.Marker | kakao.maps.CustomOverlay>(),
+  )
+  const changesQueueRef = useRef(new Map<number, ChildDescriptor | null>())
+
+  // 클러스터러 인스턴스 생성 및 소멸 관리
+  useEffect(() => {
+    if (!map) return
+
+    const newClusterer = new kakao.maps.MarkerClusterer({
+      map,
       gridSize,
-      hoverable,
-      minClusterSize,
+      averageCenter,
       minLevel,
+      minClusterSize,
       styles,
       texts,
+      calculator,
+      disableClickZoom,
+      clickable,
+      hoverable,
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    setClusterer(newClusterer)
+    onCreate?.(newClusterer)
 
-  useImperativeHandle(ref, () => markerClusterer!, [markerClusterer])
-
-  useLayoutEffect(() => {
-    if (!markerClusterer) return
-
-    markerClusterer.setMap(map)
     return () => {
-      markerClusterer.setMap(null)
+      newClusterer.clear()
     }
-  }, [map, markerClusterer])
+  }, [
+    map,
+    gridSize,
+    averageCenter,
+    minLevel,
+    minClusterSize,
+    styles,
+    texts,
+    calculator,
+    disableClickZoom,
+    clickable,
+    hoverable,
+    onCreate,
+  ])
 
-  useLayoutEffect(() => {
-    if (markerClusterer && onCreate) onCreate(markerClusterer)
-  }, [markerClusterer, onCreate])
+  useEffect(() => {
+    if (clusterer && changesQueueRef.current.size > 0) {
+      flushChanges()
+    }
+  }, [clusterer, children])
 
-  useKakaoMapsSetEffect(markerClusterer, "setGridSize", gridSize!)
-  useKakaoMapsSetEffect(markerClusterer, "setMinClusterSize", minClusterSize!)
-  useKakaoMapsSetEffect(markerClusterer, "setAverageCenter", averageCenter!)
-  useKakaoMapsSetEffect(markerClusterer, "setMinLevel", minLevel!)
-  useKakaoMapsSetEffect(markerClusterer, "setTexts", texts!)
-  useKakaoMapsSetEffect(markerClusterer, "setCalculator", calculator!)
-  useKakaoMapsSetEffect(markerClusterer, "setStyles", styles!)
+  const flushChanges = () => {
+    if (!clusterer) {
+      return
+    }
 
-  useKakaoEvent(markerClusterer, "clustered", onClustered)
-  useKakaoEvent(markerClusterer, "clusterclick", onClusterclick)
-  useKakaoEvent(markerClusterer, "clusterover", onClusterover)
-  useKakaoEvent(markerClusterer, "clusterout", onClusterout)
-  useKakaoEvent(markerClusterer, "clusterdblclick", onClusterdblclick)
-  useKakaoEvent(markerClusterer, "clusterrightclick", onClusterrightclick)
+    const changes = new Map(changesQueueRef.current)
+    changesQueueRef.current.clear()
 
-  if (!markerClusterer) {
-    return null
+    const toAdd: (kakao.maps.Marker | kakao.maps.CustomOverlay)[] = []
+    const toRemove: (kakao.maps.Marker | kakao.maps.CustomOverlay)[] = []
+    let newPortals = [...portals]
+
+    changes.forEach((descriptor, id) => {
+      const instance = kakaoInstancesRef.current.get(id)
+
+      if (descriptor === null) {
+        if (instance) {
+          toRemove.push(instance)
+          kakaoInstancesRef.current.delete(id)
+          markerDescriptorsRef.current.delete(id)
+          const portalIndex = newPortals.findIndex((p) => p.id === id)
+          if (portalIndex > -1) newPortals.splice(portalIndex, 1)
+        }
+      } else if (!instance) {
+        let newInstance: kakao.maps.Marker | kakao.maps.CustomOverlay | null =
+          null
+        const position = new kakao.maps.LatLng(
+          descriptor.props.position.lat,
+          descriptor.props.position.lng,
+        )
+
+        if (descriptor.type === "Marker") {
+          newInstance = new kakao.maps.Marker({ ...descriptor.props, position })
+        } else if (descriptor.type === "CustomOverlayMap") {
+          const container = document.createElement("div")
+          newInstance = new kakao.maps.CustomOverlay({
+            ...descriptor.props,
+            position,
+            content: container,
+          })
+          if (descriptor.children) {
+            newPortals.push({
+              id,
+              container,
+              children: descriptor.children,
+            })
+          }
+        }
+
+        if (newInstance) {
+          kakaoInstancesRef.current.set(id, newInstance)
+          markerDescriptorsRef.current.set(id, descriptor)
+          toAdd.push(newInstance)
+        }
+      } else {
+        const newPosition = new kakao.maps.LatLng(
+          descriptor.props.position.lat,
+          descriptor.props.position.lng,
+        )
+        instance.setPosition(newPosition)
+        instance.setZIndex(descriptor.props.zIndex || 0)
+
+        if (
+          instance instanceof kakao.maps.Marker &&
+          "image" in descriptor.props
+        ) {
+          const imageProps = descriptor.props.image
+          if (imageProps) {
+            const markerImage = new kakao.maps.MarkerImage(
+              imageProps.src,
+              new kakao.maps.Size(
+                imageProps.size.width,
+                imageProps.size.height,
+              ),
+              imageProps.options,
+            )
+            instance.setImage(markerImage)
+          }
+        }
+        markerDescriptorsRef.current.set(id, descriptor)
+      }
+    })
+
+    if (toRemove.length > 0) clusterer.removeMarkers(toRemove, true)
+    if (toAdd.length > 0) clusterer.addMarkers(toAdd, true)
+
+    setPortals(newPortals)
+    clusterer.redraw()
   }
 
+  const registry = useRef<MarkerRegistry>({
+    register(descriptor) {
+      changesQueueRef.current.set(descriptor.id, descriptor)
+    },
+    unregister(id) {
+      changesQueueRef.current.set(id, null)
+    },
+    update(id, type, newProps, children) {
+      const existing = markerDescriptorsRef.current.get(id)
+
+      if (existing) {
+        const newDescriptor: ChildDescriptor = {
+          ...existing,
+          props: newProps,
+          children: children,
+        }
+        changesQueueRef.current.set(id, newDescriptor)
+      } else {
+        this.register({
+          id,
+          type: type,
+          props: newProps,
+          children: children,
+        })
+      }
+    },
+  }).current
+
+  useImperativeHandle(ref, () => clusterer!, [clusterer])
+  useKakaoEvent(clusterer, "clusterclick", onClusterclick)
+  useKakaoEvent(clusterer, "clusterover", onClusterover)
+  useKakaoEvent(clusterer, "clusterout", onClusterout)
+  useKakaoEvent(clusterer, "clusterdblclick", onClusterdblclick)
+  useKakaoEvent(clusterer, "clusterrightclick", onClusterrightclick)
+  useKakaoEvent(clusterer, "clustered", onClustered)
+
   return (
-    <KakaoMapMarkerClustererContext.Provider value={markerClusterer}>
+    <MarkerClustererContext.Provider value={registry}>
       {children}
-      <MarkerClustererRedraw {...props} />
-    </KakaoMapMarkerClustererContext.Provider>
+      {portals.map(({ id, container, children }) =>
+        ReactDOM.createPortal(children, container, `cluster-portal-${id}`),
+      )}
+    </MarkerClustererContext.Provider>
   )
 })
-
-const MarkerClustererRedraw: React.FC<MarkerClustererProps> = () => {
-  const markerClusterer = useContext(KakaoMapMarkerClustererContext)
-  useIsomorphicLayoutEffect(() => {
-    markerClusterer.redraw()
-  })
-  return null
-}
