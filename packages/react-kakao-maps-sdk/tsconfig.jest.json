@@ -1,11 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./dist",
     "emitDeclarationOnly": false,
-    "noEmit": true,
-    "types": ["kakao.maps.d.ts", "jest", "@testing-library/jest-dom"]
+    "declaration": false,
+    "types": ["kakao.maps.d.ts", "jest", "node", "@testing-library/jest-dom"]
   },
   "include": ["src", "__test__", "jest.setup.ts"]
 }

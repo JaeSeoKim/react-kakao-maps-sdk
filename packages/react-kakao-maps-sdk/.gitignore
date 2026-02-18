@@ -3,4 +3,4 @@ node_modules/
 /playwright-report/
 /playwright/.cache/
 
-/__test__/*-snapshots
+/__test__/integration/*-snapshots

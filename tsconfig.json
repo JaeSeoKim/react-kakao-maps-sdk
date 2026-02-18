@@ -38,5 +38,5 @@
     "allowJs": false,
     "skipLibCheck": true
   },
-  "exclude": ["**/dist/*", "**/esm/*", "**/__test__/*"]
+  "exclude": ["**/dist/*", "**/esm/*"]
 }

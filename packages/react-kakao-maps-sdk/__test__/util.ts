@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test"
+import type { Page } from "@playwright/test"
 
 /**
  * networkidle 상태를 기준으로 기다리는 경우 dev 환경에서는 정상적으로 테스트가 통과하지만,
