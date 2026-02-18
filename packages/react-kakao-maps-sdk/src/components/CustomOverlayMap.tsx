@@ -54,9 +54,8 @@ export const CustomOverlayMap = React.forwardRef<
   { position, children, clickable, xAnchor, yAnchor, zIndex, onCreate },
   ref,
 ) {
-  const markerCluster = useContext(KakaoMapMarkerClustererContext)
-
   const map = useMap(`CustomOverlayMap`)
+  const markerCluster = useContext(KakaoMapMarkerClustererContext)
 
   const overlayPosition = useMemo(() => {
     return new kakao.maps.LatLng(position.lat, position.lng)
@@ -87,20 +86,18 @@ export const CustomOverlayMap = React.forwardRef<
   useImperativeHandle(ref, () => overlay, [overlay])
 
   useLayoutEffect(() => {
-    if (!map) return
-
     if (markerCluster) {
-      markerCluster.addMarker(overlay, true)
-    } else {
-      overlay.setMap(map)
+      markerCluster.addMarker(overlay)
+
+      return () => {
+        markerCluster.removeMarker(overlay)
+      }
     }
 
+    overlay.setMap(map)
+
     return () => {
-      if (markerCluster) {
-        markerCluster.removeMarker(overlay, true)
-      } else {
-        overlay.setMap(null)
-      }
+      overlay.setMap(null)
     }
   }, [map, markerCluster, overlay])
 

@@ -77,98 +77,96 @@ export type StaticMapComponent = <T extends React.ElementType = "div">(
   props: StaticMapProps<T>,
 ) => CompatibleReactElement
 
-export const StaticMap: StaticMapComponent = React.forwardRef(
-  function StaticMap<T extends React.ElementType = "div">(
-    {
-      as,
-      id,
-      center,
-      marker,
-      level,
-      mapTypeId,
-      onCreate,
-      ...props
-    }: StaticMapProps<T>,
-    ref: React.ForwardedRef<kakao.maps.StaticMap>,
-  ) {
-    const Container = as || "div"
+export const StaticMap = React.forwardRef(function StaticMap(
+  {
+    as,
+    id,
+    center,
+    marker,
+    level,
+    mapTypeId,
+    onCreate,
+    ...props
+  }: StaticMapProps,
+  ref: React.ForwardedRef<kakao.maps.StaticMap>,
+) {
+  const Container = as || "div"
 
-    const [isLoaded, setIsLoaded] = useState(false)
-    const [map, setMap] = useState<kakao.maps.StaticMap>()
-    const container = useRef<HTMLDivElement>(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [map, setMap] = useState<kakao.maps.StaticMap>()
+  const container = useRef<HTMLDivElement>(null)
 
-    useIsomorphicLayoutEffect(() => {
-      const callback = Loader.addLoadEventLisnter((err) => setIsLoaded(!err))
-      return () => {
-        Loader.removeLoadEventLisnter(callback)
-      }
-    }, [])
+  useIsomorphicLayoutEffect(() => {
+    const callback = Loader.addLoadEventLisnter((err) => setIsLoaded(!err))
+    return () => {
+      Loader.removeLoadEventLisnter(callback)
+    }
+  }, [])
 
-    useIsomorphicLayoutEffect(() => {
-      if (!isLoaded) return
+  useIsomorphicLayoutEffect(() => {
+    if (!isLoaded) return
 
-      const MapContainer = container.current
-      if (!MapContainer) return
+    const MapContainer = container.current
+    if (!MapContainer) return
 
-      const _marker = (() => {
-        if (Array.isArray(marker)) {
-          return marker.map((mk) => {
-            return {
-              ...mk,
-              position: new kakao.maps.LatLng(mk.position.lat, mk.position.lng),
-            }
-          })
-        }
-        if (typeof marker === "object") {
-          if (marker.position) {
-            return {
-              ...marker,
-              position: new kakao.maps.LatLng(
-                marker.position.lat,
-                marker.position.lng,
-              ),
-            }
+    const _marker = (() => {
+      if (Array.isArray(marker)) {
+        return marker.map((mk) => {
+          return {
+            ...mk,
+            position: new kakao.maps.LatLng(mk.position.lat, mk.position.lng),
           }
-          return marker as { text: string }
-        }
-        return marker
-      })()
-      const kakaoStaticMap = new kakao.maps.StaticMap(MapContainer, {
-        center: new kakao.maps.LatLng(center.lat, center.lng),
-        level,
-        mapTypeId:
-          typeof mapTypeId === "string"
-            ? kakao.maps.MapTypeId[mapTypeId]
-            : mapTypeId,
-        marker: _marker,
-      })
-      setMap(kakaoStaticMap)
-      return () => {
-        MapContainer.innerHTML = ""
+        })
       }
-    }, [isLoaded, JSON.stringify(marker)])
-
-    useImperativeHandle(ref, () => map!, [map])
-
-    useIsomorphicLayoutEffect(() => {
-      if (map && onCreate) onCreate(map)
-    }, [map, onCreate])
-
-    useIsomorphicLayoutEffect(() => {
-      if (map) map.setCenter(new kakao.maps.LatLng(center.lat, center.lng))
-    }, [map, center.lat, center.lng])
-
-    useKakaoMapsSetEffect(map, "setLevel", level!)
-    useKakaoMapsSetEffect(
-      map,
-      "setMapTypeId",
-      isLoaded
-        ? typeof mapTypeId === "string"
+      if (typeof marker === "object") {
+        if (marker.position) {
+          return {
+            ...marker,
+            position: new kakao.maps.LatLng(
+              marker.position.lat,
+              marker.position.lng,
+            ),
+          }
+        }
+        return marker as { text: string }
+      }
+      return marker
+    })()
+    const kakaoStaticMap = new kakao.maps.StaticMap(MapContainer, {
+      center: new kakao.maps.LatLng(center.lat, center.lng),
+      level,
+      mapTypeId:
+        typeof mapTypeId === "string"
           ? kakao.maps.MapTypeId[mapTypeId]
-          : mapTypeId!
-        : undefined!,
-    )
+          : mapTypeId,
+      marker: _marker,
+    })
+    setMap(kakaoStaticMap)
+    return () => {
+      MapContainer.innerHTML = ""
+    }
+  }, [isLoaded, JSON.stringify(marker)])
 
-    return <Container id={id} {...props} ref={container}></Container>
-  },
-)
+  useImperativeHandle(ref, () => map!, [map])
+
+  useIsomorphicLayoutEffect(() => {
+    if (map && onCreate) onCreate(map)
+  }, [map, onCreate])
+
+  useIsomorphicLayoutEffect(() => {
+    if (map) map.setCenter(new kakao.maps.LatLng(center.lat, center.lng))
+  }, [map, center.lat, center.lng])
+
+  useKakaoMapsSetEffect(map, "setLevel", level!)
+  useKakaoMapsSetEffect(
+    map,
+    "setMapTypeId",
+    isLoaded
+      ? typeof mapTypeId === "string"
+        ? kakao.maps.MapTypeId[mapTypeId]
+        : mapTypeId!
+      : undefined!,
+  )
+
+  return <Container id={id} {...props} ref={container}></Container>
+}) as StaticMapComponent

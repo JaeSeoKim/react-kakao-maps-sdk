@@ -1,18 +1,21 @@
-import React, {
-  useLayoutEffect,
-  useImperativeHandle,
-  useMemo,
-  useContext,
-} from "react"
+import React, { useLayoutEffect, useImperativeHandle, useMemo } from "react"
+import { useSyncExternalStore } from "use-sync-external-store/shim"
 import { useKakaoEvent } from "../hooks/useKakaoEvent"
 import { useMap } from "../hooks/useMap"
 import { useIsomorphicLayoutEffect } from "../hooks/useIsomorphicLayoutEffect"
 import { useKakaoMapsSetEffect } from "../hooks/useKakaoMapsSetEffect"
+import {
+  createMarkerClustererRedrawVersionStore,
+  MarkerClustererRedrawVersionStore,
+} from "./MarkerClusterer.store"
+
+export interface KakaoMapMarkerClustererContext {
+  addMarker: (marker: kakao.maps.Marker | kakao.maps.CustomOverlay) => void
+  removeMarker: (marker: kakao.maps.Marker | kakao.maps.CustomOverlay) => void
+}
 
 export const KakaoMapMarkerClustererContext =
-  React.createContext<kakao.maps.MarkerClusterer>(
-    undefined as unknown as kakao.maps.MarkerClusterer,
-  )
+  React.createContext<KakaoMapMarkerClustererContext | null>(null)
 
 export type MarkerClustererProps = React.PropsWithChildren<{
   /**
@@ -154,6 +157,10 @@ export const MarkerClusterer = React.forwardRef<
   } = props
 
   const map = useMap(`MarkerClusterer`)
+  const redrawVersionStore = useMemo(
+    () => createMarkerClustererRedrawVersionStore(),
+    [],
+  )
   const markerClusterer = useMemo(() => {
     if (!window.kakao.maps.MarkerClusterer) {
       console.warn(
@@ -175,6 +182,20 @@ export const MarkerClusterer = React.forwardRef<
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const contextValue = useMemo<KakaoMapMarkerClustererContext>(
+    () => ({
+      addMarker: (marker) => {
+        markerClusterer?.addMarker(marker, true)
+        redrawVersionStore.requestRedraw()
+      },
+      removeMarker: (marker) => {
+        markerClusterer?.removeMarker(marker, true)
+        redrawVersionStore.requestRedraw()
+      },
+    }),
+    [markerClusterer, redrawVersionStore],
+  )
 
   useImperativeHandle(ref, () => markerClusterer!, [markerClusterer])
 
@@ -211,17 +232,32 @@ export const MarkerClusterer = React.forwardRef<
   }
 
   return (
-    <KakaoMapMarkerClustererContext.Provider value={markerClusterer}>
+    <KakaoMapMarkerClustererContext.Provider value={contextValue}>
       {children}
-      <MarkerClustererRedraw {...props} />
+      <MarkerClustererRedraw
+        markerClusterer={markerClusterer}
+        redrawVersionStore={redrawVersionStore}
+      />
     </KakaoMapMarkerClustererContext.Provider>
   )
 })
 
-const MarkerClustererRedraw: React.FC<MarkerClustererProps> = () => {
-  const markerClusterer = useContext(KakaoMapMarkerClustererContext)
+const MarkerClustererRedraw: React.FC<{
+  markerClusterer: kakao.maps.MarkerClusterer
+  redrawVersionStore: MarkerClustererRedrawVersionStore
+}> = ({ markerClusterer, redrawVersionStore }) => {
+  const redrawVersion = useSyncExternalStore(
+    redrawVersionStore.subscribe,
+    redrawVersionStore.getSnapshot,
+    redrawVersionStore.getSnapshot,
+  )
+
   useIsomorphicLayoutEffect(() => {
+    if (redrawVersion === 0) return
+
     markerClusterer.redraw()
-  })
+    redrawVersionStore.completeRedraw()
+  }, [markerClusterer, redrawVersionStore, redrawVersion])
+
   return null
 }
