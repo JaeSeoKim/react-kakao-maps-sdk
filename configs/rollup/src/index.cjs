@@ -28,7 +28,7 @@ exports.generateRollupConfig = function generateRollupConfig({
   const externals = [
     "@babel/runtime",
     ...Object.keys({
-      ...packageJSON.devDependencies,
+      ...packageJSON.dependencies,
       ...packageJSON.peerDependencies,
     }),
     ...builtinModules,
@@ -38,7 +38,10 @@ exports.generateRollupConfig = function generateRollupConfig({
    * @type {import('rollup').ExternalOption}
    */
   const externalOption = (source, _importer, _isResolved) => {
-    return externals.some((externalPkg) => source.startsWith(externalPkg))
+    return externals.some(
+      (externalPkg) =>
+        source === externalPkg || source.startsWith(`${externalPkg}/`),
+    )
   }
 
   const babelRuntimeVersion = packageJSON.dependencies[
